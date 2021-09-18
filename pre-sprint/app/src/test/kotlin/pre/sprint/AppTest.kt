@@ -3,12 +3,27 @@
  */
 package pre.sprint
 
+import org.eclipse.californium.core.CoapClient
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 class AppTest {
-    @Test fun appHasAGreeting() {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+
+    private val indoorUrl = "coap://localhost:8002/ctxcarparking/weightsensor"
+    private val outdoorUrl = "coap://localhost:8002/ctxcarparking/outsonar"
+    private val mainUrl = "coap://localhost:8002/ctxcarparking/businesslogic"
+    private lateinit var weightClient: CoapClient
+    private lateinit var sonarClient: CoapClient
+    private lateinit var logicClient: CoapClient
+
+
+    fun createClient (){
+        weightClient = CoapClient(indoorUrl)
+        weightClient.timeout = 1000L
+        sonarClient = CoapClient(outdoorUrl)
+        sonarClient.timeout = 1000L
+        logicClient = CoapClient(mainUrl)
+        logicClient.timeout = 1000L
     }
+
 }

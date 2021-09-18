@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="californium-proxy-2.6.6-20210915.070339-37">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/californium-proxy-2.6.6-20210915.070339-37.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/element-connector-2.6.6-20210916.070330-38.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
