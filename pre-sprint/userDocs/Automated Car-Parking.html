@@ -1,0 +1,1090 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+kr{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #ff0000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#exampleclass tbody,
+#exampleclass thead,
+#exampleclass th {
+  border: 0;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+
+<head>
+
+<title>Final task ISS-2021 Bologna: Automated Car-Parkinging</title></head>
+
+<body>
+<div id="top">
+<h1>Final task ISS-2021 Bologna: Automated Car-Parkinging<font size="5"></font> </h1>
+</div>
+
+<div class="body">
+
+
+<h2>Introduction</h2>
+<div id="Introduction">
+  This document deals with the design, build and development of a software system, named <ks>ParkingManagerService</ks>,
+  which implements a series of functions to manage an automating parking service.
+</div>
+<h2>Requirements</h2>
+<div id="Requirements" class="remark">
+  The <kr>ParkingManagerService</kr> should create the <kr>ParkingServiceGUI</kr> (for the client) and the
+  <kr>ParkingServiceStatusGUI</kr> (for the manager) and then perform the following tasks:
+  <ul>
+    <li><ks>acceptIN</ks>: accept the request of a client to park the car if there is at least one parking-slot
+                            available, select a free slot identified with a unique <ks>SLOTNUM</ks>. <br>
+                            A request of this type can be elaborated only when the <ks>INDOOR-area</ks> is free, and the transport
+                            trolley is at home or working (not stopped by the manager). If the <ks>INDOOR-area</ks> is already
+                            engaged by a car, the request is not immediately processed (the client could simply wait or
+                            could - optionally - receive a proper notice). </li>
+    <li><ks>informIN</ks>: inform the client about the value of the <ks>SLOTNUM</ks>. </li>
+  </ul>
+  If <bc>SLOTNUM > 0</bc>:
+  <ol>
+    <li><ks>moveToIn</ks>: move the transport trolley from its current localtion to the <ks>INDOOR</ks>;</li>
+    <li><ks>receipt</ks>: send to the client a receipt including the value of the <ks>TOKENID</ks>; </li>
+    <li><ks>moveToSlotIn</ks>: move the transport trolley from the <ks>INDOOR</ks> to the selected <ks>parking-slot</ks>;</li>
+    <li><ks>backToHome</ks>: if no other request is present, move the transport trolley to its home
+                                  location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>. </li>
+  </ol>
+  If <bc>SLOTNUM == 0</bc>:
+  <ul>
+    <li><ks>moveToHome</ks>: if not already at home, move the transport trolley to its home location;</li>
+    <li><ks>acceptOUT</ks>: accept the request of a client to get out the car with <ks>TOKENID</ks>. A request of this
+                              type can be elaborated only when the <ks>OUTDOOR-area</ks> is free and the transport trolley is at
+                              home or working (not stopped by the manager). If the <ks>OUTDOOR-area</ks> is still engaged by a
+                              car, the request is not immediately processed (the client could simply wait or could -
+                              optionally - receive a proper notice).<br>
+      <ol>
+        <li><ks>findSlot</ks>: deduce the number of the parking slot (<ks>CARSLOTNUM</ks>) from the <ks>TOKENID</ks>; </li>
+        <li><ks>moveToSlotOut</ks>: move the transport trolley from its current localtion to the
+                                     <ks>CARSLOTNUM/parking-slot</ks>; </li>
+        <li><ks>moveToOut</ks>: move the transport trolley to the <ks>OUTDOOR</ks>; </li>
+        <li><ks>moveToHome</ks>: if no other request is present move the transport trolley to its <ks>home</ks> location;
+                                     else <ks>acceptIN</ks> or <ks>acceptOUT</ks>; </li>
+      </ol>
+    </li>
+    <li><ks>monitor</ks>: update the <ks>ParkingServiceStatusGUI</ks> with the required information about the state of the system. </li>
+    <li><ks>manage</ks>: accept the request of the manager to stop/resume the behavior of the transport trolley. </li>
+  </ul>
+  A detailed description of the requirements is available <a href="file:///Users/criss/Desktop/UNI/ISS/issLab2021/it.unibo.issLabStart/userDocs/TFBO21ParkingingISS.pdf">here</a>
+</div>
+
+<h2>Requirement analysis</h2>
+<div class="remark" toDo = "clarify the meaning of the names and of the verbs included in the requirement text given by the customer.">
+  <div>
+    Our <b>interaction with the customer</b> ha clarified that nouns have the following meanings:
+    <ul>
+      <li><ks>software system</ks>: system of intercommunicating components based on a combination of hardware and software;</li>
+      <li><ks>automation functions</ks>: set of functions or tasks which <kr>ParkingManagerService</kr> runs without any kind of employee's interaction or supervision;</li>
+      <li><ks>DDR robot</ks>: ;</li>
+      <li><ks>transport trolley</ks>: "forse si può includere in quella prima" ;</li>
+      <li><ks>home</ks>: shelter or starting point located in the map defined in <a>parkingMap.txt</a>;</li>
+      <li><ks>weight sensor</ks>: weight transducer which converts an input mechanical force such as load, weight,
+                                 tension, compression, or pressure into another physical variable, in this case,
+                                 into an electrical output signal that can be measured and converted. <br>
+                                 Since the system interacts with cars, the weight sensor triggers only when a
+                                 sufficient weight is placed on the footplate;</li>
+      <li><ks>outsonar</ks>: tool capable to detect object that cross its trajectory;</li>
+      <li><ks>empty room</ks>: section of a building which is enclosed by walls and a floor. The room also does not contain
+                              anything. It isn't filled or occupied by any physical object;</li>
+      <li><ks>INDOOR</ks>: fixed point of the map which marks where car can enter the system;</li>
+      <li><ks>OUTDOOR</ks>: fixed point of the map which marks where car can exit the system;</li>
+      <li><ks>INDOOR-area</ks>: detailed area of the map where the <a>weight sensor</a> is placed;</li>
+      <li><ks>OUTDOOR-area</ks>: detailed area of the map where the <a>out sonar</a> is placed;</li>
+      <li><ks>weight</ks>:body(car)'s relative mass or the quantity of matter contained by it;</li>
+      <li><ks>parking-slots</ks>: fixed number (6) of place in a specific area of the map where car are or can be parked;</li>
+      <li><ks>thermometer</ks>: instrument for measuring and indicating temperature (inside the parking center);</li>
+      <li><ks>fan</ks>: device for producing a current of air by the movement of a broad surface or a number of such surfaces;</li>
+      <li><ks>map</ks>: abstract representation of the environment that delineates <ks>home</ks>, <ks>INDOOR</ks>, <ks>OUTDOOR</ks> and <ks>parking area</ks>.
+      An example of the figure is shown below:
+      <pre>                  |r, 0, 0, 0, 0, 0, 0, X,
+                  |0, 0, X, X, 0, 0, 0, X,
+                  |0, 0, X, X, 0, 0, 0, X,
+                  |0, 0, X, X, 0, 0, 0, X,
+                  |0, 0, 0, 0, 0, 0, 0, X,
+                  |X, X, X, X, X, X, X, X,
+      </pre></li>
+      <li><ks>fixed obstacles</ks>: walls which marks the limit of the <ks>room</ks>;</li>
+      <li><ks>critical situations</ks>:anomalous situations not foreseen in advance and managed in a general way;</li>
+      <li><ks>TOKENID</ks>: set of characters which identify in an unique way cars parked in the system and which is used in the car pick up phase;</li>
+      <li><ks>ParkServiceGUI</ks>: user interface which allows users to interact with the parking system and which shows the <ks>TOKENID</KS>
+                                  and buttons (<ks>CARENTER</ks>) which help the user to park and retrieve their car;</li>
+      <li><ks>ParkServiceStatusGUI</ks>: user interface which allows managers to interact with the parking system
+                                        and which shows the <ks>current state</ks> of the parking area, including the value <ka>TA</ka>
+                                        of the temperature, the state of the <ks>fan</ks> and the state of the <ks>transport trolley</ks>;</li>
+      <li><ks>SLOTNUM</ks>: integer that represents the number of free <ks>parking-slots</ks>;</li>
+      <li><ks>current state</ks>:current situation of the entire system. It includes <ks>parking-slots</ks> situation,
+                                 temperature inside the system, state of the fan and state of the <ks>ParkingServiceGUI</ks>.
+                                 It can be seen by the manager of the system through the <ks>ParkingServiceStatusGUI</ks>;</li>
+      <li><ks>behavior</ks>: status of <ks>transport trolley</ks>:
+                            <ul>
+                              <li><kr>Idle</kr>: has no duties to perform;</li>
+                              <li><kr>Working</kr>: currently performing tasks;</li>
+                              <li><kr>Stop</kr>: state driven manually by the manager or in an automatic mechanism when TA > TMAX;</li>
+                            </ul>
+      </li>
+      <li><ks>alarm</ks>: signal which warn the manager of the system through the <ks>ParkServiceStatusGUI</ks>
+                         when the <ks>OUTDOOR-area</ks> has not been cleaned within the <ks>DTFREE</ks> interval of time;</li>
+      <li><ks>proper notice</ks>: warning sent to the user through the <ks>ParkServiceGUI</ks> if the <ks>INDOOR-area</ks> is already
+                                engaged by a car;</li>
+      <li><ks>CARSLOTNUM</ks>: integer which defines a parking slot;</li>
+    </ul>
+  </div>
+  <div>
+    Regarding action or verbs:
+    <ul>
+      <!-- <li><ks>enter</ks>:the car initially outside the system, moves into the <ks>INDOOR-area</ks> and places itself on the <ks>weigth sensor</ks>;</li>
+      <li><ks>exit</ks>:the car initially inside the system, moves into the <ks>OUTDOOR-area</ks> and places itself in front of <ks>outsonar</ks>,
+                        before exiting the system;</li>
+      -->
+      <li><ks>equipped</ks>: the system is supplied with the necessary items for a particular purpose;</li>
+      <li><ks>notify/inform</ks>: the interaction between the software system and the user and vice versa;</li>
+      <li><ks>walk</ks>: the <ks>transport trolley</ks> moves in order to complete its task;</li>
+      <li><ks>take over</ks>: the <ks>transport trolley</ks> picks up a car and carries it inside the map;</li>
+      <li><ks>observe</ks>: the <kr>ParkingManager</kr> monitors the <ks>current state</ks> of the system;</li>
+      <!--
+      <li><ks>stop</ks>:while the <ks>transport trolley</ks> is working on a task, the system manager can stop its work when TA > TMAX by using the <ks>ParkingServiceStatusGUI</ks> and transitate its status in <kr>stopped</kr>;</li>
+    -->
+      <li><ks>clean</ks>:the <ks>OUTDOOR-area</ks> is free;</li>
+    </ul>
+  </div>
+</div>
+
+<div id="user_stories">
+  <div id="Main User Story">
+    <h3>Main user story</h3>
+    <table style="width:98%" cellpadding="5%">
+      <tbody>
+        <tr>
+          <td style="width:70%">
+           <!-- abbellire con css -->
+           A client interacts with the ParkServiceGUI in order to park its car. The system, then checks if the INDOOR-area is free, and in that case
+           the system replies to the customer with a number that identifies a free park-slot (SLOTNUMBER). At that time, if SLOTNUM > 0, the client enters
+           the car and then the ParkingManagerService makes the transport trolley pick up the car <b>(1)</b> and moves it to the selected parking-slot <b>(2)</b>. <br>
+           When the client wants his car back, he interacts again with the ParkServiceGUI by requesting a pick up of his car
+           using the TOKENID previously received. At this time, the transport trolley carries the selected car from its parking-slot to the
+           outdoor-area <b>(3)</b>. Finally, the client takes the car and frees the outdoor-area.
+           <br><br>
+           When the application terminates, the itinerary done by the robot must be that shown in the figure and a
+           proper TestPlan should properly check this outcome.
+          </td>
+          <td><center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/user_story_1.jpg" alt="TestPlan0" width="95%"></center>
+          </td>
+        </tr>
+       </tbody>
+    </table>
+  </div>
+<div id="user_story_standard_supervision">
+  <h3>User story: normal parking manager's supervision</h3>
+  <table style="width:98%" cellpadding="5%">
+    <tbody>
+      <td>
+        While the ParkingMenagerService system is working, it collects data from the current state of the system. This includes the TA of the temperature, state of the fan,
+        and the transport trolley. The manager can view this information by the GUI.
+      </td>
+    </tbody>
+  </table>
+</div>
+<div id="user_story_non_standard_supervision">
+  <h3>User story: non standard parking manager's supervision</h3>
+  <table style="width:98%" cellpadding="5%">
+    <tbody>
+      <td>
+        When the system is working, the thermometer measures the temperature, if TA > TMAX the ParkingManagerService informs the ParkingServiceStatusGUI.
+        Therefore the manager requests to stop the trasport trolley and activates the fan via the GUI.
+        The system stops the transport trolley and waits until TA < TMAX. When this happens the manager sees it on the GUI and requests to activate the
+        trasport trolley and to stop the fan using the GUI. The system after receiving the request completes these operations.
+      </td>
+    </tbody>
+  </table>
+</div>
+<div id="alarm_situation">
+  <h3>User story: DTFREE OUTDOOR-AREA </h3>
+  <table style="width:98%" cellpadding="5%">
+    <tbody>
+      <td>
+        Initially the outsonar detects the presence of a car in the OUTDOOR-area and refer it to the ParkManagerService, if the car is still waiting in the
+        OUTDOOR-area within the DTFREE time the ParkManagerService sends an ALARM signal to the ParkServiceStatusGui. The manager is now aware of the situation.
+      </td>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<h2>Problem analysis</h2>
+
+<div class="remark">
+  The system is made up of a series of heterogeneous components that must communicate with each other.
+  From their interaction arises the problem of evaluating the technologies to be used for the transmission of information in the best possible way.
+  Another problem can be found in the management of the transport trolley as a core feature of the parking system.
+  Given the complexity of the two problems, they are going to be treated separately according to a "divide-et-impera" approach. <br>
+  These operations will be described in a first phase of analysis using the meta-modeling language qak. <br>
+</div class="remark">
+  The following legend will be used to represent the components in the problem analysis. <br><br>
+  <img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/legenda.png" alt="LEGEND" width="15%">
+
+<div>
+  <h4>System overview</h4>
+  <table style="width:98%" cellpadding="5%">
+    <tbody>
+      <tr>
+        <td style="width:60%" style="text-align:top">
+          The side image shows a schematic view of the system, including components and users.<br>
+          As can be seen from the image, the core system is the hub of the system and plays the role of mediator
+          between components. For this reason, the central system is the same entity which elaborates information and schedules
+          tasks for interacting components.
+          The interaction between those entities takes place via network or via different networks using messages. Data transmission
+          and message format will be described below.
+        </td>
+        <td><center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/SYSTEM OVERVIEW.jpg" alt="SystemOverview" width="90%"></center></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<h4>Components overview</h4>
+<div>
+  <h3> Transport Trolley </h3>
+<div class="remark">
+  Transport Trolley aim is reduced to two ventures: <br>
+  <ul>
+    <li>move the client's car from the indoor-area to the parking slot assigned by the central system;</li>
+    <li>move the client's car from the given parking slot to the outdoot-area.</li>
+  </ul>
+  At any time, Parkinging manager is allowed to stop these tasks. Its aim leads to both active and passive behavior. <br>
+  The Transport Trolley can be developed as an abstract class called trasportTrolleyActor which extends <a>PathExecutor.kt</a> described <a>here</a>.
+  This implementation allows trasportTrolleyActor to move along a given path (e.g. "wlr"). This path is planned by the core system.<br>
+  The two entities exchange messages following a synchronous communication so that the central system receives a feedback
+  from the trasport trolley when it asks for an execution.
+  <!-- inserire immagine trolley-->
+  <!-- inserire messaggi -->
+  <!--Il compito del trasport trolley si limita a dover trasportare le auto dall'indoor-area al parcheggio indicato
+    dal sistema e in maniera analoga a trasportare l'auto dal parcheggio indicato all'outdoor-area, salvo indicazioni
+    dal parking manager. <br>
+
+    Dall'analisi dei requisiti, si deduce dunque che il trasport trolley debba avere un comportamento attivo e uno passivo.
+    Le specifiche del robot utilizzato sono descritte nel seguente documento. **APPROFONDIRE**-->
+    <!-- 19/08/2021
+    Il transport trolley può essere modallato come una specializzazione della classe astratta <a>BasicStepRobotActor.kt</a>.
+    Tale specializzazione prende il nome di trasportTrolleyActor.
+    <br>
+    The class <a>PathExecutor.kt</a> extends ActorBasicKotlin.kt with the aim of
+    sending commands to the BasicStepRobotActor.kt, so to moving the robot along a given path (e.g. "wwl").
+
+     https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.kotlinIntro/userDocs/FirstActorRobot2021.html
+    Valutare comunicazione TCP / SpringBoot
+     https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/BasicStepRobotActorUsage.html#distrSys
+    Il path da eseguire sarà valutato dalla business logic e descritto successivamente basadosi sull <a>link</a>
+    https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/LabPlanner2021.html
+    ß-->
+</div>
+<img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/TRANSPORT TROLLEY.jpg" alt="TRANSPORTROLLEY" width="40%">
+<h3> Fan </h3>
+<div class="remark">
+The fan is modeled as an actor. It does not own or produce any valuable information by itself but it is a physical component controlled by the system.
+It's status can be changed through two messages "turn_on" and "turn_off" to turn on and to turn off respectively the fan. As a result of the command the fan can
+only be in two states, one is "on" which indicates that the fun is working while the second one "off" suggests that the fun is not activated.
+The fan should also return in response the new current state in order to update the manager GUI.
+This feature can also be used, in case of electric disguise or general failure of the central system the fan must respond with its current
+state whenever the central system requests its state of activation.
+</div> <br>
+<table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+  <tr>
+    <td style="border: 0px">
+        <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/FAN.jpg" alt="FAN" width="60%"><center>
+    </td>
+    <td style="border: 0px">
+      <center><table cellpadding="5%">
+        <tbody><tr>
+            <th>Message</th>
+            <th>Content</th>
+            <th>Semantic</th>
+        </tr>
+        <tr>
+            <td>req_status</td>
+            <td>status</td>
+            <td>request</td>
+        </tr>
+        <tr>
+            <td rowspan="2">command</td>
+            <td>turn_on</td>
+            <td rowspan="2">request</td>
+        </tr>
+        <tr>
+            <td>turn_off</td>
+        </tr>
+        <tr>
+            <td rowspan="2">rep_status</td>
+            <td>on</td>
+            <td rowspan="2">reply</td>
+        </tr>
+        <tr>
+            <td>off</td>
+        </tr>
+    </tbody></table></center>
+  </td>
+</tr>
+</table>
+<br>
+<hr size="4" color="black">
+<br>
+<div class="remark">
+  Unlike the fan and the trasport trolley, the sensors below don't need any replies during the interaction with the core
+  system. Also, the analysis of the requirements shows that the outsonar, the thermometer and the weight-sensor are autonomous active
+  components that are unaware of the existence of other components. <br>
+  This behavior leads to an asynchronous communication that can be developed through different forms:
+  <ul>
+    <li><b>Polling</b>: where the core system makes, at a regular interval of time, requests to sensors;</li>
+    <li><b>Dispatches</b>: sent from sensor to the core system;</li>
+    <li><b>Events</b>: generated from sensors and sent in broadcast through networks.</li>
+  </ul>
+  There are several protocol that can be used to interact with those components:
+  <ul>
+    <li><b>WebSocket</b>: allows a request/response communication;</li>
+    <li><b>MQTT</b>: decouples producer and consumer by letting clients publish and having the broker decide where to route and copy messages.
+      It also does best as a communications bus for live data;</li>
+    <li><b>CoAP</b>: a one-to-one protocol for transferring state information between client and server.
+      While it has support for observing resources, CoAP is best suited to a state transfer model, not purely event based.</li>
+  </ul>
+  In addition, all the sensors can be modeled as actors.
+</div>
+
+<div id="problem_analysis_out_sonar">
+  <h3> Out-Sonar </h3>
+  <div class="remark">
+    Data from the out-sonar is used when a client starts the acceptOUT procedure and to trigger the alarm procedure
+    if it detects a car in the OUTDOOR-AREA for more than DFTREE time. <br>
+    In order to identify those situation, the out-sonar has to emit emit events every time the distance measured by the
+    sensor change. Moreover, messages sent by the out-sonar contains the distance misured and the relative timestamp. <br>
+  </div>
+  <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+    <tr>
+      <td style="border: 0px">
+          <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/OUTSONAR.jpg" alt="OUTSONAR" width="60%"><center>
+      </td>
+      <td style="border: 0px">
+        <center>
+    <table cellpadding="5%">
+        <tr>
+          <th>Message</th>
+          <th>Content</th>
+          <th>Type</th>
+        </tr>
+        <tr>
+          <td>event</td>
+          <td>distance, timestamp</td>
+          <td>event</td>
+        </tr>
+   </table>
+ </center>
+</td>
+</tr>
+</table>
+</div>
+<div id="problem_analysis_weight_sensor">
+  <h3>Weightsensor</h3>
+    <div class="remark">
+      Data from weightsensor is used when a client starts the acceptIN procedure by pressing the CARENTER button. Like the sonar,
+      the weightsensor has to emit events every time the weight measured change significantly (this allows to detect only When
+      cars are on the sensor). In this case, events emitted by the weightsensor contains the weight measured and the relative timestamp
+      in order to guarantee data freshness. <br>
+    </div>
+      <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+        <tr>
+          <td style="border: 0px">
+              <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/WEIGHTSENSOR.jpg" alt="WEIGHTSENSOR" width="60%"><center>
+          </td>
+          <td style="border: 0px">
+            <center>
+      <table cellpadding="5%">
+        <tbody>
+          <tr>
+            <th>Message</th>
+            <th>Content</th>
+            <th>Type</th>
+          </tr>
+          <tr>
+            <td>event</td>
+            <td>weight, timestamp</td>
+            <td>event</td>
+          </tr>
+        </tbody>
+    </table>
+  </center>
+ </td>
+ </tr>
+ </table>
+</div>
+<div id="problem_analysis_map">
+  <h3> Map </h3>
+  <div class="remark">
+    The map is a passive element that is used by the core system to manage the state of the parking-area.
+    It can be represented by an image composed of different symbols:
+    <ul>
+      <li>the symbol <b>h</b> represent the "home" position of the trasport trolley;</li>
+      <li>the symbol <b>0</b> represents an area where the trasport trolley can move;</li>
+      <li>the numbers from <b>1</b> to <b>6</b> represent the parking slots, where the cars can be parked. The specific number is the SLOTNUM used by the core system;</li>
+      <li>the symbol <b>|</b> represents a wall;</li>
+      <li>he symbol <b>i</b> represents the position of coordinates (6,0), where a car is left by a client;</li>
+      <li>the symbol <b>o</b> represents the position of coordinates (6,4), where a car is brought by the trasport trolley to be picked up by the customer.</li>
+  </ul>
+  |, h, 0, 0, 0, 0, 0, i,  |<br>
+  |, 0, 0, 1, 4, 0, 0, 0, |<br>
+  |, 0, 0, 2, 5, 0, 0, 0, |<br>
+  |, 0, 0, 3, 6, 0, 0, 0, |<br>
+  |, 0, 0, 0, 0, 0, 0, o, |<br>
+  |,  |,  |, |,  |,  |,  |,   , |<br>
+  </div>
+</div>
+<div id="problem_analysis_GUI_overview">
+  <h4>GUI overview</h4>
+  <div class="remark">
+    In an attempt to achieve a wider catchment area and to guarantee simplicity and portability both GUIs should be web
+    interfaces. Furthermore, both client and manager interfaces should be clear and user-friendly with the aim of being
+    easy-to-use for every client age or nationality.
+  </div>
+</div>
+<div id="problem_analysis_parking_service_status_GUI">
+  <h3>ParkServiceStatusGUI</h3>
+  <div class="remark">
+    Manager's interface must be able to send commands to the fan and the trasport trolley as well as receive and show details
+    about current system status. This includes the temperature of the system, the state of the fan and the trasport trolley
+    and an overview on the parking slots. Another key functionality that the manager interface must integrate is the ability
+    to receive and show in a proper way the alarm signal. This requirements can rely on:
+    <ul>
+      <li>websocket protocol</li>
+      <li>polling mechanism</li>
+    </ul>
+    However, the polling mechanism would affect system performance and resources. <br>
+    The system behavior results in two type of interaction between the ParkServiceStatusGUI and the core system:
+    <ul>
+      <li>to stop/resume both fan and trasport trolley current status with a request/response communication. This
+      allows both entities to know if a command was successful or not;</li>
+      <li>to receive data about the current status of the system with an invitation semantic. <!-- This allows to
+      reply the system with an ack about the Information received. That mechanism is fundamental
+      especially when the alarm is triggered.--></li>
+    </ul>
+    Below a deatil list of what the GUI must show:
+    <ul>
+      <li>status of the fan (<b>on/off</b>);</li>
+      <li>status of the transport trolley (<b>idle/working/stopped</b>);</li>
+      <li>temperature of the room (expressed in celsius degrees);</li>
+      <li>status of the INDOOR-area (through weightsensor data);</li>
+      <li>status of the OUTDOOR-area (through ousonar data);</li>
+    </ul>
+    In addiction, the GUI should contain a series of button to interact with:
+    <ul>
+      <li>ACTIVATE/DEACTIVATE button for the fan;</li>
+      <li>STOP/RESUME task button for the transport trolley;</li>
+      <li>STOP button if the alarm is triggered;</li>
+    </ul>
+    This interaction follows a request/response semantic so that the park manager is able to know if the
+    command sent was executed successfully or not.<br>
+    The gui must also be able to capture the park manager's attention via visual and additionally audible cues when the alarm is triggered.<br>
+  </div>
+  <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+    <tr>
+      <td style="border: 0px">
+        <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/MANAGERGUI.png" alt="ParkingServiceStatusGUI" width="65%"></center>
+      </td>
+      <td style="border: 0px">
+        <center>
+          <table cellpadding="5%">
+            <tbody>
+              <tr>
+                <th>Message</th>
+                <th>Content</th>
+                <th>Type</th>
+              </tr>
+              <tr>
+                <td rowspan="5">Command</td>
+                <td>turn_on</td>
+                <td rowspan="5">request</td>
+              </tr>
+              <tr>
+                <td>turn_off</td>
+              </tr>
+              <tr>
+                <td>resume_work</td>
+              </tr>
+              <tr>
+                <td>stop_work</td>
+              </tr>
+              <tr>
+                <td>stop_alarm</td>
+              </tr>
+              <tr>
+                <td rowspan="2">Reply</td>
+                <td>ok</td>
+                <td rowspan="2">reply</td>
+              </tr>
+              <tr>
+                <td>
+                  fail
+                </td>
+              </tr>
+              <tr>
+                <td>System Status</td>
+                <td><a>check above</a></td>
+                <td>dispatch</td>
+              </tr>
+              <tr>
+                <td>Alarm</td>
+                <td>alarm_situation</td>
+                <td>dispatch</td>
+              </tr>
+            </tbody>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="problem_analysis_parking_service_GUI">
+  <h3> ParkServiceGUI </h3>
+  <div class="remark">
+  Client's interface must be able to send commands to the core system in order to park his car and receive a
+  receipt and to pick up the car using the same receipt. These two phases consist in:
+  <ul>
+    <li><b>acceptIN</b>: clients manifest their will to park their car. If at least a park slot is available, the system replies with an SLOTNUM which identifies the
+      park slot using an integer from 0 to 6. This interaction can take place only if the indoor-area is free. If acceptIN isn't available (indoor-area not free) at the moment of the request,
+      the client should receive a proper response and a future alert once acceptIN command is restored;</li>
+    <li><b>CARENTER</b>: once clients leave the car in the indoor-area they press the CARENTER button in order to request the parking of their car and
+      receive a TOKENID (an unique string of value linked to the SLOTNUM) as a receipt;</li>
+    <li><b>acceptOUT</b>: clients manifest their will to pick up their car by sending their TOKENID previously received to the system.
+      If the outdoor-area is free and the trasport trolley is working (not stopped by the manager), client requests are processed and their car moved from
+      the parking slot to the outdoor-area. In addition, if the pick up isn't available once requested the system should behave like the acceptIN situation
+      previously described.</li>
+  </ul>
+  Another feature that the ParkServiceGUI must implement is the capability of receiving an alert if the car stands at the outdoor area for more than TMAX.<br>
+  Those mechanisms can rely on a request/response communication to send commands. Meanwhile, alerts are a type of information sent by the core system
+  which don't require replies.
+  Moreover, there are two main communication protocol which can be involved in the interaction between the ParkingServiceGUI and the core system:
+  <ul>
+    <li><b>WebSocket</b></li>
+    <li><b>CoAP</b></lI>
+  </ul>
+  <!-- pro e contro dei due protocolli -->
+
+  </div>
+  <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+    <tr>
+      <td style="border: 0px">
+        <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/PARKSERVICEGUI.png" alt="ParkingServiceGUI" width="65%"></center>
+      </td>
+      <td style="border: 0px">
+        <center>
+          <table cellpadding="5%">
+            <tbody>
+              <tr>
+                <th>Message</th>
+                <th>Content</th>
+                <th>Type</th>
+              </tr>
+              <tr>
+                <td rowspan="3">Command</td>
+                <td>acceptIN</td>
+                <td rowspan="3">request</td>
+              </tr>
+              <tr>
+                <td>CARENTER</td>
+              </tr>
+              <tr>
+                <td>acceptOUT</td>
+              </tr>
+              <tr>
+                <td rowspan="4">Reply</td>
+                <td>ok</td>
+                <td rowspan="4">reply</td>
+              </tr>
+              <tr>
+                <td>
+                  fail
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  TOKENID
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  SLOTNUM
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="3">Alert</td>
+                <td>free_indoor_area</td>
+                <td rowspan="3">dispatch</td>
+              </tr>
+              <tr>
+                <td>
+                  pick_up_available
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  pick_up_needed
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+</div>
+<div id="core_system_overview">
+  <h4>Core System Overview</h4>
+  <div class="remark">
+    The core system is the most important component of the entire software system because it contains the business logic level.
+    Acting like the system 'hub', it manages various types of information coming from external sensors, it receives messages or
+    commands from clients or the manager and it controls the transport trolley and the fan.
+    For its complexity and by following a 'divide-et-impera' approach it could be divided in three different actors:
+    <!--Il core system è il compontente principale dell'intero sistema software dato che contiene la business logic. Questo comporta la gestione
+    delle informazioni dei sensori, delle richieste da parte dei clienti e del manager e il controllo del trasport trolley e della fan fungendo in questo modo da
+    "hub" del sistema. <br>
+    Visto la complessità dei compiti che deve svolgere esso si suddivide in tre attori seguendo nuovamente un approccio "divide-et-impera":-->
+  </div>
+  <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/CORESYSTEM.png" alt="CoreSystem" width="35%"></center>
+  <div class="remark">
+    <ul>
+      <li><b>business logic actor</b>: process key functionalities for the entire system:
+        <ul>
+          <li>receive information from the data collector actor;</li>
+          <li>manage and maintain parking availability;</li>
+          <li>manage transport trolley's state;</li>
+          <li>manage automatically the fan or after a manager's command;</li>
+          <li>interaction between the manager and clients through the GUI controller actor and the generation and collection of the TOKENID.</li>
+        </ul>
+      </li>
+      <li><b>actuators controller actor</b>: it interacts with components which are able to receive commands. In particular:
+        <ul>
+          <li>simply ridirects commands from the business logic to the fan;</li>
+          <li>given initial and final coordinates from the business logic, generates the best path for the transport trolley to follow;</li>
+          <li>allows future integration with new active components much easier.</li>
+        </ul>
+      </li>
+      <li><b>data collector actor</b>: it is responsible for receiving and elaborating informations from the sensors usable by the business logic actor;</li>
+      <li><b>presentaion controller actor</b>: it is placed between the business logic actor and GUIs. It gets information from GUIs and forwards them
+        to the business logic actor and respectively sends datas from the business logic actor to clients' GUI.</li>
+    </ul>
+  </div>
+</div>
+<div id="abstraction_gap">
+  <h3>Abstraction gap</h3>
+  <div class="remark">
+    The problem analysis was carried out to highlight the requirements without focusing on used technologies by introducing high-level concepts.
+    This has led to the description of interactions between system components via dispatch/request/event rather
+    than communication protocol support. In addition, another goal was the development of a code as independent as possible from the
+    technology used for the transport trolley in order to make it easier to replace it if necessary. The abstraction between system design and available
+    technologies is facilitated thanks to the presence of modern programming languages such as Kotlin that allows the definition of actors. However,
+    the use of particular technologies to deal with problems such as data persistence and failure resistance leads to a wider gap.
+  </div>
+</div>
+<div id="system_weakness">
+  <h4>System weaknesses</h4>
+  <div class="remark">
+    They system may soffer some rare case studies:
+    <ul>
+      <li>If the parking manager isn't well trained about system functionalities he may create a bottleneck of requests simply stopping transport trolley tasks
+        through his GUI. Infact, the system isn't developed in a way that can't stop wrong decision by the parking manager;</li>
+      <li>Considering the distributed nature of the system, network problems leads to a malfunction of the entire system;</li>
+      <li>Some information is kept by the business logic in order to manage the system. In case of system faults, this data can be lost.</li>
+    </ul>
+  </div>
+</div>
+<div id="estimate_effort">
+  <h3>Estimate delivery time</h3>
+  <div class="remark">
+    As planned in the problem analysis all sensors and system entities including the core system can be modeled as actors.
+    This allows the team to define a first simplified version of the system using QActors. The simplified version of the system is based on a series of assumptions:
+    <ul>
+      <li>INDOOR cell (6,0) / OUTDOOR cell (6,4);</li>
+      <li>temperature under TMAX;</li>
+      <li>one client;</li>
+      <li>no interaction from parking manager;</li>
+      <li>one free parking slot (3,3) SLOTNUM = 6.</li>
+    </ul>
+    Following these assumptions the model can be developed in two working days. The first one will be used by a single member of the team to develop the model.
+    The first half of the second day will be used by the team to discuss the model produced, meanwhile the second half will be used to fix
+    and audit changes proposed previously.
+  </div>
+</div>
+<div id="architectural_model">
+<center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/LOGICAL ARCHITECTURE.png" alt="architectural_model" width="40%"></center>
+</div>
+
+<h2>Test plans</h2>
+<div id="test_plans">
+  <div class="remark">
+    In this section we discuss and bring attention to the multiple scenarios that might occur during the system viability.
+    The object of the tests is to mock some behavior or concrete situations and then check if the system returns what we expected.<br>
+
+    <b>RELEASE PHASE</b><br>
+    During the release-phase of the car test plans must meet this solutions:
+    <ol>
+    <li>if <U>at least one parking slot is available</U>, <U>INDOOR-AREA is free</U>, <U>the transport-trolley is working</U> and the client makes a parking request,
+      it is accepted and the client receives a number between 1 and 6 (linked to the parking slot) as response;</li>
+      <li>if <U>all the parking slots are occupied </U>the client receives number 0 as response;</li>
+      <li>if <U>the INDOOR-AREA isn't available</U> and <U>the transport trolley is stopped</U> the client receives waiting messages.</li>
+    </ol>
+    <b>PICK-UP PHASE</b><br>
+    During the pick-up phase if <U>the TOKENID is correct</U>, <U>the OUTDOOR-AREA is free</U>, <U>the transport-trolley is working</U> and a client requests
+    the pick up of his car the system will provide green light as long as all these three condition are fulfilled. If this is not the case, then a waiting message
+    will appear.
+    <br>
+    <b>UNCOMMON SITUATIONS</b><br>
+    <ol>
+      <li>if the the temperature measured by the thermometer is greater than TMAX, the fan must be activate and the transport trolley must be stopped;</li>
+      <li>if a car is stuck in the OUTDOOR-AREA for more than TFREE, the system must send an alarm to the manager.</li>
+    </ol>
+  </div>
+</div>
+
+<h2>Work Plan</h2>
+<div id="work_plan">
+  <div class="remark">
+    The first product backlog can be defined starting from the previous analysis. The chart contains the following items ordered by priority.<br><br>
+    <center>
+    <table id="product_backlog" cellpadding="5%">
+      <tr>
+        <th>ID</th>
+        <th>PRIORITY</th>
+        <th>ITEM</th>
+        <th>THEME</th>
+      </tr>
+      <tr>
+        <td><b>1</b></td>
+        <td>HIGH</td>
+        <td>System processes car deposit requests</td>
+        <td>key functionalities</td>
+      </tr>
+      <tr>
+        <td><b>2</b></td>
+        <td>HIGH</td>
+        <td>System processes car pick-up requests</td>
+        <td>key functionalities</td>
+      </tr>
+      <tr>
+        <td><b>3</b></td>
+        <td>HIGH</td>
+        <td>System manages data from sensors</td>
+        <td>key functionalities</td>
+      </tr>
+      <tr>
+        <td><b>4</b></td>
+        <td>HIGH</td>
+        <td>System manages transport trolley</td>
+        <td>key functionalities</td>
+      </tr>
+        <td><b>5</b></td>
+        <td>MEDIUM</td>
+        <td>System satisfies manager's start and stop fan requests</td>
+        <td>manager interaction</td>
+      </tr>
+      <tr>
+        <td><b>6</b></td>
+        <td>MEDIUM</td>
+        <td>System satisfies manager's start and stop trolley requests</td>
+        <td>manager interaction</td>
+      </tr>
+      <tr>
+        <td><b>7</b></td>
+        <td>MEDIUM</td>
+        <td>System maintains an updated version of the system status</td>
+        <td>system status</td>
+      </tr>
+      <tr>
+        <td><b>8</b></td>
+        <td>MEDIUM</td>
+        <td>System recognizes critical OUTDOOR-area situation and generates an alarm for the manager</td>
+        <td>system status & manager interaction</td>
+      </tr>
+      <tr>
+        <td><b>9</b></td>
+        <td>LOW</td>
+        <td>System asks the client to pick up his car due a DTFREE timeout</td>
+        <td>...</td>
+      </tr>
+      <tr>
+        <td><b>10</b></td>
+        <td>LOW</td>
+        <td>System manages fan automatically</td>
+        <td>...</td>
+      </tr>
+    </table>
+    </center>
+    <br>All the items above can be group in several sprint as datailed in the next table:<br><br>
+    <center>
+    <table id="sprint" cellpadding="5%">
+      <tr>
+        <th>SPRINT GOAL</th>
+        <th>BACKLOG ITEMS</th>
+      </tr>
+      <tr>
+        <td>System basic functionalities</td>
+        <td>
+          <ul>
+            <li>System manages data from sensors;</li>
+            <li>System manages transport trolley.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>System able to manage user requests</td>
+        <td>
+          <ul>
+            <li>System processes car deposit requests;</li>
+            <li>System processes car pick-up requests.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>System interaction with manager and care of system status</td>
+        <td>
+          <ul>
+            <li>System satisfies manager's start and stop fan requests;</li>
+            <li>System satisfies manager's start and stop trolley requests;</li>
+            <li>System mantains an updated version of the system status;</li>
+            <li>System recognizes critical OUTDOOR-area situation and generates an alarm for the manager.</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>System Optimization</td>
+        <td>
+          <ul>
+            <li>System asks the client to pick up his car due a DTFREE timeout;</li>
+            <li>System manages fan automatically.</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </center>
+  </div>
+</div>
+
+
+<h2>Project</h2>
+
+</div>
+
+<h2>Testing</h2>
+
+
+<h2>Deployment</h2>
+
+
+<h2>Maintenance</h2>
+
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+
+<br/><br/>
+</div>
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By studentName email: student@studio.unibo.it
+<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">
+</div>
+</body>
+</html>
