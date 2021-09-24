@@ -1,0 +1,803 @@
+/*
+ * tf21analisi_0.qak
+ * PRIMO MODELLO DELLA ANALISI DEL PROBLEMA
+ * ------------------------------------------------------------------
+ * GOALS: 
+ *       1) definire l'architettura logica
+ *       2) impostare dei piani di testing automatizzato
+ *       3) discutere su come pianificare il lavoro
+ * 
+ * ASSUMPTIONS:
+ *   INDOOR  : cell (6,0)
+ *   OUTDOOR : cell (6,4)
+ * 	- one client 
+ *  - one free pakingslot : cell(3,2)	SLOTNUM=5
+ *  - temperature under TMAX
+ *
+ */
+ 
+ /* 
+ * BEHAVIOR:
+ * 	client  using parkingservicegui | send request acceptIn 
+                                      receives reply informIn(SLOTNUM)
+                                     
+ *  parkingmanagerservice  	        | handles acceptIn
+ * 									  send request weight to data collector
+ * 									  receives the reply cur_weight
+ * 									  if c_weight == 0
+ * 						           			INDOOR free
+ * 											send reply informIn(5)
+ * 											send dispatch backToHome() to transport trolley
+ *                                    else 
+ *                                          no reply (maybe a reply with number -1) 
+ * 
+ *  datacollector                   | handles weight
+ * 									  send reply cur_weight(0)    
+ *       
+ *  client using parkingservicegui  | moves the car to INDOOR
+ * 									  send request carenter(5)
+ *                                    receives the reply receipt(TOKENID)
+ * 			 
+ *  parkingmanagerservice           | handles carenter
+ * 									  send the reply receipt(COUNTER-5)              ?             
+ *                                    send dispatch moveToSlotIn(5) to the trasport trolley		?
+ * 									  send dispatch backToHome(5) to the trasport trolley 	?
+ * 									  	     
+ *  client using parkingservicegui  | goto the OUTDOOR
+ *                                    send request pickup(COUNTER-5)
+ *                                    receives the reply confirm
+ *                            		  removes the car from the OUTDOOR
+ * 
+ *  parkingmanagerservice           | handles pickup(COUNTER-5)
+ * 									  send request detect to datacollector
+ * 									  receives the reply detected(P)
+ * 									  if P == no
+ * 									  	OUTDOOR is free
+ * 										send request moveToOut(5) to trasport trolley
+ * 										receives reply moved(M)
+ * 										 if M == OK
+ * 											send reply ready
+ *                                          send request backToHome(5) to the trasport trolley
+ * 											receives the reply moved(M)
+ * 											if M != OK
+ * 												!TODO!
+ *                                       else 	
+ * 											!TODO!						    
+ *                                    else
+ *                                          !TODO!
+ * 
+ * datacollector                   | handles detect
+ * 									 send reply detected(no)    
+ * 
+ *  
+ */
+System carparking
+
+Request reqenter : reqenter(X)
+Reply   enter    : enter(SLOTNUM)
+
+Request weight : weight(Y)
+Reply   cur_weight    : cur_weight(O)
+
+Request detect : detect(K)
+Reply   detected    : detected(V)
+
+Request carenter : carenter(SLOT)
+Reply   receipt  : receipt(TOKENID)
+
+//????
+Request pickup :  pickup(TOKENID)
+Reply	confirm : confirm(Y)
+
+Request moveToIn : moveToIn(MOVETOIN)
+Reply movedToIn : movedToIn(SUCCESS)
+
+Request moveToSlotIn : moveToSlotIn(X,Y)
+Reply movedToSlotIn : movedToSlotIn(SUCCESS,X,Y)
+
+Request backToHome : backToHome(X) //backToHome and moveToHome
+Reply movedToHome : movedToHome(Y)
+
+Request moveToSlotOut : moveToSlotOut(X,Y)
+Reply movedToSlotOut : movedToSlotOut(SUCCESS,X,Y)
+
+Request moveToOut : moveToOut(X,Y)
+Reply movedToOut : movedToOut(SUCCESS,X,Y)
+
+Request tMoveToIn : tMoveToIn(MOVETOIN)
+Reply tMovedToIn : tMovedToIn(SUCCESS)
+
+Request tMoveToSlotIn : tMoveToSlotIn(X,Y)
+Reply tMovedToSlotIn : tMovedToSlotIn(SUCCESS,X,Y)
+
+Request tBackToHome : tBackToHome(X) //backToHome and moveToHome
+Reply tMovedToHome : tMovedToHome(Y)
+
+Request tMoveToSlotOut : tMoveToSlotOut(X,Y)
+Reply tMovedToSlotOut : tMovedToSlotOut(SUCCESS,X,Y)
+
+Request tMoveToOut : tMoveToOut(X,Y)
+Reply tMovedToOut : tMovedToOut(SUCCESS,X,Y)
+
+//META-COMS: to sensors
+Dispatch firstW	  : firstW(fW) 
+Dispatch secondW  : secondW(sW)
+Dispatch firstOS  : firstOS(fOS)
+Dispatch secondOS : secondOS(sOS)
+
+//sensors event
+Event  weight_event : weight_event(LAST_WEIGHT,TIMESTAMP) 	    	//emitted by weightsensor
+Event  sonar_event  : sonar_event(LAST_DISTANCE,TIMESTAMP)	//emitted by outsonar
+
+Dispatch updateValue : updateValue(V)
+
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+/*
+ * Used at the moment as a clientmock ...
+ */
+QActor parkingservicegui context  ctxcarparking{
+	[# var SLOTNUM = 0; var OK = ""; var TOKENID = 0 #]
+	
+	State s0 initial{
+		println("parkingservicegui (client mock)  STARTS")
+	}
+	Goto requestToEnter
+
+	
+	State requestToEnter{
+		println("client requestToEnter")
+		request parkingmanagerservice -m reqenter : reqenter(alex)
+	}
+	Transition t0 
+	      //whenTime 1000 -> retrayLater   
+	      whenReply enter -> enterTheCar
+	
+	State enterTheCar{
+ 		onMsg(enter : enter(SLOTNUM)){
+			[# SLOTNUM = payloadArg(0 ).toInt() #]
+			println("client receives SLOTNUM = $SLOTNUM ")
+		}		
+	}
+	Goto retrayLater  if [# SLOTNUM==0 #] else moveTheCarToIndoor
+	
+	State moveTheCarToIndoor{
+		println("client moving the car in the INDOOR and press CARENTER ")
+		forward weightsensor -m firstW : firstW(r)
+		request parkingmanagerservice -m carenter : carenter($SLOTNUM)		
+	}
+	Transition t0 whenReply receipt -> afterReceipt
+	
+	
+	State afterReceipt{
+		onMsg(receipt : receipt(TOKEID)){
+			[# TOKENID = payloadArg(0 ).toInt() #]
+			println("client receives TOKENID = $TOKENID")
+		}		
+		delay 5000
+		println("client moving to OUTDOOR ")
+		delay 5000
+	}
+	Goto takeCar
+	
+	State takeCar{
+		println("client requests car")
+		request parkingmanagerservice -m  pickup : pickup($SLOTNUM)	
+	}
+	Transition t0 whenReply confirm -> afterConfirm
+	
+	State afterConfirm{
+		onMsg(confirm : confirm(OK)){
+			[# OK = payloadArg(0 ) #]
+			if [# OK == "ok" #] {
+				println("client go away with the car") 
+				forward outsonar -m secondOS : secondOS(sOs)
+			}else{
+				println("client: problem with the pickup") 
+			}
+			
+		}	
+	}
+	  
+	State retrayLater{
+		println("client will retry later")
+	}	
+}
+ 
+QActor parkingmanagerservice context  ctxcarparking{
+	[# var c_weight = 9999 ; var COUNTER = 1500; var SLOTNUM = 0; var pb = true; var outdoorfree = false; var TOKENID = 0 #]
+	
+	State s0 initial{
+		println("parkingmanagerservice STARTS")
+	}
+	Goto work
+	
+	State work{
+		println("parkingmanagerservice waiting ...")
+	}
+	Transition t0 whenRequest reqenter -> handleEnterRequest 
+	              whenRequest carenter -> enterTheCar
+	              whenRequest pickup -> exitTheCar
+	
+	State handleEnterRequest{
+		[# var Tester = true #] 
+		println("parkingmanagerservice handles reqenter and ask datacollctor")
+		request datacollector -m  weight : weight(now)	
+		
+	}
+	Transition t0 whenReply cur_weight -> checkWeight
+	
+	State checkWeight{
+		println("parkingmanagerservice check weight")
+		onMsg( cur_weight : cur_weight(O)){
+		
+			[# c_weight = payloadArg(0).toInt()  #]
+			
+			if [# c_weight == 0 #]{
+				replyTo reqenter with enter : enter(5)
+				println("parkingmanagerservice slot 5 free")
+			}else{
+				//replyTo reqenter with enter : enter('-1')
+				println("parkingmanagerservice INDOOR occupied")
+			}
+			
+		}		
+	}
+	Goto work if [# c_weight != 0 #] else moveTrolleyHome
+	
+	State moveTrolleyHome{
+		println("parkingmanagerservice request the trolley to move at home")
+		request trolleycontroller -m backToHome : backToHome(go)
+	}
+	Transition t0 whenReply movedToHome -> checkMove
+	
+	State checkMove{
+		[#
+			var m = "" #
+		]
+		println("parkingmanagerservice check move")
+		onMsg( movedToHome : movedToHome(Y)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				if [# m == "already" #]{
+					println("parkingmanagerservice: trolley already at home")
+				}else{
+					println("parkingmanagerservice: trolley moved")
+				}
+				[# pb = false #]
+			}
+				
+		}		
+	}
+	Goto work if [# pb == false #] else trolleyProblem
+	
+	State trolleyProblem{
+		println("parkingmanagerservice: problem with the trolley. maintenance required")
+	}
+	
+	State enterTheCar{
+		println("parkingmanagerservice reply to enterthecar ")
+ 		onMsg( carenter : carenter(SLOT)){
+			[# SLOTNUM = payloadArg(0 ).toInt()  #]
+			[# var TOKENID = COUNTER - 5  #]
+			replyTo carenter with receipt : receipt($TOKENID)
+			
+		}
+		println("parkingmanagerservice moves the car to SLOTNUM = $SLOTNUM ")
+		request trolleycontroller -m moveToIn : moveToIn(go)
+	}
+	Transition t0 whenReply movedToIn -> checkMovedToIn
+	
+	State checkMovedToIn{
+		[# var pb = true
+			var m= "" #
+		]
+		onMsg( movedToIn: movedToIn(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false #]
+			}	
+		}
+	}
+	Goto moveTrolleyToSlotIn if [# pb == false #] else trolleyProblem	
+	
+	State moveTrolleyToSlotIn{
+		println("parkingmanagerservice request the trolley to move to slot in")
+		request trolleycontroller -m moveToSlotIn : moveToSlotIn(3,2)
+	}
+	Transition t0 whenReply movedToSlotIn -> checkMovedToSlotIn
+	
+	State checkMovedToSlotIn{
+		[# var pb = true
+			var m = "" #
+		]
+		onMsg( movedToSlotIn: movedToIn(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false #]
+			}	
+		}
+	}
+	Goto moveTrolleyHome if [# pb == false #] else trolleyProblem	
+	
+	State exitTheCar{
+		onMsg( pickup : pickup(TOKENID)){
+			[# 
+				var TOKENID = payloadArg(0).toString() 
+				SLOTNUM = 1 //TODO: deduce SLOTNUM from TOKENID 
+			#]
+		}
+		request datacollector -m detect : detect(V)
+		println("businesslogic         | checking the OUTDOOR-area")
+	}
+	Transition t0 whenReply detected -> handlePickUpRequest
+	
+	
+	State handlePickUpRequest{
+		[# var outdoorfree = false #]
+		onMsg( detected : detected(V)){
+			[# 
+				var distance = payloadArg(0).toInt() 
+				  
+				if(distance >= 0 && distance <= 500){
+					outdoorfree = false  
+				}
+				else{
+					outdoorfree = true
+				}
+			#]
+			println("businesslogic         | last distance received = $distance cm")	 	
+		}		
+		
+		if[# outdoorfree #]{
+			[# 
+				var OK = "ok"
+				var X = 2 //todo: deduce the cell from SLOTNUM
+				var Y = 1
+			#]
+			replyTo pickup with confirm : confirm($OK)
+			println("businesslogic         | reply to pickup ")
+	 		
+			println("businesslogic         | sends the instructions to the actuatorscontroller to manage the car pickup (TOKENID = $TOKENID) at the parking-slot = $SLOTNUM ")
+			println("businesslogic         | request to moveToSlotOut($X,$Y)")
+			request trolleycontroller -m moveToSlotOut : moveToSlotOut($X,$Y)
+		}
+		else{
+			[# var OK = "wait" #]
+			replyTo pickup with confirm : confirm($OK)
+		}
+	}
+	Goto work if [# outdoorfree == false #] else moveTrolleyToSlotOut
+	
+	State moveTrolleyToSlotOut{
+		println("parkingmanagerservice request the trolley to move to slot out")
+		request trolleycontroller -m moveToSlotOut : movedToSlotOut(3,2)
+	}
+	Transition t0 whenReply movedToSlotOut -> checkMovedToSlotOut
+	
+	State checkMovedToSlotOut{
+		[# var pb = true 
+			var m = "" #
+		]
+		onMsg( movedToSlotOut: movedToSlotOut(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false #]
+			}	
+		}
+	}
+	Goto moveTrolleyToOut if [# pb == false #] else trolleyProblem
+	
+	State moveTrolleyToOut{
+		println("parkingmanagerservice request the trolley to move to out")
+		request trolleycontroller -m moveToOut : moveToOut(3,2)
+	}
+	Transition t0 whenReply movedToOut -> checkMovedToOut
+	
+	State checkMovedToOut{
+		[# var pb = true 
+			var m = "" #
+		]
+		onMsg( movedToOut: movedToOut(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false #]
+			}	
+		}
+	}
+	Goto moveTrolleyHome if [# pb == false #] else trolleyProblem	
+	
+}
+
+QActor trolleycontroller context ctxcarparking{
+	[# var pb = true #]
+	
+	State s0 initial{
+		println("trolleycontroller STARTS") 
+	}
+	Goto work
+	
+	State work{ 
+		println("trolleycontroller   | waiting .................. ")  
+	}
+	Transition t0 whenRequest moveToIn -> moveTrolleyToIn
+				  whenRequest moveToSlotIn -> moveTrolleyToSlotIn
+				  whenRequest moveToSlotOut -> moveTrolleyToSlotOut
+				  whenRequest moveToOut -> moveTrolleyToOut
+				  whenRequest backToHome -> moveTrolleyToHome
+				  
+	
+	State moveTrolleyToIn{
+		
+		onMsg(moveToIn : moveToIn(MTOIN)){
+			println("trolleycontroller   | move the Trolley to the INDOOR ")
+			request trolley -m tMoveToIn : tMoveToIn(move)
+			/*forward weightsensor -m secondW : secondW(sW)
+			replyTo moveToIn with movedToIn : movedToIn(true,6,0) 
+		
+			*/
+		}
+	}
+	Transition t0 whenReply tMovedToIn -> checkTMovedToIn
+	
+	State checkTMovedToIn{
+		[#pb = true #]
+		onMsg(tMovedToIn : tMovedToIn(MTOIN)){
+			[# var m =  payloadArg(0) #]
+			if [# m != "problem" #] {
+			println("trolleycontroller   | car picked up by the Trolley ")
+			forward weightsensor -m secondW : secondW(sW)
+			replyTo moveToIn with movedToIn : movedToIn(moved)
+			}else{
+				println("trolleycontroller   | car not picked up by the Trolley ")
+				replyTo moveToIn with movedToIn : movedToIn(problem)
+			}
+		}
+	}
+	Goto work
+	
+	
+	State moveTrolleyToSlotIn{
+		onMsg(moveToSlotIn : moveToSlotIn(X,Y)){
+			[#
+				var X = payloadArg(0).toInt()
+				var Y = payloadArg(1).toInt()
+			#]
+			println("trolleycontroller   | move the Trolley(with the car) to the parking-slot in ($X,$Y) ")
+			
+			request trolley -m tMoveToSlotIn : tMoveToSlotIn($X,$Y) 
+			
+			
+		}	
+	}
+	Transition t0 whenReply tMovedToSlotIn -> checkTMovedToSlotIn
+	
+	State checkTMovedToSlotIn{
+		[#pb = true #]
+		onMsg(tMovedToSlotIn : tMovedToSlotIn(SUCCESS)){
+			println("trolleycontroller   qui ")
+			[# var m =  payloadArg(0) #]
+			if [# m != "problem" #] {
+			println("trolleycontroller   | car parked")
+			replyTo moveToSlotIn with movedToSlotIn : movedToSlotIn(moved)
+			}else{
+				println("trolleycontroller   | car not parked")
+				replyTo moveToSlotIn with movedToSlotIn : movedToSLotIn(problem)
+			}
+		}
+	}
+	Goto work
+	
+	State moveTrolleyToSlotOut{
+		onMsg(moveToSlotOut : moveToSlotOut(X,Y)){
+			[#
+				var X = payloadArg(0).toInt()
+				var Y = payloadArg(1).toInt()
+			#]
+			println("trolleycontroller   | move the Trolley to the parking-slot in ($X,$Y) ")
+			
+			request trolley -m tMoveToSlotOut : tMoveToSlotOut(X,Y) 
+			
+		}	
+	}
+	Transition t0 whenReply tMovedToSlotOut -> checkTMovedToSlotOut
+	
+	State checkTMovedToSlotOut{
+		[#pb = true #]
+		onMsg(tMovedToSlotOut : tMovedToSlotOut(MTOIN)){
+			[# var m =  payloadArg(0) #]
+			if [# m != "problem" #] {
+			println("trolleycontroller   | trolley moved to slot out")
+			replyTo moveToSlotOut with movedToSlotOut : movedToSlotOut(moved)
+			}else{
+				println("trolleycontroller   | trolley not moved to slot out")
+				replyTo moveToSlotOut with movedToSlotOut : movedToSLotOut(problem)
+			}
+		}
+	}
+	Goto work
+	
+	State moveTrolleyToOut{
+		onMsg(moveToOut : moveToOut(X,Y)){
+			[#
+				var X = payloadArg(0).toInt()
+				var Y = payloadArg(1).toInt()
+			#]
+			println("trolleycontroller   | move the Trolley to out")
+			request trolley -m tMoveToOut : tMoveToOut(X,Y) 
+			
+		}	
+	}
+	Transition t0 whenReply tMovedToOut -> checkTMovedToOut
+	
+	State checkTMovedToOut{
+		[#pb = true #]
+		onMsg(tMovedToOut : tMovedToOut(MTOIN)){
+			[# var m =  payloadArg(0) #]
+			if [# m != "problem" #] {
+			println("trolleycontroller   | trolley with car moved to out")
+			forward outsonar -m firstOS : firstOS(fOS)
+			replyTo moveToOut with movedToOut : movedToOut(moved)
+			}else{
+				println("trolleycontroller   | trolley not moved to out")
+				replyTo moveToOut with movedToOut : movedToOut(problem)
+			}
+		}
+	}
+	Goto work
+	
+	State moveTrolleyToHome{
+		onMsg(backToHome : backToHome(X)){
+			[#
+				var X = payloadArg(0)
+				
+			#]
+			println("trolleycontroller   | move the Trolley to home")
+			request trolley -m tBackToHome : tBackToHome(X) 
+			
+		}	
+	}
+	Transition t0 whenReply tMovedToHome -> checkTMovedToHome
+	
+	State checkTMovedToHome{
+		[#pb = true #]
+		onMsg(tMovedToHome : tMovedToHome(MTOIN)){
+			[# var m =  payloadArg(0) #]
+			if [# m != "problem" #] {
+			println("trolleycontroller   | trolley moved to home")
+			replyTo backToHome with movedToHome : movedToHome(moved)
+			}else{
+				println("trolleycontroller   | trolley not moved to home")
+				replyTo backToHome with movedToHome : movedToHome(problem)
+			}
+		}
+	}
+	Goto work
+		
+	
+}
+
+QActor parkingservicestatusgui context  ctxcarparking{
+	State s0 initial{
+		println("parkingservicestatusgui STARTS")
+	}
+}
+
+QActor datacollector context  ctxcarparking{
+	State s0 initial{
+		println("datacollector STARTS")
+	}
+	Goto work
+	
+	State work{
+		println("datacollector waiting ...")
+	}
+	Transition t0 whenRequest weight -> handleWeight
+	              whenRequest detect -> handleDetect
+	             
+	              
+	State handleWeight{
+		println("datacollector reply with weight")
+		replyTo weight with cur_weight : cur_weight(0)
+	}
+	Goto work
+	
+	State handleDetect{
+		println("datacollector reply with detection")
+		replyTo detect with detected : detected(no)
+	}
+	Goto work
+}
+
+QActor weightsensor context ctxcarparking{
+	State s0 initial{
+		println("weightsensor STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("weightsensor          | waiting .................. ")  
+	}
+	
+	Transition t1 whenMsg firstW -> firstReading
+				  whenMsg secondW -> secondReading
+				  whenMsg updateValue -> update
+				  
+	State update {
+		printCurrentMessage
+		onMsg (updateValue : updateValue(V)) {
+			[#
+				var LAST_WEIGHT = payloadArg(0).toInt()	
+				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
+			#]
+			emit weight_event : weight_event($LAST_WEIGHT, $TIMESTAMP)
+			updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
+		}
+	} 
+	Goto work
+	
+	State firstReading {
+		[#
+			var LAST_WEIGHT = 1000
+			var TIMESTAMP = java.time.Instant.now().getEpochSecond();
+    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
+		#]
+		println("weightsensor          | weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		emit weight_event : weight_event($LAST_WEIGHT,$TIMESTAMP)
+		//updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #] 
+	}
+	Goto work
+	
+	State secondReading {
+		[#
+			var LAST_WEIGHT = 0 
+			var TIMESTAMP = java.time.Instant.now().getEpochSecond();
+    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
+		#]	
+		println("weightsensor          | weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		emit weight_event : weight_event($LAST_WEIGHT,$TIMESTAMP)
+		updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
+	}
+	Goto work
+}
+
+QActor outsonar context ctxcarparking{
+	State s0 initial{
+		println("outsonar STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("outsonar              | waiting .................. ")  
+	}
+	Transition t1 whenMsg firstOS -> firstReading
+				  whenMsg secondOS -> secondReading
+				  whenMsg updateValue -> update
+				  
+	State update {
+		printCurrentMessage
+		onMsg (updateValue : updateValue(V)) {
+			[#
+				var LAST_DISTANCE = payloadArg(0).toInt()	
+				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
+			#]
+			emit sonar_event : sonar_event($LAST_DISTANCE, $TIMESTAMP)
+			updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+		}
+	} 
+	Goto work
+	
+	State firstReading {
+		[#
+			var LAST_DISTANCE = 100
+    		var TIMESTAMP = java.time.Instant.now().getEpochSecond();
+    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
+		#]	
+		println("outsonar              | sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		emit sonar_event : sonar_event($LAST_DISTANCE,$TIMESTAMP)
+		updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+	}
+	Goto work
+	
+	State secondReading {
+		[#
+			var LAST_DISTANCE = 1000
+    		var TIMESTAMP = java.time.Instant.now().getEpochSecond();
+    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
+		#]	
+		println("outsonar              | sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		emit sonar_event : sonar_event($LAST_DISTANCE,$TIMESTAMP)
+		updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+	}
+	Goto work
+}
+
+QActor fan context ctxcarparking{
+	State s0 initial{
+		println("fan STARTS")
+	}
+}
+
+QActor thermometer context ctxcarparking{
+	State s0 initial{
+		println("thermometer STARTS")
+	}
+}
+
+QActor trolley context  ctxcarparking{
+	State s0 initial{
+		println("trolley STARTS")
+	}
+	Goto work 
+	
+	State work{ 
+		println("trolley              | waiting .................. ")  
+	}
+	Transition t0 whenRequest tMoveToIn -> tMoveToIn
+				  whenRequest tMoveToSlotIn -> tMoveToSlotIn
+				  whenRequest tMoveToSlotOut -> tMoveToSlotOut
+				  whenRequest tMoveToOut -> tMoveToOut
+				  whenRequest tBackToHome -> tMoveToHome
+				  
+	State tMoveToIn {
+		println("trolley              | moving to INDOOR ")
+		delay 500
+		println("trolley              | moved to INDOOR ")
+		replyTo tMoveToIn with tMovedToIn : tMovedToIn(succes)
+	}
+	Goto work
+	
+	State tMoveToSlotIn {
+		onMsg(tMoveToSlotIn : tMoveToSlotIn(X,Y)){
+			[# var H = payloadArg(0).toInt() 
+				var G = payloadArg(1).toInt()
+			#]
+			println("trolley moving to coordinate ($H, $G)") 
+			delay 500
+			println("trolley moved to coordinate ($H, $G)") 
+			replyTo tMoveToSlotIn with tMovedToSlotIn : tMovedToSlotIn(success)
+		} 
+		
+	}
+	Goto work
+	
+	State tMoveToSlotOut {
+		onMsg(tMoveToSlotOut : tMoveToSlotOut(X,Y)){
+			[# var X = payloadArg(0).toInt() 
+				var Y = payloadArg(1).toInt()
+			#]
+			println("trolley moving to coordinate ($X, $Y)") 
+			delay 500
+			println("trolley moved to coordinate ($X, $Y)") 
+			replyTo tMoveToOut with tMovedToOut : tMovedToOut(success)
+		} 
+		
+	}
+	Goto work
+	
+	State tMoveToOut {
+		println("trolley              | moving to OUTDOOR ")  
+		delay 500
+		println("trolley              | moved to OUTDOOR ")  
+		replyTo tMoveToOut with tMovedToOut : tMovedToOut(succes)
+	}
+	Goto work
+	
+	State tMoveToHome {
+		println("trolley              | moving to home ")  
+		delay 500
+		println("trolley              | moved to home ")  
+		replyTo tBackToHome with tMovedToHome : tMovedToHome(succes)
+	}
+	Goto work
+	
+}
+
+/* ======================================================================== */
+
+ 

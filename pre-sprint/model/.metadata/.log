@@ -1,0 +1,1670 @@
+!SESSION 2021-09-13 15:52:15.149 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-13 15:52:32.127
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-13 15:52:32.127
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@464a3430,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3bcedb06,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-13 15:52:47.728
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2021-09-13 16:09:34.163 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-13 16:09:40.815
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-13 16:09:40.815
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@bc52a41,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@9f48198,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-13 16:09:51.980
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-13 16:24:56.816
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.eclipse.core.jobs 4 2 2021-09-13 16:24:58.635
+!MESSAGE An internal error occurred during: "Kotlin Analysis".
+!STACK 0
+java.lang.IllegalArgumentException: Equal objects must have equal hashcodes. During rehashing, Trove discovered that the following two objects claim to be equal (as in java.lang.Object.equals() or TObjectHashingStrategy.equals()) but their hashCodes (or those calculated by your TObjectHashingStrategy) are not equal.This violates the general contract of java.lang.Object.hashCode().  See bullet point two in that method's documentation. object #1 =kotlin.io (class java.lang.String), hashCode=-1177193165; object #2 =kotlin.io (class java.lang.String), hashCode=-1177193165
+	at gnu.trove.TObjectHash.throwObjectContractViolation(TObjectHash.java:331)
+	at gnu.trove.THashMap.rehash(THashMap.java:347)
+	at gnu.trove.THash.postInsertHook(THash.java:285)
+	at gnu.trove.THashMap.put(THashMap.java:174)
+	at org.jetbrains.kotlin.cli.jvm.index.JvmDependenciesIndexImpl.travelPath(JvmDependenciesIndexImpl.kt:258)
+	at org.jetbrains.kotlin.cli.jvm.index.JvmDependenciesIndexImpl.search(JvmDependenciesIndexImpl.kt:128)
+	at org.jetbrains.kotlin.cli.jvm.index.JvmDependenciesIndexImpl.findClass(JvmDependenciesIndexImpl.kt:89)
+	at org.jetbrains.kotlin.core.resolve.lang.kotlin.EclipseVirtualFileFinder.findBuiltInsData(EclipseVirtualFileFinder.kt:75)
+	at org.jetbrains.kotlin.builtins.jvm.JvmBuiltInsPackageFragmentProvider.findPackage(JvmBuiltInsPackageFragmentProvider.kt:60)
+	at org.jetbrains.kotlin.serialization.deserialization.AbstractDeserializedPackageFragmentProvider$fragments$1.invoke(AbstractDeserializedPackageFragmentProvider.kt:34)
+	at org.jetbrains.kotlin.serialization.deserialization.AbstractDeserializedPackageFragmentProvider$fragments$1.invoke(AbstractDeserializedPackageFragmentProvider.kt:26)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunction.invoke(LockBasedStorageManager.java:527)
+	at org.jetbrains.kotlin.serialization.deserialization.AbstractDeserializedPackageFragmentProvider.getPackageFragments(AbstractDeserializedPackageFragmentProvider.kt:41)
+	at org.jetbrains.kotlin.descriptors.impl.CompositePackageFragmentProvider.getPackageFragments(CompositePackageFragmentProvider.kt:31)
+	at org.jetbrains.kotlin.descriptors.impl.CompositePackageFragmentProvider.getPackageFragments(CompositePackageFragmentProvider.kt:31)
+	at org.jetbrains.kotlin.descriptors.impl.LazyPackageViewDescriptorImpl$fragments$2.invoke(LazyPackageViewDescriptorImpl.kt:37)
+	at org.jetbrains.kotlin.descriptors.impl.LazyPackageViewDescriptorImpl$fragments$2.invoke(LazyPackageViewDescriptorImpl.kt:30)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.descriptors.impl.LazyPackageViewDescriptorImpl.getFragments(LazyPackageViewDescriptorImpl.kt)
+	at org.jetbrains.kotlin.descriptors.PackageViewDescriptor$DefaultImpls.isEmpty(PackageViewDescriptor.kt:33)
+	at org.jetbrains.kotlin.descriptors.impl.LazyPackageViewDescriptorImpl.isEmpty(LazyPackageViewDescriptorImpl.kt:30)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.quickResolveToPackage(QualifiedExpressionResolver.kt:675)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:498)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix$default(QualifiedExpressionResolver.kt:459)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClass(QualifiedExpressionResolver.kt:440)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.processImportReference(QualifiedExpressionResolver.kt:237)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver$$special$$inlined$with$lambda$1.invoke(LazyImportScope.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver$$special$$inlined$with$lambda$1.invoke(LazyImportScope.kt:98)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunction.invoke(LockBasedStorageManager.java:527)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver.getImportScope(LazyImportScope.kt:125)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:257)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:221)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager.compute(LockBasedStorageManager.java:259)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getClassifier(LazyImportScope.kt:252)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getContributedClassifier(LazyImportScope.kt:248)
+	at org.jetbrains.kotlin.resolve.scopes.utils.ScopeUtilsKt.findClassifier(ScopeUtils.kt:87)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:488)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix$default(QualifiedExpressionResolver.kt:459)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClass(QualifiedExpressionResolver.kt:440)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveQualifierPartListForType(QualifiedExpressionResolver.kt:138)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveDescriptorForType(QualifiedExpressionResolver.kt:126)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveDescriptorForType(TypeResolver.kt:932)
+	at org.jetbrains.kotlin.resolve.TypeResolver$resolveTypeElement$1.visitUserType(TypeResolver.kt:247)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:929)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:21)
+	at org.jetbrains.kotlin.psi.KtUserType.accept(KtUserType.java:42)
+	at org.jetbrains.kotlin.psi.KtElementImplStub.accept(KtElementImplStub.java:59)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveTypeElement(TypeResolver.kt:245)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolvePossiblyBareType(TypeResolver.kt:124)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:114)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.AnnotationResolverImpl.resolveAnnotationType(AnnotationResolverImpl.java:122)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:81)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:71)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.getType(LazyAnnotations.kt)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.forceResolveAllContents(LazyAnnotations.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.doForceResolveAllContents(ForceResolveUtil.java:78)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.forceResolveAllContents(ForceResolveUtil.java:69)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.createFunctionDescriptors(LazyTopDownAnalyzer.kt:284)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:204)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisProjectCache.getAnalysisResult(KotlinAnalysisProjectCache.kt:50)
+	at org.jetbrains.kotlin.ui.builder.KotlinAnalysisJob.run(KotlinAnalysisJob.kt:57)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2021-09-13 16:25:18.674 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-13 16:25:24.938
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-13 16:25:24.938
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4f7ae05,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1e23ee0e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-13 16:25:39.853
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-13 16:26:30.972
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-13 16:26:32.498
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 09:11:00.742
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 09:11:52.087
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 09:55:08.677
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 09:55:12.391
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 09:58:00.080
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:08:08.600
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:08:37.022
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:08:55.588
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:09:43.578
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:10:03.110
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:10:15.251
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:10:51.494
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:11:24.470
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:14:43.310
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:15:17.997
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-14 10:15:27.126
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.eclipse.core.resources 2 10035 2021-09-15 09:48:13.675
+!MESSAGE The workspace will exit with unsaved changes in this session.
+!SESSION 2021-09-16 15:21:17.419 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2021-09-16 15:21:32.811
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.jface 2 0 2021-09-16 15:21:37.263
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-16 15:21:37.264
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@67784537,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@17ec5e2a,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-16 15:21:55.244
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-16 15:21:59.077
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-16 15:22:06.714
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:30:45.816
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:31:23.274
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:32:36.229
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:32:47.171
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:33:21.447
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:34:19.601
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:34:41.891
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:35:13.104
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.ui 4 2 2021-09-17 09:35:15.008
+!MESSAGE Problems occurred when invoking code from plug-in: "org.jetbrains.kotlin.ui".
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.ui.editors.KotlinFileEditor.getDocument(KotlinFileEditor.kt:43)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:105)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 4 0 2021-09-17 09:35:15.013
+!MESSAGE Unexpected Exception
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.ui.editors.KotlinFileEditor.getDocument(KotlinFileEditor.kt:43)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:105)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:35:34.493
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:35:49.849
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:36:01.424
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:36:19.979
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:37:18.421
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:40:18.244
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.ui 4 2 2021-09-17 09:40:19.229
+!MESSAGE Problems occurred when invoking code from plug-in: "org.jetbrains.kotlin.ui".
+!STACK 0
+org.jetbrains.kotlin.progress.CompilationCanceledException
+	at org.jetbrains.kotlin.ui.builder.KotlinAnalysisJob$run$1.checkCanceled(KotlinAnalysisJob.kt:49)
+	at org.jetbrains.kotlin.progress.ProgressIndicatorAndCompilationCanceledStatus.checkCanceled(CancelationStatus.kt:40)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.processTowerData(TowerResolver.kt:284)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.access$processTowerData(TowerResolver.kt:80)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.process(TowerResolver.kt:161)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.processImplicitReceiver(TowerResolver.kt:246)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.access$processImplicitReceiver(TowerResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task$run$5.invoke(TowerResolver.kt:198)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.run(TowerResolver.kt:209)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.run(TowerResolver.kt:99)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.runResolve(TowerResolver.kt:86)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.resolveCall(KotlinCallResolver.kt:78)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveSimpleProperty(CallResolver.java:139)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.resolveSimpleName(CallExpressionResolver.kt:333)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.access$resolveSimpleName(CallExpressionResolver.kt:73)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver$elementChain$1.invoke(CallExpressionResolver.kt:309)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver$elementChain$1.invoke(CallExpressionResolver.kt:73)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:483)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveQualifierInExpressionAndUnroll(QualifiedExpressionResolver.kt:614)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.elementChain(CallExpressionResolver.kt:306)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getQualifiedExpressionTypeInfo(CallExpressionResolver.kt:441)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitQualifiedExpression(BasicExpressionTypingVisitor.java:721)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitQualifiedExpression(ExpressionTypingVisitorDispatcher.java:383)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForDeclarations.visitQualifiedExpression(ExpressionTypingVisitorDispatcher.java:46)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitDotQualifiedExpression(KtVisitor.java:302)
+	at org.jetbrains.kotlin.psi.KtDotQualifiedExpression.accept(KtDotQualifiedExpression.kt:32)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeInfo(ExpressionTypingServices.java:124)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.resolveValueArgument(PSICallResolver.kt:765)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.resolveArgumentsInParenthesis(PSICallResolver.kt:705)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.toKotlinCall(PSICallResolver.kt:583)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.toKotlinCall$default(PSICallResolver.kt:567)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:95)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:326)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.checkCondition(ControlStructureTypingVisitor.java:75)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.visitIfExpression(ControlStructureTypingVisitor.java:88)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitIfExpression(ExpressionTypingVisitorForStatements.java:420)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitIfExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtIfExpression.accept(KtIfExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeOfLastExpressionInBlock(ExpressionTypingServices.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:320)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForDeclarations.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:46)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeInfo(ExpressionTypingServices.java:124)
+	at org.jetbrains.kotlin.resolve.calls.tower.KotlinResolutionCallbacksImpl.analyzeAndGetLambdaReturnArguments(KotlinResolutionCallbacksImpl.kt:192)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyzeLambda(PostponedArgumentsAnalyzer.kt:135)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyze(PostponedArgumentsAnalyzer.kt:53)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:227)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:27)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.analyzeArgumentWithFixedParameterTypes(KotlinConstraintSystemCompleter.kt:181)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:103)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:62)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:217)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion$default(KotlinCallCompleter.kt:214)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:205)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:60)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.choseMostSpecific(KotlinCallResolver.kt:165)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.resolveCall(KotlinCallResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:326)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReferenceExpression(KtVisitor.java:198)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitCallExpression(KtVisitor.java:278)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:334)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForDeclarations.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:46)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeInfo(ExpressionTypingServices.java:124)
+	at org.jetbrains.kotlin.resolve.calls.tower.KotlinResolutionCallbacksImpl.analyzeAndGetLambdaReturnArguments(KotlinResolutionCallbacksImpl.kt:192)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyzeLambda(PostponedArgumentsAnalyzer.kt:135)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyze(PostponedArgumentsAnalyzer.kt:53)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:227)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:27)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.analyzeArgumentWithFixedParameterTypes(KotlinConstraintSystemCompleter.kt:181)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:103)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:62)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:217)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion$default(KotlinCallCompleter.kt:214)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:205)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:60)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.choseMostSpecific(KotlinCallResolver.kt:165)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.resolveCall(KotlinCallResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:326)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReferenceExpression(KtVisitor.java:198)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitCallExpression(KtVisitor.java:278)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:334)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.visitReturnExpression(ControlStructureTypingVisitor.java:918)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitReturnExpression(ExpressionTypingVisitorDispatcher.java:279)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitReturnExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtReturnExpression.accept(KtReturnExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitExpressionWithLabel(KtVisitor.java:226)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReturnExpression(KtVisitor.java:222)
+	at org.jetbrains.kotlin.psi.KtReturnExpression.accept(KtReturnExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeOfLastExpressionInBlock(ExpressionTypingServices.java:395)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:320)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:177)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitBlockExpression(ExpressionTypingVisitorForStatements.java:430)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitBlockExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtBlockExpression.accept(KtBlockExpression.java:78)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.checkFunctionReturnType(ExpressionTypingServices.java:172)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.checkFunctionReturnType(ExpressionTypingServices.java:155)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBody(BodyResolver.java:985)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBody(BodyResolver.java:932)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBodies(BodyResolver.java:918)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveBehaviorDeclarationBodies(BodyResolver.java:125)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveBodies(BodyResolver.java:246)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:225)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlightingVisitor.computeHighlightingRanges(KotlinSemanticHighlightingVisitor.kt:65)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:103)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 4 0 2021-09-17 09:40:19.233
+!MESSAGE Unexpected Exception
+!STACK 0
+org.jetbrains.kotlin.progress.CompilationCanceledException
+	at org.jetbrains.kotlin.ui.builder.KotlinAnalysisJob$run$1.checkCanceled(KotlinAnalysisJob.kt:49)
+	at org.jetbrains.kotlin.progress.ProgressIndicatorAndCompilationCanceledStatus.checkCanceled(CancelationStatus.kt:40)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.processTowerData(TowerResolver.kt:284)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.access$processTowerData(TowerResolver.kt:80)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.process(TowerResolver.kt:161)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.processImplicitReceiver(TowerResolver.kt:246)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.access$processImplicitReceiver(TowerResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task$run$5.invoke(TowerResolver.kt:198)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver$Task.run(TowerResolver.kt:209)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.run(TowerResolver.kt:99)
+	at org.jetbrains.kotlin.resolve.calls.tower.TowerResolver.runResolve(TowerResolver.kt:86)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.resolveCall(KotlinCallResolver.kt:78)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveSimpleProperty(CallResolver.java:139)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.resolveSimpleName(CallExpressionResolver.kt:333)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.access$resolveSimpleName(CallExpressionResolver.kt:73)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver$elementChain$1.invoke(CallExpressionResolver.kt:309)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver$elementChain$1.invoke(CallExpressionResolver.kt:73)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:483)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveQualifierInExpressionAndUnroll(QualifiedExpressionResolver.kt:614)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.elementChain(CallExpressionResolver.kt:306)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getQualifiedExpressionTypeInfo(CallExpressionResolver.kt:441)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitQualifiedExpression(BasicExpressionTypingVisitor.java:721)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitQualifiedExpression(ExpressionTypingVisitorDispatcher.java:383)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForDeclarations.visitQualifiedExpression(ExpressionTypingVisitorDispatcher.java:46)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitDotQualifiedExpression(KtVisitor.java:302)
+	at org.jetbrains.kotlin.psi.KtDotQualifiedExpression.accept(KtDotQualifiedExpression.kt:32)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeInfo(ExpressionTypingServices.java:124)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.resolveValueArgument(PSICallResolver.kt:765)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.resolveArgumentsInParenthesis(PSICallResolver.kt:705)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.toKotlinCall(PSICallResolver.kt:583)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.toKotlinCall$default(PSICallResolver.kt:567)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:95)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:326)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.checkCondition(ControlStructureTypingVisitor.java:75)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.visitIfExpression(ControlStructureTypingVisitor.java:88)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitIfExpression(ExpressionTypingVisitorForStatements.java:420)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitIfExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtIfExpression.accept(KtIfExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeOfLastExpressionInBlock(ExpressionTypingServices.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:320)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForDeclarations.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:46)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeInfo(ExpressionTypingServices.java:124)
+	at org.jetbrains.kotlin.resolve.calls.tower.KotlinResolutionCallbacksImpl.analyzeAndGetLambdaReturnArguments(KotlinResolutionCallbacksImpl.kt:192)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyzeLambda(PostponedArgumentsAnalyzer.kt:135)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyze(PostponedArgumentsAnalyzer.kt:53)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:227)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:27)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.analyzeArgumentWithFixedParameterTypes(KotlinConstraintSystemCompleter.kt:181)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:103)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:62)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:217)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion$default(KotlinCallCompleter.kt:214)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:205)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:60)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.choseMostSpecific(KotlinCallResolver.kt:165)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.resolveCall(KotlinCallResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:326)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReferenceExpression(KtVisitor.java:198)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitCallExpression(KtVisitor.java:278)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:334)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForDeclarations.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:46)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeInfo(ExpressionTypingServices.java:124)
+	at org.jetbrains.kotlin.resolve.calls.tower.KotlinResolutionCallbacksImpl.analyzeAndGetLambdaReturnArguments(KotlinResolutionCallbacksImpl.kt:192)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyzeLambda(PostponedArgumentsAnalyzer.kt:135)
+	at org.jetbrains.kotlin.resolve.calls.components.PostponedArgumentsAnalyzer.analyze(PostponedArgumentsAnalyzer.kt:53)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:227)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter$runCompletion$1.invoke(KotlinCallCompleter.kt:27)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.analyzeArgumentWithFixedParameterTypes(KotlinConstraintSystemCompleter.kt:181)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:103)
+	at org.jetbrains.kotlin.resolve.calls.inference.components.KotlinConstraintSystemCompleter.runCompletion(KotlinConstraintSystemCompleter.kt:62)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:217)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion$default(KotlinCallCompleter.kt:214)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:205)
+	at org.jetbrains.kotlin.resolve.calls.components.KotlinCallCompleter.runCompletion(KotlinCallCompleter.kt:60)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.choseMostSpecific(KotlinCallResolver.kt:165)
+	at org.jetbrains.kotlin.resolve.calls.KotlinCallResolver.resolveCall(KotlinCallResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.calls.tower.PSICallResolver.runResolutionAndInference(PSICallResolver.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.doResolveCallOrGetCachedResults(CallResolver.java:581)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.lambda$computeTasksAndResolveCall$0(CallResolver.java:212)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:210)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.computeTasksAndResolveCall(CallResolver.java:198)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:326)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReferenceExpression(KtVisitor.java:198)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitCallExpression(KtVisitor.java:278)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:334)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.visitReturnExpression(ControlStructureTypingVisitor.java:918)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitReturnExpression(ExpressionTypingVisitorDispatcher.java:279)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitReturnExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtReturnExpression.accept(KtReturnExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitExpressionWithLabel(KtVisitor.java:226)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReturnExpression(KtVisitor.java:222)
+	at org.jetbrains.kotlin.psi.KtReturnExpression.accept(KtReturnExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeOfLastExpressionInBlock(ExpressionTypingServices.java:395)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:320)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:177)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitBlockExpression(ExpressionTypingVisitorForStatements.java:430)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitBlockExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtBlockExpression.accept(KtBlockExpression.java:78)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.checkFunctionReturnType(ExpressionTypingServices.java:172)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.checkFunctionReturnType(ExpressionTypingServices.java:155)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBody(BodyResolver.java:985)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBody(BodyResolver.java:932)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBodies(BodyResolver.java:918)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveBehaviorDeclarationBodies(BodyResolver.java:125)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveBodies(BodyResolver.java:246)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:225)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlightingVisitor.computeHighlightingRanges(KotlinSemanticHighlightingVisitor.kt:65)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:103)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:41:59.922
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:45:33.213
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:46:57.666
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:47:20.658
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:49:43.584
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.eclipse.jdt.debug 2 0 2021-09-17 09:50:44.375
+!MESSAGE Unable to find location of java.lang.Thread.setName() in debuggee JVM, for type java.lang.Thread
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 09:58:14.657
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 10:00:09.593
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 11:17:42.160
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 11:20:27.434
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.ui 4 2 2021-09-17 11:20:28.273
+!MESSAGE Problems occurred when invoking code from plug-in: "org.jetbrains.kotlin.ui".
+!STACK 0
+org.jetbrains.kotlin.progress.CompilationCanceledException
+	at org.jetbrains.kotlin.ui.builder.KotlinAnalysisJob$run$1.checkCanceled(KotlinAnalysisJob.kt:49)
+	at org.jetbrains.kotlin.progress.ProgressIndicatorAndCompilationCanceledStatus.checkCanceled(CancelationStatus.kt:40)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.processImportReference(QualifiedExpressionResolver.kt:225)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver$$special$$inlined$with$lambda$1.invoke(LazyImportScope.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver$$special$$inlined$with$lambda$1.invoke(LazyImportScope.kt:98)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunction.invoke(LockBasedStorageManager.java:527)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver.getImportScope(LazyImportScope.kt:125)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:257)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:221)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager.compute(LockBasedStorageManager.java:259)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getClassifier(LazyImportScope.kt:252)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getContributedClassifier(LazyImportScope.kt:248)
+	at org.jetbrains.kotlin.resolve.scopes.utils.ScopeUtilsKt.findClassifier(ScopeUtils.kt:87)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:488)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix$default(QualifiedExpressionResolver.kt:459)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClass(QualifiedExpressionResolver.kt:440)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveQualifierPartListForType(QualifiedExpressionResolver.kt:138)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveDescriptorForType(QualifiedExpressionResolver.kt:126)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveDescriptorForType(TypeResolver.kt:932)
+	at org.jetbrains.kotlin.resolve.TypeResolver$resolveTypeElement$1.visitUserType(TypeResolver.kt:247)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:929)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:21)
+	at org.jetbrains.kotlin.psi.KtUserType.accept(KtUserType.java:42)
+	at org.jetbrains.kotlin.psi.KtElementImplStub.accept(KtElementImplStub.java:59)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveTypeElement(TypeResolver.kt:245)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolvePossiblyBareType(TypeResolver.kt:124)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:114)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.AnnotationResolverImpl.resolveAnnotationType(AnnotationResolverImpl.java:122)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:81)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:71)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.getType(LazyAnnotations.kt)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.forceResolveAllContents(LazyAnnotations.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.doForceResolveAllContents(ForceResolveUtil.java:78)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.forceResolveAllContents(ForceResolveUtil.java:69)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.createFunctionDescriptors(LazyTopDownAnalyzer.kt:284)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:204)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFile(KotlinAnalyzer.kt:27)
+	at org.jetbrains.kotlin.ui.editors.annotations.KotlinLineAnnotationsReconciler.reconcile(AnnotationManager.kt:152)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 4 0 2021-09-17 11:20:28.275
+!MESSAGE Unexpected Exception
+!STACK 0
+org.jetbrains.kotlin.progress.CompilationCanceledException
+	at org.jetbrains.kotlin.ui.builder.KotlinAnalysisJob$run$1.checkCanceled(KotlinAnalysisJob.kt:49)
+	at org.jetbrains.kotlin.progress.ProgressIndicatorAndCompilationCanceledStatus.checkCanceled(CancelationStatus.kt:40)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.processImportReference(QualifiedExpressionResolver.kt:225)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver$$special$$inlined$with$lambda$1.invoke(LazyImportScope.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver$$special$$inlined$with$lambda$1.invoke(LazyImportScope.kt:98)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunction.invoke(LockBasedStorageManager.java:527)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportResolver.getImportScope(LazyImportScope.kt:125)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:257)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:221)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager.compute(LockBasedStorageManager.java:259)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getClassifier(LazyImportScope.kt:252)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getContributedClassifier(LazyImportScope.kt:248)
+	at org.jetbrains.kotlin.resolve.scopes.utils.ScopeUtilsKt.findClassifier(ScopeUtils.kt:87)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:488)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix$default(QualifiedExpressionResolver.kt:459)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClass(QualifiedExpressionResolver.kt:440)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveQualifierPartListForType(QualifiedExpressionResolver.kt:138)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveDescriptorForType(QualifiedExpressionResolver.kt:126)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveDescriptorForType(TypeResolver.kt:932)
+	at org.jetbrains.kotlin.resolve.TypeResolver$resolveTypeElement$1.visitUserType(TypeResolver.kt:247)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:929)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:21)
+	at org.jetbrains.kotlin.psi.KtUserType.accept(KtUserType.java:42)
+	at org.jetbrains.kotlin.psi.KtElementImplStub.accept(KtElementImplStub.java:59)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveTypeElement(TypeResolver.kt:245)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolvePossiblyBareType(TypeResolver.kt:124)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:114)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.AnnotationResolverImpl.resolveAnnotationType(AnnotationResolverImpl.java:122)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:81)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:71)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.getType(LazyAnnotations.kt)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.forceResolveAllContents(LazyAnnotations.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.doForceResolveAllContents(ForceResolveUtil.java:78)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.forceResolveAllContents(ForceResolveUtil.java:69)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.createFunctionDescriptors(LazyTopDownAnalyzer.kt:284)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:204)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFile(KotlinAnalyzer.kt:27)
+	at org.jetbrains.kotlin.ui.editors.annotations.KotlinLineAnnotationsReconciler.reconcile(AnnotationManager.kt:152)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 11:21:01.345
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 11:21:28.820
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 15:02:30.062
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 15:02:43.675
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 15:04:02.240
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-17 15:04:11.202
+!MESSAGE Could not check for update (Could not obtain update site)
+!SESSION 2021-09-18 09:31:54.683 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-18 09:32:08.774
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-18 09:32:08.774
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5c3007d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@66b40dd3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-18 09:32:27.274
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-18 10:30:48.848
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-18 16:45:26.053
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-19 16:34:18.700
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-19 17:09:11.713
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-19 17:10:09.581
+!MESSAGE Could not check for update (Could not obtain update site)
+!SESSION 2021-09-20 13:31:41.473 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-20 13:32:00.413
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-20 13:32:00.413
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@578d472a,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1191029d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-20 13:32:21.590
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:34:28.605
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:36:12.292
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:37:16.402
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:39:32.365
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.ui 4 2 2021-09-20 13:39:34.391
+!MESSAGE Problems occurred when invoking code from plug-in: "org.jetbrains.kotlin.ui".
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.ui.editors.KotlinFileEditor.getDocument(KotlinFileEditor.kt:43)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:105)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 4 0 2021-09-20 13:39:34.394
+!MESSAGE Unexpected Exception
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.ui.editors.KotlinFileEditor.getDocument(KotlinFileEditor.kt:43)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:105)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:40:27.087
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.ui 4 2 2021-09-20 13:40:27.850
+!MESSAGE Problems occurred when invoking code from plug-in: "org.jetbrains.kotlin.ui".
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.ui.editors.KotlinFileEditor.getDocument(KotlinFileEditor.kt:43)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:105)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 4 0 2021-09-20 13:40:27.852
+!MESSAGE Unexpected Exception
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.ui.editors.KotlinFileEditor.getDocument(KotlinFileEditor.kt:43)
+	at org.jetbrains.kotlin.ui.editors.highlighting.KotlinSemanticHighlighter.reconcile(KotlinSemanticHighlighting.kt:105)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy$reconcile$$inlined$synchronized$lambda$1.run(KotlinReconcilingStrategy.kt:61)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.jetbrains.kotlin.ui.editors.KotlinReconcilingStrategy.reconcile(KotlinReconcilingStrategy.kt:54)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:210)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:41:19.253
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:42:17.938
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:43:43.019
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:43:54.294
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:44:56.845
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:46:29.564
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:46:49.797
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-20 13:47:53.674
+!MESSAGE Could not check for update (Could not obtain update site)
+!SESSION 2021-09-20 14:50:30.738 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-20 14:50:37.558
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-20 14:50:37.558
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7296fe0b,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4a5066f5,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-20 14:50:55.572
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:10:33.393
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:15:24.443
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:20:12.154
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:21:13.834
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:21:40.924
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:27:38.245
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:27:41.499
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:29:04.430
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:30:40.591
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:43:54.470
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 10:45:21.448
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:42:23.367
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:44:23.547
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:47:29.314
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:48:22.366
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:49:57.335
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:50:10.822
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:54:20.399
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:56:11.293
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 11:58:55.208
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 12:00:40.004
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.eclipse.jdt.core 2 0 2021-09-21 12:00:42.940
+!MESSAGE The Java indexing could not index /it.unibo.qakMyDemo/kotlin_bin/it/unibo/weightsensor/Weightsensor.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.load.kotlin.KotlinBinaryClassCache.access$getCache$p(KotlinBinaryClassCache.kt:27)
+	at org.jetbrains.kotlin.load.kotlin.KotlinBinaryClassCache$Companion.getKotlinBinaryClassOrClassFileContent(KotlinBinaryClassCache.kt:67)
+	at org.jetbrains.kotlin.load.kotlin.KotlinBinaryClassCache$Companion.getKotlinBinaryClassOrClassFileContent$default(KotlinBinaryClassCache.kt:60)
+	at org.jetbrains.kotlin.load.kotlin.VirtualFileFinder.findKotlinClassOrContent(VirtualFileFinder.kt:34)
+	at org.jetbrains.kotlin.load.kotlin.KotlinClassFinderKt.findKotlinClass(KotlinClassFinder.kt:40)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaPackageFragment$binaryClasses$2.invoke(LazyJavaPackageFragment.kt:45)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaPackageFragment$binaryClasses$2.invoke(LazyJavaPackageFragment.kt:36)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaPackageFragment.getBinaryClasses$descriptors_jvm(LazyJavaPackageFragment.kt)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope$kotlinScopes$2.invoke(JvmPackageScope.kt:46)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope$kotlinScopes$2.invoke(JvmPackageScope.kt:37)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope.getKotlinScopes(JvmPackageScope.kt)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope.getContributedClassifier(JvmPackageScope.kt:58)
+	at org.jetbrains.kotlin.resolve.scopes.ChainedMemberScope.getContributedClassifier(ChainedMemberScope.kt:35)
+	at org.jetbrains.kotlin.resolve.scopes.AbstractScopeAdapter.getContributedClassifier(AbstractScopeAdapter.kt:44)
+	at org.jetbrains.kotlin.descriptors.DescriptorUtilKt.resolveClassByFqName(descriptorUtil.kt:22)
+	at org.jetbrains.kotlin.builtins.KotlinBuiltIns.getBuiltInClassByFqName(KotlinBuiltIns.java:356)
+	at org.jetbrains.kotlin.builtins.jvm.JavaToKotlinClassMap.mapJavaToKotlin(JavaToKotlinClassMap.kt:130)
+	at org.jetbrains.kotlin.builtins.jvm.JavaToKotlinClassMap.mapJavaToKotlin$default(JavaToKotlinClassMap.kt:126)
+	at org.jetbrains.kotlin.load.java.lazy.types.JavaTypeResolver.mapKotlinClass(JavaTypeResolver.kt:161)
+	at org.jetbrains.kotlin.load.java.lazy.types.JavaTypeResolver.computeTypeConstructor(JavaTypeResolver.kt:135)
+	at org.jetbrains.kotlin.load.java.lazy.types.JavaTypeResolver.computeSimpleJavaClassifierType(JavaTypeResolver.kt:117)
+	at org.jetbrains.kotlin.load.java.lazy.types.JavaTypeResolver.transformJavaClassifierType(JavaTypeResolver.kt:93)
+	at org.jetbrains.kotlin.load.java.lazy.types.JavaTypeResolver.transformJavaType(JavaTypeResolver.kt:52)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaClassDescriptor$LazyJavaClassTypeConstructor.computeSupertypes(LazyJavaClassDescriptor.kt:192)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor$supertypes$1.invoke(AbstractTypeConstructor.kt:80)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor$supertypes$1.invoke(AbstractTypeConstructor.kt:26)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValueWithPostCompute.invoke(LockBasedStorageManager.java:443)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValueWithPostCompute.invoke(LockBasedStorageManager.java:474)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor.computeNeighbours(AbstractTypeConstructor.kt:111)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor.access$computeNeighbours(AbstractTypeConstructor.kt:26)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor$supertypes$3$resultWithoutCycles$1.invoke(AbstractTypeConstructor.kt:89)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor$supertypes$3$resultWithoutCycles$1.invoke(AbstractTypeConstructor.kt:26)
+	at org.jetbrains.kotlin.resolve.SupertypeLoopCheckerImpl$findLoopsInSupertypesAndDisconnect$graph$1.getNeighbors(findLoopsInSupertypes.kt:35)
+	at org.jetbrains.kotlin.resolve.SupertypeLoopCheckerImpl$findLoopsInSupertypesAndDisconnect$graph$1.getNeighbors(findLoopsInSupertypes.kt:28)
+	at org.jetbrains.kotlin.utils.DFS.doDfs(DFS.java:98)
+	at org.jetbrains.kotlin.utils.DFS.doDfs(DFS.java:99)
+	at org.jetbrains.kotlin.utils.DFS.doDfs(DFS.java:99)
+	at org.jetbrains.kotlin.utils.DFS.dfs(DFS.java:27)
+	at org.jetbrains.kotlin.resolve.FindLoopsInSupertypes.isReachable(findLoopsInSupertypes.kt:61)
+	at org.jetbrains.kotlin.resolve.FindLoopsInSupertypes.access$isReachable(findLoopsInSupertypes.kt:1)
+	at org.jetbrains.kotlin.resolve.SupertypeLoopCheckerImpl.findLoopsInSupertypesAndDisconnect(findLoopsInSupertypes.kt:40)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor$supertypes$3.invoke(AbstractTypeConstructor.kt:87)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor$supertypes$3.invoke(AbstractTypeConstructor.kt:26)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$4.doPostCompute(LockBasedStorageManager.java:204)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValueWithPostCompute.postCompute(LockBasedStorageManager.java:453)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:374)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValueWithPostCompute.invoke(LockBasedStorageManager.java:443)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValueWithPostCompute.invoke(LockBasedStorageManager.java:474)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor.getSupertypes(AbstractTypeConstructor.kt:27)
+	at org.jetbrains.kotlin.types.AbstractTypeConstructor.getSupertypes(AbstractTypeConstructor.kt:26)
+	at org.jetbrains.kotlin.resolve.descriptorUtil.DescriptorUtilsKt.getSuperClassNotAny(DescriptorUtils.kt:141)
+	at org.jetbrains.kotlin.resolve.descriptorUtil.DescriptorUtilsKt.getAllSuperclassesWithoutAny(DescriptorUtils.kt:356)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.ClassResolutionScopesSupport$inheritanceScopeWithoutMe$1.invoke(ClassResolutionScopesSupport.kt:52)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.ClassResolutionScopesSupport$inheritanceScopeWithoutMe$1.invoke(ClassResolutionScopesSupport.kt:31)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.ClassResolutionScopesSupport$inheritanceScopeWithMe$1.invoke(ClassResolutionScopesSupport.kt:58)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.ClassResolutionScopesSupport$inheritanceScopeWithMe$1.invoke(ClassResolutionScopesSupport.kt:31)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.ClassResolutionScopesSupport$scopeForMemberDeclarationResolution$1.invoke(ClassResolutionScopesSupport.kt:67)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.ClassResolutionScopesSupport$scopeForMemberDeclarationResolution$1.invoke(ClassResolutionScopesSupport.kt:31)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyClassDescriptor.getScopeForMemberDeclarationResolution(LazyClassDescriptor.java:370)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyClassMemberScope.getScopeForMemberDeclarationResolution(LazyClassMemberScope.kt:176)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope.getDeclaredFunctions(AbstractLazyMemberScope.kt:117)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope.access$getDeclaredFunctions(AbstractLazyMemberScope.kt:36)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope$declaredFunctionDescriptors$1.invoke(AbstractLazyMemberScope.kt:56)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope$declaredFunctionDescriptors$1.invoke(AbstractLazyMemberScope.kt:36)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunction.invoke(LockBasedStorageManager.java:527)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunctionToNotNull.invoke(LockBasedStorageManager.java:602)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope.doGetFunctions(AbstractLazyMemberScope.kt:96)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope.access$doGetFunctions(AbstractLazyMemberScope.kt:36)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope$functionDescriptors$1.invoke(AbstractLazyMemberScope.kt:49)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope$functionDescriptors$1.invoke(AbstractLazyMemberScope.kt:36)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunction.invoke(LockBasedStorageManager.java:527)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$MapBasedMemoizedFunctionToNotNull.invoke(LockBasedStorageManager.java:602)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.AbstractLazyMemberScope.getContributedFunctions(AbstractLazyMemberScope.kt:92)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyClassMemberScope.getContributedFunctions(LazyClassMemberScope.kt:230)
+	at org.jetbrains.kotlin.resolve.lazy.LazyDeclarationResolver$resolveToDescriptor$1.visitNamedFunction(LazyDeclarationResolver.kt:125)
+	at org.jetbrains.kotlin.resolve.lazy.LazyDeclarationResolver$resolveToDescriptor$1.visitNamedFunction(LazyDeclarationResolver.kt:94)
+	at org.jetbrains.kotlin.psi.KtNamedFunction.accept(KtNamedFunction.java:50)
+	at org.jetbrains.kotlin.resolve.lazy.LazyDeclarationResolver.resolveToDescriptor(LazyDeclarationResolver.kt:94)
+	at org.jetbrains.kotlin.resolve.lazy.LazyDeclarationResolver.resolveToDescriptor(LazyDeclarationResolver.kt:91)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.createFunctionDescriptors(LazyTopDownAnalyzer.kt:282)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:204)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFile(KotlinAnalyzer.kt:27)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFiles(KotlinAnalyzer.kt:34)
+	at org.jetbrains.kotlin.core.filesystem.KotlinFileStore.openInputStream(KotlinFileStore.kt:59)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:849)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:275)
+	at org.eclipse.jdt.internal.core.util.Util.getResourceContentsAsByteArray(Util.java:1157)
+	at org.eclipse.jdt.internal.core.search.JavaSearchDocument.getByteContents(JavaSearchDocument.java:50)
+	at org.eclipse.jdt.internal.core.search.indexing.BinaryIndexer.indexDocument(BinaryIndexer.java:654)
+	at org.eclipse.jdt.internal.core.search.JavaSearchParticipant.indexDocument(JavaSearchParticipant.java:73)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.indexDocument(IndexManager.java:545)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager$1.execute(IndexManager.java:1075)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:401)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 12:01:40.679
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 12:02:39.124
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:24:38.816
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.eclipse.jdt.core 2 0 2021-09-21 16:24:41.161
+!MESSAGE The Java indexing could not index /it.unibo.qakMyDemo/kotlin_bin/it/unibo/parkingservicestatusgui/Parkingservicestatusgui.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+!STACK 0
+java.lang.NullPointerException
+	at org.jetbrains.kotlin.load.kotlin.KotlinBinaryClassCache.access$getCache$p(KotlinBinaryClassCache.kt:27)
+	at org.jetbrains.kotlin.load.kotlin.KotlinBinaryClassCache$Companion.getKotlinBinaryClassOrClassFileContent(KotlinBinaryClassCache.kt:67)
+	at org.jetbrains.kotlin.load.kotlin.KotlinBinaryClassCache$Companion.getKotlinBinaryClassOrClassFileContent$default(KotlinBinaryClassCache.kt:60)
+	at org.jetbrains.kotlin.load.kotlin.VirtualFileFinder.findKotlinClassOrContent(VirtualFileFinder.kt:34)
+	at org.jetbrains.kotlin.load.kotlin.KotlinClassFinderKt.findKotlinClass(KotlinClassFinder.kt:40)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaPackageFragment$binaryClasses$2.invoke(LazyJavaPackageFragment.kt:45)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaPackageFragment$binaryClasses$2.invoke(LazyJavaPackageFragment.kt:36)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.LazyJavaPackageFragment.getBinaryClasses$descriptors_jvm(LazyJavaPackageFragment.kt)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope$kotlinScopes$2.invoke(JvmPackageScope.kt:46)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope$kotlinScopes$2.invoke(JvmPackageScope.kt:37)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope.getKotlinScopes(JvmPackageScope.kt)
+	at org.jetbrains.kotlin.load.java.lazy.descriptors.JvmPackageScope.getContributedClassifier(JvmPackageScope.kt:58)
+	at org.jetbrains.kotlin.resolve.scopes.ChainedMemberScope.getContributedClassifier(ChainedMemberScope.kt:35)
+	at org.jetbrains.kotlin.resolve.scopes.AbstractScopeAdapter.getContributedClassifier(AbstractScopeAdapter.kt:44)
+	at org.jetbrains.kotlin.resolve.AllUnderImportScope.getContributedClassifier(AllUnderImportScope.kt:85)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:257)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope$getClassifier$1.invoke(LazyImportScope.kt:221)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager.compute(LockBasedStorageManager.java:259)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getClassifier(LazyImportScope.kt:252)
+	at org.jetbrains.kotlin.resolve.lazy.LazyImportScope.getContributedClassifier(LazyImportScope.kt:248)
+	at org.jetbrains.kotlin.resolve.scopes.utils.ScopeUtilsKt.findClassifier(ScopeUtils.kt:87)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix(QualifiedExpressionResolver.kt:488)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClassPrefix$default(QualifiedExpressionResolver.kt:459)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveToPackageOrClass(QualifiedExpressionResolver.kt:440)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveQualifierPartListForType(QualifiedExpressionResolver.kt:138)
+	at org.jetbrains.kotlin.resolve.QualifiedExpressionResolver.resolveDescriptorForType(QualifiedExpressionResolver.kt:126)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveDescriptorForType(TypeResolver.kt:932)
+	at org.jetbrains.kotlin.resolve.TypeResolver$resolveTypeElement$1.visitUserType(TypeResolver.kt:247)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:929)
+	at org.jetbrains.kotlin.psi.KtVisitorVoid.visitUserType(KtVisitorVoid.java:21)
+	at org.jetbrains.kotlin.psi.KtUserType.accept(KtUserType.java:42)
+	at org.jetbrains.kotlin.psi.KtElementImplStub.accept(KtElementImplStub.java:59)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveTypeElement(TypeResolver.kt:245)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolvePossiblyBareType(TypeResolver.kt:124)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:114)
+	at org.jetbrains.kotlin.resolve.TypeResolver.resolveType(TypeResolver.kt:85)
+	at org.jetbrains.kotlin.resolve.AnnotationResolverImpl.resolveAnnotationType(AnnotationResolverImpl.java:122)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:81)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor$type$2.invoke(LazyAnnotations.kt:71)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedLazyValue.invoke(LockBasedStorageManager.java:370)
+	at org.jetbrains.kotlin.storage.LockBasedStorageManager$LockBasedNotNullLazyValue.invoke(LockBasedStorageManager.java:489)
+	at org.jetbrains.kotlin.storage.StorageKt.getValue(storage.kt:42)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.getType(LazyAnnotations.kt)
+	at org.jetbrains.kotlin.resolve.lazy.descriptors.LazyAnnotationDescriptor.forceResolveAllContents(LazyAnnotations.kt:107)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.doForceResolveAllContents(ForceResolveUtil.java:78)
+	at org.jetbrains.kotlin.resolve.lazy.ForceResolveUtil.forceResolveAllContents(ForceResolveUtil.java:69)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.createFunctionDescriptors(LazyTopDownAnalyzer.kt:284)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:204)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFile(KotlinAnalyzer.kt:27)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFiles(KotlinAnalyzer.kt:34)
+	at org.jetbrains.kotlin.core.filesystem.KotlinFileStore.openInputStream(KotlinFileStore.kt:59)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:849)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:275)
+	at org.eclipse.jdt.internal.core.util.Util.getResourceContentsAsByteArray(Util.java:1157)
+	at org.eclipse.jdt.internal.core.search.JavaSearchDocument.getByteContents(JavaSearchDocument.java:50)
+	at org.eclipse.jdt.internal.core.search.indexing.BinaryIndexer.indexDocument(BinaryIndexer.java:654)
+	at org.eclipse.jdt.internal.core.search.JavaSearchParticipant.indexDocument(JavaSearchParticipant.java:73)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.indexDocument(IndexManager.java:545)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager$1.execute(IndexManager.java:1075)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:401)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:26:07.642
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:31:42.342
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:33:16.219
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:34:22.416
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:37:20.229
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:37:42.082
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:44:36.059
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:46:13.991
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:47:08.785
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:49:20.484
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.eclipse.jdt.core 2 0 2021-09-21 16:49:21.555
+!MESSAGE The Java indexing could not index /it.unibo.qakMyDemo/kotlin_bin/it/unibo/fan/Fan.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+!STACK 0
+org.jetbrains.kotlin.progress.CompilationCanceledException
+	at org.jetbrains.kotlin.ui.builder.KotlinAnalysisJob$run$1.checkCanceled(KotlinAnalysisJob.kt:49)
+	at org.jetbrains.kotlin.progress.ProgressIndicatorAndCompilationCanceledStatus.checkCanceled(CancelationStatus.kt:40)
+	at org.jetbrains.kotlin.resolve.calls.CallResolver.resolveFunctionCall(CallResolver.java:312)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getResolvedCallForFunction(CallExpressionResolver.kt:98)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfoWithoutFinalTypeCheck(CallExpressionResolver.kt:220)
+	at org.jetbrains.kotlin.resolve.calls.CallExpressionResolver.getCallExpressionTypeInfo(CallExpressionResolver.kt:197)
+	at org.jetbrains.kotlin.types.expressions.BasicExpressionTypingVisitor.visitCallExpression(BasicExpressionTypingVisitor.java:727)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitCallExpression(ExpressionTypingVisitorDispatcher.java:388)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitCallExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReferenceExpression(KtVisitor.java:198)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitCallExpression(KtVisitor.java:278)
+	at org.jetbrains.kotlin.psi.KtCallExpression.accept(KtCallExpression.java:35)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeOfLastExpressionInBlock(ExpressionTypingServices.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:320)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeUnsafeReturnType(FunctionsTypingVisitor.kt:271)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.computeReturnType(FunctionsTypingVisitor.kt:236)
+	at org.jetbrains.kotlin.types.expressions.FunctionsTypingVisitor.visitLambdaExpression(FunctionsTypingVisitor.kt:173)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:262)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitLambdaExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtLambdaExpression.accept(KtLambdaExpression.java:40)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ControlStructureTypingVisitor.visitReturnExpression(ControlStructureTypingVisitor.java:918)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.visitReturnExpression(ExpressionTypingVisitorDispatcher.java:279)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher$ForBlock.visitReturnExpression(ExpressionTypingVisitorDispatcher.java:59)
+	at org.jetbrains.kotlin.psi.KtReturnExpression.accept(KtReturnExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:134)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:387)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitExpressionWithLabel(KtVisitor.java:226)
+	at org.jetbrains.kotlin.psi.KtVisitor.visitReturnExpression(KtVisitor.java:222)
+	at org.jetbrains.kotlin.psi.KtReturnExpression.accept(KtReturnExpression.java:33)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getTypeOfLastExpressionInBlock(ExpressionTypingServices.java:395)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedTypeWithWritableScope(ExpressionTypingServices.java:320)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:200)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.getBlockReturnedType(ExpressionTypingServices.java:177)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitBlockExpression(ExpressionTypingVisitorForStatements.java:430)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorForStatements.visitBlockExpression(ExpressionTypingVisitorForStatements.java:65)
+	at org.jetbrains.kotlin.psi.KtBlockExpression.accept(KtBlockExpression.java:78)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.lambda$getTypeInfo$0(ExpressionTypingVisitorDispatcher.java:175)
+	at org.jetbrains.kotlin.util.PerformanceCounter.time(PerformanceCounter.kt:101)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:164)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingVisitorDispatcher.getTypeInfo(ExpressionTypingVisitorDispatcher.java:147)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.checkFunctionReturnType(ExpressionTypingServices.java:172)
+	at org.jetbrains.kotlin.types.expressions.ExpressionTypingServices.checkFunctionReturnType(ExpressionTypingServices.java:155)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBody(BodyResolver.java:985)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBody(BodyResolver.java:932)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveFunctionBodies(BodyResolver.java:918)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveBehaviorDeclarationBodies(BodyResolver.java:125)
+	at org.jetbrains.kotlin.resolve.BodyResolver.resolveBodies(BodyResolver.java:246)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations(LazyTopDownAnalyzer.kt:225)
+	at org.jetbrains.kotlin.resolve.LazyTopDownAnalyzer.analyzeDeclarations$default(LazyTopDownAnalyzer.kt:60)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeKotlin(EclipseAnalyzerFacadeForJVM.kt:223)
+	at org.jetbrains.kotlin.core.resolve.EclipseAnalyzerFacadeForJVM.analyzeSources(EclipseAnalyzerFacadeForJVM.kt:84)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.resolve(KotlinAnalysisFileCache.kt:46)
+	at org.jetbrains.kotlin.core.model.KotlinAnalysisFileCache.getAnalysisResult(KotlinAnalysisFileCache.kt:32)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFile(KotlinAnalyzer.kt:27)
+	at org.jetbrains.kotlin.core.resolve.KotlinAnalyzer.analyzeFiles(KotlinAnalyzer.kt:34)
+	at org.jetbrains.kotlin.core.filesystem.KotlinFileStore.openInputStream(KotlinFileStore.kt:59)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:849)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:275)
+	at org.eclipse.jdt.internal.core.util.Util.getResourceContentsAsByteArray(Util.java:1157)
+	at org.eclipse.jdt.internal.core.search.JavaSearchDocument.getByteContents(JavaSearchDocument.java:50)
+	at org.eclipse.jdt.internal.core.search.indexing.BinaryIndexer.indexDocument(BinaryIndexer.java:654)
+	at org.eclipse.jdt.internal.core.search.JavaSearchParticipant.indexDocument(JavaSearchParticipant.java:73)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.indexDocument(IndexManager.java:545)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager$1.execute(IndexManager.java:1075)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:401)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:50:57.446
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:53:15.853
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:54:18.693
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:55:19.660
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-21 16:57:37.561
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-22 15:55:41.774
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-22 16:50:19.278
+!MESSAGE Could not check for update (Could not obtain update site)
+!SESSION 2021-09-23 09:40:15.767 -----------------------------------------------
+eclipse.buildId=4.16.0.I20200604-0540
+java.version=1.8.0_301
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=it_IT
+Framework arguments:  -product org.eclipse.epp.package.dsl.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.dsl.product
+
+!ENTRY org.eclipse.jface 2 0 2021-09-23 09:40:33.647
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2021-09-23 09:40:33.647
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5abc5854,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5c3007d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-09-23 09:40:56.777
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Filippo Manfreda'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-24 09:53:49.250
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-24 10:20:05.783
+!MESSAGE Could not check for update (Could not obtain update site)
+
+!ENTRY org.jetbrains.kotlin.core 2 0 2021-09-24 10:22:42.793
+!MESSAGE Could not check for update (Could not obtain update site)
