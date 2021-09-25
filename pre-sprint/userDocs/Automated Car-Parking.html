@@ -257,7 +257,7 @@ div.imagedesc{
     <li><ks>monitor</ks>: update the <ks>ParkingServiceStatusGUI</ks> with the required information about the state of the system. </li>
     <li><ks>manage</ks>: accept the request of the manager to stop/resume the behavior of the transport trolley. </li>
   </ul>
-  A detailed description of the requirements is available <a href="file:///Users/criss/Desktop/UNI/ISS/issLab2021/it.unibo.issLabStart/userDocs/TFBO21ParkingingISS.pdf">here</a>
+  A detailed description of the requirements is available <a href="TFBO21ISS.pdf">here</a>
 </div>
 
 <h2>Requirement analysis</h2>
@@ -412,7 +412,7 @@ div.imagedesc{
   These operations will be described in a first phase of analysis using the meta-modeling language qak. <br>
 </div class="remark">
   The following legend will be used to represent the components in the problem analysis. <br><br>
-  <img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/legenda.png" alt="LEGEND" width="15%">
+  <img src="IMG/legenda.png" alt="LEGEND" width="15%">
 
 <div>
   <h4>System overview</h4>
@@ -427,7 +427,7 @@ div.imagedesc{
           The interaction between those entities takes place via network or via different networks using messages. Data transmission
           and message format will be described below.
         </td>
-        <td><center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/SYSTEM OVERVIEW.jpg" alt="SystemOverview" width="90%"></center></td>
+        <td><center><img src="IMG/SYSTEM OVERVIEW.jpg" alt="SystemOverview" width="90%"></center></td>
       </tr>
     </tbody>
   </table>
@@ -482,7 +482,7 @@ state whenever the central system requests its state of activation.
 <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
   <tr>
     <td style="border: 0px">
-        <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/FAN.jpg" alt="FAN" width="60%"><center>
+        <center><img src="IMG/FAN.jpg" alt="FAN" width="60%"><center>
     </td>
     <td style="border: 0px">
       <center><table cellpadding="5%">
@@ -551,7 +551,7 @@ state whenever the central system requests its state of activation.
   <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
     <tr>
       <td style="border: 0px">
-          <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/OUTSONAR.jpg" alt="OUTSONAR" width="60%"><center>
+          <center><img src="IMG/OUTSONAR.jpg" alt="OUTSONAR" width="60%"><center>
       </td>
       <td style="border: 0px">
         <center>
@@ -583,7 +583,7 @@ state whenever the central system requests its state of activation.
       <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
         <tr>
           <td style="border: 0px">
-              <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/WEIGHTSENSOR.jpg" alt="WEIGHTSENSOR" width="60%"><center>
+              <center><img src="IMG/WEIGHTSENSOR.jpg" alt="WEIGHTSENSOR" width="60%"><center>
           </td>
           <td style="border: 0px">
             <center>
@@ -676,7 +676,7 @@ state whenever the central system requests its state of activation.
   <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
     <tr>
       <td style="border: 0px">
-        <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/MANAGERGUI.png" alt="ParkingServiceStatusGUI" width="65%"></center>
+        <center><img src="IMG/MANAGERGUI.png" alt="ParkingServiceStatusGUI" width="65%"></center>
       </td>
       <td style="border: 0px">
         <center>
@@ -761,7 +761,7 @@ state whenever the central system requests its state of activation.
   <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
     <tr>
       <td style="border: 0px">
-        <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/PARKSERVICEGUI.png" alt="ParkingServiceGUI" width="65%"></center>
+        <center><img src="IMG/PARKSERVICEGUI.png" alt="ParkingServiceGUI" width="65%"></center>
       </td>
       <td style="border: 0px">
         <center>
@@ -837,7 +837,7 @@ state whenever the central system requests its state of activation.
     "hub" del sistema. <br>
     Visto la complessità dei compiti che deve svolgere esso si suddivide in tre attori seguendo nuovamente un approccio "divide-et-impera":-->
   </div>
-  <center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/CORESYSTEM.png" alt="CoreSystem" width="35%"></center>
+  <center><img src="IMG/CORESYSTEM.png" alt="CoreSystem" width="35%"></center>
   <div class="remark">
     <ul>
       <li><b>business logic actor</b>: process key functionalities for the entire system:
@@ -857,7 +857,7 @@ state whenever the central system requests its state of activation.
         </ul>
       </li>
       <li><b>data collector actor</b>: it is responsible for receiving and elaborating informations from the sensors usable by the business logic actor;</li>
-      <li><b>presentaion controller actor</b>: it is placed between the business logic actor and GUIs. It gets information from GUIs and forwards them
+      <li><b>GUI controller actor</b>: it is placed between the business logic actor and GUIs. It gets information from GUIs and forwards them
         to the business logic actor and respectively sends datas from the business logic actor to clients' GUI.</li>
     </ul>
   </div>
@@ -903,7 +903,8 @@ state whenever the central system requests its state of activation.
   </div>
 </div>
 <div id="architectural_model">
-<center><img src="/Users/criss/Desktop/UNI/PROGETTO/userDocs/IMG/LOGICAL ARCHITECTURE.png" alt="architectural_model" width="40%"></center>
+<center><img src="IMG/LOGICAL ARCHITECTURE.png" alt="architectural_model" width="40%"></center>
+The model of the system can be seen <a href="https://github.com/enriLoniterp/iss2021project/blob/main/pre-sprint/model/it.unibo.Analysis/src/analisi.qak">here</a>.
 </div>
 
 <h2>Test plans</h2>
@@ -930,6 +931,7 @@ state whenever the central system requests its state of activation.
       <li>if the the temperature measured by the thermometer is greater than TMAX, the fan must be activate and the transport trolley must be stopped;</li>
       <li>if a car is stuck in the OUTDOOR-AREA for more than TFREE, the system must send an alarm to the manager.</li>
     </ol>
+    These test plans can be found <a href="https://github.com/enriLoniterp/iss2021project/blob/main/pre-sprint/app/src/test/kotlin/pre/sprint/AppTest.kt">here</a>.
   </div>
 </div>
 
@@ -1083,8 +1085,8 @@ state whenever the central system requests its state of activation.
 </div>
 
 <div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
-By studentName email: student@studio.unibo.it
-<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">
+By studentName email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini@studio.unibo.it
+<!--<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">-->
 </div>
 </body>
 </html>
