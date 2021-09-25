@@ -16,6 +16,11 @@ class Datacollector ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( na
 	@kotlinx.coroutines.ObsoleteCoroutinesApi
 	@kotlinx.coroutines.ExperimentalCoroutinesApi			
 	override fun getBody() : (ActorBasicFsm.() -> Unit){
+		 
+				var WEIGHT = 0
+				var DISTANCE = 1000
+				var weight_timestamp = 9999999999
+				var sonar_timestamp = 9999999999
 		return { //this:ActionBasciFsm
 				state("s0") { //this:State
 					action { //it:State
@@ -27,20 +32,48 @@ class Datacollector ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( na
 					action { //it:State
 						println("datacollector waiting ...")
 					}
-					 transition(edgeName="t023",targetState="handleWeight",cond=whenRequest("weight"))
-					transition(edgeName="t024",targetState="handleDetect",cond=whenRequest("detect"))
+					 transition(edgeName="t024",targetState="handleWeight",cond=whenRequest("weight"))
+					transition(edgeName="t025",targetState="handleDetect",cond=whenRequest("detect"))
+					transition(edgeName="t026",targetState="handleWeightEvent",cond=whenEvent("weight_event"))
+					transition(edgeName="t027",targetState="handleSonarEvent",cond=whenEvent("sonar_event"))
 				}	 
 				state("handleWeight") { //this:State
 					action { //it:State
 						println("datacollector reply with weight")
-						answer("weight", "cur_weight", "cur_weight(0)"   )  
+						answer("weight", "cur_weight", "cur_weight($WEIGHT)"   )  
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 
 				state("handleDetect") { //this:State
 					action { //it:State
 						println("datacollector reply with detection")
-						answer("detect", "detected", "detected(700)"   )  
+						answer("detect", "detected", "detected($DISTANCE)"   )  
+					}
+					 transition( edgeName="goto",targetState="work", cond=doswitch() )
+				}	 
+				state("handleWeightEvent") { //this:State
+					action { //it:State
+						if( checkMsgContent( Term.createTerm("weight_event(LAST_WEIGHT,TIMESTAMP)"), Term.createTerm("weight_event(LAST_WEIGHT,TIMESTAMP)"), 
+						                        currentMsg.msgContent()) ) { //set msgArgList
+								 
+												WEIGHT = payloadArg(0 ).toInt()
+												weight_timestamp = payloadArg(1).toLong()
+												var weight_time = java.util.Date(weight_timestamp*1000) 
+								println("datacollector saving new weight = $WEIGHT Kg | $weight_time")
+						}
+					}
+					 transition( edgeName="goto",targetState="work", cond=doswitch() )
+				}	 
+				state("handleSonarEvent") { //this:State
+					action { //it:State
+						if( checkMsgContent( Term.createTerm("sonar_event(LAST_DISTANCE,TIMESTAMP)"), Term.createTerm("sonar_event(LAST_DISTANCE,TIMESTAMP)"), 
+						                        currentMsg.msgContent()) ) { //set msgArgList
+								 
+												DISTANCE = payloadArg(0).toInt()
+												sonar_timestamp = payloadArg(1).toLong()
+												var sonar_time = java.util.Date(sonar_timestamp*1000)
+								println("datacollector saving new distance = $DISTANCE cm | $sonar_time")
+						}
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 

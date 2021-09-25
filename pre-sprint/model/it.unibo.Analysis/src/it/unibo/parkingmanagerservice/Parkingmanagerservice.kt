@@ -35,7 +35,7 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 				state("handleEnterRequest") { //this:State
 					action { //it:State
 						 var Tester = true  
-						println("parkingmanagerservice handles reqenter and ask datacollctor")
+						println("parkingmanagerservice handles reqenter")
 						request("weight", "weight(now)" ,"datacollector" )  
 					}
 					 transition(edgeName="t06",targetState="checkWeight",cond=whenReply("cur_weight"))
@@ -106,11 +106,10 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 								 TOKENID = COUNTER - 5   
 								request("weight", "weight(now)" ,"datacollector" )  
 						}
-						println("parkingmanagerservice moves the car to SLOTNUM = $SLOTNUM ")
-						request("moveToIn", "moveToIn(go)" ,"actuatorscontroller" )  
 					}
+					 transition(edgeName="t08",targetState="checkWeightE",cond=whenReply("cur_weight"))
 				}	 
-				state("chekcWightE") { //this:State
+				state("checkWeightE") { //this:State
 					action { //it:State
 						println("parkingmanagerservice check weight")
 						if( checkMsgContent( Term.createTerm("cur_weight(CW)"), Term.createTerm("cur_weight(CW)"), 
@@ -126,7 +125,7 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 								 }
 						}
 					}
-					 transition(edgeName="t08",targetState="checkMovedToIn",cond=whenReply("movedToIn"))
+					 transition(edgeName="t09",targetState="checkMovedToIn",cond=whenReply("movedToIn"))
 				}	 
 				state("checkMovedToIn") { //this:State
 					action { //it:State
@@ -151,7 +150,7 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 						println("parkingmanagerservice request the trolley to move to slot in")
 						request("moveToSlotIn", "moveToSlotIn(3,2)" ,"actuatorscontroller" )  
 					}
-					 transition(edgeName="t09",targetState="checkMovedToSlotIn",cond=whenReply("movedToSlotIn"))
+					 transition(edgeName="t010",targetState="checkMovedToSlotIn",cond=whenReply("movedToSlotIn"))
 				}	 
 				state("checkMovedToSlotIn") { //this:State
 					action { //it:State
@@ -180,9 +179,9 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 												SLOTNUM = 1 //TODO: deduce SLOTNUM from TOKENID 
 						}
 						request("detect", "detect(V)" ,"datacollector" )  
-						println("businesslogic         | checking the OUTDOOR-area")
+						println("parkingmanagerservice checking the OUTDOOR-area")
 					}
-					 transition(edgeName="t010",targetState="handlePickUpRequest",cond=whenReply("detected"))
+					 transition(edgeName="t011",targetState="handlePickUpRequest",cond=whenReply("detected"))
 				}	 
 				state("handlePickUpRequest") { //this:State
 					action { //it:State
@@ -198,16 +197,13 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 												else{
 													outdoorfree = true
 												}
-								println("businesslogic         | last distance received = $distance cm")
+								println("parkingmanagerservice distance received = $distance cm")
 						}
 						if(  outdoorfree  
 						 ){ 
 										var OK = "ok"
 										var X = 2 //todo: deduce the cell from SLOTNUM
 										var Y = 1
-						println("businesslogic         | reply to pickup ")
-						println("businesslogic         | sends the instructions to the actuatorscontroller to manage the car pickup (TOKENID = $TOKENID) at the parking-slot = $SLOTNUM ")
-						println("businesslogic         | request to moveToSlotOut($X,$Y)")
 						}
 						else
 						 { var OK = "wait"  
@@ -224,7 +220,7 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 						println("parkingmanagerservice request the trolley to move to slot out")
 						request("moveToSlotOut", "moveToSlotOut(3,2)" ,"actuatorscontroller" )  
 					}
-					 transition(edgeName="t011",targetState="checkMovedToSlotOut",cond=whenReply("movedToSlotOut"))
+					 transition(edgeName="t012",targetState="checkMovedToSlotOut",cond=whenReply("movedToSlotOut"))
 				}	 
 				state("checkMovedToSlotOut") { //this:State
 					action { //it:State
@@ -246,16 +242,15 @@ class Parkingmanagerservice ( name: String, scope: CoroutineScope  ) : ActorBasi
 				}	 
 				state("moveTrolleyToOut") { //this:State
 					action { //it:State
-						println("parkingmanagerservice request the trolley to move to out")
+						println("parkingmanagerservice request the trolley to move out")
 						request("moveToOut", "moveToOut(3,2)" ,"actuatorscontroller" )  
 					}
-					 transition(edgeName="t012",targetState="checkMovedToOut",cond=whenReply("movedToOut"))
+					 transition(edgeName="t013",targetState="checkMovedToOut",cond=whenReply("movedToOut"))
 				}	 
 				state("checkMovedToOut") { //this:State
 					action { //it:State
 						 pb = true 
 									var m = ""  
-						println("parkingmanagerservice: qui")
 						if( checkMsgContent( Term.createTerm("movedToOut(SUCCESS)"), Term.createTerm("movedToOut(SUCCESS)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 m = payloadArg(0)   

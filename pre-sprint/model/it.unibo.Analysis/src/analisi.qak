@@ -248,7 +248,7 @@ QActor parkingmanagerservice context  ctxcarparking{
 	
 	State handleEnterRequest{
 		[# var Tester = true #] 
-		println("parkingmanagerservice handles reqenter and ask datacollctor")
+		println("parkingmanagerservice handles reqenter")
 		request datacollector -m  weight : weight(now)	
 		
 	}
@@ -311,11 +311,10 @@ QActor parkingmanagerservice context  ctxcarparking{
 			
 			
 		}
-		println("parkingmanagerservice moves the car to SLOTNUM = $SLOTNUM ")
-		request actuatorscontroller -m moveToIn : moveToIn(go)
 	}
+	Transition t0 whenReply cur_weight -> checkWeightE
 	
-	State chekcWightE{
+	State checkWeightE{
 		println("parkingmanagerservice check weight")
 		onMsg( cur_weight : cur_weight(CW)){
 		
@@ -376,7 +375,7 @@ QActor parkingmanagerservice context  ctxcarparking{
 			#]
 		}
 		request datacollector -m detect : detect(V)
-		println("businesslogic         | checking the OUTDOOR-area")
+		println("parkingmanagerservice checking the OUTDOOR-area")
 	}
 	Transition t0 whenReply detected -> handlePickUpRequest
 	
@@ -394,7 +393,7 @@ QActor parkingmanagerservice context  ctxcarparking{
 					outdoorfree = true
 				}
 			#]
-			println("businesslogic         | last distance received = $distance cm")	 	
+			println("parkingmanagerservice distance received = $distance cm")	 	
 		}		
 		
 		if[# outdoorfree #]{
@@ -403,12 +402,6 @@ QActor parkingmanagerservice context  ctxcarparking{
 				var X = 2 //todo: deduce the cell from SLOTNUM
 				var Y = 1
 			#]
-			//replyTo pickup with confirm : confirm($OK)
-			println("businesslogic         | reply to pickup ")
-	 		
-			println("businesslogic         | sends the instructions to the actuatorscontroller to manage the car pickup (TOKENID = $TOKENID) at the parking-slot = $SLOTNUM ")
-			println("businesslogic         | request to moveToSlotOut($X,$Y)")
-			//request actuatorscontroller -m moveToSlotOut : moveToSlotOut($X,$Y)
 		}
 		else{
 			[# var OK = "wait" #]
@@ -440,7 +433,7 @@ QActor parkingmanagerservice context  ctxcarparking{
 	Goto moveTrolleyToOut if [# pb == false #] else trolleyProblem
 	
 	State moveTrolleyToOut{
-		println("parkingmanagerservice request the trolley to move to out")
+		println("parkingmanagerservice request the trolley to move out")
 		request actuatorscontroller -m moveToOut : moveToOut(3,2)
 	}
 	Transition t0 whenReply movedToOut -> checkMovedToOut
@@ -449,7 +442,6 @@ QActor parkingmanagerservice context  ctxcarparking{
 		[# pb = true 
 			var m = "" #
 		]
-		println("parkingmanagerservice: qui")
 		onMsg( movedToOut: movedToOut(SUCCESS)){
 			[# m = payloadArg(0)  #]
 			if [# m != "problem" #]{
@@ -472,7 +464,7 @@ QActor actuatorscontroller context ctxcarparking{
 	Goto work
 	
 	State work{ 
-		println("actuatorscontroller   | waiting .................. ")  
+		println("actuatorscontroller waiting .................. ")  
 	}
 	Transition t0 whenRequest moveToIn -> moveTrolleyToIn
 				  whenRequest moveToSlotIn -> moveTrolleyToSlotIn
@@ -484,12 +476,8 @@ QActor actuatorscontroller context ctxcarparking{
 	State moveTrolleyToIn{
 		
 		onMsg(moveToIn : moveToIn(MTOIN)){
-			println("actuatorscontroller   | move the Trolley to the INDOOR ")
+			println("actuatorscontroller moves the Trolley to the INDOOR ")
 			request trolley -m tMoveToIn : tMoveToIn(move)
-			/*forward weightsensor -m carA : carA(sW)
-			replyTo moveToIn with movedToIn : movedToIn(true,6,0) 
-		
-			*/
 		}
 	}
 	Transition t0 whenReply tMovedToIn -> checkTMovedToIn
@@ -499,11 +487,10 @@ QActor actuatorscontroller context ctxcarparking{
 		onMsg(tMovedToIn : tMovedToIn(MTOIN)){
 			[# var m =  payloadArg(0) #]
 			if [# m != "problem" #] {
-			println("actuatorscontroller   | car picked up by the Trolley ")
-			forward weightsensor -m carA : carA(sW)
+			println("actuatorscontroller: car picked up by the Trolley ")
 			replyTo moveToIn with movedToIn : movedToIn(moved)
 			}else{
-				println("actuatorscontroller   | car not picked up by the Trolley ")
+				println("actuatorscontroller: car not picked up by the Trolley ")
 				replyTo moveToIn with movedToIn : movedToIn(problem)
 			}
 		}
@@ -517,11 +504,8 @@ QActor actuatorscontroller context ctxcarparking{
 				var X = payloadArg(0).toInt()
 				var Y = payloadArg(1).toInt()
 			#]
-			println("actuatorscontroller   | move the Trolley(with the car) to the parking-slot in ($X,$Y) ")
-			
-			request trolley -m tMoveToSlotIn : tMoveToSlotIn($X,$Y) 
-			
-			
+			println("actuatorscontroller move the Trolley (with the car) to the parking-slot in ($X,$Y) ")
+			request trolley -m tMoveToSlotIn : tMoveToSlotIn($X,$Y) 	
 		}	
 	}
 	Transition t0 whenReply tMovedToSlotIn -> checkTMovedToSlotIn
@@ -529,13 +513,12 @@ QActor actuatorscontroller context ctxcarparking{
 	State checkTMovedToSlotIn{
 		[#pb = true #]
 		onMsg(tMovedToSlotIn : tMovedToSlotIn(SUCCESS, X, Y)){
-			println("actuatorscontroller   qui ")
 			[# var m =  payloadArg(0) #]
 			if [# m != "problem" #] {
-			println("actuatorscontroller   | car parked")
+			println("actuatorscontroller: car parked")
 			replyTo moveToSlotIn with movedToSlotIn : movedToSlotIn(moved)
 			}else{
-				println("actuatorscontroller   | car not parked")
+				println("actuatorscontroller: car not parked")
 				replyTo moveToSlotIn with movedToSlotIn : movedToSLotIn(problem)
 			}
 		}
@@ -548,10 +531,8 @@ QActor actuatorscontroller context ctxcarparking{
 				var X = payloadArg(0).toInt()
 				var Y = payloadArg(1).toInt()
 			#]
-			println("actuatorscontroller   | move the Trolley to the parking-slot in ($X,$Y) ")
-			
+			println("actuatorscontroller: move the Trolley to the parking-slot in ($X,$Y) ")
 			request trolley -m tMoveToSlotOut : tMoveToSlotOut($X,$Y) 
-			
 		}	
 	}
 	Transition t0 whenReply tMovedToSlotOut -> checkTMovedToSlotOut
@@ -561,10 +542,10 @@ QActor actuatorscontroller context ctxcarparking{
 		onMsg(tMovedToSlotOut : tMovedToSlotOut(SUCCES, X, Y)){
 			[# var m =  payloadArg(0) #]
 			if [# m != "problem" #] {
-			println("actuatorscontroller   | trolley moved to slot out")
+			println("actuatorscontroller: trolley moved to slot out")
 			replyTo moveToSlotOut with movedToSlotOut : movedToSlotOut(moved, 3,2)
 			}else{
-				println("actuatorscontroller   | trolley not moved to slot out")
+				println("actuatorscontroller: trolley not moved to slot out")
 				replyTo moveToSlotOut with movedToSlotOut : movedToSlotOut(problem, 3, 2)
 			}
 		}
@@ -577,7 +558,7 @@ QActor actuatorscontroller context ctxcarparking{
 				var X = payloadArg(0).toInt()
 				var Y = payloadArg(1).toInt()
 			#]
-			println("actuatorscontroller   | move the Trolley to out")
+			println("actuatorscontroller moves the Trolley to out")
 			request trolley -m tMoveToOut : tMoveToOut(X,Y) 
 			
 		}	
@@ -589,11 +570,10 @@ QActor actuatorscontroller context ctxcarparking{
 		onMsg(tMovedToOut : tMovedToOut(SUCCESS)){
 			[# var m =  payloadArg(0) #]
 			if [# m != "problem" #] {
-			println("actuatorscontroller   | trolley with car moved to out")
-			forward outsonar -m carD : carD(fOS)
+			println("actuatorscontroller: trolley with car moved to out")
 			replyTo moveToOut with movedToOut : movedToOut(moved)
 			}else{
-				println("actuatorscontroller   | trolley not moved to out")
+				println("actuatorscontroller: trolley not moved to out")
 				replyTo moveToOut with movedToOut : movedToOut(problem)
 			}
 		}
@@ -606,7 +586,7 @@ QActor actuatorscontroller context ctxcarparking{
 				var X = payloadArg(0)
 				
 			#]
-			println("actuatorscontroller   | move the Trolley to home")
+			println("actuatorscontrolle moves the Trolley to home")
 			request trolley -m tBackToHome : tBackToHome(X) 
 			
 		}	
@@ -618,10 +598,10 @@ QActor actuatorscontroller context ctxcarparking{
 		onMsg(tMovedToHome : tMovedToHome(MTOIN)){
 			[# var m =  payloadArg(0) #]
 			if [# m != "problem" #] {
-			println("actuatorscontroller   | trolley moved to home")
+			println("actuatorscontroller: trolley moved to home")
 			replyTo backToHome with movedToHome : movedToHome(moved)
 			}else{
-				println("actuatorscontroller   | trolley not moved to home")
+				println("actuatorscontroller: trolley not moved to home")
 				replyTo backToHome with movedToHome : movedToHome(problem)
 			}
 		}
@@ -638,6 +618,12 @@ QActor parkingservicestatusgui context  ctxcarparking{
 }
 
 QActor datacollector context  ctxcarparking{
+	[# 
+		var WEIGHT = 0
+		var DISTANCE = 1000
+		var weight_timestamp = 9999999999
+		var sonar_timestamp = 9999999999
+	#]
 	State s0 initial{
 		println("datacollector STARTS")
 	}
@@ -648,17 +634,46 @@ QActor datacollector context  ctxcarparking{
 	}
 	Transition t0 whenRequest weight -> handleWeight
 	              whenRequest detect -> handleDetect
+	              whenEvent weight_event -> handleWeightEvent
+				  whenEvent sonar_event -> handleSonarEvent
 	             
 	              
 	State handleWeight{
 		println("datacollector reply with weight")
-		replyTo weight with cur_weight : cur_weight(0)
+		replyTo weight with cur_weight : cur_weight($WEIGHT)
 	}
 	Goto work
 	
 	State handleDetect{
 		println("datacollector reply with detection")
-		replyTo detect with detected : detected(700)
+		replyTo detect with detected : detected($DISTANCE)
+	}
+	Goto work
+	
+	
+	State handleWeightEvent{
+		onMsg(weight_event : weight_event(LAST_WEIGHT,TIMESTAMP)){
+			
+			[# 
+				WEIGHT = payloadArg(0 ).toInt()
+				weight_timestamp = payloadArg(1).toLong()
+				var weight_time = java.util.Date(weight_timestamp*1000) 
+			#]	
+			println("datacollector saving new weight = $WEIGHT Kg | $weight_time")
+		} 
+	}
+	Goto work
+
+	State handleSonarEvent{
+		onMsg(sonar_event : sonar_event(LAST_DISTANCE,TIMESTAMP)){
+			[# 
+				DISTANCE = payloadArg(0).toInt()
+				sonar_timestamp = payloadArg(1).toLong()
+				var sonar_time = java.util.Date(sonar_timestamp*1000)
+			#]	
+			println("datacollector saving new distance = $DISTANCE cm | $sonar_time") 
+		}
+		
 	}
 	Goto work
 }
@@ -670,7 +685,7 @@ QActor weightsensor context ctxcarparking{
 	Goto work
 	
 	State work{ 
-		println("weightsensor          | waiting .................. ")  
+		println("weightsensor waiting ........... ")  
 	}
 	
 	Transition t1 whenMsg carP -> firstUpdate
@@ -685,7 +700,7 @@ QActor weightsensor context ctxcarparking{
 				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 			#]
 			emit weight_event : weight_event($LAST_WEIGHT, $TIMESTAMP)
-			updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
+			//updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
 		}
 	} 
 	Goto work
@@ -696,7 +711,7 @@ QActor weightsensor context ctxcarparking{
 			var TIMESTAMP = java.time.Instant.now().getEpochSecond();
     		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
 		#]
-		println("weightsensor          | weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		println("weightsensor: weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
 		emit weight_event : weight_event($LAST_WEIGHT,$TIMESTAMP)
 		//updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #] 
 	}
@@ -708,9 +723,9 @@ QActor weightsensor context ctxcarparking{
 			var TIMESTAMP = java.time.Instant.now().getEpochSecond();
     		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
 		#]	
-		println("weightsensor          | weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		println("weightsensor: weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
 		emit weight_event : weight_event($LAST_WEIGHT,$TIMESTAMP)
-		updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
+		//updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
 	}
 	Goto work
 }
@@ -722,7 +737,7 @@ QActor outsonar context ctxcarparking{
 	Goto work
 	
 	State work{ 
-		println("outsonar              | waiting .................. ")  
+		println("outsonar waiting ...........")  
 	}
 	Transition t1 whenMsg carD -> firstUpdate
 				  whenMsg carND -> secondUpdate
@@ -736,7 +751,7 @@ QActor outsonar context ctxcarparking{
 				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 			#]
 			emit sonar_event : sonar_event($LAST_DISTANCE, $TIMESTAMP)
-			updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+			//updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
 		}
 	} 
 	Goto work
@@ -747,9 +762,9 @@ QActor outsonar context ctxcarparking{
     		var TIMESTAMP = java.time.Instant.now().getEpochSecond();
     		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
 		#]	
-		println("outsonar              | sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		println("outsonar: sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
 		emit sonar_event : sonar_event($LAST_DISTANCE,$TIMESTAMP)
-		updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+		//updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
 	}
 	Goto work
 	
@@ -759,9 +774,9 @@ QActor outsonar context ctxcarparking{
     		var TIMESTAMP = java.time.Instant.now().getEpochSecond();
     		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
 		#]	
-		println("outsonar              | sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
+		println("outsonar: sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
 		emit sonar_event : sonar_event($LAST_DISTANCE,$TIMESTAMP)
-		updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+		//updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
 	}
 	Goto work
 }
@@ -785,7 +800,7 @@ QActor trolley context  ctxcarparking{
 	Goto work 
 	
 	State work{ 
-		println("trolley              | waiting .................. ")  
+		println("trolley waiting ........... ")  
 	}
 	Transition t0 whenRequest tMoveToIn -> tMoveToIn
 				  whenRequest tMoveToSlotIn -> tMoveToSlotIn
@@ -794,10 +809,11 @@ QActor trolley context  ctxcarparking{
 				  whenRequest tBackToHome -> tMoveToHome
 				  
 	State tMoveToIn {
-		println("trolley              | moving to INDOOR ")
+		println("trolley moving to INDOOR ")
 		delay 500
-		println("trolley              | moved to INDOOR ")
+		println("trolley moved to INDOOR ")
 		replyTo tMoveToIn with tMovedToIn : tMovedToIn(succes)
+		forward weightsensor -m carA : carA(sW)
 	}
 	Goto work
 	
@@ -830,17 +846,18 @@ QActor trolley context  ctxcarparking{
 	Goto work
 	
 	State tMoveToOut {
-		println("trolley              | moving to OUTDOOR ")  
+		println("trolley moving to OUTDOOR ")  
 		delay 500
-		println("trolley              | moved to OUTDOOR ")  
+		println("trolley moved to OUTDOOR ")  
 		replyTo tMoveToOut with tMovedToOut : tMovedToOut(succes)
+		forward outsonar -m carD : carD(fOS)
 	}
 	Goto work
 	
 	State tMoveToHome {
-		println("trolley              | moving to home ")  
+		println("trolley moving to home ")  
 		delay 500
-		println("trolley              | moved to home ")  
+		println("trolley moved to home ")  
 		replyTo tBackToHome with tMovedToHome : tMovedToHome(succes)
 	}
 	Goto work

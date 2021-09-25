@@ -26,23 +26,23 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 				}	 
 				state("work") { //this:State
 					action { //it:State
-						println("actuatorscontroller   | waiting .................. ")
+						println("actuatorscontroller waiting .................. ")
 					}
-					 transition(edgeName="t013",targetState="moveTrolleyToIn",cond=whenRequest("moveToIn"))
-					transition(edgeName="t014",targetState="moveTrolleyToSlotIn",cond=whenRequest("moveToSlotIn"))
-					transition(edgeName="t015",targetState="moveTrolleyToSlotOut",cond=whenRequest("moveToSlotOut"))
-					transition(edgeName="t016",targetState="moveTrolleyToOut",cond=whenRequest("moveToOut"))
-					transition(edgeName="t017",targetState="moveTrolleyToHome",cond=whenRequest("backToHome"))
+					 transition(edgeName="t014",targetState="moveTrolleyToIn",cond=whenRequest("moveToIn"))
+					transition(edgeName="t015",targetState="moveTrolleyToSlotIn",cond=whenRequest("moveToSlotIn"))
+					transition(edgeName="t016",targetState="moveTrolleyToSlotOut",cond=whenRequest("moveToSlotOut"))
+					transition(edgeName="t017",targetState="moveTrolleyToOut",cond=whenRequest("moveToOut"))
+					transition(edgeName="t018",targetState="moveTrolleyToHome",cond=whenRequest("backToHome"))
 				}	 
 				state("moveTrolleyToIn") { //this:State
 					action { //it:State
 						if( checkMsgContent( Term.createTerm("moveToIn(MOVETOIN)"), Term.createTerm("moveToIn(MTOIN)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
-								println("actuatorscontroller   | move the Trolley to the INDOOR ")
+								println("actuatorscontroller moves the Trolley to the INDOOR ")
 								request("tMoveToIn", "tMoveToIn(move)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t018",targetState="checkTMovedToIn",cond=whenReply("tMovedToIn"))
+					 transition(edgeName="t019",targetState="checkTMovedToIn",cond=whenReply("tMovedToIn"))
 				}	 
 				state("checkTMovedToIn") { //this:State
 					action { //it:State
@@ -51,12 +51,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 var m =  payloadArg(0)  
 								if(  m != "problem"  
-								 ){println("actuatorscontroller   | car picked up by the Trolley ")
-								forward("carA", "carA(sW)" ,"weightsensor" ) 
+								 ){println("actuatorscontroller: car picked up by the Trolley ")
 								answer("moveToIn", "movedToIn", "movedToIn(moved)"   )  
 								}
 								else
-								 {println("actuatorscontroller   | car not picked up by the Trolley ")
+								 {println("actuatorscontroller: car not picked up by the Trolley ")
 								 answer("moveToIn", "movedToIn", "movedToIn(problem)"   )  
 								 }
 						}
@@ -70,25 +69,24 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								
 												var X = payloadArg(0).toInt()
 												var Y = payloadArg(1).toInt()
-								println("actuatorscontroller   | move the Trolley(with the car) to the parking-slot in ($X,$Y) ")
+								println("actuatorscontroller move the Trolley (with the car) to the parking-slot in ($X,$Y) ")
 								request("tMoveToSlotIn", "tMoveToSlotIn($X,$Y)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t019",targetState="checkTMovedToSlotIn",cond=whenReply("tMovedToSlotIn"))
+					 transition(edgeName="t020",targetState="checkTMovedToSlotIn",cond=whenReply("tMovedToSlotIn"))
 				}	 
 				state("checkTMovedToSlotIn") { //this:State
 					action { //it:State
 						pb = true  
 						if( checkMsgContent( Term.createTerm("tMovedToSlotIn(SUCCESS,X,Y)"), Term.createTerm("tMovedToSlotIn(SUCCESS,X,Y)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
-								println("actuatorscontroller   qui ")
 								 var m =  payloadArg(0)  
 								if(  m != "problem"  
-								 ){println("actuatorscontroller   | car parked")
+								 ){println("actuatorscontroller: car parked")
 								answer("moveToSlotIn", "movedToSlotIn", "movedToSlotIn(moved)"   )  
 								}
 								else
-								 {println("actuatorscontroller   | car not parked")
+								 {println("actuatorscontroller: car not parked")
 								 answer("moveToSlotIn", "movedToSlotIn", "movedToSLotIn(problem)"   )  
 								 }
 						}
@@ -102,11 +100,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								
 												var X = payloadArg(0).toInt()
 												var Y = payloadArg(1).toInt()
-								println("actuatorscontroller   | move the Trolley to the parking-slot in ($X,$Y) ")
+								println("actuatorscontroller: move the Trolley to the parking-slot in ($X,$Y) ")
 								request("tMoveToSlotOut", "tMoveToSlotOut($X,$Y)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t020",targetState="checkTMovedToSlotOut",cond=whenReply("tMovedToSlotOut"))
+					 transition(edgeName="t021",targetState="checkTMovedToSlotOut",cond=whenReply("tMovedToSlotOut"))
 				}	 
 				state("checkTMovedToSlotOut") { //this:State
 					action { //it:State
@@ -115,11 +113,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 var m =  payloadArg(0)  
 								if(  m != "problem"  
-								 ){println("actuatorscontroller   | trolley moved to slot out")
+								 ){println("actuatorscontroller: trolley moved to slot out")
 								answer("moveToSlotOut", "movedToSlotOut", "movedToSlotOut(moved,3,2)"   )  
 								}
 								else
-								 {println("actuatorscontroller   | trolley not moved to slot out")
+								 {println("actuatorscontroller: trolley not moved to slot out")
 								 answer("moveToSlotOut", "movedToSlotOut", "movedToSlotOut(problem,3,2)"   )  
 								 }
 						}
@@ -133,11 +131,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								
 												var X = payloadArg(0).toInt()
 												var Y = payloadArg(1).toInt()
-								println("actuatorscontroller   | move the Trolley to out")
+								println("actuatorscontroller moves the Trolley to out")
 								request("tMoveToOut", "tMoveToOut(X,Y)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t021",targetState="checkTMovedToOut",cond=whenReply("tMovedToOut"))
+					 transition(edgeName="t022",targetState="checkTMovedToOut",cond=whenReply("tMovedToOut"))
 				}	 
 				state("checkTMovedToOut") { //this:State
 					action { //it:State
@@ -146,12 +144,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 var m =  payloadArg(0)  
 								if(  m != "problem"  
-								 ){println("actuatorscontroller   | trolley with car moved to out")
-								forward("carD", "carD(fOS)" ,"outsonar" ) 
+								 ){println("actuatorscontroller: trolley with car moved to out")
 								answer("moveToOut", "movedToOut", "movedToOut(moved)"   )  
 								}
 								else
-								 {println("actuatorscontroller   | trolley not moved to out")
+								 {println("actuatorscontroller: trolley not moved to out")
 								 answer("moveToOut", "movedToOut", "movedToOut(problem)"   )  
 								 }
 						}
@@ -165,11 +162,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								
 												var X = payloadArg(0)
 												
-								println("actuatorscontroller   | move the Trolley to home")
+								println("actuatorscontrolle moves the Trolley to home")
 								request("tBackToHome", "tBackToHome(X)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t022",targetState="checkTMovedToHome",cond=whenReply("tMovedToHome"))
+					 transition(edgeName="t023",targetState="checkTMovedToHome",cond=whenReply("tMovedToHome"))
 				}	 
 				state("checkTMovedToHome") { //this:State
 					action { //it:State
@@ -178,11 +175,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 var m =  payloadArg(0)  
 								if(  m != "problem"  
-								 ){println("actuatorscontroller   | trolley moved to home")
+								 ){println("actuatorscontroller: trolley moved to home")
 								answer("backToHome", "movedToHome", "movedToHome(moved)"   )  
 								}
 								else
-								 {println("actuatorscontroller   | trolley not moved to home")
+								 {println("actuatorscontroller: trolley not moved to home")
 								 answer("backToHome", "movedToHome", "movedToHome(problem)"   )  
 								 }
 						}

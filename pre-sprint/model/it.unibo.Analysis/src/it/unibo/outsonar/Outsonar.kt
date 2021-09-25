@@ -25,11 +25,11 @@ class Outsonar ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, s
 				}	 
 				state("work") { //this:State
 					action { //it:State
-						println("outsonar              | waiting .................. ")
+						println("outsonar waiting ...........")
 					}
-					 transition(edgeName="t128",targetState="firstUpdate",cond=whenDispatch("carD"))
-					transition(edgeName="t129",targetState="secondUpdate",cond=whenDispatch("carND"))
-					transition(edgeName="t130",targetState="update",cond=whenDispatch("updateValue"))
+					 transition(edgeName="t131",targetState="firstUpdate",cond=whenDispatch("carD"))
+					transition(edgeName="t132",targetState="secondUpdate",cond=whenDispatch("carND"))
+					transition(edgeName="t133",targetState="update",cond=whenDispatch("updateValue"))
 				}	 
 				state("update") { //this:State
 					action { //it:State
@@ -40,8 +40,6 @@ class Outsonar ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, s
 												var LAST_DISTANCE = payloadArg(0).toInt()	
 												var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 								emit("sonar_event", "sonar_event($LAST_DISTANCE,$TIMESTAMP)" ) 
-								updateResourceRep( "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )"  
-								)
 						}
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
@@ -52,10 +50,8 @@ class Outsonar ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, s
 									var LAST_DISTANCE = 100
 						    		var TIMESTAMP = java.time.Instant.now().getEpochSecond();
 						    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
-						println("outsonar              | sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
+						println("outsonar: sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
 						emit("sonar_event", "sonar_event($LAST_DISTANCE,$TIMESTAMP)" ) 
-						updateResourceRep( "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )"  
-						)
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 
@@ -65,10 +61,8 @@ class Outsonar ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, s
 									var LAST_DISTANCE = 1000
 						    		var TIMESTAMP = java.time.Instant.now().getEpochSecond();
 						    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
-						println("outsonar              | sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
+						println("outsonar: sonar_event($LAST_DISTANCE,$TIMESTAMP,$TIMESTAMPFORMAT)")
 						emit("sonar_event", "sonar_event($LAST_DISTANCE,$TIMESTAMP)" ) 
-						updateResourceRep( "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )"  
-						)
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 

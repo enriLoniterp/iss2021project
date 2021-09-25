@@ -25,20 +25,21 @@ class Trolley ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, sc
 				}	 
 				state("work") { //this:State
 					action { //it:State
-						println("trolley              | waiting .................. ")
+						println("trolley waiting ........... ")
 					}
-					 transition(edgeName="t031",targetState="tMoveToIn",cond=whenRequest("tMoveToIn"))
-					transition(edgeName="t032",targetState="tMoveToSlotIn",cond=whenRequest("tMoveToSlotIn"))
-					transition(edgeName="t033",targetState="tMoveToSlotOut",cond=whenRequest("tMoveToSlotOut"))
-					transition(edgeName="t034",targetState="tMoveToOut",cond=whenRequest("tMoveToOut"))
-					transition(edgeName="t035",targetState="tMoveToHome",cond=whenRequest("tBackToHome"))
+					 transition(edgeName="t034",targetState="tMoveToIn",cond=whenRequest("tMoveToIn"))
+					transition(edgeName="t035",targetState="tMoveToSlotIn",cond=whenRequest("tMoveToSlotIn"))
+					transition(edgeName="t036",targetState="tMoveToSlotOut",cond=whenRequest("tMoveToSlotOut"))
+					transition(edgeName="t037",targetState="tMoveToOut",cond=whenRequest("tMoveToOut"))
+					transition(edgeName="t038",targetState="tMoveToHome",cond=whenRequest("tBackToHome"))
 				}	 
 				state("tMoveToIn") { //this:State
 					action { //it:State
-						println("trolley              | moving to INDOOR ")
+						println("trolley moving to INDOOR ")
 						delay(500) 
-						println("trolley              | moved to INDOOR ")
+						println("trolley moved to INDOOR ")
 						answer("tMoveToIn", "tMovedToIn", "tMovedToIn(succes)"   )  
+						forward("carA", "carA(sW)" ,"weightsensor" ) 
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 
@@ -72,18 +73,19 @@ class Trolley ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, sc
 				}	 
 				state("tMoveToOut") { //this:State
 					action { //it:State
-						println("trolley              | moving to OUTDOOR ")
+						println("trolley moving to OUTDOOR ")
 						delay(500) 
-						println("trolley              | moved to OUTDOOR ")
+						println("trolley moved to OUTDOOR ")
 						answer("tMoveToOut", "tMovedToOut", "tMovedToOut(succes)"   )  
+						forward("carD", "carD(fOS)" ,"outsonar" ) 
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 
 				state("tMoveToHome") { //this:State
 					action { //it:State
-						println("trolley              | moving to home ")
+						println("trolley moving to home ")
 						delay(500) 
-						println("trolley              | moved to home ")
+						println("trolley moved to home ")
 						answer("tBackToHome", "tMovedToHome", "tMovedToHome(succes)"   )  
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )

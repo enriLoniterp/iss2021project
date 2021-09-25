@@ -25,11 +25,11 @@ class Weightsensor ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( nam
 				}	 
 				state("work") { //this:State
 					action { //it:State
-						println("weightsensor          | waiting .................. ")
+						println("weightsensor waiting ........... ")
 					}
-					 transition(edgeName="t125",targetState="firstUpdate",cond=whenDispatch("carP"))
-					transition(edgeName="t126",targetState="secondUpdate",cond=whenDispatch("carA"))
-					transition(edgeName="t127",targetState="update",cond=whenDispatch("updateValue"))
+					 transition(edgeName="t128",targetState="firstUpdate",cond=whenDispatch("carP"))
+					transition(edgeName="t129",targetState="secondUpdate",cond=whenDispatch("carA"))
+					transition(edgeName="t130",targetState="update",cond=whenDispatch("updateValue"))
 				}	 
 				state("update") { //this:State
 					action { //it:State
@@ -40,8 +40,6 @@ class Weightsensor ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( nam
 												var LAST_WEIGHT = payloadArg(0).toInt()	
 												var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 								emit("weight_event", "weight_event($LAST_WEIGHT,$TIMESTAMP)" ) 
-								updateResourceRep( "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )"  
-								)
 						}
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
@@ -52,7 +50,7 @@ class Weightsensor ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( nam
 									var LAST_WEIGHT = 1000
 									var TIMESTAMP = java.time.Instant.now().getEpochSecond();
 						    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
-						println("weightsensor          | weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
+						println("weightsensor: weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
 						emit("weight_event", "weight_event($LAST_WEIGHT,$TIMESTAMP)" ) 
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
@@ -63,10 +61,8 @@ class Weightsensor ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( nam
 									var LAST_WEIGHT = 0 
 									var TIMESTAMP = java.time.Instant.now().getEpochSecond();
 						    		var TIMESTAMPFORMAT = java.util.Date(TIMESTAMP*1000);
-						println("weightsensor          | weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
+						println("weightsensor: weight_event($LAST_WEIGHT,$TIMESTAMP,$TIMESTAMPFORMAT)")
 						emit("weight_event", "weight_event($LAST_WEIGHT,$TIMESTAMP)" ) 
-						updateResourceRep( "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )"  
-						)
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 
