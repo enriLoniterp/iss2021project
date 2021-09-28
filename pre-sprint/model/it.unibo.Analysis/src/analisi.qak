@@ -180,7 +180,7 @@ QActor parkingservicegui context  ctxcarparking{
 	      //whenTime 1000 -> retrayLater   
 	      whenReply enter -> enterTheCar
 	
-	State enterTheCar{
+	State enterTheCar{upd
  		onMsg(enter : enter(SLOTNUM)){
 			[# SLOTNUM = payloadArg(0 ).toInt() #]
 			println("client receives SLOTNUM = $SLOTNUM ")
@@ -699,6 +699,7 @@ QActor weightsensor context ctxcarparking{
 				var LAST_WEIGHT = payloadArg(0).toInt()	
 				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 			#]
+
 			emit weight_event : weight_event($LAST_WEIGHT, $TIMESTAMP)
 			//updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
 		}
