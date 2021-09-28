@@ -14,7 +14,7 @@ class AppTest {
 
     private val indoorUrl = "coap://localhost:8002/ctxcarparking/weightsensor"
     private val outdoorUrl = "coap://localhost:8002/ctxcarparking/outsonar"
-    private val mainUrl = "coap://localhost:8002/ctxcarparking/businesslogic"
+    private val mainUrl = "coap://localhost:8002/ctxcarparking/parkingmanagerservice"
     private lateinit var weightClient: CoapClient
     private lateinit var sonarClient: CoapClient
     private lateinit var logicClient: CoapClient
@@ -68,7 +68,7 @@ class AppTest {
     //if the response is not null we check the number is equal to 1, then it is free
     @Test fun freeOutdoor() {
         val ID: String = goInThePark()
-        val exp = listOf("coap1", "pickup", "pickup($ID)", "businesslogic"))
+        val exp = listOf("coap1", "pickup", "pickup($ID)", "businesslogic")
         val richiesta = exp.joinToString(separator = ",")
         val pickupResponse: CoapResponse? = logicClient.put(richiesta, MediaTypeRegistry.TEXT_PLAIN)
         assertNotNull(pickupResponse, "pickup req ref")

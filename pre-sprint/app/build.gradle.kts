@@ -31,7 +31,7 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
     flatDir {
-        dirs("C:/Users/Enrico/Documents/iss2021project/pre-sprint/libs")
+        dirs("../libs")
     }
 }
 
@@ -48,7 +48,7 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.7.0")
     implementation("org.eclipse.californium:californium-core:2.0.0-M18")
     implementation("org.eclipse.californium:californium-proxy:2.0.0-M18")
-    implementation("qak:it.unibo.qakactor")
+    //implementation("qak:it.unibo.qakactor")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
