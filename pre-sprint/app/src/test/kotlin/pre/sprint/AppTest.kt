@@ -8,6 +8,8 @@ import org.eclipse.californium.core.CoapClient
 import org.eclipse.californium.core.CoapResponse
 import org.eclipse.californium.core.coap.MediaTypeRegistry
 import kotlin.test.*
+import it.unibo.kactor.ApplMessage
+import it.unibo.kactor.MsgUtil
 
 
 class AppTest {
@@ -37,9 +39,10 @@ class AppTest {
         val newWeight: Int = 450
         updateSensorValue(newWeight, "weightsensor", weightClient, {s -> s.split(",").get(0).substringAfterLast("(").toInt()})
         print("ok sensorvalue")
-        val exp = listOf("coap1", "reqenter", "reqenter(DamianodeiManeskin)", "parkingmanagerservice")
-        val richiesta = exp.joinToString(separator = ",")
-        val acceptInResponse: CoapResponse? = logicClient.put(richiesta, MediaTypeRegistry.TEXT_PLAIN)
+        //val exp = listOf("coap1", "reqenter", "reqenter(DamianodeiManeskin)", "parkingmanagerservice")
+        //val richiesta = exp.joinToString(separator = ",")
+        val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "reqenter", "reqenter(DamianodeiManeskin)", "parkingmanagerservice")
+        val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
         assertNull(acceptInResponse, "acceptIn request was not refused")
     }
 
@@ -50,9 +53,10 @@ class AppTest {
         val targa: String = "0A1"
         val newDistance: Int = 5 //metri
         updateSensorValue(newDistance, "outsonar", sonarClient, { s-> s.split(",").get(0).substringAfterLast("(").toInt()})
-        val exp = listOf("coap1", "pickup", "pickup($targa)", "parkingmanagerservice")
-        val richiesta = exp.joinToString(separator = ",")
-        val pickupResponse: CoapResponse? = logicClient.put(richiesta, MediaTypeRegistry.TEXT_PLAIN)
+       // val exp = listOf("coap1", "pickup", "pickup($targa)", "parkingmanagerservice")
+        //val richiesta = exp.joinToString(separator = ",")
+        val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "pickup", "pickup($targa)", "parkingmanagerservice")
+        val pickupResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
         assertNotNull(pickupResponse, "pickupreq ok")
         if (pickupResponse.isSuccess) {
             val resp: String = pickupResponse.responseText.split(",").get(4).substringAfter("(").substringBefore(")")
@@ -67,9 +71,10 @@ class AppTest {
     //if the response is not null we check the number is equal to 1, then it is free
     @Test fun freeOutdoor() {
         val ID: String = goInThePark()
-        val exp = listOf("coap1", "pickup", "pickup($ID)", "parkingmanagerservice")
-        val richiesta = exp.joinToString(separator = ",")
-        val pickupResponse: CoapResponse? = logicClient.put(richiesta, MediaTypeRegistry.TEXT_PLAIN)
+        //val exp = listOf("coap1", "pickup", "pickup($ID)", "parkingmanagerservice")
+        //val richiesta = exp.joinToString(separator = ",")
+        val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "pickup", "pickup(DamianodeiManeskin)", "parkingmanagerservice")
+        val pickupResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
         assertNotNull(pickupResponse, "pickup req ref")
         pickupResponse.toString()
         if (pickupResponse.isSuccess) {
@@ -86,9 +91,10 @@ class AppTest {
     }
 
     fun updateSensorValue(newV: Int, nomeSensore: String, client: CoapClient, responseToValue: (String) -> Int) {
-        val exp = listOf("coap1","updateValue", "updateValue($newV)", nomeSensore)
-        val richiesta = exp.joinToString(separator = ",")
-        val updateResponse: CoapResponse? = client.put(richiesta, MediaTypeRegistry.TEXT_PLAIN)
+        //val exp = listOf("coap1","updateValue", "updateValue($newV)", nomeSensore)
+        //val richiesta = exp.joinToString(separator = ",")
+        val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "updateValue", "updateValue($newV)", nomeSensore)
+        val updateResponse: CoapResponse? = client.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
         val firstResponse: CoapResponse? = client.get(MediaTypeRegistry.TEXT_PLAIN)
         assertNotNull(firstResponse, "not ok")
         if (firstResponse.isSuccess) {
@@ -104,8 +110,9 @@ class AppTest {
         val emptyWeight: Int = 0
         val carWeight: Int = 400
         updateSensorValue(emptyWeight, "weightsensor", weightClient, { s -> s.split(",").get(0).substringAfterLast("(").toInt()})
-        val exp = listOf("coap1", "reqenter", "reqenter(DamianodeiManeskin)", "parkingmanagerservice")
-        val richiesta = exp.joinToString(separator = ",")
+        //val exp = listOf("coap1", "reqenter", "reqenter(DamianodeiManeskin)", "parkingmanagerservice")
+        //val richiesta = exp.joinToString(separator = ",")
+        val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "reqenter", "reqenter(DamianodeiManeskin)", "parkingmanagerservice")
         val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
         assertNotNull(acceptInResponse, "car doens't enter the indoorArea")
         if (acceptInResponse.isSuccess) {
@@ -113,8 +120,9 @@ class AppTest {
             assertTrue(slot > 0, "parking-slot was not free")
             assertTrue(slot < 7, "parking-slot was not free")
             updateSensorValue(carWeight, "weightsensor", weightClient, {s -> s.split(",").get(0).substringAfterLast("(").toInt()})
-            val expCarenter = listOf("coap1", "carenter", "carenter($slot)", "parkingmanagerservice")
-            val richiesta = expCarenter.joinToString(separator = ",")
+            //val expCarenter = listOf("coap1", "carenter", "carenter($slot)", "parkingmanagerservice")
+            //val richiesta = expCarenter.joinToString(separator = ",")
+            val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "carenter", "carenter($slot)", "parkingmanagerservice")
             val carenterResp: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
             assertNotNull(carenterResp, "carenter request was refused")
             if (carenterResp.isSuccess) {
