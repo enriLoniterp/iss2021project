@@ -28,11 +28,11 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 					action { //it:State
 						println("actuatorscontroller waiting .................. ")
 					}
-					 transition(edgeName="t014",targetState="moveTrolleyToIn",cond=whenRequest("moveToIn"))
-					transition(edgeName="t015",targetState="moveTrolleyToSlotIn",cond=whenRequest("moveToSlotIn"))
-					transition(edgeName="t016",targetState="moveTrolleyToSlotOut",cond=whenRequest("moveToSlotOut"))
-					transition(edgeName="t017",targetState="moveTrolleyToOut",cond=whenRequest("moveToOut"))
-					transition(edgeName="t018",targetState="moveTrolleyToHome",cond=whenRequest("backToHome"))
+					 transition(edgeName="t015",targetState="moveTrolleyToIn",cond=whenRequest("moveToIn"))
+					transition(edgeName="t016",targetState="moveTrolleyToSlotIn",cond=whenRequest("moveToSlotIn"))
+					transition(edgeName="t017",targetState="moveTrolleyToSlotOut",cond=whenRequest("moveToSlotOut"))
+					transition(edgeName="t018",targetState="moveTrolleyToOut",cond=whenRequest("moveToOut"))
+					transition(edgeName="t019",targetState="moveTrolleyToHome",cond=whenRequest("backToHome"))
 				}	 
 				state("moveTrolleyToIn") { //this:State
 					action { //it:State
@@ -42,7 +42,7 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								request("tMoveToIn", "tMoveToIn(move)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t019",targetState="checkTMovedToIn",cond=whenReply("tMovedToIn"))
+					 transition(edgeName="t020",targetState="checkTMovedToIn",cond=whenReply("tMovedToIn"))
 				}	 
 				state("checkTMovedToIn") { //this:State
 					action { //it:State
@@ -73,7 +73,7 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								request("tMoveToSlotIn", "tMoveToSlotIn($X,$Y)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t020",targetState="checkTMovedToSlotIn",cond=whenReply("tMovedToSlotIn"))
+					 transition(edgeName="t021",targetState="checkTMovedToSlotIn",cond=whenReply("tMovedToSlotIn"))
 				}	 
 				state("checkTMovedToSlotIn") { //this:State
 					action { //it:State
@@ -104,7 +104,7 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								request("tMoveToSlotOut", "tMoveToSlotOut($X,$Y)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t021",targetState="checkTMovedToSlotOut",cond=whenReply("tMovedToSlotOut"))
+					 transition(edgeName="t022",targetState="checkTMovedToSlotOut",cond=whenReply("tMovedToSlotOut"))
 				}	 
 				state("checkTMovedToSlotOut") { //this:State
 					action { //it:State
@@ -135,7 +135,7 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								request("tMoveToOut", "tMoveToOut(X,Y)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t022",targetState="checkTMovedToOut",cond=whenReply("tMovedToOut"))
+					 transition(edgeName="t023",targetState="checkTMovedToOut",cond=whenReply("tMovedToOut"))
 				}	 
 				state("checkTMovedToOut") { //this:State
 					action { //it:State
@@ -166,7 +166,7 @@ class Actuatorscontroller ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								request("tBackToHome", "tBackToHome(X)" ,"trolley" )  
 						}
 					}
-					 transition(edgeName="t023",targetState="checkTMovedToHome",cond=whenReply("tMovedToHome"))
+					 transition(edgeName="t024",targetState="checkTMovedToHome",cond=whenReply("tMovedToHome"))
 				}	 
 				state("checkTMovedToHome") { //this:State
 					action { //it:State

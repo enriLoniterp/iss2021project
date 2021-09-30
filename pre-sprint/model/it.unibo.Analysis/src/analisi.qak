@@ -27,15 +27,16 @@
  * 									  if CW == 0
  * 						           			INDOOR free
  * 											send reply reqenter(5)
- * 											send request backToHome() to actuators controller
- * 											receives reply movedToHome(MOVED)
- * 											if(MOVED == false)
- * 												print a error message
+ * 											if trolley is not at home
+ * 												send request backToHome() to actuators controller
+ * 												receives reply movedToHome(MOVED)
+ * 												if(MOVED == false)
+ * 													print a error message
  *                                    else 
- *                                          no reply (maybe a reply with number 9999) 
+ *                                          no reply (maybe a reply with a wait message) 
  * 
  *  datacollector                   | handles weight
- * 									  send reply cur_weight(0)
+ * 									  send reply cur_weight(CW)
  * 
  *  actuatorscontroller				| handles backToHome()
  * 									  send request tMoveToHome to trolley
@@ -52,6 +53,8 @@
  *  client using parkingservicegui  | moves the car to INDOOR
  * 									  send request carenter(5)
  *                                    receives the reply receipt(TOKENID)
+ * 
+ * 	weightsensor					| emit event weight_event(1000, TIMESTAMP)
  * 			 
  *  parkingmanagerservice           | handles carenter
  * 									  send request weight to data collector
@@ -64,12 +67,39 @@
  * 												send request backToHome() to actuatorscontroller 
  * 												receives reply movedToHome(MOVED)
  * 												if (MOVED != true)
+ * 													print a error message
  * 											else
- * 												
- * 									  else	
- * 									  	     
- *  client using parkingservicegui  | goto the OUTDOOR
- *                                    send request pickup(COUNTER-5)
+ * 												print a error message
+ * 									  else
+ * 											send reply with an error message
+ * 
+ * actuatorscontroller				| handles moveToSlotIn(X)
+ * 									  send request tMoveToSlotIn(5) to trolley
+ * 									  receives the reply tMovedToSlotIn(MOVED)
+ * 									  if ( MOVED == true )
+ * 									  		send reply movedToSlotIn(true)
+ * 									  else
+ * 											send reply movedToSlotIn(false)
+ * 									  handles backToHome()
+ * 									  send request tMoveToHome to trolley
+ * 									  receives the reply tMovedToHome(MOVED)
+ * 									  if ( MOVED == true )
+ * 									  		send reply movedToHome(true)
+ * 									  else
+ * 											send reply movedToHome(false)
+ * 									  
+ * 
+ * 	trolley							| handles tMoveToSlotIn(5)
+ * 									  takes the car and move to slot 5
+ * 									  send reply tMovedToSlotIn(true)
+ * 									  handles tMoveToHome
+ * 									  moves to home position
+ * 									  send reply tMovedToHome(true)
+ * 
+ *  weightsensor					| emit event weight_event(0, TIMESTAMP)
+ * 								  	     
+ *  client using parkingservicegui  | go to the OUTDOOR
+ *                                    send request pickup(TOKENID)
  *                                    receives the reply confirm
  *                            		  removes the car from the OUTDOOR
  * 
@@ -81,19 +111,43 @@
  * 										send request moveToOut(5) to trasport trolley
  * 										receives reply moved(M)
  * 										 if M == OK
- * 											send reply ready
+ * 											send reply confirm
  *                                          send request backToHome(5) to the trasport trolley
  * 											receives the reply moved(M)
  * 											if M != OK
- * 												!TODO!
+ * 												print a error message
  *                                       else 	
- * 											!TODO!						    
+ * 											print a error message						    
  *                                    else
- *                                          !TODO!
+ *                                          print a error message
  * 
  * datacollector                   | handles detect
- * 									 send reply detected(no)    
+ * 									 send reply detected(no) 
  * 
+ * actuatorscontroller			   | handles moveToSlotOut(X)
+ * 									 send request tMoveToSlotOut(5) to trolley
+ * 									 receives the reply tMovedToSlotOut(MOVED)
+ * 							    	 if ( MOVED == true )
+ * 								  		send reply movedToSlotOut(true)
+ * 									 else
+ * 										send reply movedToSlotOut(false)
+ * 									 handles backToHome()
+ * 									 send request tMoveToHome to trolley
+ * 									 receives the reply tMovedToHome(MOVED)
+ * 									 if ( MOVED == true )
+ * 									  	send reply movedToHome(true)
+ * 									 else
+ * 										send reply movedToHome(false)
+ * 									  
+ * 
+ * 	trolley							| handles tMoveToSlotOut(5)
+ * 									  takes the car from the slot 5 and moves to outdoor
+ * 									  send reply tMovedToSlotOut(true)
+ * 									  handles tMoveToHome
+ * 									  moves to home position
+ * 									  send reply tMovedToHome(true)
+ * 								  	     
+ *  outsonar						| emit event sonar_event(100, TIMESTAMP)
  *  
  */
 System carparking
@@ -114,6 +168,8 @@ Reply   cur_weight    : cur_weight(CW)
 
 Request detect : detect(K)
 Reply   detected    : detected(V)
+
+Dispatch ready : ready(R)
 
 //parkingmanagerservice-actuatorscontroller interaction
 Request moveToIn : moveToIn(MOVETOIN)
@@ -180,7 +236,7 @@ QActor parkingservicegui context  ctxcarparking{
 	      //whenTime 1000 -> retrayLater   
 	      whenReply enter -> enterTheCar
 	
-	State enterTheCar{upd
+	State enterTheCar{
  		onMsg(enter : enter(SLOTNUM)){
 			[# SLOTNUM = payloadArg(0 ).toInt() #]
 			println("client receives SLOTNUM = $SLOTNUM ")
@@ -217,13 +273,18 @@ QActor parkingservicegui context  ctxcarparking{
 		onMsg(confirm : confirm(OK)){
 			[# OK = payloadArg(0 ) #]
 			if [# OK == "ok" #] {
-				println("client go away with the car") 
-				forward outsonar -m carND : carND(sOs)
+				println("client wait the car at the outdoor") 
 			}else{
 				println("client: problem with the pickup") 
 			}
 			
 		}	
+	}
+	Transition t0 whenMsg ready -> carReady
+	
+	State carReady{
+		println("client go away with the car") 
+		forward outsonar -m carND : carND(sOs)
 	}
 	  
 	State retrayLater{
@@ -232,7 +293,7 @@ QActor parkingservicegui context  ctxcarparking{
 }
  
 QActor parkingmanagerservice context  ctxcarparking{
-	[# var c_weight = 9999 ; var COUNTER = 1500; var SLOTNUM = 0; var pb = true; var outdoorfree = false; var TOKENID = 0 #]
+	[# var c_weight = 9999 ; var COUNTER = 1500; var SLOTNUM = 0; var pb = true; var outdoorfree = false; var TOKENID = 0; var trolleyPos = 0 #]
 	
 	State s0 initial{
 		println("parkingmanagerservice STARTS")
@@ -263,14 +324,17 @@ QActor parkingmanagerservice context  ctxcarparking{
 			if [# c_weight == 0 #]{
 				replyTo reqenter with enter : enter(5)
 				println("parkingmanagerservice slot 5 free")
+				
 			}else{
 				replyTo reqenter with enter : enter(9999)
 				println("parkingmanagerservice INDOOR occupied")
+				updateResource [# "reply( enter(9999) )" #]
+				
 			}
 			
 		}		
 	}
-	Goto work if [# c_weight != 0 #] else moveTrolleyHome
+	Goto work if [# c_weight != 0 || trolleyPos == 0 #] else moveTrolleyHome
 	
 	State moveTrolleyHome{
 		println("parkingmanagerservice request the trolley to move at home")
@@ -285,13 +349,13 @@ QActor parkingmanagerservice context  ctxcarparking{
 		println("parkingmanagerservice check move")
 		onMsg( movedToHome : movedToHome(Y)){
 			[# m = payloadArg(0)  #]
-			if [# m != "problem" #]{
-				if [# m == "already" #]{
-					println("parkingmanagerservice: trolley already at home")
-				}else{
-					println("parkingmanagerservice: trolley moved")
-				}
-				[# pb = false #]
+			if [# m != "problem" #]{	
+				println("parkingmanagerservice: trolley moved")
+				
+				[# pb = false 
+					trolleyPos = 0
+					#
+				]
 			}
 				
 		}		
@@ -341,7 +405,10 @@ QActor parkingmanagerservice context  ctxcarparking{
 			[# m = payloadArg(0)  #]
 			if [# m != "problem" #]{
 				println("parkingmanagerservice: trolley moved")
-				[# pb = false #]
+				[# pb = false
+					trolleyPos =1
+					#
+				]
 			}	
 		}
 	}
@@ -399,13 +466,18 @@ QActor parkingmanagerservice context  ctxcarparking{
 		if[# outdoorfree #]{
 			[# 
 				var OK = "ok"
-				var X = 2 //todo: deduce the cell from SLOTNUM
-				var Y = 1
+				//todo: deduce the cell from SLOTNUM
+				
 			#]
+			println("parkingmanagerservice distance received = QUI")	
+			replyTo pickup with confirm : confirm($OK)
+			updateResource [# "reply( confirm(ok) )" #]
 		}
 		else{
 			[# var OK = "wait" #]
 			replyTo pickup with confirm : confirm($OK)
+			updateResource [# "reply( confirm(wait) )" #]
+			
 		}
 	}
 	Goto work if [# outdoorfree == false #] else moveTrolleyToSlotOut
@@ -425,8 +497,11 @@ QActor parkingmanagerservice context  ctxcarparking{
 			
 			[# m = payloadArg(0)  #]
 			if [# m != "problem" #]{
-				println("parkingmanagerservice: trolley moved")
-				[# pb = false #]
+				println("parkingmanagerservice: trolley moved to slot out")
+				[# pb = false
+					trolleyPos = 1
+					#
+				]
 			}	
 		}
 	}
@@ -445,9 +520,12 @@ QActor parkingmanagerservice context  ctxcarparking{
 		onMsg( movedToOut: movedToOut(SUCCESS)){
 			[# m = payloadArg(0)  #]
 			if [# m != "problem" #]{
-				println("parkingmanagerservice: trolley moved")
-				replyTo pickup with confirm : confirm(ok)
-				[# pb = false #]
+				println("parkingmanagerservice: trolley moved to out")
+				forward parkingservicegui -m ready : ready(ready)
+				[# pb = false
+				   trolleyPos = 1
+					#
+				]
 			}	
 		}
 	}
@@ -699,9 +777,8 @@ QActor weightsensor context ctxcarparking{
 				var LAST_WEIGHT = payloadArg(0).toInt()	
 				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 			#]
-
 			emit weight_event : weight_event($LAST_WEIGHT, $TIMESTAMP)
-			//updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
+			updateResource [# "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )" #]
 		}
 	} 
 	Goto work
@@ -752,7 +829,7 @@ QActor outsonar context ctxcarparking{
 				var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 			#]
 			emit sonar_event : sonar_event($LAST_DISTANCE, $TIMESTAMP)
-			//updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
+			updateResource [# "event( sonar_event($LAST_DISTANCE,$TIMESTAMP) )" #]
 		}
 	} 
 	Goto work
@@ -850,8 +927,9 @@ QActor trolley context  ctxcarparking{
 		println("trolley moving to OUTDOOR ")  
 		delay 500
 		println("trolley moved to OUTDOOR ")  
-		replyTo tMoveToOut with tMovedToOut : tMovedToOut(succes)
 		forward outsonar -m carD : carD(fOS)
+		replyTo tMoveToOut with tMovedToOut : tMovedToOut(succes)
+		
 	}
 	Goto work
 	

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="californium-core-2.0.0-M18">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/californium-core-2.0.0-M18.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../../../../../californium-core-2.0.0-M18.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

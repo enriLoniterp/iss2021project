@@ -78,13 +78,19 @@ class Parkingservicegui ( name: String, scope: CoroutineScope  ) : ActorBasicFsm
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 OK = payloadArg(0 )  
 								if(  OK == "ok"  
-								 ){println("client go away with the car")
-								forward("carND", "carND(sOs)" ,"outsonar" ) 
+								 ){println("client wait the car at the outdoor")
 								}
 								else
 								 {println("client: problem with the pickup")
 								 }
 						}
+					}
+					 transition(edgeName="t03",targetState="carReady",cond=whenDispatch("ready"))
+				}	 
+				state("carReady") { //this:State
+					action { //it:State
+						println("client go away with the car")
+						forward("carND", "carND(sOs)" ,"outsonar" ) 
 					}
 				}	 
 				state("retrayLater") { //this:State

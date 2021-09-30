@@ -27,11 +27,11 @@ class Trolley ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, sc
 					action { //it:State
 						println("trolley waiting ........... ")
 					}
-					 transition(edgeName="t034",targetState="tMoveToIn",cond=whenRequest("tMoveToIn"))
-					transition(edgeName="t035",targetState="tMoveToSlotIn",cond=whenRequest("tMoveToSlotIn"))
-					transition(edgeName="t036",targetState="tMoveToSlotOut",cond=whenRequest("tMoveToSlotOut"))
-					transition(edgeName="t037",targetState="tMoveToOut",cond=whenRequest("tMoveToOut"))
-					transition(edgeName="t038",targetState="tMoveToHome",cond=whenRequest("tBackToHome"))
+					 transition(edgeName="t035",targetState="tMoveToIn",cond=whenRequest("tMoveToIn"))
+					transition(edgeName="t036",targetState="tMoveToSlotIn",cond=whenRequest("tMoveToSlotIn"))
+					transition(edgeName="t037",targetState="tMoveToSlotOut",cond=whenRequest("tMoveToSlotOut"))
+					transition(edgeName="t038",targetState="tMoveToOut",cond=whenRequest("tMoveToOut"))
+					transition(edgeName="t039",targetState="tMoveToHome",cond=whenRequest("tBackToHome"))
 				}	 
 				state("tMoveToIn") { //this:State
 					action { //it:State
@@ -76,8 +76,8 @@ class Trolley ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, sc
 						println("trolley moving to OUTDOOR ")
 						delay(500) 
 						println("trolley moved to OUTDOOR ")
-						answer("tMoveToOut", "tMovedToOut", "tMovedToOut(succes)"   )  
 						forward("carD", "carD(fOS)" ,"outsonar" ) 
+						answer("tMoveToOut", "tMovedToOut", "tMovedToOut(succes)"   )  
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )
 				}	 

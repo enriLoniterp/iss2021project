@@ -27,9 +27,9 @@ class Weightsensor ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( nam
 					action { //it:State
 						println("weightsensor waiting ........... ")
 					}
-					 transition(edgeName="t128",targetState="firstUpdate",cond=whenDispatch("carP"))
-					transition(edgeName="t129",targetState="secondUpdate",cond=whenDispatch("carA"))
-					transition(edgeName="t130",targetState="update",cond=whenDispatch("updateValue"))
+					 transition(edgeName="t129",targetState="firstUpdate",cond=whenDispatch("carP"))
+					transition(edgeName="t130",targetState="secondUpdate",cond=whenDispatch("carA"))
+					transition(edgeName="t131",targetState="update",cond=whenDispatch("updateValue"))
 				}	 
 				state("update") { //this:State
 					action { //it:State
@@ -40,6 +40,8 @@ class Weightsensor ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( nam
 												var LAST_WEIGHT = payloadArg(0).toInt()	
 												var TIMESTAMP = java.time.Instant.now().getEpochSecond()
 								emit("weight_event", "weight_event($LAST_WEIGHT,$TIMESTAMP)" ) 
+								updateResourceRep( "event( weight_event($LAST_WEIGHT,$TIMESTAMP) )"  
+								)
 						}
 					}
 					 transition( edgeName="goto",targetState="work", cond=doswitch() )

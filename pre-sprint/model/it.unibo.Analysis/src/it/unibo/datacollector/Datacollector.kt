@@ -32,10 +32,10 @@ class Datacollector ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( na
 					action { //it:State
 						println("datacollector waiting ...")
 					}
-					 transition(edgeName="t024",targetState="handleWeight",cond=whenRequest("weight"))
-					transition(edgeName="t025",targetState="handleDetect",cond=whenRequest("detect"))
-					transition(edgeName="t026",targetState="handleWeightEvent",cond=whenEvent("weight_event"))
-					transition(edgeName="t027",targetState="handleSonarEvent",cond=whenEvent("sonar_event"))
+					 transition(edgeName="t025",targetState="handleWeight",cond=whenRequest("weight"))
+					transition(edgeName="t026",targetState="handleDetect",cond=whenRequest("detect"))
+					transition(edgeName="t027",targetState="handleWeightEvent",cond=whenEvent("weight_event"))
+					transition(edgeName="t028",targetState="handleSonarEvent",cond=whenEvent("sonar_event"))
 				}	 
 				state("handleWeight") { //this:State
 					action { //it:State

@@ -44,16 +44,22 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1-jre")
-    implementation("org.junit.jupiter:junit-jupiter:5.7.0")
-    implementation("org.junit.jupiter:junit-jupiter:5.7.0")
-    implementation("org.eclipse.californium:californium-core:2.0.0-M18")
-    implementation("org.eclipse.californium:californium-proxy:2.0.0-M18")
-    implementation("qak:it.unibo.qakactor:2.4")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 
     // Use the Kotlin JUnit integration.
+    //testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.5.21")
+
+    implementation("org.eclipse.californium:californium-core:2.0.0-M12")
+    implementation("org.eclipse.californium:californium-proxy:2.0.0-M12")
+
+    implementation( "com.squareup.okhttp3:okhttp:4.9.0" )
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+
+    implementation("tuprolog:2p301")
+    implementation("qak:it.unibo.qakactor:2.4")
 }
 
 application {
