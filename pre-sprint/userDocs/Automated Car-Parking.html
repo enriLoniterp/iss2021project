@@ -265,16 +265,19 @@ div.imagedesc{
   <div>
     Our <b>interaction with the customer</b> ha clarified that nouns have the following meanings:
     <ul>
-      <li><ks>software system</ks>: system of intercommunicating components based on a combination of hardware and software;</li>
+      <li><ks>service</ks>: system of intercommunicating components based on a combination of hardware and software which handles interaction between human and machine;</li>
       <li><ks>automation functions</ks>: set of functions or tasks which <kr>ParkingManagerService</kr> runs without any kind of employee's interaction or supervision;</li>
-      <li><ks>transport trolley</ks>: robot capable of receiving commands and transporting a car from a position to another;</li>
+      <li><ks>DDR Robot</ks>: physical or virtual (simulated in an virtual environment) object which can be represented and controlled using the infomation in <a src="./basicrobot2021.html">basicrobot2021</a>;</li>
+      <li><ks>transport trolley</ks>: component which uses the <ks>DDR Robot</ks> in order to complete his tasks;</li>
       <li><ks>home</ks>: shelter or starting point located in the map defined in <a href="./parkingMap.txt">parkingMap.txt</a>;</li>
-      <li><ks>weight sensor</ks>: weight transducer which converts an input mechanical force such as load, weight,
+      <li><ks>weight sensor</ks>: virtual sensor which is able to simulate the behavior of a
+                                 weight transducer which converts an input mechanical force such as load, weight,
                                  tension, compression, or pressure into another physical variable, in this case,
                                  into an electrical output signal that can be measured and converted. <br>
                                  Since the system interacts with cars, the weight sensor triggers only when a
                                  sufficient weight is placed on the footplate;</li>
-      <li><ks>outsonar</ks>: tool capable to detect object that cross its trajectory;</li>
+      <li><ks>outsonar</ks>: physical tool capable to detect object that cross its trajectory. Signals sent by the outsonar can be managed as described in <a src="./SonarAlone.c">SonarAlone.c</a>;</li>
+      <li><ks>parking-area</ks>: <li>
       <li><ks>empty room</ks>: section of a building which is enclosed by walls and a floor. The room also does not contain
                               anything. It isn't filled or occupied by any physical object;</li>
       <li><ks>INDOOR</ks>: fixed point of the map which marks where car can enter the parking;</li>
@@ -295,6 +298,7 @@ div.imagedesc{
                   |X, X, X, X, X, X, X, X,
       </pre></li>
       <li><ks>fixed obstacles</ks>: walls which marks the limit of the <ks>room</ks>;</li>
+      <li><ks>WEnv</ks>: ;</li>
       <li><ks>critical situations</ks>: anomalous situations not foreseen in advance and managed in a general way;</li>
       <li><ks>TOKENID</ks>: set of symbols which identify in an unique way cars parked in the system and which is used in the car pick up phase;</li>
       <li><ks>ParkServiceGUI</ks>: user interface which allows users to interact with the parking system and which shows the <ks>SLOTNUM</ks> and <ks>TOKENID</ks>
