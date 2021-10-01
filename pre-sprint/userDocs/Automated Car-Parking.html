@@ -277,7 +277,8 @@ div.imagedesc{
                                  Since the system interacts with cars, the weight sensor triggers only when a
                                  sufficient weight is placed on the footplate;</li>
       <li><ks>outsonar</ks>: physical tool capable to detect object that cross its trajectory. Signals sent by the outsonar can be managed as described in <a src="./SonarAlone.c">SonarAlone.c</a>;</li>
-      <li><ks>parking-area</ks>: <li>
+      <li><ks>parking-area</ks>: area provided for the parking of vehicles and includes any parking spaces, ingress and egress lanes. For the purpose of the
+                                 project, this area will be simulated in the <ks>WEnv</ks></li>
       <li><ks>empty room</ks>: section of a building which is enclosed by walls and a floor. The room also does not contain
                               anything. It isn't filled or occupied by any physical object;</li>
       <li><ks>INDOOR</ks>: fixed point of the map which marks where car can enter the parking;</li>
@@ -286,8 +287,9 @@ div.imagedesc{
       <li><ks>OUTDOOR-area</ks>: detailed area of the map where the out sonar is placed;</li>
       <li><ks>weight</ks>:body(car)'s relative mass or the quantity of matter contained by it;</li>
       <li><ks>parking-slots</ks>: fixed number (6) of place in a specific area of the map where car are or can be parked;</li>
-      <li><ks>thermometer</ks>: instrument for measuring and indicating temperature (inside the parking center);</li>
-      <li><ks>fan</ks>: device for producing a current of air by the movement of a broad surface or a number of such surfaces;</li>
+      <li><ks>thermometer</ks>: virtual instrument which is able to simulate the behavior of a real sensor which is situated inside the parking center and able to
+         measuring and indicating temperature;</li>
+      <li><ks>fan</ks>: virtual object which is used to simulate the behaviur of a device for producing a current of air by the movement of a broad surface or a number of such surfaces;</li>
       <li><ks>map</ks>: abstract representation of the environment that delineates <ks>home</ks>, <ks>INDOOR</ks>, <ks>OUTDOOR</ks> and <ks>parking area</ks>.
       An example of the figure is shown below:
       <pre>                  |r, 0, 0, 0, 0, 0, 0, X,
@@ -298,7 +300,7 @@ div.imagedesc{
                   |X, X, X, X, X, X, X, X,
       </pre></li>
       <li><ks>fixed obstacles</ks>: walls which marks the limit of the <ks>room</ks>;</li>
-      <li><ks>WEnv</ks>: ;</li>
+      <li><ks>WEnv</ks>: virtual environment which simulate the scene of the parking in order to simplify the development in a real context. The WEnv is reported in <a src="./parkingAreaConfig.js">parkingAreaConfig</a>;</li>
       <li><ks>critical situations</ks>: anomalous situations not foreseen in advance and managed in a general way;</li>
       <li><ks>TOKENID</ks>: set of symbols which identify in an unique way cars parked in the system and which is used in the car pick up phase;</li>
       <li><ks>ParkServiceGUI</ks>: user interface which allows users to interact with the parking system and which shows the <ks>SLOTNUM</ks> and <ks>TOKENID</ks>
@@ -349,15 +351,23 @@ div.imagedesc{
            When the client wants his car back, he interacts again with the ParkServiceGUI by requesting a pick up of his car
            using the TOKENID previously received. At this time, the transport trolley carries the selected car from its parking-slot to the
            outdoor-area <b>(3)</b>. Finally, the client takes the car and frees the outdoor-area.
-           <br><br>
-           When the application terminates, the itinerary done by the robot must be that shown in the figure and a
-           proper TestPlan should properly check this outcome.
           </td>
           <td><center><img src="IMG/user_story_1.jpg" alt="TestPlan0" width="95%"></center>
           </td>
         </tr>
        </tbody>
     </table>
+    <pre> Let assume the <ks>INDOOR-area</ks> is free and at least one parking slot is available:<br>
+          Client notifies interest in entering the car<br>
+          System return <ks>SLOTNUM</ks><br>
+          assert 0 < <ks>SLOTNUM</ks> <= 6<br>
+          Client <ks>CARENTER</ks><br>
+          System return <ks>TOKENID</ks> and park the car<br>
+          <b>wait</b><br>
+          Client wants to pick up his car by sending <ks>TOKENID</ks><br>
+          System moves the selected car to the <ks>OUTDOOR-area</ks><br>
+          Client receives a confirm.
+    </pre>
   </div>
 <div id="user_story_standard_supervision">
   <h3>User story: normal parking manager's supervision</h3>
@@ -370,6 +380,10 @@ div.imagedesc{
     </tbody>
   </table>
 </div>
+<pre>
+  System simulates the change of the current status<br>
+  GUI checks if new changes appears.
+</pre>
 <div id="user_story_non_standard_supervision">
   <h3>User story: non standard parking manager's supervision</h3>
   <table style="width:98%" cellpadding="5%">
@@ -383,6 +397,14 @@ div.imagedesc{
     </tbody>
   </table>
 </div>
+<pre>
+  <ks>Thermometer</ks> simulates a temperature <ks>TA</ks> > <ks>TMAX</ks><br>
+  <b>wait</b> <br>
+  System checks new fan and transport trolley status<br>
+  Thermometer simulates a temperature <ks>TA</ks> < <ks>TMAX</ks><br>
+  <b>wait</b> <br>
+  System checks new <ks>fan</ks> and <ks>transport trolley</ks> status<br>
+</pre>
 <div id="alarm_situation">
   <h3>User story: DTFREE OUTDOOR-AREA </h3>
   <table style="width:98%" cellpadding="5%">
@@ -395,6 +417,10 @@ div.imagedesc{
   </table>
 </div>
 </div>
+<pre>
+  <ks>Outsonar</ks> simulates the presence of a car for a time <ks>T</ks> > <ks>DTFREE</ks><br>
+  <ks>ParkServiceStatusGui</ks> checks if an alarm has been received<br>
+</pre>
 
 <h2>Problem analysis</h2>
 
