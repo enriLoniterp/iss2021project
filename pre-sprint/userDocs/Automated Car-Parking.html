@@ -218,45 +218,6 @@ div.imagedesc{
 </div>
 <h2>Requirements</h2>
 <div id="Requirements" class="remark">
-  The <kr>ParkingManagerService</kr> should create the <kr>ParkingServiceGUI</kr> (for the client) and the
-  <kr>ParkingServiceStatusGUI</kr> (for the manager) and then perform the following tasks:
-  <ul>
-    <li><ks>acceptIN</ks>: accept the request of a client to park the car if there is at least one parking-slot
-                            available, select a free slot identified with a unique <ks>SLOTNUM</ks>. <br>
-                            A request of this type can be elaborated only when the <ks>INDOOR-area</ks> is free, and the transport
-                            trolley is at home or working (not stopped by the manager). If the <ks>INDOOR-area</ks> is already
-                            engaged by a car, the request is not immediately processed (the client could simply wait or
-                            could - optionally - receive a proper notice). </li>
-    <li><ks>informIN</ks>: inform the client about the value of the <ks>SLOTNUM</ks>. </li>
-  </ul>
-  If <bc>SLOTNUM > 0</bc>:
-  <ol>
-    <li><ks>moveToIn</ks>: move the transport trolley from its current localtion to the <ks>INDOOR</ks>;</li>
-    <li><ks>receipt</ks>: send to the client a receipt including the value of the <ks>TOKENID</ks>; </li>
-    <li><ks>moveToSlotIn</ks>: move the transport trolley from the <ks>INDOOR</ks> to the selected <ks>parking-slot</ks>;</li>
-    <li><ks>backToHome</ks>: if no other request is present, move the transport trolley to its home
-                                  location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>. </li>
-  </ol>
-  If <bc>SLOTNUM == 0</bc>:
-  <ul>
-    <li><ks>moveToHome</ks>: if not already at home, move the transport trolley to its home location;</li>
-    <li><ks>acceptOUT</ks>: accept the request of a client to get out the car with <ks>TOKENID</ks>. A request of this
-                              type can be elaborated only when the <ks>OUTDOOR-area</ks> is free and the transport trolley is at
-                              home or working (not stopped by the manager). If the <ks>OUTDOOR-area</ks> is still engaged by a
-                              car, the request is not immediately processed (the client could simply wait or could -
-                              optionally - receive a proper notice).<br>
-      <ol>
-        <li><ks>findSlot</ks>: deduce the number of the parking slot (<ks>CARSLOTNUM</ks>) from the <ks>TOKENID</ks>; </li>
-        <li><ks>moveToSlotOut</ks>: move the transport trolley from its current localtion to the
-                                     <ks>CARSLOTNUM/parking-slot</ks>; </li>
-        <li><ks>moveToOut</ks>: move the transport trolley to the <ks>OUTDOOR</ks>; </li>
-        <li><ks>moveToHome</ks>: if no other request is present move the transport trolley to its <ks>home</ks> location;
-                                     else <ks>acceptIN</ks> or <ks>acceptOUT</ks>; </li>
-      </ol>
-    </li>
-    <li><ks>monitor</ks>: update the <ks>ParkingServiceStatusGUI</ks> with the required information about the state of the system. </li>
-    <li><ks>manage</ks>: accept the request of the manager to stop/resume the behavior of the transport trolley. </li>
-  </ul>
   A detailed description of the requirements is available <a href="TFBO21ISS.pdf">here</a>
 </div>
 
@@ -425,12 +386,12 @@ div.imagedesc{
 <h2>Problem analysis</h2>
 
 <div class="remark">
-  The system is made up of a series of heterogeneous components that must communicate with each other.
+  The system is made up of a series of distributed heterogeneous components that must communicate with each other.
   From their interaction arises the problem of evaluating the technologies to be used for the transmission of information in the best possible way.
-  Another problem can be found in the management of the transport trolley as a core feature of the parking system.
-  Given the complexity of the two problems, they are going to be treated separately according to a "divide-et-impera" approach. <br>
-  These operations will be described in a first phase of analysis using the meta-modelling language qak. <br>
-</div class="remark">
+  Another problem can be found in the management of the transport trolley as a core feature of the parking system.<br>
+  For a first representation of the system it is possible to use the qak meta-modeling language provided by the customer,
+  whose specifications are contained in this <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.qakactor/userDocs/LabQakIntro2021.html">document</a>.
+</div>
   The following legend will be used to represent the components in the problem analysis. <br><br>
   <img src="IMG/legenda.png" alt="LEGEND" width="15%">
 
@@ -451,7 +412,32 @@ div.imagedesc{
       </tr>
     </tbody>
   </table>
-
+</div>
+<div id="System_communication_overview">
+  <h4>System communication overview</h4>
+  <div class="remark">
+    Since a distributed system is being developed, communication is a major aspect of the system itself. <br>
+    Depending on the nature and task of each component of the system, it will need a different form of interaction.
+    Those form of interaction can be generally expressed as <ks>synchronous</ks> or <ks>asynchronous</ks> communication. <br>
+    For the synchronous communication we can distinguish:
+    <ul>
+      <li>request/response semantic;</li>
+      <li>invitation semantic;</li>
+    </ul>
+    Meanwhile for the asynchronous communication:
+    <ul>
+      <li>dispatch semantic;</li>
+      <li>event semantic;</li>
+    </ul>
+    Moreover, in order to use these semantic, the system can relies on different communication protocol:
+    <ul>
+      <li><ks>websocket</ks> for request/response, dispatch, invitation and event semantics;</li>
+      <li><ks>HTTP</ks> for request/response and invitation semantics;</li>
+      <li><ks>MQTT</ks> for event and dispatch semantics;</li>
+      <li><ks>COaP</ks> for request/response, dispatch, invitation and event semantics.</li>
+    </ul>
+    Afterwards, for every component will be discussed the best communication solution according to its task.
+  </div>
 </div>
 <h4>Components overview</h4>
 <div>
@@ -463,15 +449,16 @@ div.imagedesc{
     <li>move the client's car from the given parking slot to the outdoot-area.</li>
   </ul>
   At any time, parking manager is allowed to stop these tasks. Its aim leads to both active and passive behavior. <br>
-  The Transport Trolley can be modelled as an actor and its movement will be decided by another entity.
+  The choice of the best path that the transport trolley must carry out is not an easy operation. for this reason, this task should be delegated to an external entity.
   These two entities exchange messages following a synchronous communication so that the central system receives a feedback
-  from the trasport trolley when it asks for an execution.
+  from the trasport trolley when it asks for an execution. Alternatively, asynchronous communication could be used. however, this type of communication would force the system
+  to have less knowledge of the current state of the transport trolley.
 </div>
 <img src="IMG/TRANSPORT TROLLEY.jpg" alt="TRANSPORTROLLEY" width="40%">
 <h3> Fan </h3>
 <div class="remark">
-The fan is modeled as an actor. It does not own or produce any valuable information by itself but it is a physical component controlled by the system.
-It's status can be changed through two messages "turn_on" and "turn_off" to turn on and to turn off respectively the fan. As a result of the command the fan can
+The fan does not own or produce any valuable information by itself but it is a component controlled by the system.
+Fan status can be changed through two messages "turn_on" and "turn_off" to turn on and to turn off respectively the fan. As a result of the command the fan can
 only be in two states, one is "on" which indicates that the fun is working while the second one "off" suggests that the fun is not working.
 The fan should also return in response the new current state in order to update the manager GUI.
 This feature can also be used in case of electric disguise or general failure of the central system. The fan must respond with its current
@@ -518,8 +505,8 @@ state whenever the central system requests its state of activation.
 <hr size="4" color="black">
 <br>
 <div class="remark">
-  Unlike the fan and the trasport trolley, the sensors below don't need any replies during the interaction with the core
-  system. Also, the analysis of the requirements shows that the outsonar, the thermometer and the weight-sensor are autonomous active
+  The sensors below don't need any replies during the interaction with the core system.
+  Also, the analysis of the requirements shows that the outsonar, the thermometer and the weight-sensor are autonomous active
   components that are unaware of the existence of other components. <br>
   This behavior leads to an asynchronous communication that can be developed through different forms:
   <ul>
@@ -529,11 +516,11 @@ state whenever the central system requests its state of activation.
   </ul>
   There are several protocol that can be used to interact with those components:
   <ul>
-    <li><b>WebSocket</b>: allows a request/response communication;</li>
+    <li><b>WebSocket</b>: two-way channel builded on a single TCP connection. This implies a more heavy-weight communication than the two below;</li>
     <li><b>MQTT</b>: decouples producer and consumer by letting clients publish and having the broker decide where to route and copy messages.
       It also does best as a communications bus for live data;</li>
-    <li><b>CoAP</b>: a one-to-one protocol for transferring state information between client and server.
-      While it has support for observing resources, CoAP is best suited to a state transfer model, not purely event based.</li>
+    <li><b>CoAP</b>: a one-to-one restful protocol for transferring state information between client and server. It also meeting specialized requirements
+      such as multicast support, very low overhead, and simplicity.
   </ul>
   In addition, all the sensors can be modeled as actors.
 </div>
@@ -544,7 +531,9 @@ state whenever the central system requests its state of activation.
     Data from the out-sonar is used when a client starts the acceptOUT procedure and to trigger the alarm procedure
     if it detects a car in the OUTDOOR-AREA for more than DFTREE time. <br>
     In order to identify those situation, the out-sonar has to emit events every time the distance measured by the
-    sensor change. Moreover, messages sent by the out-sonar contains the distance misured and the relative timestamp. <br>
+    sensor change. Moreover, messages sent by the out-sonar contains the distance misured and the relative timestamp.
+    Customer's <a src="./SonarAlone.c">SonarAlone.c</a> can be used in otder to simplify the development of this component.
+    <br>
   </div>
   <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
     <tr>
@@ -604,11 +593,44 @@ state whenever the central system requests its state of activation.
  </tr>
  </table>
 </div>
+<div id="problem_analysis_thermometer">
+  <h3>Thermometer</h3>
+  <div class="remark">
+    Thermometer measures the temperature of the parking room and sends at regular time interval event to the core system. Since temperature doesn't change
+    that quickly, the time interval can be quantified in the order of tens of seconds. This help the system to rely in a less bandwidth usage. The time interval
+    must take into account of the position of the thermometer in the parking room.
+  </div>
+  <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+    <tr>
+      <td style="border: 0px">
+          <center><img src="IMG/THERMOMETER.png" alt="THERMOMETER" width="60%"><center>
+      </td>
+      <td style="border: 0px">
+        <center>
+  <table cellpadding="5%">
+    <tbody>
+      <tr>
+        <th>Message</th>
+        <th>Content</th>
+        <th>Type</th>
+      </tr>
+      <tr>
+        <td>event</td>
+        <td>temperature, timestamp</td>
+        <td>event</td>
+      </tr>
+    </tbody>
+</table>
+</center>
+</td>
+</tr>
+</table>
+</div>
 <div id="problem_analysis_map">
   <h3> Map </h3>
   <div class="remark">
     The map is a passive element that is used by the core system to manage the state of the parking-area.
-    It can be represented by an image composed of different symbols:
+    For a greater simplicity of representation and use within the system the map can be represented by an image composed of different symbols:
     <ul>
       <li>the symbol <b>h</b> represent the "home" position of the trasport trolley;</li>
       <li>the symbol <b>0</b> represents an area where the trasport trolley can move;</li>
@@ -629,8 +651,8 @@ state whenever the central system requests its state of activation.
   <h4>GUI overview</h4>
   <div class="remark">
     In an attempt to achieve a wider catchment area and to guarantee simplicity and portability both GUIs should be web
-    interfaces. Furthermore, both client and manager interfaces should be clear and user-friendly with the aim of being
-    easy-to-use for every client age or nationality.
+    interfaces. In that case, Spring ia technology that can be used for the development of the two GUIs .
+    Furthermore, both client and manager interfaces should be clear and user-friendly.
   </div>
 </div>
 <div id="problem_analysis_parking_service_status_GUI">
@@ -859,9 +881,8 @@ state whenever the central system requests its state of activation.
   <h3>Abstraction gap</h3>
   <div class="remark">
     The problem analysis was carried out to highlight the requirements without focusing on used technologies by introducing high-level concepts.
-    This has led to the description of interactions between system components via dispatch/request/event rather
-    than communication protocol support. In addition, another goal was the development of a code as independent as possible from the
-    technology used for the transport trolley in order to make it easier to replace it if necessary. The abstraction between system design and available
+    In addition, another goal was the development of a code as independent as possible from the technology used for the transport trolley in order to
+    make it easier to replace it if necessary. The abstraction between system design and available
     technologies is facilitated thanks to the presence of modern programming languages such as Kotlin that allows the definition of actors. However,
     the use of particular technologies to deal with problems such as data persistence and failure resistance leads to a wider gap.
   </div>
@@ -876,6 +897,44 @@ state whenever the central system requests its state of activation.
       <li>Considering the distributed nature of the system, network problems leads to a malfunction of the entire system;</li>
       <li>Some information is kept by the business logic in order to manage the system. In case of system faults, this data can be lost.</li>
     </ul>
+  </div>
+</div>
+<div id="architectural_model">
+  <h3>Logical Architecture</h3>
+  <center><img src="IMG/LOGICAL ARCHITECTURE.png" alt="architectural_model" width="40%"></center>
+  The model of the system can be seen <a href="https://github.com/enriLoniterp/iss2021project/blob/main/pre-sprint/model/it.unibo.Analysis/src/analisi.qak">here</a>.
+  <div class="remark">
+    In order to make our parking software as much as possibile independent from the undelying communication protocols and reusable,
+    the designer could make reference to proper design pattern such as adapter, bridge and facade. Other design pattern that might be considered during
+    the development are singleton, observer and layer.
+  </div>
+</div>
+
+<h2>Test plans</h2>
+<div id="test_plans">
+  <div class="remark">
+    In this section we discuss and bring attention to the multiple scenarios that might occur during the system viability.
+    The object of the tests is to mock some behavior or concrete situations and then check if the system returns what we expected.<br>
+
+    <b>RELEASE PHASE</b><br>
+    During the release-phase of the car test plans must meet this solutions:
+    <ol>
+    <li>if <U>at least one parking slot is available</U>, <U>INDOOR-AREA is free</U>, <U>the transport-trolley is working</U> and the client makes a parking request,
+      it is accepted and the client receives a number between 1 and 6 (linked to the parking slot) as response;</li>
+      <li>if <U>all the parking slots are occupied </U>the client receives number 0 as response;</li>
+      <li>if <U>the INDOOR-AREA isn't available</U> and <U>the transport trolley is stopped</U> the client receives a waiting message.</li>
+    </ol>
+    <b>PICK-UP PHASE</b><br>
+    During the pick-up phase if <U>the TOKENID is correct</U>, <U>the OUTDOOR-AREA is free</U>, <U>the transport-trolley is working</U> and a client requests
+    the pick up of his car the system will provide green light as long as all these three conditions are fulfilled. If this is not the case, then a waiting message
+    will appear.
+    <br>
+    <b>UNCOMMON SITUATIONS</b><br>
+    <ol>
+      <li>if the the temperature measured by the thermometer is greater than TMAX, the fan must be activate and the transport trolley must be stopped;</li>
+      <li>if a car is stuck in the OUTDOOR-AREA for more than TFREE, the system must send an alarm to the manager.</li>
+    </ol>
+    These test plans can be found <a href="https://github.com/enriLoniterp/iss2021project/blob/main/pre-sprint/app/src/test/kotlin/pre/sprint/AppTest.kt">here</a>.
   </div>
 </div>
 <div id="estimate_effort">
@@ -895,39 +954,6 @@ state whenever the central system requests its state of activation.
     and audit changes proposed previously.
   </div>
 </div>
-<div id="architectural_model">
-<center><img src="IMG/LOGICAL ARCHITECTURE.png" alt="architectural_model" width="40%"></center>
-The model of the system can be seen <a href="https://github.com/enriLoniterp/iss2021project/blob/main/pre-sprint/model/it.unibo.Analysis/src/analisi.qak">here</a>.
-</div>
-
-<h2>Test plans</h2>
-<div id="test_plans">
-  <div class="remark">
-    In this section we discuss and bring attention to the multiple scenarios that might occur during the system viability.
-    The object of the tests is to mock some behavior or concrete situations and then check if the system returns what we expected.<br>
-
-    <b>RELEASE PHASE</b><br>
-    During the release-phase of the car test plans must meet this solutions:
-    <ol>
-    <li>if <U>at least one parking slot is available</U>, <U>INDOOR-AREA is free</U>, <U>the transport-trolley is working</U> and the client makes a parking request,
-      it is accepted and the client receives a number between 1 and 6 (linked to the parking slot) as response;</li>
-      <li>if <U>all the parking slots are occupied </U>the client receives number 0 as response;</li>
-      <li>if <U>the INDOOR-AREA isn't available</U> and <U>the transport trolley is stopped</U> the client receives waiting messages.</li>
-    </ol>
-    <b>PICK-UP PHASE</b><br>
-    During the pick-up phase if <U>the TOKENID is correct</U>, <U>the OUTDOOR-AREA is free</U>, <U>the transport-trolley is working</U> and a client requests
-    the pick up of his car the system will provide green light as long as all these three condition are fulfilled. If this is not the case, then a waiting message
-    will appear.
-    <br>
-    <b>UNCOMMON SITUATIONS</b><br>
-    <ol>
-      <li>if the the temperature measured by the thermometer is greater than TMAX, the fan must be activate and the transport trolley must be stopped;</li>
-      <li>if a car is stuck in the OUTDOOR-AREA for more than TFREE, the system must send an alarm to the manager.</li>
-    </ol>
-    These test plans can be found <a href="https://github.com/enriLoniterp/iss2021project/blob/main/pre-sprint/app/src/test/kotlin/pre/sprint/AppTest.kt">here</a>.
-  </div>
-</div>
-
 <h2>Work Plan</h2>
 <div id="work_plan">
   <div class="remark">
