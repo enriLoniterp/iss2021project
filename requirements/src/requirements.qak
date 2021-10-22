@@ -1,0 +1,123 @@
+System requirements
+
+Request moveToIn : moveToIn(MOVETOIN)
+Reply movedToIn : movedToIn(MOVED)
+
+Request moveToSlotIn : moveToSlotIn(X,Y)
+Reply movedToSlotIn : movedToSlotIn(RESULT,X,Y)
+
+Request backToHome : backToHome(HOME) 
+Reply movedToHome : movedToHome(RESULT)
+
+Request moveToSlotOut : moveToSlotOut(X,Y)
+Reply movedToSlotOut : movedToSlotOut(RESULT,X,Y)
+
+Request moveToOut : moveToOut(X,Y)
+Reply movedToOut : movedToOut(RESULT)
+
+Dispatch on	 : on(X)
+Dispatch off  : off(Y)
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+QActor fan context ctxcarparking{
+	State s0 initial{
+		println("fan STARTS")
+	}
+	Goto work 
+	
+	State work{ 
+		println("fan waiting ........... ")  
+	}
+	Transition t0 whenMsg on -> switchOn
+				  whenMsg off -> switchOff
+				  
+	
+	State switchOn{
+		println("fan switched on !")
+		updateResource [# "switched(on)" #]
+	}
+	Goto work 
+	
+	State switchOff{
+		println("fan switched off !")
+		updateResource [# "switched(off)" #]
+	}
+	Goto work 
+				 
+}
+
+QActor trolley context  ctxcarparking{
+	State s0 initial{
+		println("trolley STARTS")
+	}
+	Goto work 
+	
+	State work{ 
+		println("trolley waiting ........... ")  
+	}
+	Transition t0 whenRequest moveToIn -> tMoveToIn
+				  whenRequest moveToSlotIn -> tMoveToSlotIn
+				  whenRequest moveToSlotOut -> tMoveToSlotOut
+				  whenRequest moveToOut -> tMoveToOut
+				  whenRequest backToHome -> tMoveToHome
+				  
+	State tMoveToIn {
+		println("trolley moving to INDOOR ")
+		delay 500
+		println("trolley moved to INDOOR ")
+		updateResource [# "moved(indoor)" #]
+		replyTo moveToIn with movedToIn : movedToIn(success)
+	}
+	Goto work
+	
+	State tMoveToSlotIn {
+		onMsg(moveToSlotIn : moveToSlotIn(X,Y)){
+			[# var H = payloadArg(0).toInt() 
+				var G = payloadArg(1).toInt()
+			#]
+			println("trolley moving to coordinate ($H, $G)") 
+			delay 500
+			println("trolley moved to coordinate ($H, $G)") 
+			updateResource [# "moved(slotIn)" #]
+			replyTo moveToSlotIn with movedToSlotIn : movedToSlotIn(success, $H, $G)
+		} 
+		
+	}
+	Goto work
+	
+	State tMoveToSlotOut {
+		onMsg(moveToSlotOut : moveToSlotOut(X,Y)){
+			[# var G = payloadArg(0).toInt() 
+				var H = payloadArg(1).toInt()
+			#]
+			println("trolley moving to coordinate ($G, $H)") 
+			delay 500
+			println("trolley moved to coordinate ($G, $H)") 
+			updateResource [# "moved(slotOut)" #]
+			replyTo moveToSlotOut with movedToSlotOut : movedToSlotOut(success, $G, $H)
+		} 
+		
+	}
+	Goto work
+	
+	State tMoveToOut {
+		println("trolley moving to OUTDOOR ")  
+		delay 500
+		println("trolley moved to OUTDOOR ")  
+		updateResource [# "moved(out)" #]
+		replyTo moveToOut with movedToOut : movedToOut(success)
+		
+	}
+	Goto work
+	
+	State tMoveToHome {
+		println("trolley moving to home ")  
+		delay 500
+		println("trolley moved to home ")  
+		updateResource [# "moved(home)" #]
+		replyTo backToHome with movedToHome : movedToHome(success)
+	}
+	Goto work
+	
+}
