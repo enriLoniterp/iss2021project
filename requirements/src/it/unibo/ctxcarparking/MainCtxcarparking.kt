@@ -6,7 +6,7 @@ import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
 	QakContext.createContexts(
-	        "localhost", this, "requirements.pl", "sysRules.pl"
+	        "localhost", this, "first_user_story.pl", "sysRules.pl"
 	)
 }
 

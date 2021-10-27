@@ -27,11 +27,11 @@ class Trolley ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, sc
 					action { //it:State
 						println("trolley waiting ........... ")
 					}
-					 transition(edgeName="t02",targetState="tMoveToIn",cond=whenRequest("moveToIn"))
-					transition(edgeName="t03",targetState="tMoveToSlotIn",cond=whenRequest("moveToSlotIn"))
-					transition(edgeName="t04",targetState="tMoveToSlotOut",cond=whenRequest("moveToSlotOut"))
-					transition(edgeName="t05",targetState="tMoveToOut",cond=whenRequest("moveToOut"))
-					transition(edgeName="t06",targetState="tMoveToHome",cond=whenRequest("backToHome"))
+					 transition(edgeName="t07",targetState="tMoveToIn",cond=whenRequest("moveToIn"))
+					transition(edgeName="t08",targetState="tMoveToSlotIn",cond=whenRequest("moveToSlotIn"))
+					transition(edgeName="t09",targetState="tMoveToSlotOut",cond=whenRequest("moveToSlotOut"))
+					transition(edgeName="t010",targetState="tMoveToOut",cond=whenRequest("moveToOut"))
+					transition(edgeName="t011",targetState="tMoveToHome",cond=whenRequest("backToHome"))
 				}	 
 				state("tMoveToIn") { //this:State
 					action { //it:State

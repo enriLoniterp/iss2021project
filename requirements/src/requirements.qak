@@ -1,5 +1,16 @@
-System requirements
+System first_user_story
 
+//parkingservicegui-parkingmanagerservice interaction
+Request reqenter : reqenter(R)
+Reply   enter    : enter(SLOTNUM)
+
+Request carenter : carenter(SLOT)
+Reply   receipt  : receipt(TOKENID)
+
+Request pickup :  pickup(TOKENID)
+Reply	confirm : confirm(Y)
+
+//parkingmanagerservice-trolley interaction
 Request moveToIn : moveToIn(MOVETOIN)
 Reply movedToIn : movedToIn(MOVED)
 
@@ -15,36 +26,199 @@ Reply movedToSlotOut : movedToSlotOut(RESULT,X,Y)
 Request moveToOut : moveToOut(X,Y)
 Reply movedToOut : movedToOut(RESULT)
 
-Dispatch on	 : on(X)
-Dispatch off  : off(Y)
+Dispatch cW : cW(V)
+Dispatch cS : cS(V)
+
 
 Context ctxcarparking ip[host="localhost" port=8002]
-
-QActor fan context ctxcarparking{
+/*
+QActor parkingservicegui context  ctxcarparking{
+	[# var SLOTNUM = 0; var OK = ""; var TOKENID = 0 #]
+	
 	State s0 initial{
-		println("fan STARTS")
+		println("parkingservicegui (client mock)  STARTS")
 	}
-	Goto work 
+	Goto requestToEnter
+
 	
-	State work{ 
-		println("fan waiting ........... ")  
+	State requestToEnter{
+		println("client requestToEnter")
+		request parkingmanagerservice -m reqenter : reqenter(alex)
 	}
-	Transition t0 whenMsg on -> switchOn
-				  whenMsg off -> switchOff
-				  
+	Transition t0 
+	      //whenTime 1000 -> retrayLater   
+	      whenReply enter -> enterTheCar
 	
-	State switchOn{
-		println("fan switched on !")
-		updateResource [# "switched(on)" #]
+	State enterTheCar{
+ 		onMsg(enter : enter(SLOTNUM)){
+			[# SLOTNUM = payloadArg(0 ).toInt() #]
+			println("client receives SLOTNUM = $SLOTNUM ")
+		}		
 	}
-	Goto work 
+	Goto retrayLater  if [# SLOTNUM==0 #] else moveTheCarToIndoor
 	
-	State switchOff{
-		println("fan switched off !")
-		updateResource [# "switched(off)" #]
+	State moveTheCarToIndoor{
+		println("client moving the car in the INDOOR and press CARENTER ")
+		request parkingmanagerservice -m carenter : carenter($SLOTNUM)		
 	}
-	Goto work 
-				 
+	Transition t0 whenReply receipt -> afterReceipt
+	
+	
+	State afterReceipt{
+		onMsg(receipt : receipt(TOKEID)){
+			[# TOKENID = payloadArg(0 ).toInt() #]
+			println("client receives TOKENID = $TOKENID")
+		}			
+	}
+		  
+	State retrayLater{
+		println("client will retry later")
+	}	
+}
+* 
+*/
+ 
+QActor parkingmanagerservice context  ctxcarparking{
+	[# var c_weight = 9999 ; var slotsFree = true; var COUNTER = 1500; var SLOTNUM = 0; var pb = true; var indoorFree = true; var TOKENID = 0; var trolleyPos = 0 #]
+	
+	State s0 initial{
+		println("parkingmanagerservice STARTS")
+	}
+	Goto work
+	
+	State work{
+		println("parkingmanagerservice waiting ...")
+	}
+	Transition t0 whenRequest reqenter -> handleEnterRequest 
+	              whenRequest carenter -> enterTheCar
+	              whenMsg cW -> changeWeight
+	              whenMsg cS -> changeSlots
+	              
+	State changeWeight {
+		if [# indoorFree #]{
+			[#indoorFree = false#]
+		}else{
+			[#indoorFree = true#]
+		}
+	}
+	Goto work
+	
+	State changeSlots {
+		if [# slotsFree #]{
+			[#slotsFree = false#]
+		}else{
+			[#slotsFree = true#]
+		}
+	}
+	Goto work
+	
+	State handleEnterRequest{
+		println("parkingmanagerservice handles reqenter")
+		if [# slotsFree #] {
+			replyTo reqenter with enter : enter(6)
+			updateResource [# "enter(6)" #]
+			println("parkingmanagerservice slot 6 free")
+		}else{
+			replyTo reqenter with enter : enter(0)
+			updateResource [# "enter(0)" #]
+		println("parkingmanagerservice no slots free")
+		}
+	}
+	Goto work if [# trolleyPos != 0  #] else moveTrolleyHome
+	
+	
+	State moveTrolleyHome{
+		println("parkingmanagerservice request the trolley to move at home")
+		request trolley -m backToHome : backToHome(go)
+	}
+	Transition t0 whenReply movedToHome -> checkMove
+	
+	State checkMove{
+		[#
+			var m = "" #
+		]
+		println("parkingmanagerservice check move")
+		onMsg( movedToHome : movedToHome(Y)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{	
+				println("parkingmanagerservice: trolley moved")
+				
+				[# pb = false 
+					trolleyPos = 0
+					#
+				]
+			}
+				
+		}		
+	}
+	Goto work if [# pb == false #] else trolleyProblem
+	
+	State trolleyProblem{
+		println("parkingmanagerservice: problem with the trolley. maintenance required")
+	}
+	
+	State enterTheCar{
+		println("parkingmanagerservice reply to enterthecar ")
+ 		if [# indoorFree #]{
+ 			onMsg( carenter : carenter(SLOT)){
+			[# SLOTNUM = payloadArg(0 ).toInt()  #]
+			[# TOKENID = COUNTER - 6  #]
+			updateResource [# "car(CP1494)" #]
+			replyTo carenter with receipt : receipt(CP1494)
+			}
+ 		}else{
+ 			replyTo carenter with receipt : receipt(wait)
+ 			updateResource [# "car(wait)" #]
+ 		}
+ 		
+	}
+	Goto work if [# !indoorFree #] else requestMove
+	
+	
+	State requestMove{
+		println("parkingmanagerservice request moveToIn ")
+		request trolley -m moveToIn : moveToIn(go)
+		
+	}
+	Transition t0 whenReply movedToIn -> checkMovedToIn
+	
+	State checkMovedToIn{
+		[# pb = true
+			var m= "" #
+		]
+		onMsg( movedToIn: movedToIn(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false
+					trolleyPos = 1
+					#
+				]
+			}	
+		}
+	}
+	Goto moveTrolleyToSlotIn if [# pb == false #] else trolleyProblem	
+	
+	State moveTrolleyToSlotIn{
+		println("parkingmanagerservice request the trolley to move to slot in")
+		request trolley -m moveToSlotIn : moveToSlotIn(3,2)
+	}
+	Transition t0 whenReply movedToSlotIn -> checkMovedToSlotIn
+	
+	State checkMovedToSlotIn{
+		[# var pb = true
+			var m = "" #
+		]
+		onMsg( movedToSlotIn: movedToIn(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false #]
+			}	
+		}
+	}
+	Goto moveTrolleyHome if [# pb == false #] else trolleyProblem	
+	
 }
 
 QActor trolley context  ctxcarparking{
