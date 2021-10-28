@@ -29,11 +29,8 @@ class TestPlan0 {
 		//var testingObserver       : CoapObserverForTesting? = null
 		var myactor               : ActorBasic? = null
 		var counter               = 1
-		val mainUrl = "coap://localhost:8002/ctxcarparking/parkingmanagerservice"
+		val mainUrl = "coap://localhost:8002/ctxcarparking/trolley"
 		var logicClient = CoapClient(mainUrl)
-		
-    
-
 		@JvmStatic
         @BeforeClass
 		//@Target([AnnotationTarget.FUNCTION]) annotation class BeforeClass
@@ -45,11 +42,11 @@ class TestPlan0 {
 				it.unibo.ctxcarparking.main() //keep the control
 			}
 			GlobalScope.launch{
-				myactor =QakContext.getActor("parkingmanagerservice")
+				myactor =QakContext.getActor("trolley")
  				while(  myactor == null )		{
 					println("+++++++++ waiting for system startup ...")
 					delay(500)
-					myactor =QakContext.getActor("parkingmanagerservice")
+					myactor =QakContext.getActor("trolley")
 				}				
 				delay(2000)	//Give time to move lr
 				channelSyncStart.send("starttesting")
@@ -64,8 +61,6 @@ class TestPlan0 {
 		
 	}//companion object
 	
-	
-	
 	@Before
 	fun checkSystemStarted()  {
 		println("\n=================================================================== ") 
@@ -78,9 +73,6 @@ class TestPlan0 {
 			}			
 		} 
 		if( testingObserver == null) testingObserver = CoapObserverForTesting("obstesting${counter++}")
-		 
-       logicClient = CoapClient(mainUrl)
-       logicClient.timeout = 1000L
   	}
 	
 	@After
@@ -92,74 +84,91 @@ class TestPlan0 {
 			delay(1000)
 		}
  	}
-	
-	
-	
-	 @Test fun IndoorOccupied() {
-        var result  = ""
-		 runBlocking{
-        	MsgUtil.sendMsg("cW","cW(o)", myactor!!)
-			val channelForObserver = Channel<String>()
- 			testingObserver!!.addObserver( channelForObserver,"car(wait)")
-        	val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "carenter", "carenter(6)", "parkingmanagerservice")
-        	val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
-        	result = channelForObserver.receive()
-			MsgUtil.sendMsg("cW","cW(o)", myactor!!)
-			println("+++++++++  RESULT=$result")
-			assertEquals( result, "car(wait)")
-			
-        }
-	}
-	
-	
-	 @Test fun IndoorFree() {
-        var result  = ""
-		 runBlocking{
-        	//MsgUtil.sendMsg("cW","cW(o)", myactor!!)
-			val channelForObserver = Channel<String>()
- 			testingObserver!!.addObserver( channelForObserver,"car(CP1494)")
-        	val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "carenter", "carenter(6)", "parkingmanagerservice")
-        	val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
-        	result = channelForObserver.receive()
-			println("+++++++++  RESULT=$result")
-			assertEquals( result, "car(CP1494)")
-        }
-	}
-	
-	 @Test fun slotAvailable() {
-        var result  = ""
-		 runBlocking{
-        	//MsgUtil.sendMsg("cW","cW(o)", myactor!!)
-			val channelForObserver = Channel<String>()
- 			testingObserver!!.addObserver( channelForObserver,"enter(6)")
-        	val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "reqenter", "requenter(Alex)", "parkingmanagerservice")
-        	val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
-        	result = channelForObserver.receive()
-			println("+++++++++  RESULT=$result")
-			assertEquals( result, "enter(6)")
-        }
-	}
-	
-	 @Test fun slotNotAvailable() {
-        var result  = ""
-		 runBlocking{
-        	MsgUtil.sendMsg("cS","cS(o)", myactor!!)
-			val channelForObserver = Channel<String>()
- 			testingObserver!!.addObserver( channelForObserver,"enter(0)")
-        	val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "reqenter", "requenter(Alex)", "parkingmanagerservice")
-        	val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
-        	result = channelForObserver.receive()
-        	MsgUtil.sendMsg("cS","cS(o)", myactor!!)
-			println("+++++++++  RESULT=$result")
-			assertEquals( result, "enter(0)")
-			
-			 
-        }
-	}
 
-    
+	@Test
+	fun testMoveToIndoor(){
+ 		println("+++++++++ testMoveToIndoor ")
+		
+		//Send a command and look at the result
+		var result  = ""
+		runBlocking{
+ 			val channelForObserver = Channel<String>()
+ 			testingObserver!!.addObserver( channelForObserver,"moved(indoor)")
+			val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "moveToIn", "moveToIn(m)", "trolley")
+            val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
+			result = channelForObserver.receive()
+			println("+++++++++  RESULT=$result")
+			assertEquals( result, "moved(indoor)")
+		}	
+	}
+	
+	@Test
+	fun testMoveToSLotIn(){
+ 		println("+++++++++ testMoveToSlotIn ")
+		
+		//Send a command and look at the result
+		var result  = ""
+		runBlocking{
+ 			val channelForObserver = Channel<String>()
+ 			testingObserver!!.addObserver( channelForObserver,"moved(slotIn)")
+			val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "moveToSlotIn", "moveToSlotIn(2,2)", "trolley")
+            val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
+			result = channelForObserver.receive()
+			println("+++++++++  RESULT=$result")
+			assertEquals( result, "moved(slotIn)")
+		}	
+	}
 	
 	
- 
+	@Test
+	fun testMoveToSLotOut(){
+ 		println("+++++++++ testMoveToSlotOut ")
+		
+		//Send a command and look at the result
+		var result  = ""
+		runBlocking{
+ 			val channelForObserver = Channel<String>()
+ 			testingObserver!!.addObserver( channelForObserver,"moved(slotOut)")
+			val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "moveToSlotOut", "moveToSlotOut(2,2)", "trolley")
+			val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
+			result = channelForObserver.receive()
+			println("+++++++++  RESULT=$result")
+			assertEquals( result, "moved(slotOut)") 
+		}	
+	}
+	
+	@Test
+	fun testMoveToOut(){
+ 		println("+++++++++ testMoveToOut ")
+		
+		//Send a command and look at the result
+		var result  = ""
+		runBlocking{
+ 			val channelForObserver = Channel<String>()
+ 			testingObserver!!.addObserver( channelForObserver,"moved(out)")
+			val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "moveToOut", "moveToOut(m)", "trolley")
+			val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
+			result = channelForObserver.receive()
+			println("+++++++++  RESULT=$result")
+			assertEquals( result, "moved(out)") 	
+		}	
+	}
+	
+	@Test
+	fun testBackToHome(){
+ 		println("+++++++++ testBackToHome ")
+		
+		//Send a command and look at the result
+		var result  = ""
+		runBlocking{
+ 			val channelForObserver = Channel<String>()
+ 			testingObserver!!.addObserver( channelForObserver,"moved(home)")
+			val richiesta: ApplMessage = MsgUtil.buildRequest("coap1", "backToHome", "backToHome(m)", "trolley")
+			val acceptInResponse: CoapResponse? = logicClient.put(richiesta.toString(), MediaTypeRegistry.TEXT_PLAIN)
+			result = channelForObserver.receive()
+			println("+++++++++  RESULT=$result")
+			assertEquals( result, "moved(home)") 
+		}	
+	} 
 	
  }

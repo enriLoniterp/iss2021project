@@ -30,7 +30,7 @@ class UpdateHandler(val name : String, val channel : Channel<String>,
 
 class CoapObserverForTesting(val name: String      = "testingobs",
 							 val context: String   = "ctxcarparking",
-							 val observed : String = "parkingmanagerservice",
+							 val observed : String = "trolley",
 							 val port: String      = "8002") {
    //private val client  = CoapClient()
    private var client  : CoapClient?  = null
