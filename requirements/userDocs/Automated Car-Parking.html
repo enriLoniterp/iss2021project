@@ -335,9 +335,9 @@ div.imagedesc{
   can already be modeled as actors using the Qak meta-modeling language. <!-- Questo modello di linguaggio di modellazione è un custom dsl sviluppate dal committente
   e possono essere ritrovate nella seguente libreria. -->
   <br>
-  The model of the two actors is detailed <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/src/requirements.qak">here</a>.
+  The model of the two actors is detailed <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_req_an/src/requirements.qak">here</a>.
   In addiction, unit test for both the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/src/tests/TestPlanFan.kt">fan</a>
-  and the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/src/tests/TestPlanTrolley.kt">trasport trolley</a> are presented.
+  and the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_req_an/src/tests/TestPlanTrolley.kt">trasport trolley</a> are presented.
 </div>
 
 <!--
@@ -924,7 +924,7 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
     and audit changes proposed previously.
   </div>
 </div>
-The model is available <a>here</a>.
+The model is available <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_prob_an/src/requirements.qak">here</a>.
 <h2>Test plans</h2>
 <div id="test_plans">
   <div class="remark">
@@ -938,116 +938,103 @@ The model is available <a>here</a>.
     </ol>
   </div>
 </div>
-Test plans are based on the model developed and are available <a>here</a>.
+Test plans are based on the model developed and are available <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_prob_an/src/tests/TestPlanTrolley.kt">here</a>.
 <h2>Work Plan</h2>
 <div id="work_plan">
   <div class="remark">
     The first product backlog can be defined starting from the previous analysis. The chart contains the following items ordered by priority.<br><br>
-    <center>
     <table id="product_backlog" cellpadding="5%">
       <tr>
         <th>ID</th>
         <th>PRIORITY</th>
         <th>ITEM</th>
+        <th>REQUIREMNTS</th>
       </tr>
       <tr>
         <td><b>1</b></td>
         <td>HIGH</td>
-        <td>System processes car deposit requests</td>
+        <td><ks>PMS</ks> processes car deposit requests</td>
+        <td><a id="#R1">R1</a>, <a id="#R2">R2</a>, <a id="#R2B">R2B</a></td>
       </tr>
       <tr>
         <td><b>2</b></td>
         <td>HIGH</td>
-        <td>System processes car pick-up requests</td>
+        <td><ks>PMS</ks> processes car pick-up requests</td>
+        <td><a id="#R3">R3</a></td>
       </tr>
       <tr>
         <td><b>3</b></td>
         <td>HIGH</td>
-        <td>System manages data from sensors</td>
+        <td><ks>PMS</ks> manages data from sensors</td>
+        <td><a id="#R1">R1</a>, <a id="#R2">R2</a>, <a id="#R3">R3</a></td>
       </tr>
       <tr>
         <td><b>4</b></td>
         <td>HIGH</td>
-        <td>System manages transport trolley</td>
+        <td><ks>PMS</ks> manages transport trolley</td>
+        <td><a id="#R2A">R2A</a>, <a id="#R2C">R2C</a>, <a id="#R2D">R2D</a>, <a id="#R2E">R2E</a> <a id="#R3A">R3A</a>, <a id="#R3B">R3B</a>, <a id="#R3C">R3C</a>, <a id="#R3C">R3C</a></td>
       </tr>
         <td><b>5</b></td>
         <td>MEDIUM</td>
-        <td>System satisfies manager's start and stop fan requests</td>
+        <td><ks>PMS</ks> satisfies manager's start and stop fan requests</td>
+        <td><a id="#R4">R4</a></td>
       </tr>
       <tr>
         <td><b>6</b></td>
         <td>MEDIUM</td>
-        <td>System satisfies manager's start and stop trolley requests</td>
+        <td><ks>PMS</ks> satisfies manager's start and stop trolley requests</td>
+        <td><a id="#R5">R5</a></td>
       </tr>
       <tr>
         <td><b>7</b></td>
         <td>MEDIUM</td>
-        <td>System maintains an updated version of the system status</td>
+        <td><ks>PMS</ks> maintains an updated version of the system status</td>
+        <td><a id="#R4">R4</a></td>
       </tr>
       <tr>
         <td><b>8</b></td>
         <td>MEDIUM</td>
-        <td>System recognizes critical OUTDOOR-area situation and generates an alarm for the manager</td>
+        <td><ks>PMS</ks> recognizes critical OUTDOOR-area situation and generates an alarm for the manager</td>
+        <td><a id="#R4">R4</a></td>
       </tr>
       <tr>
         <td><b>9</b></td>
         <td>LOW</td>
-        <td>System asks the client to pick up his car due a DTFREE timeout</td>
+        <td><ks>PMS</ks> asks the client to pick up his car due a DTFREE timeout</td>
+        <td></td>
       </tr>
       <tr>
         <td><b>10</b></td>
         <td>LOW</td>
-        <td>System manages fan automatically</td>
+        <td><ks>PMS</ks> manages fan automatically</td>
+        <td></td>
       </tr>
     </table>
-    </center>
     <br>All the items above can be group in several sprint as datailed in the next table:<br><br>
-    <center>
     <table id="sprint" cellpadding="5%">
       <tr>
         <th>SPRINT GOAL</th>
-        <th>BACKLOG ITEMS</th>
+        <th>BACKLOG ITEM IDS</th>
       </tr>
       <tr>
-        <td>System basic functionalities</td>
-        <td>
-          <ul>
-            <li>System manages data from sensors;</li>
-            <li>System manages transport trolley.</li>
-          </ul>
+        <td><ks>PMS</ks> basic functionalities</td>
+        <td><b>3</b>, <b>4</b></td>
+      </tr>
+      <tr>
+        <td><ks>PMS</ks> able to manage user requests</td>
+        <td><b>1</b>, <b>2</b></td>
+      </tr>
+      <tr>
+        <td><ks>PMS</ks> interaction with manager and care of system status</td>
+        <td><b>5</b>, <b>6</b>, <b>7</b>, <b>8</b></ul>
         </td>
       </tr>
       <tr>
-        <td>System able to manage user requests</td>
-        <td>
-          <ul>
-            <li>System processes car deposit requests;</li>
-            <li>System processes car pick-up requests.</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>System interaction with manager and care of system status</td>
-        <td>
-          <ul>
-            <li>System satisfies manager's start and stop fan requests;</li>
-            <li>System satisfies manager's start and stop trolley requests;</li>
-            <li>System mantains an updated version of the system status;</li>
-            <li>System recognizes critical OUTDOOR-area situation and generates an alarm for the manager.</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>System Optimization</td>
-        <td>
-          <ul>
-            <li>System asks the client to pick up his car due a DTFREE timeout;</li>
-            <li>System manages fan automatically.</li>
-          </ul>
+        <td><ks>PMS</ks> Optimization</td>
+        <td><b>9</b>, <b>10</b></ul>
         </td>
       </tr>
     </table>
-  </center>
   </div>
 </div>
 
