@@ -1,0 +1,297 @@
+System first_user_story
+
+//parkingservicegui-parkingmanagerservice interaction
+Request reqenter : reqenter(R)
+Reply   enter    : enter(SLOTNUM)
+
+Request carenter : carenter(SLOT)
+Reply   receipt  : receipt(TOKENID)
+
+Request pickup :  pickup(TOKENID)
+Reply	confirm : confirm(Y)
+
+//parkingmanagerservice-trolley interaction
+Request moveToIn : moveToIn(MOVETOIN)
+Reply movedToIn : movedToIn(MOVED)
+
+Request moveToSlotIn : moveToSlotIn(X,Y)
+Reply movedToSlotIn : movedToSlotIn(RESULT,X,Y)
+
+Request backToHome : backToHome(HOME) 
+Reply movedToHome : movedToHome(RESULT)
+
+Request moveToSlotOut : moveToSlotOut(X,Y)
+Reply movedToSlotOut : movedToSlotOut(RESULT,X,Y)
+
+Request moveToOut : moveToOut(X,Y)
+Reply movedToOut : movedToOut(RESULT)
+
+Dispatch cW : cW(V)
+Dispatch cS : cS(V)
+
+
+Context ctxcarparking ip[host="localhost" port=8002]
+/*
+QActor parkingservicegui context  ctxcarparking{
+	[# var SLOTNUM = 0; var OK = ""; var TOKENID = 0 #]
+	
+	State s0 initial{
+		println("parkingservicegui (client mock)  STARTS")
+	}
+	Goto requestToEnter
+
+	
+	State requestToEnter{
+		println("client requestToEnter")
+		request parkingmanagerservice -m reqenter : reqenter(alex)
+	}
+	Transition t0 
+	      //whenTime 1000 -> retrayLater   
+	      whenReply enter -> enterTheCar
+	
+	State enterTheCar{
+ 		onMsg(enter : enter(SLOTNUM)){
+			[# SLOTNUM = payloadArg(0 ).toInt() #]
+			println("client receives SLOTNUM = $SLOTNUM ")
+		}		
+	}
+	Goto retrayLater  if [# SLOTNUM==0 #] else moveTheCarToIndoor
+	
+	State moveTheCarToIndoor{
+		println("client moving the car in the INDOOR and press CARENTER ")
+		request parkingmanagerservice -m carenter : carenter($SLOTNUM)		
+	}
+	Transition t0 whenReply receipt -> afterReceipt
+	
+	
+	State afterReceipt{
+		onMsg(receipt : receipt(TOKEID)){
+			[# TOKENID = payloadArg(0 ).toInt() #]
+			println("client receives TOKENID = $TOKENID")
+		}			
+	}
+		  
+	State retrayLater{
+		println("client will retry later")
+	}	
+}
+* 
+*/
+ 
+QActor parkingmanagerservice context  ctxcarparking{
+	[# var c_weight = 9999 ; var slotsFree = true; var COUNTER = 1500; var SLOTNUM = 0; var pb = true; var indoorFree = true; var TOKENID = 0; var trolleyPos = 0 #]
+	
+	State s0 initial{
+		println("parkingmanagerservice STARTS")
+	}
+	Goto work
+	
+	State work{
+		println("parkingmanagerservice waiting ...")
+	}
+	Transition t0 whenRequest reqenter -> handleEnterRequest 
+	              whenRequest carenter -> enterTheCar
+	              whenMsg cW -> changeWeight
+	              whenMsg cS -> changeSlots
+	              
+	State changeWeight {
+		if [# indoorFree #]{
+			[#indoorFree = false#]
+		}else{
+			[#indoorFree = true#]
+		}
+	}
+	Goto work
+	
+	State changeSlots {
+		if [# slotsFree #]{
+			[#slotsFree = false#]
+		}else{
+			[#slotsFree = true#]
+		}
+	}
+	Goto work
+	
+	State handleEnterRequest{
+		println("parkingmanagerservice handles reqenter")
+		if [# slotsFree #] {
+			replyTo reqenter with enter : enter(6)
+			updateResource [# "enter(6)" #]
+			println("parkingmanagerservice slot 6 free")
+		}else{
+			replyTo reqenter with enter : enter(0)
+			updateResource [# "enter(0)" #]
+		println("parkingmanagerservice no slots free")
+		}
+	}
+	Goto work if [# trolleyPos != 0  #] else moveTrolleyHome
+	
+	
+	State moveTrolleyHome{
+		println("parkingmanagerservice request the trolley to move at home")
+		request trolley -m backToHome : backToHome(go)
+	}
+	Transition t0 whenReply movedToHome -> checkMove
+	
+	State checkMove{
+		[#
+			var m = "" #
+		]
+		println("parkingmanagerservice check move")
+		onMsg( movedToHome : movedToHome(Y)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{	
+				println("parkingmanagerservice: trolley moved")
+				
+				[# pb = false 
+					trolleyPos = 0
+					#
+				]
+			}
+				
+		}		
+	}
+	Goto work if [# pb == false #] else trolleyProblem
+	
+	State trolleyProblem{
+		println("parkingmanagerservice: problem with the trolley. maintenance required")
+	}
+	
+	State enterTheCar{
+		println("parkingmanagerservice reply to enterthecar ")
+ 		if [# indoorFree #]{
+ 			onMsg( carenter : carenter(SLOT)){
+			[# SLOTNUM = payloadArg(0 ).toInt()  #]
+			[# TOKENID = COUNTER - 6  #]
+			updateResource [# "car(CP1494)" #]
+			replyTo carenter with receipt : receipt(CP1494)
+			}
+ 		}else{
+ 			replyTo carenter with receipt : receipt(wait)
+ 			updateResource [# "car(wait)" #]
+ 		}
+ 		
+	}
+	Goto work if [# !indoorFree #] else requestMove
+	
+	
+	State requestMove{
+		println("parkingmanagerservice request moveToIn ")
+		request trolley -m moveToIn : moveToIn(go)
+		
+	}
+	Transition t0 whenReply movedToIn -> checkMovedToIn
+	
+	State checkMovedToIn{
+		[# pb = true
+			var m= "" #
+		]
+		onMsg( movedToIn: movedToIn(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false
+					trolleyPos = 1
+					#
+				]
+			}	
+		}
+	}
+	Goto moveTrolleyToSlotIn if [# pb == false #] else trolleyProblem	
+	
+	State moveTrolleyToSlotIn{
+		println("parkingmanagerservice request the trolley to move to slot in")
+		request trolley -m moveToSlotIn : moveToSlotIn(3,2)
+	}
+	Transition t0 whenReply movedToSlotIn -> checkMovedToSlotIn
+	
+	State checkMovedToSlotIn{
+		[# var pb = true
+			var m = "" #
+		]
+		onMsg( movedToSlotIn: movedToIn(SUCCESS)){
+			[# m = payloadArg(0)  #]
+			if [# m != "problem" #]{
+				println("parkingmanagerservice: trolley moved")
+				[# pb = false #]
+			}	
+		}
+	}
+	Goto moveTrolleyHome if [# pb == false #] else trolleyProblem	
+	
+}
+
+QActor trolley context  ctxcarparking{
+	State s0 initial{
+		println("trolley STARTS")
+	}
+	Goto work 
+	
+	State work{ 
+		println("trolley waiting ........... ")  
+	}
+	Transition t0 whenRequest moveToIn -> tMoveToIn
+				  whenRequest moveToSlotIn -> tMoveToSlotIn
+				  whenRequest moveToSlotOut -> tMoveToSlotOut
+				  whenRequest moveToOut -> tMoveToOut
+				  whenRequest backToHome -> tMoveToHome
+				  
+	State tMoveToIn {
+		println("trolley moving to INDOOR ")
+		delay 500
+		println("trolley moved to INDOOR ")
+		updateResource [# "moved(indoor)" #]
+		replyTo moveToIn with movedToIn : movedToIn(success)
+	}
+	Goto work
+	
+	State tMoveToSlotIn {
+		onMsg(moveToSlotIn : moveToSlotIn(X,Y)){
+			[# var H = payloadArg(0).toInt() 
+				var G = payloadArg(1).toInt()
+			#]
+			println("trolley moving to coordinate ($H, $G)") 
+			delay 500
+			println("trolley moved to coordinate ($H, $G)") 
+			updateResource [# "moved(slotIn)" #]
+			replyTo moveToSlotIn with movedToSlotIn : movedToSlotIn(success, $H, $G)
+		} 
+		
+	}
+	Goto work
+	
+	State tMoveToSlotOut {
+		onMsg(moveToSlotOut : moveToSlotOut(X,Y)){
+			[# var G = payloadArg(0).toInt() 
+				var H = payloadArg(1).toInt()
+			#]
+			println("trolley moving to coordinate ($G, $H)") 
+			delay 500
+			println("trolley moved to coordinate ($G, $H)") 
+			updateResource [# "moved(slotOut)" #]
+			replyTo moveToSlotOut with movedToSlotOut : movedToSlotOut(success, $G, $H)
+		} 
+		
+	}
+	Goto work
+	
+	State tMoveToOut {
+		println("trolley moving to OUTDOOR ")  
+		delay 500
+		println("trolley moved to OUTDOOR ")  
+		updateResource [# "moved(out)" #]
+		replyTo moveToOut with movedToOut : movedToOut(success)
+		
+	}
+	Goto work
+	
+	State tMoveToHome {
+		println("trolley moving to home ")  
+		delay 500
+		println("trolley moved to home ")  
+		updateResource [# "moved(home)" #]
+		replyTo backToHome with movedToHome : movedToHome(success)
+	}
+	Goto work
+	
+}

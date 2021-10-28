@@ -55,6 +55,7 @@ dependencies {
     implementation("org.eclipse.californium:californium-proxy:2.0.0-M12")
 
     implementation( "com.squareup.okhttp3:okhttp:4.9.0" )
+    implementation( "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5" )
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
 
