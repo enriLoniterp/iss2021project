@@ -488,8 +488,54 @@ div.imagedesc{
   to it with the outcome of execution. This behaviour reveals that a <b>synchronous communication</b> is more situable.
  Alternatively, <b>asynchronous communication</b> could be used. However, this type of communication would force the system
   to have less knowledge of the current state of the transport trolley.
-</div>
-<center><img src="IMG/TRANSPORT TROLLEY.jpg" alt="TRANSPORTROLLEY" width="30%"></center>
+</div><br>
+<table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
+  <tr>
+    <td style="border: 0px">
+        <center><img src="IMG/TRANSPORT TROLLEY.jpg" alt="TRANSPORTROLLEY" width="60%"></center>
+    </td>
+    <td style="border: 0px">
+      <center><table cellpadding="5%">
+        <tbody><tr>
+            <th>Message</th>
+            <th>Content</th>
+            <th>Semantic</th>
+        </tr>
+        <tr>
+            <td>command</td>
+            <td>step</td>
+            <td>request</td>
+        </tr>
+        <tr>
+            <td rowspan="5">command</td>
+            <td>halt</td>
+            <td rowspan="5">dispatch</td>
+        </tr>
+        <tr>
+            <td>forward</td>
+        </tr>
+        <tr>
+            <td>backward</td>
+        </tr>
+        <tr>
+            <td>turnLeft</td>
+        </tr>
+        <tr>
+            <td>turnRight</td>
+        </tr>
+        <tr>
+            <td rowspan="2">reply</td>
+            <td>stepdone</td>
+            <td rowspan="2">reply</td>
+        </tr>
+        <tr>
+            <td>stepfail</td>
+        </tr>
+    </tbody></table></center>
+  </td>
+</tr>
+</table>
+<br>
 <h3> Fan </h3>
 <div class="remark">
 The <ks>fan</ks> does not own or produce any valuable information by itself but it is a component controlled by the system.
@@ -677,16 +723,15 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
     Manager's interface must be able to send commands to the fan and the <ks>trasport trolley</ks> as well as receive and show details
     about current system status. Another key functionality that the manager's interface must integrate is the ability
     to receive and show in a proper way the alarm signal.<br>
-    However, the polling mechanism would affect system performance and resources. <br>
     The system behaviour results in two type of interaction between the <ks>ParkServiceStatusGUI</ks> and the <ks>PMS</ks>:
     <ul>
       <li>to stop/resume both fan and trasport trolley with a request/response semantic. This
       allows both entities to know if a command was successful or not. Alternatively, a dispatch semantic can be used to make the interaction less constrained;</li>
-      <li>to receive data about the current status of the system with a dispatch or dispatch semantic. <!-- This allows to
+      <li>to receive data about the current status of the system with a dispatch or invitation semantic. <!-- This allows to
       reply the system with an ack about the Information received. That mechanism is fundamental
       especially when the alarm is triggered.--></li>
     </ul>
-    Below a detailed list of what the GUI must show:
+    Below a <a id="status">detailed list</a> of what the GUI must show:
     <ul>
       <li>status of the <ks>fan</ks> (<b>on/off</b>);</li>
       <li>status of the <ks>transport trolley</ks> (<b>idle/working/stopped</b>);</li>
@@ -745,7 +790,7 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
               </tr>
               <tr>
                 <td>System Status</td>
-                <td><a href="#current_state">check above</a></td>
+                <td><a href="#status">check above</a></td>
                 <td>dispatch</td>
               </tr>
               <tr>
@@ -796,13 +841,18 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
                 <td>acceptOUT</td>
               </tr>
               <tr>
-                <td rowspan="4">Reply</td>
+                <td rowspan="5">Reply</td>
                 <td>ok</td>
-                <td rowspan="4">reply</td>
+                <td rowspan="5">reply</td>
               </tr>
               <tr>
                 <td>
                   fail
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  wait
                 </td>
               </tr>
               <tr>
@@ -910,7 +960,7 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
       <li>INDOOR cell (6,0) / OUTDOOR cell (6,4);</li>
       <li>temperature under <ks>TMAX</ks>;</li>
       <li>one client;</li>
-      <li>free INDoor-area;</li>
+      <li>free INDOOR-area;</li>
       <li>no interaction from parking manager;</li>
       <li>one free parking slot (3,3) <ks>SLOTNUM</ks> = 6.</li>
     </ul>
