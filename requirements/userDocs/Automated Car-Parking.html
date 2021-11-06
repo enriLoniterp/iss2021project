@@ -331,7 +331,10 @@ div.imagedesc{
 </div>
 <br>
 <div class="remark">
-  The two actuators, following the discussion with the customer and as they are actively controlled by the ParkManagerService,
+  After a discussion with the customer the <ks>out-sonar</ks>, the <ks>thermometer</ks> and the <ks>weightsensor</ks> are an autonmous active component that does not 'known' any other component.
+</div>
+<div class="remark">
+  The two actuators (<ks>transport trolley</ks> and <ks>fan</ks>), following the discussion with the customer and as they are actively controlled by the ParkManagerService,
   can already be modeled as actors using the Qak meta-modeling language. <!-- Questo modello di linguaggio di modellazione è un custom dsl sviluppate dal committente
   e possono essere ritrovate nella seguente libreria. -->
   <br>
@@ -484,10 +487,10 @@ div.imagedesc{
 <div class="remark">
   <ks>Transport trolley</ks> must satisfy these requirements: <a href="#R2A">R2A</a>, <a href="#R2C">R2C</a>, <a href="#R2D">R2D</a>, <a href="#R2E">R2E</a>, <a href="#R3B">R3B</a>, <a href="#R3C">R3C</a>, <a href="#R3D"> R3D</a>.<br>
   At any time, parking manager is allowed to stop these tasks. Transport trolley aim leads to both active and passive behaviour. <br>
-  As discussed in the requirements analysis, the <ks>transport trolley</ks> is represented as an actor. This actuator receives commands by the <ks>PMS</ks> and replies
-  to it with the outcome of execution. This behaviour reveals that a <b>synchronous communication</b> is more situable.
- Alternatively, <b>asynchronous communication</b> could be used. However, this type of communication would force the system
-  to have less knowledge of the current state of the transport trolley.
+  As discussed in the requirements analysis, the <ks>transport trolley</ks> is represented as an actor. Since <ks>PMS</ks> contains the business logic of the
+  service, it must know the status of the <ks>transport trolley</ks>. At the same time, <ks>PMS</ks> must be able to complete other tasks. For that reason,
+  a non-blocking communication using <b>dispatches</b> is more situable. Alternatively, a <b>synchronous communication</b> would force the <ks>PMS</ks> to wait
+  the reply of the <ks>transport trolley</ks> after a command making the service less reactive.
 </div><br>
 <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
   <tr>
@@ -502,34 +505,35 @@ div.imagedesc{
             <th>Semantic</th>
         </tr>
         <tr>
-            <td>command</td>
-            <td>step</td>
-            <td>request</td>
-        </tr>
-        <tr>
             <td rowspan="5">command</td>
-            <td>halt</td>
+            <td>t_moveToIn</td>
             <td rowspan="5">dispatch</td>
         </tr>
         <tr>
-            <td>forward</td>
+            <td>t_moveToOut</td>
         </tr>
         <tr>
-            <td>backward</td>
+            <td>t_moveToSlotIn</td>
         </tr>
         <tr>
-            <td>turnLeft</td>
+            <td>t_moveToSlotOut</td>
         </tr>
         <tr>
-            <td>turnRight</td>
+            <td>t_backToHome</td>
         </tr>
         <tr>
-            <td rowspan="2">reply</td>
-            <td>stepdone</td>
-            <td rowspan="2">reply</td>
+            <td rowspan="4">reply</td>
+            <td>ok</td>
+            <td rowspan="4">dispatch</td>
         </tr>
         <tr>
-            <td>stepfail</td>
+            <td>wait</td>
+        </tr>
+        <tr>
+            <td>fail</td>
+        </tr>
+        <tr>
+            <td>ok(x,y)</td>
         </tr>
     </tbody></table></center>
   </td>
@@ -713,7 +717,9 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
   <h4>GUI overview</h4>
   <div class="remark">
     In an attempt to achieve a wider catchment area and to guarantee simplicity and portability both GUIs should be web
-    interfaces. In that case, <b>Spring</b>, <b>Spark</b> and <b>Grails</b> frameworks are technologies that can be used to simplify the development of the two GUIs.
+    interfaces. In that case, <a href="https://spring.io/"><b>Spring</b></a>,
+    <a href="https://sparkjava.com/"><b>Spark</b></a> and <a href="https://grails.org/"><b>Grails</b></a>
+      frameworks are technologies that can be used to simplify the development of the two GUIs.
     Furthermore, both client and manager interfaces should be clear and user-friendly.
   </div>
 </div>
@@ -929,6 +935,7 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
     Another goal was the development of a code as independent as possible from the technology used for the transport trolley in order to
     make it easier to replace it if necessary. The abstraction between system design and available
     technologies is facilitated thanks to the presence of modern programming languages such as Kotlin that allows the definition of actors. However,
+    Kotlin doesn't solve the distributed management of actors. Finally,
     the use of particular technologies to deal with problems such as data persistence and failure resistance leads to a wider gap.
   </div>
 </div>
@@ -948,6 +955,10 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
   <h3>Logical Architecture</h3>
   From the previous considerations on the components of the system it is possible to define a first logical architecture: <br><br>
   <center><img src="IMG/LOGICAL ARCHITECTURE.png" alt="architectural_model" width="40%"></center>
+  <div class="remark">
+    The information about the status of the components can be centralized or kept in a distributed way. In order to satisfy GUIs requirements, a centralized management
+    would be more easily implemented. However, the centralized management is open to single point of failure.
+  </div>
   <div class="remark">
     In order to make our parking software reusable and as much as possibile independent from the undelying communication protocols,
     the designer could make reference to proper design pattern such as <b>adapter</b>, <b>bridge</b> and <b>facade</b>. Other design pattern that might be considered during
@@ -998,7 +1009,7 @@ Test plans are based on the model developed and are available <a href="https://g
         <th>ID</th>
         <th>PRIORITY</th>
         <th>ITEM</th>
-        <th>REQUIREMNTS</th>
+        <th>REQUIREMENTS</th>
       </tr>
       <tr>
         <td><b>1</b></td>
