@@ -233,11 +233,11 @@ div.imagedesc{
       <li><ks><a id="R2A">(R2A)</a> moveToIn</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>INDOOR</kr>;</li>
       <li><ks><a id="R2B">(R2B)</a> receipt</ks>: send to the client a receipt including the value of the <kr>TOKENID</kr>;</li>
       <li><ks><a id="R2C">(R2C)</a> moveToSlotIn</ks>: move the <kr>transport trolley</kr> from the <kr>INDOOR</kr> to the selected <kr>parking-slot</kr>;</li>
-      <li><ks><a id="R2D">(R2D)</a> backToHome</ks>if no other request is present, move the <kr>transport trolley</kr> to its <kr>home</kr> location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>.</li>
+      <li><ks><a id="R2D">(R2D)</a> backToHome</ks>: if no other request is present, move the <kr>transport trolley</kr> to its <kr>home</kr> location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>.</li>
     </ol>
     If <b>SLOTNUM</b> == 0:
     <ul>
-      <li><ks><a id="R2E">(R2E)</a> moveToHome</ks> if not already at home, move the <kr>transport trolley</kr> to its <kr>home</kr> location.</li>
+      <li><ks><a id="R2E">(R2E)</a> moveToHome</ks>: if not already at home, move the <kr>transport trolley</kr> to its <kr>home</kr> location.</li>
     </ul>
     <hr size="4" color="black">
     <ul>
@@ -331,7 +331,7 @@ div.imagedesc{
 </div>
 <br>
 <div class="remark">
-  After a discussion with the customer the <ks>out-sonar</ks>, the <ks>thermometer</ks> and the <ks>weightsensor</ks> are an autonmous active component that does not 'known' any other component.
+  After a discussion with the customer the <ks>out-sonar</ks>, the <ks>thermometer</ks> and the <ks>weightsensor</ks> are an autonmous active component that does not 'know' any other component.
 </div>
 <div class="remark">
   The two actuators (<ks>transport trolley</ks> and <ks>fan</ks>), following the discussion with the customer and as they are actively controlled by the ParkManagerService,
@@ -432,7 +432,7 @@ div.imagedesc{
 <h2>Problem analysis</h2>
 
 <div class="remark">
-  The system is made up of a series of distributed heterogeneous components that must communicate with each other.
+  The system is made up of a series of distributed heterogeneous components that must communicate with each others.
   From their interaction arises the problem of evaluating the technologies to be used for the transmission of information in the best possible way.
   Another problem can be found in the management of the transport trolley as a core feature of the parking system.<br>
 </div>
