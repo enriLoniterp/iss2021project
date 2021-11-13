@@ -201,289 +201,73 @@ div.imagedesc{
 
 <head>
 
-<title>Final task ISS-2021 Bologna: Automated Car-Parking</title></head>
+<title>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 1</title></head>
 
 <body>
 <div id="top">
-<h1>Final task ISS-2021 Bologna: Automated Car-Parking<font size="5"></font> </h1>
+<h1>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 1<font size="5"></font> </h1>
 </div>
 
 <div class="body">
-
-
-<h2>Introduction</h2>
-<div id="Introduction">
-  This document deals with the design, build and development of a software system, named <ks>ParkingManagerService</ks>,
-  which implements a series of functions to manage an automating parking service.
-</div>
-<h2>Requirements</h2>
-<div id="Requirements" class="remark">
-  The <kr>ParkManagerService</kr> should create the <kr>ParkServiceGUI</kr> (for the client) and the <kr>ParkServiceStatusGUI</kr> (for the manager)
-  and then perform the following tasks:
-  <ul>
-    <li><ks><a id="R1">(R1)</a> acceptIN</ks>: accept the request of a client to park the car if there is at least one <kr>parking-slot</kr> available,
-      select a free slot identified with a unique <kr>SLOTNUM</kr>.
-      A request of this type can be elaborated only when the <kr>INDOOR-area</kr> is free, and the <kr>transport trolley</kr> is at <kr>home</kr> or working
-      (not stopped by the manager). If the <kr>INDOOR-area</kr> is already engaged by a car, the request is not immediately processed (the client could simply
-      wait or could - optionally - receive a proper notice).</li>
-    <li><ks><a id="R2">(R2)</a> informIN</ks>: inform the client about the value of the <kr>SLOTNUM</kr>.</li>
-    </ul>
-    If <b>SLOTNUM</b> > 0:
-    <ol>
-      <li><ks><a id="R2A">(R2A)</a> moveToIn</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>INDOOR</kr>;</li>
-      <li><ks><a id="R2B">(R2B)</a> receipt</ks>: send to the client a receipt including the value of the <kr>TOKENID</kr>;</li>
-      <li><ks><a id="R2C">(R2C)</a> moveToSlotIn</ks>: move the <kr>transport trolley</kr> from the <kr>INDOOR</kr> to the selected <kr>parking-slot</kr>;</li>
-      <li><ks><a id="R2D">(R2D)</a> backToHome</ks>: if no other request is present, move the <kr>transport trolley</kr> to its <kr>home</kr> location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>.</li>
-    </ol>
-    If <b>SLOTNUM</b> == 0:
-    <ul>
-      <li><ks><a id="R2E">(R2E)</a> moveToHome</ks>: if not already at home, move the <kr>transport trolley</kr> to its <kr>home</kr> location.</li>
-    </ul>
-    <hr size="4" color="black">
-    <ul>
-      <li><ks><a id="R3">(R3)</a> acceptOUT</ks>: accept the request of a client to get out the car with <kr>TOKENID</kr>. A request of this type can be
-        elaborated only when the <kr>OUTDOOR-area</kr> is free and the <kr>transport trolley</kr> is at <kr>home</kr> or working (<b>not stopped</b> by the manager).
-        If the <kr>OUTDOOR-area</kr> is still engaged by a car, the request is not immediately processed (the client could simply wait or could -
-        optionally - receive a proper notice).</li>
-    </ul>
-    <ol>
-      <li><ks><a id="R3A">(R3A)</a> findSlot</ks>: deduce the number of the parking slot (<ks>CARSLOTNUM</ks>) from the <kr>TOKENID</kr>;</li>
-      <li><ks><a id="R3B">(R3B)</a> moveToSlotOut</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>CARSLOTNUM</kr>/<kr>parking-slot</kr>;</li>
-      <li><ks><a id="R3C">(R3C)</a> moveToOut</ks>: move the <kr>transport trolley</kr> to the <kr>OUTDOOR</kr>;</li>
-      <li><ks><a id="R3D">(R3D)</a> moveToHome</ks>: if no other request is present move the <kr>transport trolley</kr> to its <kr>home</kr> location;<br>
-        else <ks>acceptIN</ks> or <ks>acceptOUT</ks>
-    </ol>
-    <hr size="4" color="black">
-    <ul>
-      <li><ks><a id="R4">(R4)</a> monitor</ks>: update the <kr>ParkServiceStatusGUI</kr> with the required information about the state of the system.</li>
-    </ul>
-    <hr size="4" color="black">
-    <ul>
-      <li><ks><a id="R5">(R5)</a> manage</ks>: accept the request of the manager to stop/resume the behavior of the <kr>transport trolley</kr>.</li>
-    </ul>
-  <br>
-  A detailed description of the requirements is available <a href="TFBO21ISS.pdf">here</a>
-</div>
-
-<h2>Requirement analysis</h2>
-<div class="remark">
-  <div>
-    Our <b>interaction with the customer</b> has clarified that nouns have the following meanings:
-    <ul>
-      <li><ks>service</ks>: system of intercommunicating components based on a combination of hardware and software which handles interaction between human and machine;</li>
-      <li><ks>automation functions</ks>: set of functions or tasks which <kr>ParkingManagerService</kr> runs without any kind of employee's interaction or supervision;</li>
-      <li><ks>DDR Robot</ks>: physical or virtual (simulated in an virtual environment) object which can be represented and controlled using the infomation in <a href="./basicrobot2021.html">basicrobot2021</a>;</li>
-      <li><ks>transport trolley</ks>: component which uses the <ks>DDR Robot</ks> in order to complete his tasks;</li>
-      <li><ks>home</ks>: shelter or starting point located in the parking area;</li>
-      <li><ks>weight sensor</ks>: weight transducer which converts an input mechanical force such as load, weight,
-                                 tension, compression, or pressure into another physical variable, in this case,
-                                 into an electrical output signal that can be measured and converted. <br>
-                                 Since the system interacts with cars, the weight sensor triggers only when a
-                                 sufficient weight is placed on the footplate;</li>
-      <li><ks>outsonar</ks>: physical tool capable to detect object that cross its trajectory. The customers gave access to <a href="./SonarAlone.c">SonarAlone.c</a> which allows to manage the sonar;</li>
-      <li><ks>parking-area</ks>: area provided for the parking of vehicles and includes any parking spaces, ingress and egress lanes.</li>
-      <li><ks>empty room</ks>: section of a building which is enclosed by walls and a floor. The room also does not contain
-                              anything. It isn't filled or occupied by any physical object;</li>
-      <li><ks>INDOOR</ks>: fixed point of the map which marks where car can enter the parking;</li>
-      <li><ks>OUTDOOR</ks>: fixed point of the map which marks where car can exit the parking;</li>
-      <li><ks>INDOOR-area</ks>: detailed area of the map where the weight sensor is placed;</li>
-      <li><ks>OUTDOOR-area</ks>: detailed area of the map where the out sonar is placed;</li>
-      <li><ks>weight</ks>: body(car)'s relative mass or the quantity of matter contained by it;</li>
-      <li><ks>parking-slots</ks>: six fixed place in a specific area of the map where car are or can be parked;</li>
-      <li><ks>thermometer</ks>: sensor which is situated inside the parking and able to measuring and indicating temperature;</li>
-      <li><ks>fan</ks>: actuator for producing a current of air by the movement of a broad surface or a number of such surfaces;</li>
-      <li><ks>map</ks>: representation of the environment that delineates <ks>home</ks>, <ks>INDOOR</ks>, <ks>OUTDOOR</ks> and <ks>parking area</ks> defined in <a href="./parkingMap.txt">parkingMap.txt</a>.
-      <li><ks>fixed obstacles</ks>: walls which marks the limit of the <ks>room</ks>;</li>
-      <li><ks>WEnv</ks>: virtual environment which simulate the scene of the parking in order to simplify the development in a real context. The <ks>WEnv</ks> configuration is reported in <a href="./parkingAreaConfig.js">parkingAreaConfig.js</a>;</li>
-      <li><ks>critical situations</ks>: anomalous situations not foreseen in advance and managed in a general way;</li>
-      <li><ks>TOKENID</ks>: string which identify in an unique way cars parked in the system and which is used in the car pick up phase;</li>
-      <li><ks>ParkServiceGUI</ks>: user interface which allows users to interact with the parking system and which shows the <ks>SLOTNUM</ks> and <ks>TOKENID</ks>
-                                  and buttons  which help the user to park and retrieve their car;</li>
-      <li><ks>ParkServiceStatusGUI</ks>: user interface which allows manager to interact with the parking system
-                                        and which shows the <ks>current state</ks> of the parking area;
-      <li><ks>SLOTNUM</ks>: integer that represents <ks>parking-slots</ks>;</li>
-      <li><ks>current state</ks>: current situation of the entire system. It includes <ks>parking-slots</ks> availability,
-                                 room <ks>temperature</ks>, state of the <ks>fan</ks> and state of the <ks>ParkingServiceGUI</ks>;</li>
-      <li><ks>behaviour</ks>: status of <ks>transport trolley</ks>:
-                            <ul>
-                              <li><kr>Idle</kr>: has no duties to perform;</li>
-                              <li><kr>Working</kr>: currently performing tasks;</li>
-                              <li><kr>Stop</kr>: state driven manually by the manager or in an automatic mechanism when <ks>TA</ks> > <ks>TMAX</ks>;</li>
-                            </ul>
-      </li>
-      <li><ks>alarm</ks>: signal which warn the manager of the system through the <ks>ParkServiceStatusGUI</ks>
-                         when the <ks>OUTDOOR-area</ks> has not been cleaned within the <ks>DTFREE</ks> interval of time;</li>
-      <li><ks>proper notice</ks>: warning sent to the user through the <ks>ParkServiceGUI</ks> if the <ks>INDOOR-area</ks> is already
-                                engaged by a car;</li>
-    </ul>
-  </div>
-  <div>
-    Regarding action or verbs:
-    <ul>
-      <li><ks>equipped</ks>: the system is supplied with the necessary items for a particular purpose;</li>
-      <li><ks>notify/inform</ks>: the interaction between the software system and the user and vice versa;</li>
-      <li><ks>walk</ks>: the <ks>transport trolley</ks> moves in order to complete its task;</li>
-      <li><ks>take over</ks>: the <ks>transport trolley</ks> picks up a car and carries it inside the parking;</li>
-      <li><ks>observe</ks>: the <kr>ParkingManager</kr> monitors the <ks>current state</ks> of the system;</li>
-      <li><ks>clean</ks>: the <ks>OUTDOOR-area</ks> is free;</li>
-    </ul>
-  </div>
-</div>
-<br>
-<div class="remark">
-  After a discussion with the customer the <ks>out-sonar</ks>, the <ks>thermometer</ks> and the <ks>weightsensor</ks> are an autonmous active component that does not 'know' any other component.
-</div>
-<div class="remark">
-  The two actuators (<ks>transport trolley</ks> and <ks>fan</ks>), following the discussion with the customer and as they are actively controlled by the ParkManagerService,
-  can already be modeled as actors using the Qak meta-modeling language. <!-- Questo modello di linguaggio di modellazione è un custom dsl sviluppate dal committente
-  e possono essere ritrovate nella seguente libreria. -->
-  <br>
-  The model of the two actors is detailed <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_req_an/src/requirements.qak">here</a>.
-  In addiction, unit test for both the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_req_an/src/tests/TestPlanFan.kt">fan</a>
-  and the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/requirements/model_req_an/src/tests/TestPlanTrolley.kt">trasport trolley</a> are presented.
-</div>
-
-<!--
-<div id="user_stories">
-  <div id="Main User Story">
-    <h3>Main user story</h3>
-    <table style="width:98%" cellpadding="5%">
-      <tbody>
-        <tr>
-          <td style="width:70%">
-           A client interacts with the <ks>ParkServiceGUI</ks> in order to park its car. The system, then checks if the <ks>INDOOR-area</ks> is free, and in that case
-           it replies to the client with a number that identifies a free park-slot (<ks>SLOTNUM</ks>). At that time, if <ks>SLOTNUM</ks> > 0, the client receives a receipt with the
-           <ks>TOKENID</ks>, enters the car and then the <ks>ParkingManagerService</ks> makes the transport trolley pick up the car <b>(1)</b> and moves it to the selected parking-slot <b>(2)</b>. <br><br>
-           When the client wants his car back, he interacts again with the <ks>ParkServiceGUI</ks> by requesting a pick up of his car
-           using the <ks>TOKENID</ks> previously received. At this time, the transport trolley carries the selected car from its parking-slot to the
-           outdoor-area <b>(3)</b>. Finally, the client takes the car and frees the outdoor-area.
-          </td>
-          <td><center><img src="IMG/user_story_1.jpg" alt="TestPlan0" width="95%"></center>
-          </td>
-        </tr>
-       </tbody>
-    </table>
-    <pre> Let assume the <ks>INDOOR-area</ks> is free and at least one parking slot is available:<br>
-          Client notifies interest in entering the car<br>
-          System return <ks>SLOTNUM</ks><br>
-          assert 0 < <ks>SLOTNUM</ks> <= 6<br>
-          Client <ks>CARENTER</ks><br>
-          System return <ks>TOKENID</ks> and park the car<br>
-          <b>wait</b><br>
-          Client wants to pick up his car by sending <ks>TOKENID</ks><br>
-          System moves the selected car to the <ks>OUTDOOR-area</ks><br>
-          Client receives a confirm.
-    </pre>
-  </div>
-<div id="user_story_standard_supervision">
-  <h3>User story: normal parking manager's supervision</h3>
-  <table style="width:98%" cellpadding="5%">
-    <tbody>
-      <td>
-        While the <kr>ParkingMenagerService</kr> is working, it collects data of system current state. This includes the temperature (<ks>TA</ks>), state of the fan
-        and the <ks>transport trolley</ks>. The manager can view this information by the GUI.
-      </td>
-    </tbody>
-  </table>
-</div>
-<pre>
-  System simulates the change of the current status<br>
-  GUI checks if new changes appears.
-</pre>
-<div id="user_story_non_standard_supervision">
-  <h3>User story: non standard parking manager's supervision</h3>
-  <table style="width:98%" cellpadding="5%">
-    <tbody>
-      <td>
-        When the system is working, the thermometer measures the temperature <ks>TA</ks>. If <ks>TA</ks> > <ks>TMAX</ks> the <kr>ParkingManagerService</kr> informs the <ks>ParkingServiceStatusGUI</ks>.
-        Therefore the manager requests to stop the trasport trolley and activates the fan via the GUI.
-        The system stops the <ks>transport trolley</ks> and waits until <ks>TA</ks> < <ks>TMAX</ks>. When this happens the manager sees it on the GUI and requests to activate the
-        <ks>trasport</ks> trolley and to stop the fan using the GUI.
-      </td>
-    </tbody>
-  </table>
-</div>
-<pre>
-  <ks>Thermometer</ks> simulates a temperature <ks>TA</ks> > <ks>TMAX</ks><br>
-  <b>wait</b> <br>
-  System checks new fan and transport trolley status<br>
-  Thermometer simulates a temperature <ks>TA</ks> < <ks>TMAX</ks><br>
-  <b>wait</b> <br>
-  System checks new <ks>fan</ks> and <ks>transport trolley</ks> status<br>
-</pre>
-<div id="alarm_situation">
-  <h3>User story: DTFREE OUTDOOR-AREA </h3>
-  <table style="width:98%" cellpadding="5%">
-    <tbody>
-      <td>
-        Initially the outsonar detects the presence of a car in the <ks>OUTDOOR-area</ks> and refers it to the <ks>ParkManagerService</ks>. If the car is still waiting in the
-        <ks>OUTDOOR-area</ks> within the <ks>DTFREE</ks> time the <kr>ParkManagerService</kr> sends an <b>ALARM</b> signal to the <ks>ParkServiceStatusGui</ks>. The manager is now aware of the situation.
-      </td>
-    </tbody>
-  </table>
-</div>
-</div>
-<pre>
-  <ks>Outsonar</ks> simulates the presence of a car for a time <ks>T</ks> > <ks>DTFREE</ks><br>
-  <ks>ParkServiceStatusGui</ks> checks if an alarm has been received<br>
-</pre>
--->
-
-<h2>Problem analysis</h2>
-
-<div class="remark">
-  The system is made up of a series of distributed heterogeneous components that must communicate with each others.
-  From their interaction arises the problem of evaluating the technologies to be used for the transmission of information in the best possible way.
-  Another problem can be found in the management of the transport trolley as a core feature of the parking system.<br>
-</div>
-  This <a href="./Legenda.odp">legend</a> will be used to represent the components in the problem analysis.
-
-<!--
-<div>
-  <h4>System overview</h4>
-  <table style="width:98%" cellpadding="5%">
-    <tbody>
-      <tr>
-        <td style="width:60%" style="text-align:top">
-          The side image shows a schematic view of the system, including components and users.<br>
-          As can be seen from the image, the core system is the hub of the system and plays the role of mediator
-          between components. For this reason, the central system is the same entity which elaborates information and schedules
-          tasks for interacting components.
-          The interaction between those entities takes place via network or via different networks using messages. Data transmission
-          and message format will be described below.
-        </td>
-        <td><center><img src="IMG/SYSTEM OVERVIEW.jpg" alt="SystemOverview" width="90%"></center></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
--->
-<div id="System_communication_overview">
-  <h4>System communication overview</h4>
+<div id = "backlog">
+  <h2>Backlog</h2>
   <div class="remark">
-    The interaction can be generally expressed as <ks>procedure calls</ks> or <ks>message based</ks>. However,
-    since a distributed system is being developed, communication is a major aspect of the system itself and fit best in a message based interaction. <br>
-    Depending on the nature and task of each component of the system, they will need a different form of interaction.
-  <br>
-    Moreover, in order to use this semantic, the system can relies on different communication protocol:
+    Sprint 1 regards the develop of the <ks>PMS</ks> basic functionalities:
     <ul>
-      <li><ks>websocket</ks>;</li>
-      <li><ks>HTTP</ks>;</li>
-      <li><ks>MQTT</ks>;</li>
-      <li><ks>COaP</ks>.</li>
+      <li><ks>PMS</ks> manages data from sensors: <a id="#R1">R1</a>, <a id="#R2">R2</a>, <a id="#R3">R3</a>;</li>
+      <li><ks>PMS</ks> manages transport trolley: <a id="#R2A">R2A</a>, <a id="#R2C">R2C</a>, <a id="#R2D">R2D</a>, <a id="#R2E">R2E</a> <a id="#R3A">R3A</a>, <a id="#R3B">R3B</a>, <a id="#R3C">R3C</a>, <a id="#R3C">R3C</a>;</li>
     </ul>
-    Afterwards, for every component will be discussed the best communication solution according to its task.
   </div>
 </div>
-<h4>Components overview</h4>
-<div>
-  <h3> ParkManagerService </h3>
-<div class="remark" id="problem_analysis_park_manager_service">
-  The ParkManagerService (<b>PMS</b>) is the core of the entire software system as it contains the business logic.
-  Acting like the system 'hub', the <kr>PMS</kr> can be described as a <ks>service</ks>, managing various types of information coming from external sensors,
-  receving messages or commands from clients or the manager and controlling the transport trolley and the fan.
+<h4>Starting point</h4>
+<!-- inserire immagine -->
+
+
+<div id = "problem_analysis">
+<h2>Problem analysis</h2>
+<div class="remark">
+  This Sprint aim to develop and deeper describe the following entities:
+  <ul>
+    <li><ks>PMS</ks>;</li>
+    <li><ks>Transport Trolley</ks>;</li>
+    <li><ks>Outsonar</ks>;</li>
+    <li><ks>Weightsensor</ks>;</li>
+    <li><ks>Thermometer</ks>;</li>
+  </ul>
 </div>
-  <h3> Transport trolley </h3>
+<div class="remark">
+  An initial model of these entities, without interaction between them, can be found <a href = "">here</a>.
+</div>
+<div id = "problem_analysis_PMS">
+  <h3>PMS</h3>
+  <div class="remark">
+    From the <a href="#backlog">backlog</a>, the <ks>Park Manager System</ks> needs to manage:
+    <ul>
+      <li>Data from the outsonar, the weightsensor and the thermometer;</li>
+      <li>Commands to the transport trolley.</li>
+    </ul>
+    With regard to these two tasks, in the <a href="">first analysis</a>, it was described how they are of a different nature.
+    This difference suggests an independent management of the two activities. For that reason, a monolithic PMS should be avoided.
+  </div>
+  <h4>Communication summary</h4>
+  <div class="remark">
+    <ul>
+      <li>Interaction between sensors and the <ks>PMS</ks> is <b>events based</b>;</li>
+      <li>Interaction between the transport trolley and the <ks>PMS</ks> uses a request/response and a dispatch semantic.</li>
+    </ul>
+  </div>
+</div>
+<h3> Transport trolley </h3>
+<div class="remark">
+  The <ks>transport trolley</ks> receives commands from the <ks>PMS</ks> and if needed generates the path required to complete its tasks. The path
+  can be generated using <a href="https://raw.githubusercontent.com/anatali/issLab2021/master/it.unibo.cautiousExplorer/app/src/main/kotlin/itunibo/planner/plannerUtil.kt">plannerUtil.kt</a>
+  provided by the customer which is based on intelligence artifical algorithms. <br>
+  As pointed out during the first requirements analysis, in order to move the <ks>DDR Robot</ks>, the trasport trolley interacts with <a href="./basicrobot2021.html">basicrobot2021</a>
+  by sending the sequence of moves to do. The basicrobot2021 grants technology indipendence since it can be configured to work with the WEnv virtual robot as well as real robots deployed
+  on different systems such as Raspberry Pis or Arduinos.
+</div>
+</div>
+
 <div class="remark">
   <ks>Transport trolley</ks> must satisfy these requirements: <a href="#R2A">R2A</a>, <a href="#R2C">R2C</a>, <a href="#R2D">R2D</a>, <a href="#R2E">R2E</a>, <a href="#R3B">R3B</a>, <a href="#R3C">R3C</a>, <a href="#R3D"> R3D</a>.<br>
   At any time, parking manager is allowed to stop these tasks. Transport trolley aim leads to both active and passive behaviour. <br>
@@ -505,9 +289,9 @@ div.imagedesc{
             <th>Semantic</th>
         </tr>
         <tr>
-            <td rowspan="6">command</td>
+            <td rowspan="5">command</td>
             <td>t_moveToIn</td>
-            <td rowspan="6">dispatch</td>
+            <td rowspan="5">dispatch</td>
         </tr>
         <tr>
             <td>t_moveToOut</td>
@@ -520,9 +304,6 @@ div.imagedesc{
         </tr>
         <tr>
             <td>t_backToHome</td>
-        </tr>
-        <tr>
-            <td>t_stop</td>
         </tr>
         <tr>
             <td rowspan="4">reply</td>
@@ -1030,7 +811,7 @@ Test plans are based on the model developed and are available <a href="https://g
         <td><b>3</b></td>
         <td>HIGH</td>
         <td><ks>PMS</ks> manages data from sensors</td>
-        <td><a id="#R1">R1</a>, <a id="#R3">R3</a></td>
+        <td><a id="#R1">R1</a>, <a id="#R2">R2</a>, <a id="#R3">R3</a></td>
       </tr>
       <tr>
         <td><b>4</b></td>
