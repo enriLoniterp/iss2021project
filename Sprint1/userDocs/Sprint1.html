@@ -209,18 +209,69 @@ div.imagedesc{
 </div>
 
 <div class="body">
+
+<div id = "requirements">
+  <h2>Requirements</h2>
+  <div id="Requirements" class="remark">
+    The <kr>ParkManagerService</kr> should create the <kr>ParkServiceGUI</kr> (for the client) and the <kr>ParkServiceStatusGUI</kr> (for the manager)
+    and then perform the following tasks:
+    <ul>
+      <li><ks><a id="R1">(R1)</a> acceptIN</ks>: accept the request of a client to park the car if there is at least one <kr>parking-slot</kr> available,
+        select a free slot identified with a unique <kr>SLOTNUM</kr>.
+        A request of this type can be elaborated only when the <kr>INDOOR-area</kr> is free, and the <kr>transport trolley</kr> is at <kr>home</kr> or working
+        (not stopped by the manager). If the <kr>INDOOR-area</kr> is already engaged by a car, the request is not immediately processed (the client could simply
+        wait or could - optionally - receive a proper notice).</li>
+      <li><ks><a id="R2">(R2)</a> informIN</ks>: inform the client about the value of the <kr>SLOTNUM</kr>.</li>
+      </ul>
+      If <b>SLOTNUM</b> > 0:
+      <ol>
+        <li><ks><a id="R2A">(R2A)</a> moveToIn</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>INDOOR</kr>;</li>
+        <li><ks><a id="R2B">(R2B)</a> receipt</ks>: send to the client a receipt including the value of the <kr>TOKENID</kr>;</li>
+        <li><ks><a id="R2C">(R2C)</a> moveToSlotIn</ks>: move the <kr>transport trolley</kr> from the <kr>INDOOR</kr> to the selected <kr>parking-slot</kr>;</li>
+        <li><ks><a id="R2D">(R2D)</a> backToHome</ks>: if no other request is present, move the <kr>transport trolley</kr> to its <kr>home</kr> location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>.</li>
+      </ol>
+      If <b>SLOTNUM</b> == 0:
+      <ul>
+        <li><ks><a id="R2E">(R2E)</a> moveToHome</ks>: if not already at home, move the <kr>transport trolley</kr> to its <kr>home</kr> location.</li>
+      </ul>
+      <hr size="4" color="black">
+      <ul>
+        <li><ks><a id="R3">(R3)</a> acceptOUT</ks>: accept the request of a client to get out the car with <kr>TOKENID</kr>. A request of this type can be
+          elaborated only when the <kr>OUTDOOR-area</kr> is free and the <kr>transport trolley</kr> is at <kr>home</kr> or working (<b>not stopped</b> by the manager).
+          If the <kr>OUTDOOR-area</kr> is still engaged by a car, the request is not immediately processed (the client could simply wait or could -
+          optionally - receive a proper notice).</li>
+      </ul>
+      <ol>
+        <li><ks><a id="R3A">(R3A)</a> findSlot</ks>: deduce the number of the parking slot (<ks>CARSLOTNUM</ks>) from the <kr>TOKENID</kr>;</li>
+        <li><ks><a id="R3B">(R3B)</a> moveToSlotOut</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>CARSLOTNUM</kr>/<kr>parking-slot</kr>;</li>
+        <li><ks><a id="R3C">(R3C)</a> moveToOut</ks>: move the <kr>transport trolley</kr> to the <kr>OUTDOOR</kr>;</li>
+        <li><ks><a id="R3D">(R3D)</a> moveToHome</ks>: if no other request is present move the <kr>transport trolley</kr> to its <kr>home</kr> location;<br>
+          else <ks>acceptIN</ks> or <ks>acceptOUT</ks>
+      </ol>
+      <hr size="4" color="black">
+      <ul>
+        <li><ks><a id="R4">(R4)</a> monitor</ks>: update the <kr>ParkServiceStatusGUI</kr> with the required information about the state of the system.</li>
+      </ul>
+      <hr size="4" color="black">
+      <ul>
+        <li><ks><a id="R5">(R5)</a> manage</ks>: accept the request of the manager to stop/resume the behavior of the <kr>transport trolley</kr>.</li>
+      </ul>
+    <br>
+    The analysis of these requirements is available <a href="first_analysis.html#requirements">here</a>
+  </div>
+</div>
 <div id = "backlog">
   <h2>Backlog</h2>
   <div class="remark">
     Sprint 1 regards the develop of the <ks>PMS</ks> basic functionalities:
     <ul>
-      <li><ks>PMS</ks> manages data from sensors: <a id="#R1">R1</a>, <a id="#R2">R2</a>, <a id="#R3">R3</a>;</li>
-      <li><ks>PMS</ks> manages transport trolley: <a id="#R2A">R2A</a>, <a id="#R2C">R2C</a>, <a id="#R2D">R2D</a>, <a id="#R2E">R2E</a> <a id="#R3A">R3A</a>, <a id="#R3B">R3B</a>, <a id="#R3C">R3C</a>, <a id="#R3C">R3C</a>;</li>
+      <li><ks>PMS</ks> manages data from sensors: <a href="#R1">R1</a>, <a href="#R3">R3</a>;</li>
+      <li><ks>PMS</ks> manages transport trolley: <a href="#R2A">R2A</a>, <a href="#R2C">R2C</a>, <a href="#R2D">R2D</a>, <a href="#R2E">R2E</a> <a href="#R3A">R3A</a>, <a href="#R3B">R3B</a>, <a href="#R2C">R3C</a>, <a href="#R3C">R3C</a>;</li>
     </ul>
   </div>
 </div>
 <h4>Starting point</h4>
-<!-- inserire immagine -->
+<center><img src="IMG/StartingPoint.png" alt="starting_point_sprint1" width="60%"></center>
 
 
 <div id = "problem_analysis">
@@ -246,7 +297,7 @@ div.imagedesc{
       <li>Data from the outsonar, the weightsensor and the thermometer;</li>
       <li>Commands to the transport trolley.</li>
     </ul>
-    With regard to these two tasks, in the <a href="">first analysis</a>, it was described how they are of a different nature.
+    With regard to these two tasks, in the <a href="first_analysis.html#problem_analysis">first analysis</a>, it was described how they are of a different nature.
     This difference suggests an independent management of the two activities. For that reason, a monolithic PMS should be avoided.
   </div>
   <h4>Communication summary</h4>
@@ -267,6 +318,8 @@ div.imagedesc{
   on different systems such as Raspberry Pis or Arduinos.
 </div>
 </div>
+<h4>Summary point</h4>
+<center><img src="IMG/SummaryPoint.png" alt="summary_point_sprint1" width="60%"></center>
 
 <div class="remark">
   <ks>Transport trolley</ks> must satisfy these requirements: <a href="#R2A">R2A</a>, <a href="#R2C">R2C</a>, <a href="#R2D">R2D</a>, <a href="#R2E">R2E</a>, <a href="#R3B">R3B</a>, <a href="#R3C">R3C</a>, <a href="#R3D"> R3D</a>.<br>
