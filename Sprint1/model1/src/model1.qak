@@ -1,0 +1,71 @@
+
+System carparking
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+
+ 
+QActor parkingmanagerservice context  ctxcarparking{
+	
+	State s0 initial{
+		println("parkingmanagerservice STARTS")
+	}
+	Goto work
+	
+	State work{
+		println("parkingmanagerservice waiting ...")
+	}
+	
+}
+
+
+QActor weightsensor context ctxcarparking{
+	State s0 initial{
+		println("weightsensor STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("weightsensor working ........... ")  
+	}
+	
+	
+}
+
+QActor outsonar context ctxcarparking{
+	State s0 initial{
+		println("outsonar STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("outsonar working ...........")  
+	}
+	
+}
+
+QActor thermometer context ctxcarparking{
+	State s0 initial{
+		println("thermometer STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("thermometer working ...........")  
+	}
+}
+
+QActor transport_trolley context  ctxcarparking{
+	State s0 initial{
+		println("trasportTrolley STARTS")
+	}
+	Goto work 
+	
+	State work{ 
+		println("transportTrolley waiting ........... ")  
+	}	
+}
+
+/* ======================================================================== */
+
+ 
