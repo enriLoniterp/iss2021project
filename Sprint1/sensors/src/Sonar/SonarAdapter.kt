@@ -6,11 +6,10 @@ package Sonar
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttException
 import org.eclipse.paho.client.mqttv3.MqttSecurityException
-import Sonar.SonarInterface
+import main.SensorPort
 
-
-class SonarAdapter : SonarInterface{
-    private var distance: Int = 9999
+class SonarAdapter : SensorPort{
+    private var distance: String = "9999"
     private val sonarCB: SonarCallback = SonarCallback(this)
 	private val client: MqttClient? = MqttClient("tcp://localhost:1883", MqttClient.generateClientId())
 	             
@@ -21,11 +20,11 @@ class SonarAdapter : SonarInterface{
 	}   
 	
 	
-	fun updateDistance(distance : Int){
+	fun updateDistance(distance : String){
 		this.distance = distance
 	}
 	
-	override fun getDistance() : Int{
+	override fun getValue() : String{
 		return this.distance
 	}
 		

@@ -15,7 +15,7 @@ class SonarCallback(adapter : SonarAdapter) : MqttCallback {
 
     override fun messageArrived(s: String?, mqttMessage: MqttMessage) {
         println("""Message received:${String(mqttMessage.getPayload())}""")
-        sonarAdapter.updateDistance(String(mqttMessage.getPayload()).toInt())
+        sonarAdapter.updateDistance(String(mqttMessage.getPayload()))
     }
 
     override fun deliveryComplete(iMqttDeliveryToken: IMqttDeliveryToken?) {
