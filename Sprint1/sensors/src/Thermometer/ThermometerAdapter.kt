@@ -20,7 +20,7 @@ class ThermometerAdapter : SensorPort{
 	}   
 	
 	
-	fun updateTemperature(distance : String){
+	fun updateTemperature(temperature : String){
 		this.temperature = temperature
 	}
 	
