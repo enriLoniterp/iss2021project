@@ -1,15 +1,18 @@
 package main
 
-import outsonar.OutSonarAdapter
+import Sonar.SonarAdapter
+import Thermometer.ThermometerAdapter
+import WeightSensor.WeightSensorAdapter
+
 
 class SensorFactory {
 	
 	fun getSensorAdapter(type : SensorType) : SensorPort{
 		
 		when(type){
-			SensorType.OUTSONAR -> return OutSonarAdapter()
-			SensorType.WEIGHTSENSOR -> return OutSonarAdapter() //da cambiare
-			SensorType.THERMOMETER -> return OutSonarAdapter()	//da cambiare
+			SensorType.SONAR -> return SonarAdapter()
+			SensorType.WEIGHTSENSOR -> return WeightSensorAdapter() //da cambiare
+			SensorType.THERMOMETER -> return ThermometerAdapter()	//da cambiare
 		}
 	}
 	
