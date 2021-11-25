@@ -11,8 +11,8 @@ class SensorFactory {
 		
 		when(type){
 			SensorType.SONAR -> return SonarAdapter()
-			SensorType.WEIGHTSENSOR -> return WeightSensorAdapter() //da cambiare
-			SensorType.THERMOMETER -> return ThermometerAdapter()	//da cambiare
+			SensorType.WEIGHTSENSOR -> return WeightSensorAdapter()
+			SensorType.THERMOMETER -> return ThermometerAdapter()
 		}
 	}
 	
