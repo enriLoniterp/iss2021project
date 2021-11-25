@@ -55,17 +55,6 @@ QActor thermometer context ctxcarparking{
 	}
 }
 
-QActor transport_trolley context  ctxcarparking{
-	State s0 initial{
-		println("trasportTrolley STARTS")
-	}
-	Goto work 
-	
-	State work{ 
-		println("transportTrolley waiting ........... ")  
-	}	
-}
-
 /* ======================================================================== */
 
  
