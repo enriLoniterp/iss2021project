@@ -2,10 +2,10 @@ package main
 
 import Sonar.SonarAdapter
 import Thermometer.ThermometerAdapter
-import WeightSensor.WeightSensorAdapter
 import Thermometer.WeightsensorController
 import org.eclipse.paho.client.mqttv3.MqttCallback
 import WeightSensor.WeightSensorCallback
+import Thermometer.WeightSensorAdapter
 
 
 class mainnn {
@@ -19,6 +19,5 @@ class mainnn {
 			weight.sensorFactory=SensorFactory()
 			wa=weight.sensorFactory.getSensorAdapter(SensorType.WEIGHTSENSOR)		
 			System.out.println(wa.toString())		
-			System.out.print("ciao")
 		
 	}

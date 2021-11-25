@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallback
 import org.eclipse.paho.client.mqttv3.MqttMessage
 
 class ThermometerCallback(adapter : ThermometerAdapter) : MqttCallback {
-    private var thermometerAdapter: thermometerAdapter = adapter
+    private var thermometerAdapter: ThermometerAdapter = adapter
     
     override fun connectionLost(throwable: Throwable?) {
         println("Connection to MQTT broker lost!")
@@ -15,7 +15,9 @@ class ThermometerCallback(adapter : ThermometerAdapter) : MqttCallback {
 
     override fun messageArrived(s: String?, mqttMessage: MqttMessage) {
         println("""Message received:${String(mqttMessage.getPayload())}""")
-        thermometerAdapter.getTemperature(String(mqttMessage.getPayload()))
+        thermometerAdapter.updateTemperature(String(mqttMessage.getPayload()))
+		System.out.print(String(mqttMessage.getPayload()))
+		
     }
 
     override fun deliveryComplete(iMqttDeliveryToken: IMqttDeliveryToken?) {

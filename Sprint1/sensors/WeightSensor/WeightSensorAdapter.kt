@@ -7,6 +7,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttException
 import org.eclipse.paho.client.mqttv3.MqttSecurityException
 import main.SensorPort
+import WeightSensor.WeightSensorCallback
 
 class WeightSensorAdapter : SensorPort{
     private var weight: String = "9999999"
@@ -17,6 +18,7 @@ class WeightSensorAdapter : SensorPort{
 		client!!.setCallback(weightSensorCB)
 		client.connect()
 		client.subscribe("weightSensor/data")
+
 	}   
 	
 	
