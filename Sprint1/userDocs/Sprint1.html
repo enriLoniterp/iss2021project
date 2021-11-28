@@ -209,63 +209,12 @@ div.imagedesc{
 </div>
 
 <div class="body">
-
-<div id = "requirements">
-  <h2>Requirements</h2>
-  <div id="Requirements" class="remark">
-    The <kr>ParkManagerService</kr> should create the <kr>ParkServiceGUI</kr> (for the client) and the <kr>ParkServiceStatusGUI</kr> (for the manager)
-    and then perform the following tasks:
-    <ul>
-      <li><ks><a id="R1">(R1)</a> acceptIN</ks>: accept the request of a client to park the car if there is at least one <kr>parking-slot</kr> available,
-        select a free slot identified with a unique <kr>SLOTNUM</kr>.
-        A request of this type can be elaborated only when the <kr>INDOOR-area</kr> is free, and the <kr>transport trolley</kr> is at <kr>home</kr> or working
-        (not stopped by the manager). If the <kr>INDOOR-area</kr> is already engaged by a car, the request is not immediately processed (the client could simply
-        wait or could - optionally - receive a proper notice).</li>
-      <li><ks><a id="R2">(R2)</a> informIN</ks>: inform the client about the value of the <kr>SLOTNUM</kr>.</li>
-      </ul>
-      If <b>SLOTNUM</b> > 0:
-      <ol>
-        <li><ks><a id="R2A">(R2A)</a> moveToIn</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>INDOOR</kr>;</li>
-        <li><ks><a id="R2B">(R2B)</a> receipt</ks>: send to the client a receipt including the value of the <kr>TOKENID</kr>;</li>
-        <li><ks><a id="R2C">(R2C)</a> moveToSlotIn</ks>: move the <kr>transport trolley</kr> from the <kr>INDOOR</kr> to the selected <kr>parking-slot</kr>;</li>
-        <li><ks><a id="R2D">(R2D)</a> backToHome</ks>: if no other request is present, move the <kr>transport trolley</kr> to its <kr>home</kr> location, else <ks>acceptIN</ks> or <ks>acceptOUT</ks>.</li>
-      </ol>
-      If <b>SLOTNUM</b> == 0:
-      <ul>
-        <li><ks><a id="R2E">(R2E)</a> moveToHome</ks>: if not already at home, move the <kr>transport trolley</kr> to its <kr>home</kr> location.</li>
-      </ul>
-      <hr size="4" color="black">
-      <ul>
-        <li><ks><a id="R3">(R3)</a> acceptOUT</ks>: accept the request of a client to get out the car with <kr>TOKENID</kr>. A request of this type can be
-          elaborated only when the <kr>OUTDOOR-area</kr> is free and the <kr>transport trolley</kr> is at <kr>home</kr> or working (<b>not stopped</b> by the manager).
-          If the <kr>OUTDOOR-area</kr> is still engaged by a car, the request is not immediately processed (the client could simply wait or could -
-          optionally - receive a proper notice).</li>
-      </ul>
-      <ol>
-        <li><ks><a id="R3A">(R3A)</a> findSlot</ks>: deduce the number of the parking slot (<ks>CARSLOTNUM</ks>) from the <kr>TOKENID</kr>;</li>
-        <li><ks><a id="R3B">(R3B)</a> moveToSlotOut</ks>: move the <kr>transport trolley</kr> from its current localtion to the <kr>CARSLOTNUM</kr>/<kr>parking-slot</kr>;</li>
-        <li><ks><a id="R3C">(R3C)</a> moveToOut</ks>: move the <kr>transport trolley</kr> to the <kr>OUTDOOR</kr>;</li>
-        <li><ks><a id="R3D">(R3D)</a> moveToHome</ks>: if no other request is present move the <kr>transport trolley</kr> to its <kr>home</kr> location;<br>
-          else <ks>acceptIN</ks> or <ks>acceptOUT</ks>
-      </ol>
-      <hr size="4" color="black">
-      <ul>
-        <li><ks><a id="R4">(R4)</a> monitor</ks>: update the <kr>ParkServiceStatusGUI</kr> with the required information about the state of the system.</li>
-      </ul>
-      <hr size="4" color="black">
-      <ul>
-        <li><ks><a id="R5">(R5)</a> manage</ks>: accept the request of the manager to stop/resume the behavior of the <kr>transport trolley</kr>.</li>
-      </ul>
-    <br>
-    The analysis of these requirements is available <a href="first_analysis.html#requirements">here</a>
-  </div>
-</div>
 <div id = "backlog">
   <h2>Sprint 1 Backlog</h2>
   <div class="remark">
     Sprint 1 regards the develop of the <ks>PMS</ks> basic functionalities:
     <ul>
-      <li><ks>PMS</ks> manages data from sensors: <a href="#R1">R1</a>, <a href="#R3">R3</a>;</li>
+      <li><ks>PMS</ks> manages data from sensors: <a href="pre-sprint.html#R1" target = "_blank">R1</a>, <a href="pre-sprint#R3" target = "_blank">R3</a>;</li>
     </ul>
   </div>
 </div>
@@ -284,55 +233,57 @@ div.imagedesc{
     <li><ks>Thermometer</ks>.</li>
   </ul>
 </div>
-<div class="remark">
-  An initial model of these entities, without interaction between them, can be found <a href = "https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/model1/src/model1.qak">here</a>.<br>
+<div class = "remark">
+  An initial model of these entities, without interaction between them, can be found <a href = "https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/model1/src/model1.qak" target = "_blank">here</a>.<br>
 </div>
 <div id = "problem_analysis_PMS">
   <h3>PMS</h3>
-  <div class="remark">
-    From the <a href="#backlog">backlog</a>, the <ks>Park Manager System</ks> needs to manage data from the outsonar, the weightsensor and the thermometer. <br>
+  <div class = "remark">
+    From the <a href="#backlog">backlog</a>, the <ks>Park Manager System</ks> needs to manage data from the <ks>outsonar</ks>, the <ks>weightsensor</ks> and the <ks>thermometer</ks>. <br>
     In anticipation of the next Sprints, given that the <ks>PMS</ks> must interact with different components using specific interaction methods for each case,
-    a monolithic PMS should be avoided.
+    a monolithic <ks>PMS</ks> <u>should be avoided</u>.
   </div>
   <h4>Communication</h4>
-  <div class="remark">
-    Starting from what was said in the <a href="first_analysis.html">first analysis</a>, the PMS interacts with the sensors through events. <br>
-    This interaction can take place through the following protocols
+  <div class = "remark">
+    Starting from what was said in the <a href="pre-sprint.html" target = "_blank">first analysis</a>, the <ks>PMS</ks> interacts with the sensors through <b>events</b>. <br>
+    This interaction can take place through with many protocols, including:
     <ul>
-      <li><a href="https://en.wikipedia.org/wiki/MQTT"><b>MQTT</b></a>;</li>
-      <li><a href="https://en.wikipedia.org/wiki/Constrained_Application_Protocol"><b>CoAp</b></a>;</li>
-      <li><a href="https://en.wikipedia.org/wiki/WebSocket"><b>WebSocket</b></a>;</li>
+      <li><a href="https://en.wikipedia.org/wiki/MQTT" target = "_blank">                             <b>MQTT</b></a>;</li>
+      <li><a href="https://en.wikipedia.org/wiki/Constrained_Application_Protocol" target = "_blank"> <b>CoAp</b></a>;</li>
+      <li><a href="https://en.wikipedia.org/wiki/WebSocket" target = "_blank">                        <b>WebSocket</b></a>;</li>
     </ul>
   </div>
 </div>
-<h3> Outsonar </h3>
-<div class="remark">
-  Outsonar data can be:
+<h3>Outsonar</h3>
+<div class = "remark">
+  <ks>Outsonar</ks> data can be:
   <ul>
-    <li>Generated by an user using a proper utility like <a>sonarDataSimulator.kt</a> or <a>sonarDataSimulatorCoap.kt</a> given by the client;</li>
-    <li>Produced by a real sonar device placed in the outdoor area. In that case <a>SonarAlone.c</a> allows to read the data from the sonar and write it on the standard output.
-      In addiction, data can be managed using the code given by the customer <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021">rasp2021</a></li>
+    <li>Generated by an user using a proper utility like <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.rasp2021/codedqak/sonarSimulator.kt" target = "_blank">sonarSimulator.kt</a>
+      or <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.qakradar21/resources/coap/sonarDataSimulatorCoap.kt" target = "_blank">sonarDataSimulatorCoap.kt</a> given by the client;</li>
+    <li>Produced by a real sonar device placed in the outdoor area. In that case <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.rasp2021/resources/rasp/sonar/SonarAlone.c" target = "_blank">SonarAlone.c</a> allows to read the data from the sonar and write it on the standard output.
+      In addiction, data can be managed using the code given by the customer <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021" target = "_blank">rasp2021</a></li>
   </ul>
 </div>
 </div>
 The sprint 1 should be done in <b>one week</b>.
 <div id = "project">
 <h2>Project</h2>
-Starting from the <a>logical architecture</a> and from the <a href="#backlog">product backlog</a> we can now "zoom in" and design the entities pointed out in the analysis.<br>
+Starting from the <a href="pre-sprint.html#architectural_model" target = "_blank">logical architecture</a> and from the <a href="#backlog">product backlog</a> we can now "zoom in" and design the entities pointed out in the analysis.<br>
 To better manage complexity, it is advisable to adopt a “divide et impera” approach and follow the principle of single responsibility, thus making the system less fragile and more easily modifiable.
-About the general architecture of the system, from now on we will develop an <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)">Hexagonal Architecture</a>
+About the general architecture of the system, from now on we will develop an <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" target = "_blank">hexagonal architecture</a>
 which allows to create an abstraction layer that protects the core of the application and isolates it from external tools and technologies.
-For this purpose, ports and adapters are used to intract with external entities.
+For this purpose, ports and adapters are used to intract with external entities ans allow to design all out system’s interfaces ‘by purpose’ rather than by
+technology, preventing lock-in, and making easier for our application’s tech stack to evolve with time.
 <h4>Specifications common to all sensors</h4>
 <table cellpadding="5%">
   <tr>
     <td width = "50%">
         In order to make the application more modular and easier to modify, we decided to use a <b>single interface</b>
-        (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorPort.kt">SensorPort.kt</a>)
-        for all adapters and a <b>Factory class</b> (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorFactory.kt">SensorFactory.kt</a>)
-        to allow the business logic to obtain the right instance of the adapter for a given type of sensor (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorType.kt">SensorType.kt</a>).
+        (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorPort.kt" target = "_blank">SensorPort.kt</a>)
+        for all adapters and a <b>Factory class</b> (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorFactory.kt target = "_blank"">SensorFactory.kt</a>)
+        to allow the business logic to obtain the right instance of the adapter for a given type of sensor (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorType.kt target = "_blank"">SensorType.kt</a>).
         We decided to use <b>MQTT protocol</b> to receive sensors events through a broker because it fits well for IoT application and perform better as a bus for live data than CoAp and websocket protocols.
-      <a href="https://mosquitto.org/"><b>Mosquitto</b></a> is used as a broker and <b href="https://www.eclipse.org/paho/index.php?page=clients/python/index.php">paho</b> library is used to implement the communication.
+      <a href="https://mosquitto.org/" target = "_blank"><b>Mosquitto</b></a> / <a href="https://www.hivemq.com/" target = "_blank"><b>HiveMQ</a></b> is used as a broker and <b href="https://www.eclipse.org/paho/index.php?page=clients/python/index.php target = "_blank"">paho</b> library is used to implement the communication.
     </td>
     <td>
       <center>
@@ -343,29 +294,29 @@ For this purpose, ports and adapters are used to intract with external entities.
 </table>
 <h3>Outsonar</h3>
 <div class="remark">
-  After a discussion with the client, a requirements is that the outsonar have to be a physical sensor attached to a Raspberry Pi.
+  After a discussion with the client, a requirements is that the outsonar have to be a physical sensor attached to a <b>Raspberry Pi</b>.
   For the sake of simplify the developed and because a real outsonar can generate spurios data, we decided to use the code in
-  <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021">rasp2021</a> as a staring point. The documentation of that project can be
-  found <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.sonarAsResource/userDocs/LabSonarAsResource.html#Deployment-1a">here</a><br>
+  <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021" target = "_blank">rasp2021</a> as a staring point. The documentation of that project can be
+  found <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.sonarAsResource/userDocs/LabSonarAsResource.html#Deployment-1a" target = "_blank">here</a>.<br>
   The image below shows the model used in our application.
-  <!-- inserire immagin -->
-
-
-  Last <a>actor</a> in the pipe has been modified in order to emit events only if the new distance measured is different from the previously one. This feature allows the <ks>PMS</ks> to handle
+  <center><img src="IMG/sonar_pipe.jpg" alt="sonar_pipe" width="60%"></center>
+  Last <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/src/it/unibo/sonar/Sonar.kt target = "_blank"">actor</a> in the pipe
+  has been modified in order to emit events only if the new distance measured is different from the previously one. This feature allows the <ks>PMS</ks> to handle
   less information.
-  In addiction, for testing purpose, the data from the sonar can be simulated using <a>sonarDataSimulatorCoap.kt</a>. The <a>configuration file</a> allows to choose
-  beetween the real and the simulated sonar.
+  In addiction, for testing purpose, the data from the sonar can be simulated using <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.rasp2021/codedqak/sonarSimulator.kt" target = "_blank">sonarSimulator.kt</a>.
+  The <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/sonar2021ConfigKb.pl" target = "_blank">configuration file</a> allows to choose beetween the real and the simulated sonar.
 </div>
 <h4>PMS interaction with outsonar</h4>
 <div class="remark">
   <table>
     <tr>
       <td width="50%">
-        With regard to <ks>outsonar</ks>, the adapter(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Sonar/SonarAdapter.kt">OutSonarAdapter.kt</a>)
+        With regard to <ks>outsonar</ks>, the adapter(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Sonar/SonarAdapter.kt" target = "_blank">OutSonarAdapter.kt</a>)
         maintains the last value generated by the outsonar and implements the method <i>getValue()</i>
         of the interface, which allows the rest of the application to know the actual value of this sensor.
-        The callback class(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Sonar/SonarCallback.kt">OutSonarCallback.kt</a>)
-        receives the message and updates the adapter state variable.
+        The callback class(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Sonar/SonarCallback.kt" target = "_blank">OutSonarCallback.kt</a>)
+        receives the message, processes them using the <a href = "https://github.com/anatali/issLab2021/blob/main/it.unibo.qakactor/src/main/kotlin/ApplMessage.kt" target = "_blank">ApplMessage.kt</a>
+        and updates the adapter state variable.
       </td>
       <td>
         <center>
@@ -401,6 +352,21 @@ For this purpose, ports and adapters are used to intract with external entities.
 
 
 <h2>Deployment</h2>
+<div class="remark">
+  In this Sprint we decided to deploy the driven side which includes outsonar, thermometer and weightsensor,
+  while ports and adapters will be deployed in future Sprints. <br>
+  <a href = "https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Thermometer/ThermometerMockMQTT.ipynb">Thermometer</a> and <a href ="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/WeightSensor/WeightSensorMockMQTT.ipynb">weightsensor</a> can be used by opening and running them with jupyter.
+  <br>
+  Regarding to the <ks>outsonar</ks>, it has been deployed using <em>gradle distZip</em> command. The result of the deployment is a zip file <em>outsonar.zip</em>
+  that contains a bin directory with the executables. By default the system uses a real sonar and in that case <a>sonarAlone.c</a> needs to be compiled.
+  Alternatevely, by changing configuration file <a>sonar2021ConfigKb.pl</a> a virtual sonar can be used.
+  In addicition, the broker that receives events emitted by the sonar can be choose by editing <a>sonaronrasp.pl</a>.<br>
+  To run the system on:
+  <ul>
+    <li><b>Windows</b>: open a Command Prompt, set working directory to <em>bin</em>, run <em>outsonar.bat</em>;
+    <li><b>Unix</b>: open a Bash Shell, set working directory to <em>bin</em>, run <em>bash outsonar</em>;
+    <li><b>MacOS</b>: open a Terminal, set working directory to <em>bin</em>, run <em>basicdevices</em>;
+</div>
 
 
 <h2>Maintenance</h2>
