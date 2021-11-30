@@ -214,7 +214,8 @@ div.imagedesc{
   <div class="remark">
     Sprint 1 regards the develop of the <ks>PMS</ks> basic functionalities:
     <ul>
-      <li><ks>PMS</ks> manages data from sensors: <a href="pre-sprint.html#R1" target = "_blank">R1</a>, <a href="pre-sprint#R3" target = "_blank">R3</a>;</li>
+      <li><ks>PMS</ks> manages data from sensors: <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html#R1" target = "_blank">R1</a>,
+        <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html#R3" target = "_blank">R3</a>;</li>
     </ul>
   </div>
 </div>
@@ -245,7 +246,7 @@ div.imagedesc{
   </div>
   <h4>Communication</h4>
   <div class = "remark">
-    Starting from what was said in the <a href="pre-sprint.html" target = "_blank">first analysis</a>, the <ks>PMS</ks> interacts with the sensors through <b>events</b>. <br>
+    Starting from what was said in the <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html" target = "_blank">first analysis</a>, the <ks>PMS</ks> interacts with the sensors through <b>events</b>. <br>
     This interaction can take place through with many protocols, including:
     <ul>
       <li><a href="https://en.wikipedia.org/wiki/MQTT" target = "_blank">                             <b>MQTT</b></a>;</li>
@@ -265,10 +266,11 @@ div.imagedesc{
   </ul>
 </div>
 </div>
-The sprint 1 should be done in <b>one week</b>.
+The sprint 1 should be done in <b>three days</b>.
 <div id = "project">
 <h2>Project</h2>
-Starting from the <a href="pre-sprint.html#architectural_model" target = "_blank">logical architecture</a> and from the <a href="#backlog">product backlog</a> we can now "zoom in" and design the entities pointed out in the analysis.<br>
+Starting from the <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
+and from the <a href="#backlog">product backlog</a> we can now "zoom in" and design the entities pointed out in the analysis.<br>
 To better manage complexity, it is advisable to adopt a “divide et impera” approach and follow the principle of single responsibility, thus making the system less fragile and more easily modifiable.
 About the general architecture of the system, from now on we will develop an <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" target = "_blank">hexagonal architecture</a>
 which allows to create an abstraction layer that protects the core of the application and isolates it from external tools and technologies.
@@ -279,11 +281,11 @@ technology, preventing lock-in, and making easier for our application’s tech s
   <tr>
     <td width = "50%">
         In order to make the application more modular and easier to modify, we decided to use a <b>single interface</b>
-        (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorPort.kt" target = "_blank">SensorPort.kt</a>)
-        for all adapters and a <b>Factory class</b> (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorFactory.kt target = "_blank"">SensorFactory.kt</a>)
-        to allow the business logic to obtain the right instance of the adapter for a given type of sensor (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/SensorType.kt target = "_blank"">SensorType.kt</a>).
+        (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/SensorPort.kt" target = "_blank">SensorPort.kt</a>)
+        for all adapters and a <b>Factory class</b> (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/SensorFactory.kt" target = "_blank">SensorFactory.kt</a>)
+        to allow the business logic to obtain the right instance of the adapter for a given type of sensor (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/SensorType.kt" target = "_blank">SensorType.kt</a>).
         We decided to use <b>MQTT protocol</b> to receive sensors events through a broker because it fits well for IoT application and perform better as a bus for live data than CoAp and websocket protocols.
-      <a href="https://mosquitto.org/" target = "_blank"><b>Mosquitto</b></a> / <a href="https://www.hivemq.com/" target = "_blank"><b>HiveMQ</a></b> is used as a broker and <b href="https://www.eclipse.org/paho/index.php?page=clients/python/index.php target = "_blank"">paho</b> library is used to implement the communication.
+      <a href="https://mosquitto.org/" target = "_blank"><b>Mosquitto</b></a> / <a href="https://www.hivemq.com/" target = "_blank"><b>HiveMQ</a></b> is used as a broker and <a href="https://www.eclipse.org/paho/index.php?page=clients/python/index.php" target = "_blank"><b>paho</b></a> library is used to implement the communication.
     </td>
     <td>
       <center>
@@ -300,7 +302,7 @@ technology, preventing lock-in, and making easier for our application’s tech s
   found <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.sonarAsResource/userDocs/LabSonarAsResource.html#Deployment-1a" target = "_blank">here</a>.<br>
   The image below shows the model used in our application.
   <center><img src="IMG/sonar_pipe.jpg" alt="sonar_pipe" width="60%"></center>
-  Last <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/src/it/unibo/sonar/Sonar.kt target = "_blank"">actor</a> in the pipe
+  Last <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/codedqak/distanceFilter.kt" target = "_blank">actor</a> in the pipe
   has been modified in order to emit events only if the new distance measured is different from the previously one. This feature allows the <ks>PMS</ks> to handle
   less information.
   In addiction, for testing purpose, the data from the sonar can be simulated using <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.rasp2021/codedqak/sonarSimulator.kt" target = "_blank">sonarSimulator.kt</a>.
@@ -311,10 +313,10 @@ technology, preventing lock-in, and making easier for our application’s tech s
   <table>
     <tr>
       <td width="50%">
-        With regard to <ks>outsonar</ks>, the adapter(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Sonar/SonarAdapter.kt" target = "_blank">OutSonarAdapter.kt</a>)
+        With regard to <ks>outsonar</ks>, the adapter(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/outsonar/OutSonarAdapter.kt" target = "_blank">OutSonarAdapter.kt</a>)
         maintains the last value generated by the outsonar and implements the method <i>getValue()</i>
         of the interface, which allows the rest of the application to know the actual value of this sensor.
-        The callback class(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Sonar/SonarCallback.kt" target = "_blank">OutSonarCallback.kt</a>)
+        The callback class(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/outsonar/OutSonarCallback.kt" target = "_blank">OutSonarCallback.kt</a>)
         receives the message, processes them using the <a href = "https://github.com/anatali/issLab2021/blob/main/it.unibo.qakactor/src/main/kotlin/ApplMessage.kt" target = "_blank">ApplMessage.kt</a>
         and updates the adapter state variable.
       </td>
@@ -331,11 +333,13 @@ technology, preventing lock-in, and making easier for our application’s tech s
   <table>
     <tr>
       <td width="50%">
-        Since there aren't particular requirements for the weightsensor, it has been developed as a mock object <a>WeightSensorMock</a> that periodically emits events.
+        Since there aren't particular requirements for the weightsensor, it has been developed as a mock object <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target = "_blank">WeightSensorMock</a>
+        that periodically emits events.
         The data sent by the mock can be generated by manually input new values or randomly.
         As previously described, the component integration strategy uses MQTT protocol and paho as a client. <br>
-        Thanks to the hexagonal architecture we can basically use the same classes used with the oursonar and refactor variables and the data we need for this sensor.
-        For that reason the <a>WeightSensorAdapter.kt</a> and the <a>WeightSensorCallback.kt</a> works as their outsonar counterparts.
+        Due to same kind of interaction as the outsoanr, we can basically use the same classes used with the oursonar and refactor variables and the data we need for this sensor.
+        For that reason the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorAdapter.kt" target = "_blank">WeightSensorAdapter.kt</a> and the
+        <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorCallback.kt" target = "_blank">WeightSensorCallback.kt</a> works as their outsonar counterparts.
       </td>
       <td>
         <center>
@@ -350,9 +354,10 @@ technology, preventing lock-in, and making easier for our application’s tech s
   <table>
     <tr>
       <td width="50%">
-        As for the weightsensor, the thermometer has been developed as a mock object <a>ThermometerMock</a> that periodically emits events. It works like the
+        As for the weightsensor, the thermometer has been developed as a mock object <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target = "_blank">ThermometerMock</a> that periodically emits events. It works like the
         WeightSensorMock but the value randomly generated range from -10 to 50 degrees.<br>
-        Again, thanks to the hexagonal architecture we developed <a>ThermometerSensorAdapter.kt</a> and <a>ThermometerCallback.kt</a> reusing the code previously
+        Again, due to the same type of interaction,  we developed <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerSensorAdapter.kt</a>
+        and <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerCallback.kt" target = "_blank">ThermometerCallback.kt</a> reusing the code previously
         detailed.
       </td>
       <td>
@@ -367,6 +372,22 @@ technology, preventing lock-in, and making easier for our application’s tech s
 
 
 <h2>Testing</h2>
+<div class="remark">
+  To carry out the test plan, three <b>Unit Test</b> have been developed, one for each adapter (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/test/kotlin/SensorsTest.kt" target = "_blank">SensorsTest.kt</a>).
+  Testing has been made using JUnit through IntelliJ IDE.
+  All tests share the same logic which check if received values are correct. Test behaviour is the following:
+  <pre>
+    <b>X</b> as <ks>outsonar</ks> / <ks>weightsensor</ks> / <ks>thermometer</ks>
+    creation of an istance of <ks>adapter</ks> <b>X</b>
+    creation of a <ks>MQTT client</ks>
+    client connects to the <ks>broker</ks>
+    creation of the message event through <em>MsgUtils</em>
+    event emitted to <b>X</b> adapter <ks>topic</ks>
+    check if <b>adapter internal status == value sent</b>
+  </pre>
+
+
+</div>
 
 <h4>Summary point</h4>
 <center><img src="IMG/esagono.jpg" alt="summary_point" width="50%"></center>
@@ -374,12 +395,13 @@ technology, preventing lock-in, and making easier for our application’s tech s
 <div class="remark">
   In this Sprint we decided to deploy the driven side which includes outsonar, thermometer and weightsensor,
   while ports and adapters will be deployed in future Sprints. <br>
-  <a href = "https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/Thermometer/ThermometerMockMQTT.ipynb">Thermometer</a> and <a href ="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/WeightSensor/WeightSensorMockMQTT.ipynb">weightsensor</a> can be used by opening and running them with jupyter.
+  <a href ="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target = "_blank">Thermometer</a>
+  and <a href ="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target = "_blank">weightsensor</a> can be used by opening and running them with jupyter.
   <br>
   Regarding to the <ks>outsonar</ks>, it has been deployed using <em>gradle distZip</em> command. The result of the deployment is a zip file <em>outsonar.zip</em>
-  that contains a bin directory with the executables. By default the system uses a real sonar and in that case <a>sonarAlone.c</a> needs to be compiled.
-  Alternatevely, by changing configuration file <a>sonar2021ConfigKb.pl</a> a virtual sonar can be used.
-  In addicition, the broker that receives events emitted by the sonar can be choose by editing <a>sonaronrasp.pl</a>.<br>
+  that contains a bin directory with the executables. By default the system uses a real sonar and in that case <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/SonarAlone" target = "_blank">sonarAlone.c</a> needs to be compiled.
+  Alternatevely, by changing configuration file <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/sonar2021ConfigKb.pl" target = "_blank">sonar2021ConfigKb.pl</a> a virtual sonar can be used.
+  In addicition, the broker that receives events emitted by the sonar can be choose by editing <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/sonaronrasp.pl" target = "_blank">sonaronrasp.pl</a>.<br>
   To run the system on:
   <ul>
     <li><b>Windows</b>: open a Command Prompt, set working directory to <em>bin</em>, run <em>outsonar.bat</em>;
@@ -387,7 +409,48 @@ technology, preventing lock-in, and making easier for our application’s tech s
     <li><b>MacOS</b>: open a Terminal, set working directory to <em>bin</em>, run <em>basicdevices</em>;
 </div>
 
-
+<h2>Job task</h2>
+<table cellpadding="5%">
+  <tr>
+    <th>Member</th>
+    <th>Task done</th>
+  </tr>
+  <tr>
+    <td><center><b>Andrini Enrico</b><br>enrico.andrini2@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>Weighsensor</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Cristaudo Giuseppe</b><br>giuseppe.cristaudo@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>Thermometer</li>
+        <li>Illustration</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Manfreda Filippo</b><br>filippo.manfreda@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>Outsonar</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Team</b></center></td>
+    <td>
+      <ul>
+        <li>Problem analysis;</li>
+        <li>Testing;</li>
+        <li>Deployment</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 <h2>Maintenance</h2>
 
 <!-- USEFUL
@@ -404,7 +467,7 @@ technology, preventing lock-in, and making easier for our application’s tech s
 </div>
 
 <div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
-By studentName email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini@studio.unibo.it
+By studentName email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini2@studio.unibo.it
 <!--<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">-->
 </div>
 </body>
