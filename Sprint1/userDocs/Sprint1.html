@@ -298,11 +298,10 @@ technology, preventing lock-in, and making easier for our application’s tech s
 <div class="remark">
   The outsonar have to be a physical sensor attached to a <b>Raspberry Pi</b>.
   For the sake of simplify the developed and because a real outsonar can generate spurios data, we decided to use the code in
-  <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021" target = "_blank">rasp2021</a> as a staring point. The documentation of that project can be
-  found <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.sonarAsResource/userDocs/LabSonarAsResource.html#Deployment-1a" target = "_blank">here</a>.<br>
+  <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021" target = "_blank">rasp2021</a> as a staring point..<br>
   The image below shows the model used in our application.
   <center><img src="IMG/sonar_pipe.jpg" alt="sonar_pipe" width="60%"></center>
-  Last <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/codedqak/distanceFilter.kt" target = "_blank">actor</a> in the pipe
+  Last <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/src/it/unibo/sonar/Sonar.kt" target = "_blank">actor</a> in the pipe
   has been modified in order to emit events only if the new distance measured is different from the previously one. This feature allows the <ks>PMS</ks> to handle
   less information.
   In addiction, data from the sonar can be simulated using <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.rasp2021/codedqak/sonarSimulator.kt" target = "_blank">sonarSimulator.kt</a>.
