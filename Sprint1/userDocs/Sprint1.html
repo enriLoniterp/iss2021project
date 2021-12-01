@@ -449,6 +449,17 @@ technology, preventing lock-in, and making easier for our application’s tech s
     </td>
   </tr>
 </table>
+<h2>Sprint Review</h2>
+<div class="remark">
+  During the discussion with the customer we faced the possibilty to use the observer pattern as a logic interaction instead of the publish-subscribe we used.
+  As analyst we think they are both good at satisfying our interction requirements with sensor. However, we think publish-subscribe interaction suits best our needs
+  because, as we said in our <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html" target = "_blank">first analiys</a>, sensors doens't know who is going to use them, this specification is fully satisfied thanks to the
+  presence of an intermediary: the <b>broker</b>. This means that the publisher (sensor) and subscriber (adapter) are just <b>loosely-coupled</b>.
+  Although the observer pattern allows you to not know a priori who the observers will be, they will be
+  subsequently disclosed to the sensors directly after the registration. <br>
+  A closer look at this comparison can be found <a href="https://towardsai.net/p/systems/observer-pattern-vs-pub-sub-pattern" target = "_blank">here</a>.<br>
+  Regarding the broker, even if now we rely on the remote broker <b>hivemq</b>, it will later be replaced by a local broker (<b>Mosquitto</b>).
+</div>
 <h2>Maintenance</h2>
 
 <!-- USEFUL
