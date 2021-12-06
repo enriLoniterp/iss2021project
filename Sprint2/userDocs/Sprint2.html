@@ -218,7 +218,7 @@ div.imagedesc{
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R2C" target = "_blank">R2C</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R2D" target = "_blank">R2D</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R2E" target = "_blank">R2E</a>,
-        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3A" target = "_blank">R3A</a>, 
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3A" target = "_blank">R3A</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R3B" target = "_blank">R3B</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R3C" target = "_blank">R3C</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R3D" target = "_blank">R3D</a>;</li>
@@ -257,6 +257,20 @@ div.imagedesc{
 </div>
 <h3>Transport trolley</h3>
 <div class = "remark">
+  This component, as stated in the <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_transport_trolley" target = "_blank">first analysis</a>, moves within the parking area by moving to certain points:
+  <ul>
+    <li>HOME;</li>
+    <li>INDOOR AREA;</li>
+    <li>OUTDOOR AREA;</li>
+    <li>1 out of 6 SLOTS.</li>
+  </ul>
+  These shifts can be considered as ""<b>MACRO</b>"" shifts composed of a succession of "<b>MICRO</b>" shifts which depends on the actual position
+  of the transport trolley. In addition, as per requirements, the transport trolley switchs between three states and
+  can be blocked during its execution by the manager.
+  As analysts, we think that the transport trolley can only be blocked after completing a macro move. This behaviour implies the need
+  of the introduction of additional states that allow the transport trolley to carry out its tasks correctly after the resume.
+  In addiction, the transport trolley in order to complete its tasks, needs a rapresentation of the parking area through a
+   <a href="../../requirements/userDocs/Automated%20Car-Parking.html#problem_analysis_map" target = "_blank">map</a>.
   The customer has made several resources available for this entity, which can be used in the project phase:
   <ul>
     <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html" target = "_blank">basicRobot</a>: component that executes robot-move commands in a 'technology-independent way', with respect
@@ -269,23 +283,17 @@ div.imagedesc{
 The Sprint 2 should be done in <b>five days</b>.
 <div id = "project">
 <h2>Project</h2>
-Starting from the <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
-and from the <a href="#backlog">product backlog</a> we can now "zoom in" and design the entities pointed out in the analysis.<br>
-To better manage complexity, it is advisable to adopt a “divide et impera” approach and follow the principle of single responsibility, thus making the system less fragile and more easily modifiable.
-About the general architecture of the system, from now on we will develop an <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" target = "_blank">hexagonal architecture</a>
-which allows to create an abstraction layer that protects the core of the application and isolates it from external tools and technologies.
-For this purpose, ports and adapters are used to interact with external entities and allow to design all our system’s interfaces ‘by purpose’ rather than by
-technology, preventing lock-in, and making easier for our application’s tech stack to evolve with time.
-<h4>Specifications common to all sensors</h4>
+Starting from the <a href="../../requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
+and from the <a href="#backlog">product backlog</a> we can now and design the <ks>transport trolley</ks> and its managment.<br>
+We continue the development of the software, maintaining the <b>hexagonal architecture</b> introduced in the previous sprint. This allows to keep separate the
+technology indipendent and the technology dipendent part.
+<h4>Technology indipendent</h4>
 <table cellpadding="5%">
   <tr>
     <td width = "50%">
-        In order to make the application more modular and easier to modify, we decided to use a <b>single interface</b>
-        (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/SensorPort.kt" target = "_blank">SensorPort.kt</a>)
-        for all adapters and a <b>Factory class</b> (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/SensorFactory.kt" target = "_blank">SensorFactory.kt</a>)
-        to allow the business logic to obtain the right instance of the adapter for a given type of sensor (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/SensorType.kt" target = "_blank">SensorType.kt</a>).
-        We decided to use <b>MQTT protocol</b> to receive sensors events through a broker because it fits well for IoT application and perform better as a bus for live data than CoAp and websocket protocols.
-      <a href="https://mosquitto.org/" target = "_blank"><b>Mosquitto</b></a> / <a href="https://www.hivemq.com/" target = "_blank"><b>HiveMQ</a></b> is used as a broker and <a href="https://www.eclipse.org/paho/index.php?page=clients/python/index.php" target = "_blank"><b>paho</b></a> library is used to implement the communication.
+      As said in the analysis phase, we introduce a new entity <a href="" target = "_blank">TrolleyController</a> which takes care
+      of maintaining the current state of the <ks>transport trolley</ks> (<b>idle</b> / <b>working</b> / <b>stopped</b>) and manages the interaction with it, allowing the rest of the <ks>PMS</ks> to
+      carry out other activities. TrolleyController also
     </td>
     <td>
       <center>
