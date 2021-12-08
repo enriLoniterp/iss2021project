@@ -264,13 +264,14 @@ div.imagedesc{
     <li>OUTDOOR AREA;</li>
     <li>1 out of 6 SLOTS.</li>
   </ul>
-  These shifts can be considered as ""<b>MACRO</b>"" shifts composed of a succession of "<b>MICRO</b>" shifts which depends on the actual position
+  These shifts can be considered as "<b>MACRO</b>" shifts composed of a succession of "<b>MICRO</b>" shifts which depends on the actual position
   of the transport trolley. In addition, as per requirements, the transport trolley switchs between three states and
   can be blocked during its execution by the manager.
   As analysts, we think that the transport trolley can only be blocked after completing a macro move. This behaviour implies the need
-  of the introduction of additional states that allow the transport trolley to carry out its tasks correctly after the resume.
-  In addiction, the transport trolley in order to complete its tasks, needs a rapresentation of the parking area through a
-   <a href="../../requirements/userDocs/Automated%20Car-Parking.html#problem_analysis_map" target = "_blank">map</a>.
+  of saving what the trolley transport was doing before it was blocked in order to continue doing the right task after the resume. <br>
+
+  Finally, the transport trolley in order to complete its tasks, needs a rapresentation of the parking area through a
+   <a href="../../requirements/userDocs/Automated%20Car-Parking.html#problem_analysis_map" target = "_blank">map</a>. <br>
   The customer has made several resources available for this entity, which can be used in the project phase:
   <ul>
     <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html" target = "_blank">basicRobot</a>: component that executes robot-move commands in a 'technology-independent way', with respect
@@ -285,15 +286,17 @@ The Sprint 2 should be done in <b>five days</b>.
 <h2>Project</h2>
 Starting from the <a href="../../requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
 and from the <a href="#backlog">product backlog</a> we can now and design the <ks>transport trolley</ks> and its managment.<br>
-We continue the development of the software, maintaining the <b>hexagonal architecture</b> introduced in the previous sprint. This allows to keep separate the
-technology indipendent and the technology dipendent part.
+We maintain the <b>hexagonal architecture</b>, introduced in the previous sprint, developing port and adapter. This allows to keep separate the
+technology indipendent part from the technology dipendent one.
 <h4>Technology indipendent</h4>
 <table cellpadding="5%">
   <tr>
     <td width = "50%">
       As said in the analysis phase, we introduce a new entity <a href="" target = "_blank">TrolleyController</a> which takes care
       of maintaining the current state of the <ks>transport trolley</ks> (<b>idle</b> / <b>working</b> / <b>stopped</b>) and manages the interaction with it, allowing the rest of the <ks>PMS</ks> to
-      carry out other activities. TrolleyController also
+      carry out other activities. Given the state nature of this entity, it is modeled as FSM actor (<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.qakactor/userDocs/LabQakIntro2021.html" target = "_blank">Qakactor</a>).<br>
+      To solve the problem indicated in the analysis phase relating to the stop of the transport trolley, a variable (<b>nextTask</b>) has been introduced that
+      takes on different values ​​relating to the task it has to carry out after being resumed.
     </td>
     <td>
       <center>
@@ -380,20 +383,51 @@ technology indipendent and the technology dipendent part.
 
 <h2>Testing</h2>
 <div class="remark">
-  To carry out the test plan, three <b>Unit Test</b> have been developed, one for each adapter (<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/test/kotlin/SensorsTest.kt" target = "_blank">SensorsTest.kt</a>).
-  Testing has been made using JUnit through IntelliJ IDE.
-  All tests share the same logic which check if received values are correct. Test behaviour is the following:
-  <pre>
-    <b>X</b> as <ks>outsonar</ks> / <ks>weightsensor</ks> / <ks>thermometer</ks>
-    creation of an istance of <ks>adapter</ks> <b>X</b>
-    creation of a <ks>MQTT client</ks>
-    client connects to the <ks>broker</ks>
-    creation of the message event through <em>MsgUtils</em>
-    event emitted to <b>X</b> adapter <ks>topic</ks>
-    check if <b>adapter internal status == value sent</b>
-  </pre>
-
-
+Since Sprint 2 is focused on the transport trolley, test plans will be carry out testing the "MACRO" moves priovously described (R2A, R2C/R3B, R2D/R2E/R3D, R3C),
+without taking care on particular situation where the transport trolley can't start its task (R1/R3). These situation will be included in future sprints. <br>
+For that reason, we assumed the following starting assumptions:
+<ul>
+  <li>INDOOR and OUTDOOR AREA are not engaged;</li>
+  <li>FAN turned off;</li>
+  <li>No Magager interaction;</li>
+  <li>Transport trolley starts from home location;</li>
+  <li>All parking slots are free.</li>
+</ul>
+Hereafter is a description of the functional tests for this sprint:
+<pre>
+  <a>TEST #1 - no queue task</a>
+  creation of an istance of <b>adapter</b>
+  robot -> <ks>moveToIn</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>INDOOR AREA</b>)
+  no task in queue
+  <!-- robot -> <ks>moveToHome</ks> -->
+  check if coordinates(<b>robot</b>) == coordinates(<b>HOME</b>)
+</pre>
+<pre>
+  <a>TEST #2 - complete cycle of tasks</a>
+  creation of an istance of <b>adapter</b>
+  robot -> <ks>moveToIn</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>INDOOR AREA</b>)
+  robot -> <ks>moveToSlotIn(3)</ks>
+  check if coordinates(<b>robot</b>) == coordinates(1,3)
+  robot -> <ks>moveToSlotOut(4)</ks>
+  check if coordinates(<b>robot</b>) == coordinates(4,1)
+  robot -> <ks>moveToOut</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>OUTDOOR AREA</b>)
+  robot -> <ks>moveToHome</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>HOME</b>)
+</pre>
+<pre>
+  <a>TEST #3 - halt functionality</a>
+  creation of an istance of <b>adapter</b>
+  robot -> <ks>moveToIn</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>INDOOR AREA</b>)
+  robot -> <ks>halt</ks>
+  no task in queue
+  robot -> <ks>resume</ks>
+  <!-- robot -> <ks>moveToHome</ks> -->
+  check if coordinates(<b>robot</b>) == coordinates(<b>HOME</b>)
+</pre>
 </div>
 
 <h4>Summary point</h4>
