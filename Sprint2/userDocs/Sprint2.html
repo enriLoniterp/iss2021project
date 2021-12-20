@@ -131,7 +131,7 @@ h3 {
 h4 {
     background-color: #ccffcc;
     font-size: 100%;
-	width: 95%;
+	width: 100%;
 	border-radius: 5px;
 	padding: 2px;
 }
@@ -212,7 +212,7 @@ div.imagedesc{
 <div id = "backlog">
   <h2>Sprint 2 Backlog</h2>
   <div class="remark">
-    Sprint 2 regards the develop of the <ks>PMS</ks> basic functionalities - transport trolley:
+    Sprint 2 regards the develop of the <ks>PMS</ks> basic functionalities - transport trolley and fan:
     <ul>
       <li><ks>PMS</ks> manages transport trolley: <a href="../../requirements/userDocs/Automated Car-Parking.html#R2A" target = "_blank">R2A</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R2C" target = "_blank">R2C</a>,
@@ -222,6 +222,7 @@ div.imagedesc{
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R3B" target = "_blank">R3B</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R3C" target = "_blank">R3C</a>,
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R3D" target = "_blank">R3D</a>;</li>
+      <li><ks>PMS</ks> manages fan: <a href="../../requirements/userDocs/Automated Car-Parking.html#R2A" target = "_blank">R4</a>.</li>
     </ul>
   </div>
 </div>
@@ -291,93 +292,82 @@ technology indipendent part from the technology dipendent one.
 <h4>Technology indipendent</h4>
 <table cellpadding="5%">
   <tr>
-    <td width = "50%">
+    <td style="width: 50%; vertical-align:top">
+      <h4>TrolleyController</h4>
       As said in the analysis phase, we introduce a new entity <a href="" target = "_blank">TrolleyController</a> which takes care
       of maintaining the current state of the <ks>transport trolley</ks> (<b>idle</b> / <b>working</b> / <b>stopped</b>) and manages the interaction with it, allowing the rest of the <ks>PMS</ks> to
       carry out other activities. Given the state nature of this entity, it is modeled as FSM actor (<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.qakactor/userDocs/LabQakIntro2021.html" target = "_blank">Qakactor</a>).<br>
-      To solve the problem indicated in the analysis phase relating to the stop of the transport trolley, a variable (<b>nextTask</b>) has been introduced that
-      takes on different values ​​relating to the task it has to carry out after being resumed.
+      To solve the problem indicated in the analysis phase relating to the stop of the transport trolley, a variable (<b>currentTask</b>) has been introduced that
+      takes on different values ​​relating to the task it was carring out before being stopped.<br>
+      On the right, it is displayed the state diagram of the actor and a table with the values and meanings of the currentTask variable.
     </td>
     <td>
       <center>
-        <img src="IMG/specification.jpg" alt="specifications_common_to_all_sensors" width="100%">
+        <img src="IMG/transport_trolley_FSM.jpg" alt="transport_trolley_FSM" width="100%">
+      </center>
+      <br>
+      <table cellpadding="5%" width="100%">
+        <tr>
+          <th>currentTask</th>
+          <th>meaning</th>
+        </tr>
+        <tr>
+          <td><center>IDLE</center></td>
+          <td>Transport trolley isn't working and it is waiting for a request</td>
+        </tr>
+        <tr>
+          <td><center>HOME</center></td>
+          <td>Transport trolley has just come back to HOME position</td>
+        </tr>
+        <tr>
+          <td><center>INDOOR</center></td>
+          <td>Transport trolley has just arrived in the INDOOR area</td>
+        </tr>
+        <tr>
+          <td><center>OUTDOOR</center></td>
+          <td>Transport trolley has just arrived in the OUTDOOR area</td>
+        </tr>
+        <tr>
+          <td><center>PARKIN</center></td>
+          <td>Transport trolley has just parked a car in a parking slot</td>
+        </tr>
+        <tr>
+          <td><center>PARKOUT</center></td>
+          <td>Transport trolley has just picked up a car from a parking slot</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h4>PlannerUtil</h4>
+      As pointed out in the problem analiys, we can use plannerUtil to generate the path for the Transport trolley. This framework helps us
+      to simplify the process of developing each task for the transport trolley. Infact, thanks to it, the business logic only has to define the goal
+      coordinates (a pair of integer which uniquely identify a cell in the parking room) and the planner, thanks to the aima framework, return a list
+      of moves which represents the path that the transport trolley has to follow. In our case parking slots are considered obstacle in the parking room and
+      for that reason are market with "X" as stated in the plannerUtil documents.<br>
+      In addiction, plannerUtil has a method which allows to update the position of the transport trolley after every successfull move.<br>
+      In case of failure during the path, the transport trolley should return to <b>HOME</b> position and a new path should be gnerated starting from (0, 0).
+    </td>
+    <td>
+      <center>
+        <img src="IMG/plannerUtil.jpg" alt="plannerUtil_diagram_class" width="100%">
       </center>
     </td>
   </tr>
 </table>
-<h3>Outsonar</h3>
-<div class="remark">
-  The outsonar have to be a physical sensor attached to a <b>Raspberry Pi</b>.
-  For the sake of simplify the developed and because a real outsonar can generate spurios data, we decided to use the code in
-  <a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.rasp2021" target = "_blank">rasp2021</a> as a staring point..<br>
-  The image below shows the model used in our application.
-  <center><img src="IMG/sonar_pipe.jpg" alt="sonar_pipe" width="60%"></center>
-  Last <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/src/it/unibo/sonar/Sonar.kt" target = "_blank">actor</a> in the pipe
-  has been modified in order to emit events only if the new distance measured is different from the previously one. This feature allows the <ks>PMS</ks> to handle
-  less information.
-  In addiction, data from the sonar can be simulated using <a href="https://github.com/anatali/issLab2021/blob/main/it.unibo.rasp2021/codedqak/sonarSimulator.kt" target = "_blank">sonarSimulator.kt</a>.
-  The <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/sonar2021ConfigKb.pl" target = "_blank">configuration file</a> allows to choose beetween the real and the simulated sonar.
-</div>
-<h4>PMS interaction with outsonar</h4>
-<div class="remark">
-  <table>
-    <tr>
-      <td width="50%">
-        With regard to <ks>outsonar</ks>, the adapter(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/outsonar/OutSonarAdapter.kt" target = "_blank">OutSonarAdapter.kt</a>)
-        maintains the last value generated by the outsonar and implements the method <i>getValue()</i>
-        of the interface, which allows the rest of the application to know the actual value of this sensor.
-        The callback class(<a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/outsonar/OutSonarCallback.kt" target = "_blank">OutSonarCallback.kt</a>)
-        receives the message, processes them using the <a href = "https://github.com/anatali/issLab2021/blob/main/it.unibo.qakactor/src/main/kotlin/ApplMessage.kt" target = "_blank">ApplMessage.kt</a>
-        and updates the adapter state variable.
-      </td>
-      <td>
-        <center>
-          <img src="IMG/outsonar.jpg" alt="outsonar" width="80%">
-        </center>
-      </td>
-    </tr>
-  </table>
-</div>
-<h3>Weightsensor</h3>
-<div class="remark">
-  <table>
-    <tr>
-      <td width="50%">
-        Since there aren't particular requirements for the weightsensor, it has been developed as a mock object <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target = "_blank">WeightSensorMock</a>
-        that periodically emits events.
-        The data sent by the mock can be generated by manually input new values or randomly.
-        As previously described, the component integration strategy uses MQTT protocol and paho as a client. <br>
-        Due to same kind of interaction as the outsonar, we can basically use the same classes used with the oursonar and refactor variables and the data we need for this sensor.
-        For that reason the <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorAdapter.kt" target = "_blank">WeightSensorAdapter.kt</a> and the
-        <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorCallback.kt" target = "_blank">WeightSensorCallback.kt</a> works as their outsonar counterparts.
-      </td>
-      <td>
-        <center>
-          <img src="IMG/weightsensor.png" alt="weightsenor" width="80%">
-        </center>
-      </td>
-    </tr>
-  </table>
-</div>
-<h3>Thermometer</h3>
-<div class="remark">
-  <table>
-    <tr>
-      <td width="50%">
-        As for the weightsensor, the thermometer has been developed as a mock object <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target = "_blank">ThermometerMock</a> that periodically emits events. It works like the
-        WeightSensorMock but the value randomly generated range from -10 to 50 degrees.<br>
-        Again, due to the same type of interaction,  we developed <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerSensorAdapter.kt</a>
-        and <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerCallback.kt" target = "_blank">ThermometerCallback.kt</a> reusing the code previously
-        detailed.
-      </td>
-      <td>
-        <center>
-          <img src="IMG/thermometer.png" alt="thermometer" width="80%">
-        </center>
-      </td>
-    </tr>
+<table>
+  <tr>
+    <td width="50%">
+      <h4>Communication with transport trolley</h4>
+      Following the hexagonal architecture, an adapter and a port have been developed. This components are used by the TrolleyController
+      to communicate with the Transport trolley. Both CoAP and MQTT are good protocols for IoT devices, but MQTT is more oriented on a publish-subscribe
+      logic while in this case we don't need that kind of interaction and CoAP is a restful protocol good for M2M interaction.
+    </td>
+    <td>
+    </td>
+  </tr>
 </table>
-</div>
 </div>
 
 
