@@ -27,8 +27,9 @@ class TransportTrolleyAdapter( ) : ActuatorPort {
 		if(command == "w"){
 			client.put(stepRequest, MediaTypeRegistry.TEXT_PLAIN )
 		}else{
-		cmddispatch.replace("VALUE", command)
-		client.put(cmddispatch, MediaTypeRegistry.TEXT_PLAIN )
+			val message = cmddispatch.replace("VALUE", command)
+			println(message)
+			client.put(message, MediaTypeRegistry.TEXT_PLAIN )
 		}
 	}	
     

@@ -21,7 +21,7 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 				lateinit var mv : String
 				var ttAd = main.ActuatorFactory().getActuatorAdapter(main.ActuatorType.TROLLEY)
 				val HOME : Pair<String,String> = Pair("0", "0")
-				val INDOOR : Pair<String,String> = Pair("6", "0")
+				val INDOOR : Pair<String,String> = Pair("3", "1")//6 0
 				val OUTDOOR : Pair<String,String> = Pair("6", "4")
 				val SLOT1 : Pair<String,String> = Pair("2", "1")
 				val SLOT2 : Pair<String,String> = Pair("2", "2")
@@ -68,10 +68,13 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 								 
 													itunibo.planner.plannerUtil.planForGoal(INDOOR.first,INDOOR.second) 
 													currentTask = "INDOOR"
-											
+
+
 													var mv : String = itunibo.planner.plannerUtil.getNextPlannedMove()
 													while(! mv.equals("")){
-														ttAd.sendCommand(mv) 
+														ttAd.sendCommand(mv)
+														delay(1500)
+														println(mv)
 														itunibo.planner.plannerUtil.updateMap(mv)
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 												} 

@@ -1,7 +1,8 @@
-package main
+package fan
 
 import org.eclipse.californium.core.CoapClient
 import org.eclipse.californium.core.coap.MediaTypeRegistry
+import main.ActuatorPort
 
 class FanAdapter( ) : ActuatorPort {
 	
