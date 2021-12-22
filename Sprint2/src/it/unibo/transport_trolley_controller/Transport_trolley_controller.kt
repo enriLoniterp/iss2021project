@@ -3,6 +3,7 @@ package it.unibo.transport_trolley_controller
 
 import it.unibo.kactor.*
 import alice.tuprolog.*
+import itunibo.planner.model.RoomMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,20 +22,20 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 				lateinit var mv : String
 				var ttAd = main.ActuatorFactory().getActuatorAdapter(main.ActuatorType.TROLLEY)
 				val HOME : Pair<String,String> = Pair("0", "0")
-				val INDOOR : Pair<String,String> = Pair("3", "1")//6 0
-				val OUTDOOR : Pair<String,String> = Pair("6", "4")
-				val SLOT1 : Pair<String,String> = Pair("2", "1")
-				val SLOT2 : Pair<String,String> = Pair("2", "2")
-				val SLOT3 : Pair<String,String> = Pair("2", "3")
-				val SLOT4 : Pair<String,String> = Pair("3", "1")
-				val SLOT5 : Pair<String,String> = Pair("3", "2")
-				val SLOT6 : Pair<String,String> = Pair("3", "3")
+				val INDOOR : Pair<String,String> = Pair("5", "0")//6 0
+				val OUTDOOR : Pair<String,String> = Pair("5", "4")
+				val SLOT1 : Pair<String,String> = Pair("1", "1")
+				val SLOT2 : Pair<String,String> = Pair("1", "2")
+				val SLOT3 : Pair<String,String> = Pair("1", "3")
+				val SLOT4 : Pair<String,String> = Pair("4", "1")
+				val SLOT5 : Pair<String,String> = Pair("4", "2")
+				val SLOT6 : Pair<String,String> = Pair("4", "3")
 				
 		return { //this:ActionBasciFsm
 				state("s0") { //this:State
 					action { //it:State
 						println("transportTrolleyController STARTS")
-						itunibo.planner.plannerUtil.loadRoomMap( "parkingMap"  )
+						itunibo.planner.plannerUtil.loadRoomMapFromTxt("parkingMap.txt")
 						itunibo.planner.plannerUtil.initAI(  )
 						println("INITIAL MAP")
 						itunibo.planner.plannerUtil.showMap(  )
