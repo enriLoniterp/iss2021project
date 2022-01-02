@@ -408,9 +408,11 @@ technology independent part from the technology dependent one.
     <td style="width: 50%; vertical-align:top">
       <h4><a href = "../src/it/unibo/" target = "_blank">Transport trolley</a></h4>
       The development of the technology dependent part of the <ks>transport trolley</ks> was facilitated thanks to what the customer made available.
-      In fact, the code present in <a href = "https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/" target = "_blank">it.unibo.qak21.basicrobot</a> was used, which allows to use the real <b>DDR robot</b> used in our project.
+      In fact, the code presented in <a href = "https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/" target = "_blank">it.unibo.qak21.basicrobot</a> was modified in some parts and used, which allows to use the real <b>DDR robot</b> used in our project.
+      Changes made to the code regards movement time of the robot action due to specific movement speed of our robot. <br>
       All details relating to this entity can be found in <a href = "https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html" target = "_blank">basicrobot2021.html</a>. Thanks to this code it is possible, after configuration,
       to use a virtual environment in case a real robot is not available.
+
     </td>
   </tr>
   <tr>
@@ -426,7 +428,8 @@ technology independent part from the technology dependent one.
 <h2>Testing</h2>
 <div class="remark">
 Since Sprint 2 is focused on the transport trolley, test plans will be carry out testing the "MACRO" moves priovously described (R2A, R2C/R3B, R2D/R2E/R3D, R3C),
-without taking care on particular situation where the transport trolley can't start its task (R1/R3). These situation will be included in future sprints. <br>
+without taking care on particular situation where the transport trolley can't start its task (R1/R3). These situation will be included in future sprints.
+In addiction, in order to test <ks>trolleyController</ks> functionalities, we decided to run all the following tests using the real robot. <br>
 For that reason, we assumed the following starting assumptions:
 <ul>
   <li>INDOOR and OUTDOOR AREA are not engaged;</li>
@@ -485,20 +488,7 @@ Fan test is as follow:
 <center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
 <h2>Deployment</h2>
 <div class="remark">
-  In this Sprint we decided to deploy the driven side which includes outsonar, thermometer and weightsensor,
-  while ports and adapters will be deployed in future Sprints. <br>
-  <a href ="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target = "_blank">Thermometer</a>
-  and <a href ="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/sensors/src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target = "_blank">weightsensor</a> can be used by opening and running them with jupyter.
-  <br>
-  Regarding to the <ks>outsonar</ks>, it has been deployed using <em>gradle distZip</em> command. The result of the deployment is a zip file <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/distributions/it.unibo.rasp2021-1.0.zip" target = "_blank"><em>outsonar.zip</em></a>
-  that contains a bin directory with the executables. By default the system uses a real sonar and in that case <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/SonarAlone" target = "_blank">sonarAlone.c</a> needs to be compiled.
-  Alternatevely, by changing configuration file <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/sonar2021ConfigKb.pl" target = "_blank">sonar2021ConfigKb.pl</a> a virtual sonar can be used.
-  In addicition, the broker that receives events emitted by the sonar can be choose by editing <a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint1/outsonar/sonaronrasp.pl" target = "_blank">sonaronrasp.pl</a>.<br>
-  To run the system on:
-  <ul>
-    <li><b>Windows</b>: open a Command Prompt, set working directory to <em>bin</em>, run <em>outsonar.bat</em>;
-    <li><b>Unix</b>: open a Bash Shell, set working directory to <em>bin</em>, run <em>bash outsonar</em>;
-    <li><b>MacOS</b>: open a Terminal, set working directory to <em>bin</em>, run <em>basicdevices</em>;
+  In this Sprint we deployed the code of the real robot (<a>basicRobot</a>) changed as stated in the project phase.
 </div>
 
 <h2>Job task</h2>
@@ -530,15 +520,6 @@ Fan test is as follow:
 </table>
 <h2>Sprint Review</h2>
 <div class="remark">
-During the discussion with the customer we faced the possibilty to use the observer pattern as a logic interaction instead of
-the publish-subscribe we used. As analyst we think they are both good at satisfying our interction requirements with sensor. However,
-we think publish-subscribe interaction suits best our needs because, as we said in <a href="http://htmlpreview.github.io/?https://github.com/enriLoniterp/iss2021project/blob/main/requirements/userDocs/Automated%20Car-Parking.html" target = "_blank">our first analiys</a>,
-sensors doens't know who is going to use them, this specification is fully satisfied thanks to the presence of an intermediary: the broker. This means that the publisher (sensor) and subscriber
-(adapter) are just loosely-coupled. Although the observer pattern allows you to not know a priori who the observers will be, they will be subsequently
-disclosed to the sensors directly after the registration.
-A closer look at this comparison can be found <a href="https://towardsai.net/p/systems/observer-pattern-vs-pub-sub-pattern" target = "_blank">here</a>.<br/>
-Regarding the broker, even if now we rely on the remote broker hivemq, it will later be replaced by a local broker (<b>Mosquitto<b/>).
-
 </div>
 <h2>Maintenance</h2>
 
