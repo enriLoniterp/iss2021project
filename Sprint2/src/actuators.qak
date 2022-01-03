@@ -1,20 +1,13 @@
 System carparking
 
-//parkingmanagerservice-actuatorscontroller interaction
 Dispatch moveToIn : moveToIn(MOVETOIN)
 Dispatch movedToIn : movedToIn(MOVED)
-
-Dispatch moveToSlotIn : moveToSlotIn(X,Y)
-Dispatch movedToSlotIn : movedToSlotIn(SUCCESS,X,Y)
 
 Dispatch moveToSlot : moveToSlot(X)
 Dispatch movedToSlot : movedToSlot(SUCCESS,X,Y)
 
 Dispatch moveToHome : moveToHome(X) 
 Dispatch movedToHome : movedToHome(Y)
-
-Dispatch moveToSlotOut : moveToSlotOut(X,Y)
-Dispatch movedToSlotOut : movedToSlotOut(SUCCESS,X,Y)
 
 Dispatch moveToOut : moveToOut(X,Y)
 Dispatch movedToOut : movedToOut(SUCCESS)
@@ -23,20 +16,12 @@ Dispatch stop : stop(STOP)
 Dispatch resume : resume(RESUME)
 
 Dispatch goToIdle : goToIdle(X)
-Dispatch stop	 : stop(X)
-Dispatch resume : resume(X)	
-Dispatch cmd       : cmd(MOVE)    
-Request step       : step( TIME )	
-
-Dispatch command       : command( X )
-//Reply executed : executed(STATE)
-
 
 Context ctxcarparking ip[host="localhost" port=8002]
 
 
 
-QActor transport_trolley_controller context  ctxcarparking{
+QActor trolley_controller context  ctxcarparking{
 	[#
 		var currentTask : String = "NONE"
 		lateinit var mv : String
@@ -54,7 +39,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 	#]
 		
 	State s0 initial{
-		println("transportTrolleyController STARTS")
+		println("TrolleyController STARTS")
 		run itunibo.planner.plannerUtil.loadRoomMapFromTxt("parkingMap.txt") 
 		run itunibo.planner.plannerUtil.initAI()
 		println("INITIAL MAP") 
@@ -110,7 +95,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 						mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 				}#]
 				println("trolley trip to OUTDOOR end")
-				forward transport_trolley_controller -m moveToHome : moveToHome(X)
+				forward trolley_controller -m moveToHome : moveToHome(X)
 		}
 		//Move the trolley to the specific parking slot
 		onMsg(moveToSlot : moveToSlot(SLOTNUM)) {
@@ -145,7 +130,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 			println("trolley trip to slot $SLOTNUM end")
 			println("trolley $currentTask")
 			if [# currentTask.equals("PARKIN") #]{
-				forward transport_trolley_controller -m moveToHome : moveToHome(X)
+				forward trolley_controller -m moveToHome : moveToHome(X)
 			}
 		}
 		

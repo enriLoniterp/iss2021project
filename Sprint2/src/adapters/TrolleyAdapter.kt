@@ -8,7 +8,7 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry
 import main.ActuatorPort
 
 
-class TransportTrolleyAdapter( ) : ActuatorPort {
+class TrolleyAdapter( ) : ActuatorPort {
 	
 	val stepRequest   = "msg(step,request,kotlin,basicrobot,step(1400), 1)"
 	val cmdDispatch   = "msg(cmd, dispatch,kotlin,basicrobot,cmd(VALUE),1)"
