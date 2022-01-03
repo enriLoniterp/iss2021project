@@ -1,7 +1,7 @@
 package main
 
-import transportTrolley.TransportTrolleyAdapter
-import fan.FanAdapter
+import adapters.TransportTrolleyAdapter
+import adapters.FanAdapter
 
 
 class ActuatorFactory {

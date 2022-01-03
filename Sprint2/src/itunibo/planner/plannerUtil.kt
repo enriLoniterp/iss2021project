@@ -273,6 +273,7 @@ object plannerUtil {
     }
 
 	fun loadRoomMapFromTxt(file : String){
+		println("Ei")
 		var map = RoomMap.getRoomMap()
 		val reader = BufferedReader(InputStreamReader(FileInputStream(file)))
 		var line = reader.readLine()

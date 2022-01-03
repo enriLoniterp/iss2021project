@@ -3,7 +3,6 @@ package it.unibo.transport_trolley_controller
 
 import it.unibo.kactor.*
 import alice.tuprolog.*
-import itunibo.planner.model.RoomMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,7 +21,7 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 				lateinit var mv : String
 				var ttAd = main.ActuatorFactory().getActuatorAdapter(main.ActuatorType.TROLLEY)
 				val HOME : Pair<String,String> = Pair("0", "0")
-				val INDOOR : Pair<String,String> = Pair("5", "0")//6 0
+				val INDOOR : Pair<String,String> = Pair("5", "0")
 				val OUTDOOR : Pair<String,String> = Pair("5", "4")
 				val SLOT1 : Pair<String,String> = Pair("1", "1")
 				val SLOT2 : Pair<String,String> = Pair("1", "2")
@@ -35,7 +34,7 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 				state("s0") { //this:State
 					action { //it:State
 						println("transportTrolleyController STARTS")
-						itunibo.planner.plannerUtil.loadRoomMapFromTxt("parkingMap.txt")
+						itunibo.planner.plannerUtil.loadRoomMapFromTxt( "parkingMap.txt"  )
 						itunibo.planner.plannerUtil.initAI(  )
 						println("INITIAL MAP")
 						itunibo.planner.plannerUtil.showMap(  )
@@ -52,10 +51,9 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 					}
 					 transition(edgeName="t00",targetState="working",cond=whenDispatch("moveToIn"))
 					transition(edgeName="t01",targetState="working",cond=whenDispatch("moveToOut"))
-					transition(edgeName="t02",targetState="working",cond=whenDispatch("moveToSlotIn"))
-					transition(edgeName="t03",targetState="working",cond=whenDispatch("moveToSlotOut"))
-					transition(edgeName="t04",targetState="working",cond=whenDispatch("moveToHome"))
-					transition(edgeName="t05",targetState="stopped",cond=whenDispatch("stop"))
+					transition(edgeName="t02",targetState="working",cond=whenDispatch("moveToSlot"))
+					transition(edgeName="t03",targetState="working",cond=whenDispatch("moveToHome"))
+					transition(edgeName="t04",targetState="stopped",cond=whenDispatch("stop"))
 				}	 
 				state("working") { //this:State
 					action { //it:State
@@ -69,13 +67,10 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 								 
 													itunibo.planner.plannerUtil.planForGoal(INDOOR.first,INDOOR.second) 
 													currentTask = "INDOOR"
-
-
+											
 													var mv : String = itunibo.planner.plannerUtil.getNextPlannedMove()
 													while(! mv.equals("")){
-														ttAd.sendCommand(mv)
-														delay(1500)
-														println(mv)
+														ttAd.sendCommand(mv) 
 														itunibo.planner.plannerUtil.updateMap(mv)
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 												} 
@@ -97,7 +92,7 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 								println("trolley trip to OUTDOOR end")
 								forward("moveToHome", "moveToHome(X)" ,"transport_trolley_controller" ) 
 						}
-						if( checkMsgContent( Term.createTerm("moveToSlot(X,Y)"), Term.createTerm("moveToSLot(SLOTNUM)"), 
+						if( checkMsgContent( Term.createTerm("moveToSlot(X)"), Term.createTerm("moveToSlot(SLOTNUM)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								 
 												var SLOTNUM = payloadArg(0).toInt()
@@ -127,6 +122,7 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 								updateResourceRep( "trolley trip to slot $SLOTNUM end"  
 								)
 								println("trolley trip to slot $SLOTNUM end")
+								println("trolley $currentTask")
 								if(  currentTask.equals("PARKIN")  
 								 ){forward("moveToHome", "moveToHome(X)" ,"transport_trolley_controller" ) 
 								}
@@ -145,24 +141,23 @@ class Transport_trolley_controller ( name: String, scope: CoroutineScope  ) : Ac
 								println("trolley at HOME")
 								updateResourceRep( "trolley at HOME"  
 								)
-								forward("goToIdle", "goToIdle(X)" ,"trolley" ) 
 						}
 					}
-					 transition(edgeName="t16",targetState="stopped",cond=whenDispatch("stop"))
-					transition(edgeName="t17",targetState="working",cond=whenDispatch("moveToHome"))
-					transition(edgeName="t18",targetState="working",cond=whenDispatch("moveToIn"))
-					transition(edgeName="t19",targetState="working",cond=whenDispatch("moveToOut"))
-					transition(edgeName="t110",targetState="working",cond=whenDispatch("moveToSlotIn"))
-					transition(edgeName="t111",targetState="working",cond=whenDispatch("moveToSlotOut"))
-					transition(edgeName="t112",targetState="idle",cond=whenDispatch("goToIdle"))
+					 transition(edgeName="t15",targetState="stopped",cond=whenDispatch("stop"))
+					transition(edgeName="t16",targetState="working",cond=whenDispatch("moveToHome"))
+					transition(edgeName="t17",targetState="working",cond=whenDispatch("moveToIn"))
+					transition(edgeName="t18",targetState="working",cond=whenDispatch("moveToOut"))
+					transition(edgeName="t19",targetState="working",cond=whenDispatch("moveToSlotIn"))
+					transition(edgeName="t110",targetState="working",cond=whenDispatch("moveToSlotOut"))
+					transition(edgeName="t111",targetState="idle",cond=whenDispatch("goToIdle"))
 				}	 
 				state("stopped") { //this:State
 					action { //it:State
 						println("transportTrolleyController stopped")
 					}
-					 transition(edgeName="t213",targetState="idle",cond=whenDispatchGuarded("resume",{ currentTask == "HOME" || currentTask == "IDLE"  
+					 transition(edgeName="t212",targetState="idle",cond=whenDispatchGuarded("resume",{ currentTask == "HOME" || currentTask == "IDLE"  
 					}))
-					transition(edgeName="t214",targetState="working",cond=whenDispatchGuarded("resume",{ currentTask == "PARKIN" || currentTask == "PARKOUT" || currentTask == "OUTDOOR" || currentTask == "INDOOR" 
+					transition(edgeName="t213",targetState="working",cond=whenDispatchGuarded("resume",{ currentTask == "PARKIN" || currentTask == "PARKOUT" || currentTask == "OUTDOOR" || currentTask == "INDOOR" 
 					}))
 				}	 
 			}
