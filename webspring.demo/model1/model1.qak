@@ -1,0 +1,45 @@
+System carparking
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+
+ 
+QActor parkingmanagerservice context  ctxcarparking{
+	
+	State s0 initial{
+		println("parkingmanagerservice STARTS")
+	}
+	Goto work
+	
+	State work{
+		println("parkingmanagerservice waiting ...")
+	}
+	
+}
+
+
+QActor transport_trolley context ctxcarparking{
+	State s0 initial{
+		println("transport_trolley STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("transport_trolley working ........... ")  
+	}
+	
+	
+}
+
+QActor fan context ctxcarparking{
+	State s0 initial{
+		println("fan STARTS")
+	}
+	Goto work
+	
+	State work{ 
+		println("fan working ........... ")  
+	}
+	
+	
+}

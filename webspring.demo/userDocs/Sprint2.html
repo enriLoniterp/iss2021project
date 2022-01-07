@@ -1,0 +1,555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+kr{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #ff0000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 100%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#exampleclass tbody,
+#exampleclass thead,
+#exampleclass th {
+  border: 0;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+
+<head>
+
+<title>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 2</title></head>
+
+<body>
+<div id="top">
+<h1>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 2<font size="5"></font> </h1>
+</div>
+
+<div class="body">
+<div id = "backlog">
+  <h2>Sprint 2 Backlog</h2>
+  <div class="remark" id="sprint2_backlog">
+    Sprint 2 regards the develop of the <ks>PMS</ks> basic functionalities - transport trolley and fan:
+    <ul>
+      <li><ks>PMS</ks> manages transport trolley:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2A" target = "_blank">R2A</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2C" target = "_blank">R2C</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2D" target = "_blank">R2D</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2E" target = "_blank">R2E</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3A" target = "_blank">R3A</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3B" target = "_blank">R3B</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3C" target = "_blank">R3C</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3D" target = "_blank">R3D</a>;</li>
+      <li><ks>PMS</ks> manages fan:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>.</li>
+    </ul>
+  </div>
+</div>
+<h4>Starting point</h4>
+<center><img src="IMG/StartingPoint.png" alt="starting_point_sprint1" width="40%"></center>
+
+<div id = "problem_analysis">
+<h2>Problem analysis</h2>
+<div class="remark">
+  This Sprint aim is to develop and deeper describe the following entities:
+  <ul>
+    <li><ks>Park Manager Service</ks>;</li>
+    <li><ks>Transport trolley</ks>;</li>
+    <li><ks>Fan</ks>;</li>
+  </ul>
+</div>
+<div class = "remark">
+  An initial model of these entities, without interaction between them, can be found <a href = "../model1/model1.qak" target = "_blank">here</a>.<br>
+</div>
+<div id = "problem_analysis_PMS">
+  <h3>PMS</h3>
+  <div class = "remark" id="backlog_analysis">
+    From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to manage the <ks>transport trolley</ks> and the <ks>fan</ks>. <br>
+    Referring to the previous <a href = "../../Sprint1/userDocs/Sprint1.html#project" target = "_blank">Sprint 1</a>,
+    we believe that, also in this case, is appropriate to introduce a new entity that is
+    part of the <ks>PMS</ks> which aim is maintain the status and manage the interaction with the <ks>transport trolley</ks>.
+    The introduction of this new entity would allow the rest of the <ks>PMS</ks> to perform other tasks without blocking it.
+    Meanwhile, menaging the <ks>fan</ks> only requires to send on/off commands and doesn't heavily affect the performance of the <ks>PMS</ks>.
+  </div>
+  <h4>Communication</h4>
+  <div class="remark" id="communication">
+    Communication with the <ks>transport trolley</ks> can be done using a <b>request-response</b> or <b>dispatch</b> logic.
+    The use of request-response does not negatively affect the system if the entity discussed in the previous paragraph is introduced.<br>
+    Communication with the <ks>fan</ks>, as stated in the <a href="../../requirements/userDocs/Automated Car-Parking.html#fan" target = "_blank">first analysis</a>, can be done using <b>request-response</b>.
+  </div>
+</div>
+<h3>Transport trolley</h3>
+<div class = "remark">
+  This component, as stated in the <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_transport_trolley" target = "_blank">first analysis</a>, moves within the parking area by reaching specific points:
+  <ul>
+    <li>HOME;</li>
+    <li>INDOOR AREA;</li>
+    <li>OUTDOOR AREA;</li>
+    <li>1 out of 6 SLOTS.</li>
+  </ul>
+  These shifts can be considered as "<b>MACRO</b>" shifts composed of a succession of "<b>MICRO</b>" shifts which depends on the actual position
+  of the <ks>transport trolley</ks>. In addition, as per requirements, the transport trolley switchs between three states and
+  can be blocked during its execution by the manager.
+  As analysts, we think that the transport trolley should be blocked only after completing a macro move. This behaviour implies the need
+  of saving what the trolley transport was doing before it was blocked in order to continue doing the right task after the resume. <br>
+
+  Finally, the transport trolley in order to complete its tasks, needs a rapresentation of the parking area through a
+   <a href="../../requirements/userDocs/Automated%20Car-Parking.html#problem_analysis_map" target = "_blank">map</a>. <br>
+  The customer has made several resources available for this entity, which can be used in the project phase:
+  <ul>
+    <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html" target = "_blank">basicRobot</a>: component that executes robot-move commands in a 'technology-independent way', with respect
+                           to the nature of the robot (virtual or real);</li>
+    <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/BasicStepRobotActorUsage.html#distrSys" target = "_blank">basicStepRobot</a>: actor which performs basic moves and step and returns info to its owner;</li>
+    <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/LabPlanner2021.html" target = "_blank">plannerUtil</a>: Kotlin object for planning the actions of a robot working in logical space (a map) composed of a set of square cells, each large as the robot.</li>
+  </ul>
+</div>
+</div>
+The Sprint 2 should be done in <b>seven days</b>.
+<div id = "project">
+<h2>Project</h2>
+Starting from the <a href="../../requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
+and from the <a href="#backlog">product backlog</a> we can now design the <ks>transport trolley</ks>, its managment and the <ks>fan</ks>.<br>
+We maintain the <b>hexagonal architecture</b>, introduced in the previous sprint, developing port and adapter. This allows to keep separate the
+technology independent part from the technology dependent one.
+<h4>Specifications common to all actuators</h4>
+<table cellpadding="5%">
+  <tbody><tr>
+    <td style="width: 50%; vertical-align:top">
+        As we developed for the sensors, we decided to use a <b>single interface</b>
+        (<a href="../src/main/ActuatorPort.kt" target="_blank">ActuatorPort.kt</a>)
+        for all adapters and a <b>factory class</b> (<a href="../src/main/ActuatorFactory.kt" target="_blank">ActuatorFactory.kt</a>)
+        to allow the business logic to obtain the right instance of the adapter for a given type of actuator (<a href="../src/main/ActuatorType.kt" target="_blank">ActuatorType.kt</a>).
+    </td>
+    <td>
+      <center>
+        <img src="IMG/ActuatorFactory.jpg" alt="actuator_factory" width="60%">
+      </center>
+    </td>
+  </tr>
+</tbody></table>
+<h4>Technology independent</h4>
+<table cellpadding="5%">
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <h4><a href = "../src/it/unibo/trolley_controller/Trolley_controller.kt	" target = "_blank">TrolleyController</a></h4>
+      As said in the analysis phase, we introduce a new entity <a href = "../src/it/unibo/trolley_controller/Trolley_controller.kt " target = "_blank">TrolleyController</a> which takes care
+      of maintaining the current state of the <ks>transport trolley</ks> (<b>idle</b> / <b>working</b> / <b>stopped</b>) and manages the interaction with it, allowing the rest of the <ks>PMS</ks> to
+      carry out other activities. Given the state nature of this entity, it is modeled as FSM actor (<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.qakactor/userDocs/LabQakIntro2021.html" target = "_blank">Qakactor</a>).<br>
+      To solve the problem indicated in the analysis phase relating to the stop of the transport trolley, a variable (<b>currentTask</b>) has been introduced that
+      assume different values ​​relating to the task it was carring out before being stopped.<br>
+      On the right, is displayed the state diagram of the actor and a table with the values and meanings of the currentTask variable.
+    </td>
+    <td>
+      <center>
+        <img src="IMG/transport_trolley_FSM.jpg" alt="transport_trolley_FSM" width="100%">
+      </center>
+      <br>
+      <table cellpadding="5%" width="100%">
+        <tr>
+          <th>currentTask</th>
+          <th>meaning</th>
+        </tr>
+        <tr>
+          <td><center>IDLE</center></td>
+          <td>Transport trolley isn't working and it is waiting for a request</td>
+        </tr>
+        <tr>
+          <td><center>HOME</center></td>
+          <td>Transport trolley has just come back to HOME position</td>
+        </tr>
+        <tr>
+          <td><center>INDOOR</center></td>
+          <td>Transport trolley has just arrived in the INDOOR area</td>
+        </tr>
+        <tr>
+          <td><center>OUTDOOR</center></td>
+          <td>Transport trolley has just arrived in the OUTDOOR area</td>
+        </tr>
+        <tr>
+          <td><center>PARKIN</center></td>
+          <td>Transport trolley has just parked a car in a parking slot</td>
+        </tr>
+        <tr>
+          <td><center>PARKOUT</center></td>
+          <td>Transport trolley has just picked up a car from a parking slot</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h4><a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank">PlannerUtil</a></h4>
+      As pointed out in the problem analiys, we can use <a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank"><ks>plannerUtil</ks></a> to generate the path for the <ks>transport trolley</ks>. This framework helps us
+      to simplify the process of developing each task for the transport trolley. Infact, thanks to it, the business logic only has to define the goal
+      coordinates (a pair of integer which uniquely identify a cell in the parking room) and the planner, thanks to the aima framework, return a list
+      of moves which represents the path that the <ks>transport trolley</ks> has to follow. In our case parking slots are considered obstacle in the parking room and
+      for that reason are market with "<b>X</b>" as stated in the <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/LabPlanner2021.html#plannerUtil" target = "_blank">plannerUtil documents</a>.<br>
+      In addiction, <ks>plannerUtil</ks> has a method which allows to update the position of the transport trolley after every successfull move.<br>
+      We decided to add a method in the <ks><a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank">plannerUtil</a></ks> (loadRoomMapFromTxt(file: String)) which allows the system to load the parking map from a txt file.
+      <br>In case of failure during the path, the <ks>transport trolley</ks> should return to <b>HOME</b> position and a new path should be generated starting from (0, 0).
+    </td>
+    <td>
+      <center>
+        <img src="IMG/plannerUtil.jpg" alt="plannerUtil_diagram_class" width="100%">
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h4>Communication with transport trolley</h4>
+      Following the hexagonal architecture, an adapter and a port have been developed. This components are used by the <ks>trolleyController</ks>
+      to communicate with the <ks>transport trolley</ks>. Both <b>CoAP</b> and <b>MQTT</b> are good protocols for IoT devices, but MQTT is more oriented on a publish-subscribe
+      logic while in this case we don't need that kind of interaction and CoAP is a restful protocol good for M2M interaction. <br>
+      Since the <ks>TrolleyController</ks> is an actor it allows other antities to register with it as observers by making its internal state available.
+    </td>
+    <td>
+      <center>
+        <img src="IMG/trolleyAdapter.jpg" alt="trolley_adapter" width="90%">
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h4>Communication with fan</h4>
+      We developed the communication with the <ks>fan</ks> in the same way as we did for the <ks>transport trolley</ks>.
+    </td>
+    <td>
+      <center>
+        <img src="IMG/fanAdapter.jpg" alt="fan_adapter" width="90%">
+      </center>
+    </td>
+  </tr>
+</table>
+<h4>Technology dependent</h4>
+<table>
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <h4>Transport trolley</h4>
+      The development of the technology dependent part of the <ks>transport trolley</ks> was facilitated thanks to what the customer made available.
+      In fact, the code presented in <a href = "https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/" target = "_blank">it.unibo.qak21.basicrobot</a> was modified in some parts and used, allowing to use the real <b>DDR robot</b> used in our project.
+      Changes made to the code regards movement time of the robot action due to specific movement speed of our robot. <br>
+      All details relating this entity can be found in <a href = "https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html" target = "_blank">basicrobot2021.html</a>. Thanks to this code it is possible, after configuration,
+      to use a virtual environment in case a real robot is not available.
+
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <h4><a href = "../src/it/unibo/fan/Fan.kt" target = "_blank">Fan</a></h4>
+      As stated in the requirements, we design the fan as a <b>mock actor</b>. We choose the actor, over the object, as it is possible to observe its status at any time.
+    </td>
+  </tr>
+</table>
+</div>
+
+
+<h2>Testing</h2>
+<div class="remark">
+Since Sprint 2 is focused on the transport trolley, test plans will be carry out testing the "MACRO" moves priovously described (
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R2A" target = "_blank">R2A</a>,
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R2C" target = "_blank">R2C</a>/
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R3B" target = "_blank">R3B</a>,
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R2D" target = "_blank">R2D</a>/
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R2E" target = "_blank">R2E</a>/
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R3D" target = "_blank">R3D</a>,
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R3C" target = "_blank">R3C</a>),
+without taking care on particular situation where the transport trolley can't start its task (
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R1" target = "_blank">R1</a>/
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#R3" target = "_blank">R3</a>). These situation will be included in future sprints.
+In addiction, in order to test <ks>trolleyController</ks> functionalities, we decided to run all the following tests using the real robot. <br>
+For that reason, we assumed the following starting assumptions:
+<ul>
+  <li>INDOOR and OUTDOOR AREA are not engaged;</li>
+  <li>FAN status off;</li>
+  <li>No Magager interaction;</li>
+  <li>Transport trolley starts from home location;</li>
+  <li>All parking slots are free.</li>
+</ul>
+Hereafter is a description of the functional tests for this sprint:
+<pre>
+  <a href = "../src/test/TrolleyTest.kt" target = "_blank">TEST #1 - no queue task</a>
+  creation of an istance of <b>adapter</b>
+  robot -> <ks>moveToSlot(1)</ks>
+  <!--check if coordinates(<b>robot</b>) == coordinates(1,1)-->
+  no task in queue
+  <!-- robot -> <ks>moveToHome</ks> -->
+  check if coordinates(<b>robot</b>) == coordinates(<b>HOME</b>)
+</pre>
+<pre>
+  <a href = "../src/test/TrolleyTest.kt" target = "_blank">TEST #2 - complete cycle of tasks</a>
+  creation of an istance of <b>adapter</b>
+  robot -> <ks>moveToIn</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>INDOOR AREA</b>)
+  robot -> <ks>moveToSlotIn(3)</ks>
+  check if coordinates(<b>robot</b>) == coordinates(1,3)
+  robot -> <ks>moveToSlotOut(3)</ks>
+  check if coordinates(<b>robot</b>) == coordinates(1,3)
+  robot -> <ks>moveToOut</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>OUTDOOR AREA</b>)
+  robot -> <ks>moveToHome</ks>
+  check if coordinates(<b>robot</b>) == coordinates(<b>HOME</b>)
+</pre>
+<pre>
+  <a href = "../src/test/TrolleyTest.kt" target = "_blank">TEST #3 - halt functionality</a>
+  creation of an istance of <b>adapter</b>
+  robot -> <ks>moveToSlotIn(1)</ks>
+  robot -> <ks>stop</ks>
+  check if coordinates(<b>robot</b>) == coordinates(1,1)
+  no task in queue
+  robot -> <ks>resume</ks>
+  <!-- robot -> <ks>moveToHome</ks> -->
+  check if coordinates(<b>robot</b>) == coordinates(<b>HOME</b>)
+</pre>
+<a href = "../src/test/FanTest.kt" target = "_blank">Fan test</a> is as follow:
+<pre>
+  status(fan) == OFF
+  fan -> <ks>ON</ks>
+  check if status(fan) == ON
+
+  fan -> <ks>OFF</ks>
+  check if status(fan) == OFF
+</pre>
+</div>
+
+<h4>Summary point</h4>
+<center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
+<h2>Deployment</h2>
+<div class="remark">
+  In this Sprint we deployed the code of the real robot (basicRobot) changed as stated in the project phase. It has been deployed
+  using gradle distZip command. The result of the deployment is a zip file <a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>basicRobot.zip</em></a> that contains a bin directory with the executables.
+</div>
+
+<h2>Job task</h2>
+<table cellpadding="5%">
+  <tr>
+    <th>Member</th>
+    <th>Task done</th>
+  </tr>
+  <tr>
+    <td><center><b>Manfreda Filippo</b><br>filippo.manfreda@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>DDR Robot</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Team</b></center></td>
+    <td>
+      <ul>
+        <li>Problem analysis;</li>
+        <li>Transport trolley;</li>
+        <li>Fan;</li>
+        <li>Testing;</li>
+        <li>Deployment</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<h2>Sprint Review</h2>
+<div class="remark">
+</div>
+<h2>Maintenance</h2>
+
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+
+<br/><br/>
+</div>
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By studentName email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini2@studio.unibo.it
+<!--<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">-->
+</div>
+</body>
+</html>
