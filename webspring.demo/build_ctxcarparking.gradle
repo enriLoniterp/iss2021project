@@ -54,7 +54,10 @@ dependencies {
 	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25' 
 //MONGO
 	// https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+
 	//compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.8.2'
+
+    /*
 	implementation 'com.andreapivetta.kolor:kolor:1.0.0'
 
 //CUSTOM
@@ -76,7 +79,9 @@ dependencies {
     //compile name: 'labbaseRobotSam'
 	//compile mame: 'pi4j-core' //2-12 SNAPSHOT non in gradle
  	//PLANNER
-    //compile name: 'it.unibo.planner'
+ 	*/
+
+    // compile name: 'it.unibo.planner'
  	// https://mvnrepository.com/artifact/com.googlecode.aima-java/aima-core
 	compile group: 'com.googlecode.aima-java', name: 'aima-core', version: '3.0.0'
 }

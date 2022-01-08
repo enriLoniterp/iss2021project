@@ -84,13 +84,14 @@ dependencies {
 	implementation( "com.andreapivetta.kolor:kolor:1.0.0" )
 
 //UNIBO
+	/*
 	implementation("IssActorKotlinRobotSupport:IssActorKotlinRobotSupport:2.0")
 	implementation("uniboIssSupport:IssWsHttpJavaSupport:1.0")
 	implementation("uniboInterfaces:uniboInterfaces")
 	implementation("uniboProtocolSupport:unibonoawtsupports")
 	//implementation("uniboplanner20:it.unibo.planner20:1.0")
 
-
+*/
 
 }
 

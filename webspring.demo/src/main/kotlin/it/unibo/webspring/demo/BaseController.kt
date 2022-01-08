@@ -10,18 +10,17 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.lang.Exception
 
-//@Controller
+@Controller
 class BaseController {
     @Value("\${spring.application.name}")
     var appName: String? = null
-    @GetMapping("/")
+    @GetMapping("/home")
     fun homePage(model: Model): String {
-        println("------------------- BaseController homePage model=$model")
-        model.addAttribute("arg", appName)
-        println("------------------- BaseController homePage model=$model")
-        return "Home"
+
+        return "welcome"
     }
 
+    /*
     @ExceptionHandler
     fun handle(ex: Exception): ResponseEntity<*> {
         val responseHeaders = HttpHeaders()
@@ -30,4 +29,6 @@ class BaseController {
             responseHeaders, HttpStatus.CREATED
         )
     }
+    */
+
 }
