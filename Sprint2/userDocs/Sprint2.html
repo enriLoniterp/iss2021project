@@ -237,8 +237,13 @@ div.imagedesc{
   This Sprint aim is to develop and deeper describe the following entities:
   <ul>
     <li><ks>Park Manager Service</ks>;</li>
-    <li><ks>Transport trolley</ks>;</li>
-    <li><ks>Fan</ks>;</li>
+    <li>
+      <b>Actuators:</b>
+      <ul>
+        <li><ks>Transport trolley</ks>;</li>
+        <li><ks>Fan</ks>;</li>
+      </ul>
+    </li>
   </ul>
 </div>
 <div class = "remark">
@@ -287,11 +292,11 @@ div.imagedesc{
   </ul>
 </div>
 </div>
-The Sprint 2 should be done in <b>seven days</b>.
+The Sprint 2 should be done in <b>five days</b>.
 <div id = "project">
 <h2>Project</h2>
 Starting from the <a href="../../requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
-and from the <a href="#backlog">product backlog</a> we can now design the <ks>transport trolley</ks>, its managment and the <ks>fan</ks>.<br>
+and from the <a href="#backlog">product backlog</a> we can now design the <ks>transport trolley</ks>, its management and the <ks>fan</ks>.<br>
 We maintain the <b>hexagonal architecture</b>, introduced in the previous sprint, developing port and adapter. This allows to keep separate the
 technology independent part from the technology dependent one.
 <h4>Specifications common to all actuators</h4>
@@ -316,9 +321,9 @@ technology independent part from the technology dependent one.
     <td style="width: 50%; vertical-align:top">
       <h4><a href = "../src/it/unibo/trolley_controller/Trolley_controller.kt	" target = "_blank">TrolleyController</a></h4>
       As said in the analysis phase, we introduce a new entity <a href = "../src/it/unibo/trolley_controller/Trolley_controller.kt " target = "_blank">TrolleyController</a> which takes care
-      of maintaining the current state of the <ks>transport trolley</ks> (<b>idle</b> / <b>working</b> / <b>stopped</b>) and manages the interaction with it, allowing the rest of the <ks>PMS</ks> to
+      of maintaining the current state of the <ks>transport trolley</ks> (<b>idle</b> / <b>working</b> / <b>stopped</b>) and manages the interaction the physical robot, allowing the rest of the <ks>PMS</ks> to
       carry out other activities. Given the state nature of this entity, it is modeled as FSM actor (<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.qakactor/userDocs/LabQakIntro2021.html" target = "_blank">Qakactor</a>).<br>
-      To solve the problem indicated in the analysis phase relating to the stop of the transport trolley, a variable (<b>currentTask</b>) has been introduced that
+      To solve the problem indicated in the analysis phase relating to the stop of the transport trolley, a variable (<b>currentTask</b>) has been introduced which
       assume different values ​​relating to the task it was carring out before being stopped.<br>
       On the right, is displayed the state diagram of the actor and a table with the values and meanings of the currentTask variable.
     </td>
@@ -363,13 +368,12 @@ technology independent part from the technology dependent one.
     <td>
       <h4><a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank">PlannerUtil</a></h4>
       As pointed out in the problem analiys, we can use <a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank"><ks>plannerUtil</ks></a> to generate the path for the <ks>transport trolley</ks>. This framework helps us
-      to simplify the process of developing each task for the transport trolley. Infact, thanks to it, the business logic only has to define the goal
+      to simplify the process of developing each task for the transport trolley. In fact, thanks to it, the business logic only has to define the goal
       coordinates (a pair of integer which uniquely identify a cell in the parking room) and the planner, thanks to the aima framework, return a list
       of moves which represents the path that the <ks>transport trolley</ks> has to follow. In our case parking slots are considered obstacle in the parking room and
-      for that reason are market with "<b>X</b>" as stated in the <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/LabPlanner2021.html#plannerUtil" target = "_blank">plannerUtil documents</a>.<br>
+      for that reason are marked with "<b>X</b>" as stated in the <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/LabPlanner2021.html#plannerUtil" target = "_blank">plannerUtil documents</a>.<br>
       In addiction, <ks>plannerUtil</ks> has a method which allows to update the position of the transport trolley after every successfull move.<br>
       We decided to add a method in the <ks><a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank">plannerUtil</a></ks> (loadRoomMapFromTxt(file: String)) which allows the system to load the parking map from a txt file.
-      <br>In case of failure during the path, the <ks>transport trolley</ks> should return to <b>HOME</b> position and a new path should be generated starting from (0, 0).
     </td>
     <td>
       <center>
@@ -380,9 +384,9 @@ technology independent part from the technology dependent one.
   <tr>
     <td width="50%">
       <h4>Communication with transport trolley</h4>
-      Following the hexagonal architecture, an adapter and a port have been developed. This components are used by the <ks>trolleyController</ks>
+      Following the hexagonal architecture, an adapter and a port have been developed. These components are used by the <ks>TrolleyController</ks>
       to communicate with the <ks>transport trolley</ks>. Both <b>CoAP</b> and <b>MQTT</b> are good protocols for IoT devices, but MQTT is more oriented on a publish-subscribe
-      logic while in this case we don't need that kind of interaction and CoAP is a restful protocol good for M2M interaction. <br>
+      logic not needed in this case while CoAP is a restful protocol good for M2M interaction. <br>
       Since the <ks>TrolleyController</ks> is an actor it allows other antities to register with it as observers by making its internal state available.
     </td>
     <td>
@@ -428,7 +432,7 @@ technology independent part from the technology dependent one.
 
 <h2>Testing</h2>
 <div class="remark">
-Since Sprint 2 is focused on the transport trolley, test plans will be carry out testing the "MACRO" moves priovously described (
+Since Sprint 2 is focused on the transport trolley, test plans will be carry out testing the "MACRO" moves previously described (
   <a href="../../requirements/userDocs/Automated Car-Parking.html#R2A" target = "_blank">R2A</a>,
   <a href="../../requirements/userDocs/Automated Car-Parking.html#R2C" target = "_blank">R2C</a>/
   <a href="../../requirements/userDocs/Automated Car-Parking.html#R3B" target = "_blank">R3B</a>,
@@ -439,12 +443,11 @@ Since Sprint 2 is focused on the transport trolley, test plans will be carry out
 without taking care on particular situation where the transport trolley can't start its task (
   <a href="../../requirements/userDocs/Automated Car-Parking.html#R1" target = "_blank">R1</a>/
   <a href="../../requirements/userDocs/Automated Car-Parking.html#R3" target = "_blank">R3</a>). These situation will be included in future sprints.
-In addiction, in order to test <ks>trolleyController</ks> functionalities, we decided to run all the following tests using the real robot. <br>
+In addiction, in order to test <ks>TrolleyController</ks> functionalities, we run all the following tests using the real robot. <br>
 For that reason, we assumed the following starting assumptions:
 <ul>
   <li>INDOOR and OUTDOOR AREA are not engaged;</li>
   <li>FAN status off;</li>
-  <li>No Magager interaction;</li>
   <li>Transport trolley starts from home location;</li>
   <li>All parking slots are free.</li>
 </ul>
@@ -548,7 +551,7 @@ Hereafter is a description of the functional tests for this sprint:
 </div>
 
 <div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
-By studentName email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini2@studio.unibo.it
+By Cristaudo Giuseppe, Manfreda Filippo, Andrini Enrico; email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini2@studio.unibo.it
 <!--<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">-->
 </div>
 </body>
