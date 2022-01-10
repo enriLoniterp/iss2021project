@@ -1,0 +1,1 @@
+coap://192.168.178.112:8020/ctxbasicrobot/basicrobot

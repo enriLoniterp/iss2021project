@@ -273,17 +273,16 @@ object plannerUtil {
     }
 
 	fun loadRoomMapFromTxt(file : String){
-		println("Ei")
 		var map = RoomMap.getRoomMap()
 		val reader = BufferedReader(InputStreamReader(FileInputStream(file)))
-		var line = reader.readLine()
 
 		var r = 0
 		var toks : List<String>
-		var cols = 0
+		var col = 0
 		var box : Box? = null
 		var s : String
 
+		var line = reader.readLine()
 		while(line != null) {
 
 			line = line.trim()
@@ -292,26 +291,26 @@ object plannerUtil {
 
 			toks = line.trim().split(",")
 			if(r == 0)
-				cols = toks.size - 1
+				col= toks.size - 1
 			else
-				if((toks.size-1) != cols) {
-					println("MapLoader | Bad formatted txt. Aborting")
+				if((toks.size-1) != col) {
+					println("Bad formatted txt")
 					System.exit(-1)
 				}
 
-			for(c in 0..cols) {
+			for(c in 0..col) {
 				s = toks[c].trim()
-				if(s.length == 1) box = parseBox(s.get(0))
-				else if(s.length == 2 && s.get(0) == '|') box = parseBox(s.get(1))
+				if(s.length == 1) box = createBox(s.get(0))
+				else if(s.length == 2 && s.get(0) == '|') box = createBox(s.get(1))
 				else {
-					println("MapLoader | Invalid length for sequence \'$s\' in line ${r+1}")
+					println("Invalid length for sequence \'$s\' in line ${r+1}")
 					System.exit(-1)
 				}
 
 				if(box != null)
 					map.put(c, r, box)
 				if(box == null) {
-					println("MapLoader | Invalid sequence \'$s\' in line ${r+1}")
+					println("Invalid sequence \'$s\' in line ${r+1}")
 					System.exit(-1)
 				}
 			}
@@ -321,7 +320,7 @@ object plannerUtil {
 		}
 	}
 
-	private fun parseBox(c : Char) : Box? {
+	private fun createBox(c : Char) : Box? {
 		when(c) {
 			'0' -> return Box(false, true, false)
 			'r' -> return Box(false, false, true)
