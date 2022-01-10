@@ -72,22 +72,22 @@ class FanTest {
 
     @Test
     fun fanChangeStatus(){
-        println("+++++++++ fanGoOn ")
+        println("+++++++++ fanChangeStatus ")
         val fanAdapter = FanAdapter()
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"ON" )
+        testingObserver!!.addObserver( channelForObserver, "status" )
 
         runBlocking{
             var result  = ""
             fanAdapter.sendCommand("ON")
             result = channelForObserver.receive()
             println(result)
-            assertTrue(result.equals("ON"))
+            assertTrue(result.equals("status ON"))
             fanAdapter.sendCommand("OFF")
             result = channelForObserver.receive()
             println(result)
-            assertTrue(result.equals("OFF"))
+            assertTrue(result.equals("status OFF"))
 
         }
     }

@@ -37,9 +37,13 @@ class Fan ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, scope 
 								
 												if (payloadArg(0)=="ON"){
 													state = "ON"
+								updateResourceRep( "status ON"  
+								)
 								 
 												}else{
 													state = "OFF" 
+								updateResourceRep( "status OFF"  
+								)
 								
 												}
 						}
@@ -52,8 +56,6 @@ class Fan ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, scope 
 				state("on") { //this:State
 					action { //it:State
 						println("FAN ON")
-						updateResourceRep( "ON"  
-						)
 					}
 					 transition(edgeName="t115",targetState="checkCommand",cond=whenDispatch("command"))
 				}	 
