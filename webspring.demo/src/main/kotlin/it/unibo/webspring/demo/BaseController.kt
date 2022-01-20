@@ -1,6 +1,7 @@
 package it.unibo.webspring.demo
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -20,13 +21,14 @@ class BaseController {
 
 
     @GetMapping("/reqenter")
-    fun pickUpPage(model: Model): String  {
+    fun pickUpPage(model: Model): ResponseEntity<Int>  {
 
         //interazione con clientService
 
-        println("CIAOOOOO/n/n/n/n")
-        return "Pickup"
+        println("CIAOOOOO\n")
+        println("logica...c'è posto....\n\n")
 
+        return ResponseEntity.ok(3) //ovviamente numero a caso, E' UNA PROVA
     }
 
 
