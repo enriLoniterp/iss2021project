@@ -5,12 +5,11 @@ plugins {
 }
 
 group = "me.filippo.manfreda"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
     flatDir {
-        dirs("../unibolibs")
+        dirs("../../unibolibs")
     }
 }
 

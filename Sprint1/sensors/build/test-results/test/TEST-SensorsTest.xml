@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SensorsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-25T14:13:01" hostname="DESKTOP-AU6POMK" time="5.602">
+  <properties/>
+  <testcase name="testWeightSensorReceive" classname="SensorsTest" time="5.602"/>
+  <system-out><![CDATA[ok
+Message received:msg(sonarrobot, event, python,none,1,1)
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
