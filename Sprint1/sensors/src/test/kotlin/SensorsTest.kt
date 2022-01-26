@@ -23,39 +23,28 @@ class SensorsTest() {
 	@Test
 	fun testOutSonarReceive(){
 		outsonarAd = OutSonarAdapter()
-		client.connect()
-		val msg = MsgUtil.buildEvent("outSonar", "test1", "1000")
-		val message = MqttMessage()
-		message.payload = msg.toString().toByteArray()
-		client.publish("sonar/data", message)
-		sleep(100)
-		assertEquals("1000", outsonarAd.getValue())
+		var testvalue : String = "100"
+		println("ok")
+		sleep(5000)
+		assertEquals(testvalue, outsonarAd.getValue())
 	}
 	
 	@Test
 	fun testWeightSensorReceive(){
 		weightsensorAd = WeightSensorAdapter()
-		client = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId())
-		System.out.println(	client.connect())
-		val msg = MsgUtil.buildEvent("weightSensor", "test1", "1000")
-		val message = MqttMessage()
-		message.payload = msg.toString().toByteArray()
-		client.publish("weightSensor/data", message)
-		sleep(100)
-		assertEquals("1000", weightsensorAd.getValue())
+		var testvalue : String = "1"
+		println("ok")
+		sleep(5000)
+		assertEquals(testvalue, weightsensorAd.getValue())
 	}
 	
 	@Test
 	fun testThermometerReceive(){
 		thermometerAd = ThermometerAdapter()
-		client = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId())
-		client.connect()
-		val msg = MsgUtil.buildEvent("temperature", "test1", "25")
-		val message = MqttMessage()
-		message.payload = msg.toString().toByteArray()
-		client.publish("thermometer/data", message)
-		sleep(100)
-		assertEquals("25", thermometerAd.getValue())
+		println("ok")
+		var testvalue : String = "45"
+		sleep(5000)
+		assertEquals(testvalue, thermometerAd.getValue())
 	}
 	
 }

@@ -8,8 +8,13 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/model1" />
+<<<<<<< HEAD
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.1.1" />
         <option name="gradleJvm" value="1.8" />
+=======
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-6.8.3" />
+        <option name="gradleJvm" value="jbr-11" />
+>>>>>>> 5ebe083c9d9e98e4180368cb6ce2eae3ad27a6bd
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/model1" />
@@ -21,8 +26,13 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/sensors" />
+<<<<<<< HEAD
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Gradle/gradle-7.1.1" />
         <option name="gradleJvm" value="11" />
+=======
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-6.8.3" />
+        <option name="gradleJvm" value="1.8" />
+>>>>>>> 5ebe083c9d9e98e4180368cb6ce2eae3ad27a6bd
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/sensors" />
