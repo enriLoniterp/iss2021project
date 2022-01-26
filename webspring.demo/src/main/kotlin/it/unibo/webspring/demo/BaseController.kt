@@ -1,11 +1,13 @@
 package it.unibo.webspring.demo
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 
 @Controller
@@ -18,19 +20,23 @@ class BaseController {
     }
 
 
-
-
     @GetMapping("/reqenter")
     fun pickUpPage(model: Model): ResponseEntity<Int>  {
 
         //interazione con clientService
 
-        println("CIAOOOOO\n")
-        println("logica...c'è posto....\n\n")
-
-        return ResponseEntity.ok(3) //ovviamente numero a caso, E' UNA PROVA
+        println("logica...c'è posto....\n")
+        return ResponseEntity.ok(3) //ovviamente numero a caso, PROVA
     }
 
+    @GetMapping("/reqenter/deposit")
+    fun depositPage(model: Model): String  {
+
+        //interazione con clientService
+
+        println("logica...c'è posto....\n")
+        return "Deposit" //ovviamente numero a caso, PROVA
+    }
 
 
     /*

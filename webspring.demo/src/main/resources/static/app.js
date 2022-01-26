@@ -1,24 +1,30 @@
 
-
-
+/*
+alertok(message)
+{
+    alert(message)
+}
+*/
 
 function reqenter() {
-    console.log('siamo qui?')
- document.getElementById('pu').innerHTML = "tua mamma"
+
    var xmlHttp = new XMLHttpRequest();
-    var url = 'http://localhost:8081/reqenter'
-      xmlHttp.open( "GET", url , true );
-      xmlHttp.send( );
-      xmlHttp.onreadystatechange = function(){
+   var url = 'http://localhost:8081/reqenter';
+
+   var resp = xmlHttp.responseText
+   xmlHttp.open( "GET", url , true );
+   xmlHttp.send( );
+   xmlHttp.onreadystatechange = function(){
+
 	  if ( xmlHttp.readyState == 4  )
-		{
+	  {
 			if(xmlHttp.status == 200){
-            alert(xmlHttp.responseText);
+
 
 					if(xmlHttp.parkingSlot == 0) {
-						alertWithIcon("No parking slots available, try again later", 'warning')
+						alert("No parking slots available, try again later", 'warning')
 					} else {
-						// successAlert("Your parking slot is n. " + res.parkingSlot)
+					 alert("Your parking slot is n. " + resp.parkingSlot)
 
 						  //btnToChange.onclick = function() { carenter(res.parkingSlot) }
 
@@ -50,6 +56,27 @@ function reqenter() {
 
 		}
 	   };
+deposit()
+
+}
+
+function deposit(){
+
+var urlrichiesta = 'http://localhost:8081/reqenter/deposit'
+
+var xmlHttp = new XMLHttpRequest();
+ var resp = xmlHttp.responseText
+   xmlHttp.open( "GET", urlrichiesta , true );
+   xmlHttp.send( );
+   xmlHttp.onreadystatechange = function(){
+
+	  if ( xmlHttp.readyState == 4  )
+	  {
+			if(xmlHttp.status == 200){
+
+			}
+			}
+			}
 
 
 }
