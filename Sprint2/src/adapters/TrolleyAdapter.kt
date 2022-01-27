@@ -37,8 +37,8 @@ class TrolleyAdapter( ) : ActuatorPort/*, IssObserver*/ {
 	
 	private lateinit var client : CoapClient
 	lateinit var support : IssWsSupport
-	lateinit var rro : RealTrolleyObserver
-	lateinit var vro : VirtualTrolleyObserver
+	lateinit var rto : RealTrolleyObserver
+	lateinit var vto : VirtualTrolleyObserver
 	var myactor  : ActorBasic? = null
 	
 	init {
@@ -52,12 +52,12 @@ class TrolleyAdapter( ) : ActuatorPort/*, IssObserver*/ {
 		
 		if(real){
 			client = CoapClient(url)
-			rro = RealTrolleyObserver(url)
-			rro.observe()			
+			rto = RealTrolleyObserver(url)
+			rto.observe()			
 		}else{
 			support = IssWsSupport("localhost:8091")
-			vro = VirtualTrolleyObserver()
-			support.registerObserver(vro)
+			vto = VirtualTrolleyObserver()
+			support.registerObserver(vto)
 		}
 		fi.close()
 			
