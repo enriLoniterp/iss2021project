@@ -292,7 +292,7 @@ div.imagedesc{
   </ul>
 </div>
 <h4>Consideration about <b>MACRO</b> moves</h4>
-<div class="remark">
+<div class="remark" id="consideration_macro_moves">
   MACRO moves are used to aggregate transport trolley steps into a single task easy to understand. These MACRO moves are defined as follow:
   <ul>
     <li><b>moveToIn</b>: sequence of moves from transport trolley's current position to <ks>INDOOR area</ks>;</li>
@@ -300,8 +300,8 @@ div.imagedesc{
     <li><b>moveToSlot</b>: sequence of moves from transport trolley's current position to a specified point of the map;</li>
     <li><b>moveToHome</b>: sequence of moves to transport trolley's current position to <ks>HOME.</b></li>
   </ul>
-  <ks>Transport trolley</ks> should be able to determine if a MACRO move has been completed successfully or return an error if it has encurred in an obstacle during
-  its jurney. This behaviour must be tested by checking transport trolley position after he successfully completed a MACRO move.
+  <ks>Transport trolley</ks> should be able to determine if a MACRO move has been completed successfully or return an error if it has encurred in obstacle during
+  its jurney. This behaviour must be tested by checking transport trolley updates during a MACRO move.
 </div>
 </div>
 The Sprint 2 should be done in <b>five days</b>.
@@ -316,9 +316,9 @@ technology independent part from the technology dependent one.
   <tbody><tr>
     <td style="width: 50%; vertical-align:top">
         As we developed for the sensors, we decided to use a <b>single interface</b>
-        (<a href="../src/main/ActuatorPort.kt" target="_blank">ActuatorPort.kt</a>)
-        for all adapters and a <b>factory class</b> (<a href="../src/main/ActuatorFactory.kt" target="_blank">ActuatorFactory.kt</a>)
-        to allow the business logic to obtain the right instance of the adapter for a given type of actuator (<a href="../src/main/ActuatorType.kt" target="_blank">ActuatorType.kt</a>).
+        (<a href="../src/resources/ActuatorPort.kt" target="_blank">ActuatorPort.kt</a>)
+        for all adapters and a <b>factory class</b> (<a href="../src/resources/ActuatorFactory.kt" target="_blank">ActuatorFactory.kt</a>)
+        to allow the business logic to obtain the right instance of the adapter for a given type of actuator (<a href="../src/resources/ActuatorType.kt" target="_blank">ActuatorType.kt</a>).
     </td>
     <td>
       <center>
@@ -394,18 +394,18 @@ technology independent part from the technology dependent one.
     </td>
   </tr>
   <tr>
-    <td width="50%">
+    <td width="50%" id="communication_transport_trolley">
       <h4>Communication with transport trolley</h4>
       Following the hexagonal architecture, an adapter and a port have been developed. These components are used by the <ks>TrolleyController</ks>
       to communicate with the <ks>transport trolley</ks>. Since it isn't necessary to check the result of each MICRO move, the communication is done using
       dispatches.<br>
       Both <b>CoAP</b> and <b>MQTT</b> are good protocols for IoT devices, but MQTT is more oriented on a publish-subscribe
       logic not needed in this case while CoAP is a restful protocol good for M2M interaction. <br>
+      Two observers (<a href = "../src/resources/RealTrolleyObserver.kt" target = "_blank">RealTrolleyObserver</a>/<a href = "../src/resources/VirtualTrolleyObserver.kt" target = "_blank">VirtualTrolleyObserver</a>)
+      have been developed both for real and virtual environment in order to check MACRO move result and in case of errors , <ks>TrolleyController</ks>
+      stops transport trolley taks. They are initialized with the adapter.<br>
       Since the <ks>TrolleyController</ks> is an actor it allows other antities to register with it as observers by making its internal state available.<br>
-      Two observers (<a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank">RealTrolleyObeserver</a>/<a href = "../src/itunibo/planner/plannerUtil.kt" target = "_blank">VirtualTrolleyObserver</a>) have been developed both for real and virtual environment in order to check MACRO move result and in case of errors , <ks>TrolleyController<ks>
-      stops transport trolley taks.. <br>
-      Trolley URL is retrieved from a text file (<a href = "../connTrolley.txt" target = "_blank">connTrolley.txt</a>) which containes all the informations needed to interact with the robot. Eventually,
-      a virtual enviroment can be used, by easily changing the URL in the file.
+      Trolley communication setup is retrieved from a text file (<a href = "../connTrolley.txt" target = "_blank">connTrolley.txt</a>) which containes all the informations needed to interact with virtual or real robot.
     </td>
     <td>
       <center>
@@ -552,6 +552,9 @@ Hereafter is a description of the functional tests for this sprint:
 </table>
 <h2>Sprint Review</h2>
 <div class="remark">
+  After a discussion with the customer, we described in the <a href="#consideration_macro_moves">problem analiys</a> the behaviour of MACRO moves.
+  Then, regarding the <a href="#communication_transport_trolley">interaction</a> between the PMS and the transport trolley we adopted a dispatch logic
+  leveraging observers features to check the result of MACRO moves as stated in the project phase linked before.
 </div>
 <h2>Maintenance</h2>
 
