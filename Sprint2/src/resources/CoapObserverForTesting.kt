@@ -1,4 +1,4 @@
-package test
+package resources
 
 import org.eclipse.californium.core.CoapClient
 import org.eclipse.californium.core.CoapHandler
@@ -30,7 +30,7 @@ class UpdateHandler(val name : String, val channel : Channel<String>,
 
 class CoapObserverForTesting(val name: String      = "testingobs",
 							 val context: String   = "ctxcarparking",
-							 val observed : String = "trolley_controller",
+							 val observed : String = "transport_trolley_controller",
 							 val port: String      = "8002") {
    //private val client  = CoapClient()
    private var client  : CoapClient?  = null

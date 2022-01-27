@@ -1,9 +1,7 @@
 package test
 
 import org.junit.Assert.*
-import java.net.UnknownHostException
 import org.junit.BeforeClass
-import cli.System.IO.IOException
 import org.junit.Test
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,9 +13,6 @@ import org.junit.Before
 import it.unibo.kactor.ActorBasic
 import it.unibo.kactor.MsgUtil
 import org.junit.AfterClass
-import it.unibo.kactor.sysUtil
-import it.unibo.kactor.ApplMessage
-import main.CoapObserverForTesting
 import org.junit.After
 
 
@@ -80,68 +75,59 @@ class TrolleyTest {
 
     }
 
-
+ 
     @Test
     fun testBackToHome(){
-        println("+++++++++ back to home ")
+        println("+++++++++  testBackToHome ")
         val stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(1)", "trolley_controller")
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"trolley at HOME" )
+        testingObserver!!.addObserver( channelForObserver,"trolley in HOME" )
 
         runBlocking{
             var result  = ""
-            //while( true ){
             MsgUtil.sendMsg(stepDispatch, myactor!!)
-            //delay(10000)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley at HOME"))
+            assertTrue( result.equals("trolley in HOME"))
         }
     }
+ 
+
 
     @Test
     fun testCompleteCycle(){
-        println("+++++++++ stepUntilObstacle ")
+        println("+++++++++ testCompleteCicle ")
         var stepDispatch = MsgUtil.buildDispatch("tester", "moveToIn", "moveToIn(X)", "trolley_controller")
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"trolley at INDOOR" )
+        testingObserver!!.addObserver( channelForObserver,"trolley" )
 
         runBlocking{
             var result  = ""
-            //while( true ){
             MsgUtil.sendMsg(stepDispatch, myactor!!)
-            //delay(10000)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley at INDOOR"))
-
+            assertTrue( result.equals("trolley in INDOOR"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(3)", "trolley_controller")
             MsgUtil.sendMsg(stepDispatch, myactor!!)
-            //delay(10000)
             result = channelForObserver.receive()
             assertTrue( result.equals("trolley in slot 3"))
-
-            stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(3)", "trolley_controller")
-            MsgUtil.sendMsg(stepDispatch, myactor!!)
-            //delay(10000)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in slot 3"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "moveToOut", "moveToOut(X)", "trolley_controller")
             MsgUtil.sendMsg(stepDispatch, myactor!!)
-            //delay(10000)
             result = channelForObserver.receive()
+            println(result)
             assertTrue( result.equals("trolley in OUTDOOR"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "moveToHome", "moveToHome(X)", "trolley_controller")
             MsgUtil.sendMsg(stepDispatch, myactor!!)
-            //delay(10000)
             result = channelForObserver.receive()
             assertTrue( result.equals("trolley in HOME"))
 
         }
     }
+
 
     @Test
     fun testHaltFunctionality(){
@@ -149,24 +135,24 @@ class TrolleyTest {
         var stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(1)", "trolley_controller")
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"trolley at slot 1" )
+        testingObserver!!.addObserver( channelForObserver,"trolley" )
 
         runBlocking{
             var result  = ""
-            //while( true ){
             MsgUtil.sendMsg(stepDispatch, myactor!!)
             stepDispatch = MsgUtil.buildDispatch("tester", "stop", "stop(1)", "trolley_controller")
-            //delay(10000)
+			MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley at slot 1"))
+            assertTrue( result.equals("trolley in slot 1"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "resume", "resume(1)", "trolley_controller")
-            testingObserver!!.addObserver( channelForObserver,"trolley at HOME" )
-            result = channelForObserver.receive()
-            assertTrue( result.equals("trolley at HOME"))
+			MsgUtil.sendMsg(stepDispatch, myactor!!)
+			 result = channelForObserver.receive()
+            assertTrue( result.equals("trolley in HOME"))
 
         }
     }
+ 
 
 
 

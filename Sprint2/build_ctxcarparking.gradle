@@ -22,7 +22,6 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    
     jcenter()
     flatDir {   dirs '../unibolibs'	 }
 }
@@ -47,12 +46,15 @@ dependencies {
 	compile group: 'org.eclipse.californium', name: 'californium-core', version: '2.0.0-M12'
 	// https://mvnrepository.com/artifact/org.eclipse.californium/californium-proxy
 	compile group: 'org.eclipse.californium', name: 'californium-proxy', version: '2.0.0-M12'
+//WS	
+	compile group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+	compile group: 'org.glassfish.tyrus.bundles', name: 'tyrus-standalone-client', version: '1.9'
+
 //LOG4j	
 	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25' 
 //MONGO
 	// https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
 	//compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.8.2'
-	implementation 'com.andreapivetta.kolor:kolor:1.0.0'
 
 //CUSTOM
     compile name: 'uniboInterfaces'
@@ -90,8 +92,8 @@ sourceSets {
     main.java.srcDirs += 'resources'
     test.java.srcDirs += 'test'		//test is specific
 }
-
-mainClassName = 'provaKt'
+/*
+mainClassName = 'it.unibo.TODOKt'
 
 jar {
     println("executing jar")
