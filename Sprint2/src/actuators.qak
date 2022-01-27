@@ -16,7 +16,7 @@ Dispatch movedToHome : movedToHome(Y)
 Dispatch moveToSlotOut : moveToSlotOut(X,Y)
 Dispatch movedToSlotOut : movedToSlotOut(SUCCESS,X,Y)
 
-Dispatch moveToOut : moveToOut(X,Y)
+Dispatch moveToOut : moveToOut(X)
 Dispatch movedToOut : movedToOut(SUCCESS)
 
 Dispatch stop : stop(STOP)
@@ -36,7 +36,7 @@ Context ctxcarparking ip[host="localhost" port=8002]
 
 
 
-QActor transport_trolley_controller context  ctxcarparking{
+QActor trolley_controller context  ctxcarparking{
 	[#
 		var currentTask : String = "NONE"
 		lateinit var mv : String
@@ -54,7 +54,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 	#]
 		
 	State s0 initial{
-		println("transportTrolleyController STARTS")
+		println("trolleyController STARTS")
 		run itunibo.planner.plannerUtil.loadRoomMapFromTxt("parkingMap.txt") 
 		run itunibo.planner.plannerUtil.initAI()
 		println("INITIAL MAP") 
@@ -64,9 +64,9 @@ QActor transport_trolley_controller context  ctxcarparking{
 	Goto idle
 				  
 	State idle{
-		[# currentTask = "IDLE" #]
+		[# currentTask = "INDOOR" #]
 		updateResource [# "trolley IDLE" #]
-		println("transportTrolleyController idle")
+		println("trolleyController idle")
 	}
 	Transition t0 whenMsg moveToIn -> working
 				  whenMsg moveToOut -> working
@@ -94,6 +94,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 						mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 				}#]
 				println("trolley trip to INDOOR end")
+				updateResource [# "trolley at INDOOR" #]
 		}
 		//Move the trolley to the OUTDOOR area
 		onMsg(moveToOut : moveToOut(WHERE)) {
@@ -110,7 +111,8 @@ QActor transport_trolley_controller context  ctxcarparking{
 						mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 				}#]
 				println("trolley trip to OUTDOOR end")
-				forward transport_trolley_controller -m moveToHome : moveToHome(X)
+				updateResource [# "trolley in OUTDOOR" #]
+				forward trolley_controller -m moveToHome : moveToHome(X)
 		}
 		//Move the trolley to the specific parking slot
 		onMsg(moveToSlot : moveToSlot(SLOTNUM)) {
@@ -122,7 +124,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 					currentTask = "PARKOUT"
 			#]
 			println("trolley trip to slot $SLOTNUM start")
-			updateResource [# "trolley moveToSlot($SLOTNUM)" #]
+			//updateResource [# "trolley moveToSlot($SLOTNUM)" #]
 			
 			[#
 				when(SLOTNUM){
@@ -141,11 +143,11 @@ QActor transport_trolley_controller context  ctxcarparking{
 						mv = itunibo.planner.plannerUtil.getNextPlannedMove()		
 				}#]
 			
-		 	updateResource [# "trolley trip to slot $SLOTNUM end" #] 
+		 	updateResource [# "trolley in slot $SLOTNUM" #] 
 			println("trolley trip to slot $SLOTNUM end")
 			println("trolley $currentTask")
 			if [# currentTask.equals("PARKIN") #]{
-				forward transport_trolley_controller -m moveToHome : moveToHome(X)
+				forward trolley_controller -m moveToHome : moveToHome(X)
 			}
 		}
 		
@@ -162,7 +164,8 @@ QActor transport_trolley_controller context  ctxcarparking{
 						mv = itunibo.planner.plannerUtil.getNextPlannedMove()
 				}#]
 				println("trolley at HOME")
-		updateResource [# "trolley at HOME" #] 
+				updateResource [# "trolley in HOME" #]
+		
 		} 
 	}
 	Transition t1  
@@ -170,7 +173,7 @@ QActor transport_trolley_controller context  ctxcarparking{
 	     	whenMsg moveToHome -> working
 			whenMsg moveToIn -> working
 			whenMsg moveToOut -> working
-		 	whenMsg moveToSlotIn -> working
+		 	whenMsg moveToSlot -> working
 			whenMsg moveToSlotOut -> working
 			whenMsg goToIdle -> idle
 		

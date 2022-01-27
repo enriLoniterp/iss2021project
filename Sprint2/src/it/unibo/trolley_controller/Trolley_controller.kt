@@ -4,7 +4,10 @@ package it.unibo.trolley_controller
 import it.unibo.kactor.*
 import alice.tuprolog.*
 import kotlinx.coroutines.CoroutineScope
-
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+	
 class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, scope ){
 
 	override fun getInitialState() : String{
@@ -30,7 +33,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 		return { //this:ActionBasciFsm
 				state("s0") { //this:State
 					action { //it:State
-						println("transportTrolleyController STARTS")
+						println("trolleyController STARTS")
 						itunibo.planner.plannerUtil.loadRoomMapFromTxt( "parkingMap.txt"  )
 						itunibo.planner.plannerUtil.initAI(  )
 						println("INITIAL MAP")
@@ -41,10 +44,10 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 				}	 
 				state("idle") { //this:State
 					action { //it:State
-						 currentTask = "IDLE"  
+						 currentTask = "INDOOR"  
 						updateResourceRep( "trolley IDLE"  
 						)
-						println("transportTrolleyController idle")
+						println("trolleyController idle")
 					}
 					 transition(edgeName="t00",targetState="working",cond=whenDispatch("moveToIn"))
 					transition(edgeName="t01",targetState="working",cond=whenDispatch("moveToOut"))
@@ -72,8 +75,10 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 												} 
 								println("trolley trip to INDOOR end")
+								updateResourceRep( "trolley at INDOOR"  
+								)
 						}
-						if( checkMsgContent( Term.createTerm("moveToOut(X,Y)"), Term.createTerm("moveToOut(WHERE)"), 
+						if( checkMsgContent( Term.createTerm("moveToOut(X)"), Term.createTerm("moveToOut(WHERE)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								println("trolley trip to OUTDOOR start")
 								 
@@ -87,6 +92,8 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 												} 
 								println("trolley trip to OUTDOOR end")
+								updateResourceRep( "trolley in OUTDOOR"  
+								)
 								forward("moveToHome", "moveToHome(X)" ,"trolley_controller" ) 
 						}
 						if( checkMsgContent( Term.createTerm("moveToSlot(X)"), Term.createTerm("moveToSlot(SLOTNUM)"), 
@@ -98,8 +105,6 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 												else
 													currentTask = "PARKOUT"
 								println("trolley trip to slot $SLOTNUM start")
-								updateResourceRep( "trolley moveToSlot($SLOTNUM)"  
-								)
 								
 												when(SLOTNUM){
 													1 -> itunibo.planner.plannerUtil.planForGoal(SLOT1.first, SLOT1.second)
@@ -116,7 +121,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														itunibo.planner.plannerUtil.updateMap(mv)
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()		
 												} 
-								updateResourceRep( "trolley trip to slot $SLOTNUM end"  
+								updateResourceRep( "trolley in slot $SLOTNUM"  
 								)
 								println("trolley trip to slot $SLOTNUM end")
 								println("trolley $currentTask")
@@ -136,7 +141,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()
 												} 
 								println("trolley at HOME")
-								updateResourceRep( "trolley at HOME"  
+								updateResourceRep( "trolley in HOME"  
 								)
 						}
 					}
@@ -144,13 +149,13 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 					transition(edgeName="t16",targetState="working",cond=whenDispatch("moveToHome"))
 					transition(edgeName="t17",targetState="working",cond=whenDispatch("moveToIn"))
 					transition(edgeName="t18",targetState="working",cond=whenDispatch("moveToOut"))
-					transition(edgeName="t19",targetState="working",cond=whenDispatch("moveToSlotIn"))
+					transition(edgeName="t19",targetState="working",cond=whenDispatch("moveToSlot"))
 					transition(edgeName="t110",targetState="working",cond=whenDispatch("moveToSlotOut"))
 					transition(edgeName="t111",targetState="idle",cond=whenDispatch("goToIdle"))
 				}	 
 				state("stopped") { //this:State
 					action { //it:State
-						println("transportTrolleyController stopped")
+						println("trolleyController stopped")
 					}
 					 transition(edgeName="t212",targetState="idle",cond=whenDispatchGuarded("resume",{ currentTask == "HOME" || currentTask == "IDLE"  
 					}))
