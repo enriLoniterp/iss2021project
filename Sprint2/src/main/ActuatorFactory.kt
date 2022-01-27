@@ -1,7 +1,7 @@
 package main
 
-import transportTrolley.TransportTrolleyAdapter
-import fan.FanAdapter
+import adapters.TrolleyAdapter
+import adapters.FanAdapter
 
 
 class ActuatorFactory {
@@ -9,7 +9,7 @@ class ActuatorFactory {
 	fun getActuatorAdapter(type : ActuatorType) : ActuatorPort{
 		
 		when(type){
-			ActuatorType.TROLLEY -> return TransportTrolleyAdapter()
+			ActuatorType.TROLLEY -> return TrolleyAdapter()
 			ActuatorType.FAN -> return FanAdapter()//
 		}
 	}

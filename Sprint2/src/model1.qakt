@@ -18,27 +18,14 @@ QActor parkingmanagerservice context  ctxcarparking{
 }
 
 
-QActor transport_trolley context ctxcarparking{
+QActor trolley context ctxcarparking{
 	State s0 initial{
-		println("transport_trolley STARTS")
+		println("trolley STARTS")
 	}
 	Goto work
 	
 	State work{ 
-		println("transport_trolley working ........... ")  
-	}
-	
-	
-}
-
-QActor fan context ctxcarparking{
-	State s0 initial{
-		println("fan STARTS")
-	}
-	Goto work
-	
-	State work{ 
-		println("fan working ........... ")  
+		println("trolley working ........... ")  
 	}
 	
 	
