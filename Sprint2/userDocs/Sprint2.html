@@ -402,7 +402,7 @@ technology independent part from the technology dependent one.
       Both <b>CoAP</b> and <b>MQTT</b> are good protocols for IoT devices, but MQTT is more oriented on a publish-subscribe
       logic not needed in this case while CoAP is a restful protocol good for M2M interaction. <br>
       Two observers (<a href = "../src/resources/RealTrolleyObserver.kt" target = "_blank">RealTrolleyObserver</a>/<a href = "../src/resources/VirtualTrolleyObserver.kt" target = "_blank">VirtualTrolleyObserver</a>)
-      have been developed both for real and virtual environment in order to check MACRO move result and in case of errors , <ks>TrolleyController</ks>
+      have been developed both for real and virtual environment in order to check MACRO move result once they have been completed and in case of errors, <ks>TrolleyController</ks>
       stops transport trolley taks. They are initialized with the adapter.<br>
       Since the <ks>TrolleyController</ks> is an actor it allows other antities to register with it as observers by making its internal state available.<br>
       Trolley communication setup is retrieved from a text file (<a href = "../connTrolley.txt" target = "_blank">connTrolley.txt</a>) which containes all the informations needed to interact with virtual or real robot.
