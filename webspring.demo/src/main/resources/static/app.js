@@ -25,19 +25,7 @@ function reqenter() {
 						alert("No parking slots available, try again later", 'warning')
 					} else {
 					 alert("Your parking slot is n. " + resp.responseText)
-					 window.location.replace(url + "/deposit")
-						  //btnToChange.onclick = function() { carenter(res.parkingSlot) }
-
-						  //document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
-						/*  timeout = setInterval(function() {
-							seconds--
-							document.getElementById("countdown").innerHTML = seconds + "s ";
-							if (seconds == 0) {
-							  clearInterval(x);
-							  window.location = '/client'
-							}
-						  }, 1000);
-						  */
+					 deposit()
 			}
 
 /*
@@ -56,31 +44,28 @@ function reqenter() {
 
 		}
 	   };
-deposit()
 
 }
+
+
+
 
 function deposit(){
 
-var urlrichiesta = 'http://localhost:8081/reqenter/deposit'
+    window.location.replace(url + "/deposit")
+						  //btnToChange.onclick = function() { carenter(res.parkingSlot) }
 
-var xmlHttp = new XMLHttpRequest();
- var resp = xmlHttp.responseText
-   xmlHttp.open( "GET", urlrichiesta , true );
-   xmlHttp.send( );
-   xmlHttp.onreadystatechange = function(){
-
-	  if ( xmlHttp.readyState == 4  )
-	  {
-			if(xmlHttp.status == 200){
-
-			}
-			}
-			}
-
-
+						  //document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
+	timeout = setInterval(function()
+	{
+		seconds--
+		document.getElementById("countdown").innerHTML = seconds + "s ";
+		if (seconds == 0) {
+			clearInterval(x);
+			window.location = prefix
+		}
+	}, 1000);
 }
-
 
 
 //////////
