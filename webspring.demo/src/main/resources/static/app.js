@@ -1,4 +1,4 @@
-
+prefix = "http://localhost:8081"
 /*
 alertok(message)
 {
@@ -9,7 +9,7 @@ alertok(message)
 function reqenter() {
 
    var xmlHttp = new XMLHttpRequest();
-   var url = 'http://localhost:8081/reqenter';
+   var url = prefix + '/reqenter';
 
    var resp = xmlHttp.responseText
    xmlHttp.open( "GET", url , true );
@@ -24,8 +24,8 @@ function reqenter() {
 					if(xmlHttp.parkingSlot == 0) {
 						alert("No parking slots available, try again later", 'warning')
 					} else {
-					 alert("Your parking slot is n. " + resp.parkingSlot)
-
+					 alert("Your parking slot is n. " + resp.responseText)
+					 window.location.replace(url + "/deposit")
 						  //btnToChange.onclick = function() { carenter(res.parkingSlot) }
 
 						  //document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
