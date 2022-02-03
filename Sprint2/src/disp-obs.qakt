@@ -1,0 +1,76 @@
+System carparking
+
+Dispatch moveToIn : moveToIn(move)
+Event movedToIn: movedToIn(X,Y)
+
+Dispatch moveToSlot : moveToSlot(X)
+Event movedToSlot : movedToSlot(X,Y)
+
+Dispatch moveToOut : moveToOut(move)
+Event movedToOut: movedToOut(X,Y)
+
+Dispatch moveToHome : moveToHome(move)
+Event movedToHome: movedToHome(X,Y)
+
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+
+QActor transport_trolley context ctxcarparking{
+	[#	
+		var cordX = 0
+		var cordY = 0
+	#]
+	State s0 initial{
+		println("transport_trolley STARTS")	
+	}
+	Goto idle
+	
+	State idle{
+		println("transport_trolley idle")
+	}
+	Transition t0 whenMsg moveToIn -> working
+		      whenMsg moveToOut -> working
+ 		      whenMsg moveToSlot -> working
+		      whenMsg moveToHome -> working
+	
+	State working{
+
+		onMsg(moveToIn : moveToIn(move)) {
+			//TODO moves sequence
+			updateResource[#"5,0"#]
+		}
+
+		onMsg(moveToOut : moveToOut(move)) {
+			//TODO moves sequence
+			updateResource[#"5,4"#]
+		}
+
+		onMsg(moveToSlot : moveToSlot(X)) {
+			[#
+				var SLOTNUM = payloadArg(0).toInt()				
+				when(SLOTNUM){
+				1->{cordX=1;cordY=1}
+				2->{cordX=1;cordY=2}
+				3->{cordX=1;cordY=3}
+				4->{cordX=4;cordY=1}
+				5->{cordX=4;cordY=2}
+				6->{cordX=4;cordY=3}
+				}
+			#]
+			//TODO moves sequence
+			updateResource[#"$cordX,$cordY"#]
+		}
+		
+		
+		onMsg(moveToHome : moveToHome(move)) {
+			//TODO moves sequence
+			updateResource[#"0,0"#]
+		}
+		
+		
+	}
+	Goto idle
+	
+		
+}

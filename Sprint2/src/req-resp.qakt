@@ -1,0 +1,109 @@
+System carparking
+
+Request moveToIn : moveToIn(move)
+Reply movedToIn: movedToIn(X,Y)
+
+Request moveToSlot : moveToSlot(X)
+Reply movedToSlot : movedToSlot(X,Y)
+
+Request moveToOut : moveToOut(move)
+Reply movedToOut: movedToOut(X,Y)
+
+Request moveToHome : moveToHome(move)
+Reply movedToHome: movedToHome(X,Y)
+
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+
+QActor transport_trolley context ctxcarparking{
+	[#	
+		var cordX = 0
+		var cordY = 0
+	#]
+	State s0 initial{
+		println("transport_trolley STARTS")	
+	}
+	Goto idle
+	
+	State idle{
+		println("transport_trolley idle")
+	}
+	Transition t0 whenRequest moveToIn -> working
+		      whenRequest moveToOut -> working
+ 		      whenRequest moveToSlot -> working
+		      whenRequest moveToHome -> working
+	
+	State working{
+
+		onMsg(moveToIn : moveToIn(move)) {
+			//TODO moves sequence
+			replyTo moveToIn with movedToIn : movedToIn(5,0)
+		}
+
+		onMsg(moveToOut : moveToOut(move)) {
+			//TODO moves sequence
+			replyTo moveToOut with movedToOut : movedToOut(5,4)
+		}
+
+		onMsg(moveToSlot : moveToSlot(X)) {
+			[#
+				var SLOTNUM = payloadArg(0).toInt()				
+				when(SLOTNUM){
+				1->{cordX=1;cordY=1}
+				2->{cordX=1;cordY=2}
+				3->{cordX=1;cordY=3}
+				4->{cordX=4;cordY=1}
+				5->{cordX=4;cordY=2}
+				6->{cordX=4;cordY=3}
+				}
+			#]
+			//TODO moves sequence
+			replyTo moveToSlot with movedToSlot : movedToSlot(cordX,cordY)
+		}
+		
+		
+		onMsg(moveToHome : moveToHome(move)) {
+			//TODO moves sequence
+			replyTo moveToHome with movedToHome : movedToHome(0,0)
+		}
+		
+		
+	}
+	Goto idle
+	
+		
+}
+
+
+QActor caller context ctxcarparking{
+	State s0 initial{
+		println("caller STARTS")	
+	}
+	Goto working
+	
+	State working{
+		println("caller send moveToIn")
+		request transport_trolley -m moveToIn : moveToIn(move) 
+	}
+	Transition t0 whenReply movedToIn -> checkPosition
+
+	State checkPosition{
+		onMsg(movedToIn : movedToIn(X,Y)) {
+		[#
+			var x = payloadArg(0).toInt()	
+			var y = payloadArg(1).toInt()
+			if(x==5 && y==0){
+				println("moved correctly")
+			}else{
+				println("moved uncorrectly!")
+			}
+		#]
+	}
+
+}
+
+}
+
+
+ 
