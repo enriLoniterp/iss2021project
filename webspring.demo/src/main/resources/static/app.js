@@ -1,10 +1,4 @@
 prefix = "http://localhost:8081"
-/*
-alertok(message)
-{
-    alert(message)
-}
-*/
 
 function reqenter() {
 
@@ -24,8 +18,11 @@ function reqenter() {
 					if(xmlHttp.parkingSlot == 0) {
 						alert("No parking slots available, try again later", 'warning')
 					} else {
-					 alert("Your parking slot is n. " + resp.responseText)
-					 deposit()
+					 alert("Your parking slot is n. " + resp)
+
+                     window.location.replace(url + "/deposit")
+                     var deposit = document.getElementById("deposit")
+                     deposit.onclick = function() { carenter(resp) }
 			}
 
 /*
@@ -36,10 +33,9 @@ function reqenter() {
 				else
 				{
 					var info = eval ( "(" + xmlHttp.responseText + ")" );
+					console.log('error')
 
-					// No parsing necessary with JSON!
-					document.getElementById( "TextBoxCustomerName"    ).value = info.jsonData[ 0 ].cmname;
-					document.getElementById( "TextBoxCustomerAddress" ).value = info.jsonData[ 0 ].cmaddr1;
+
 				}
 
 		}
@@ -49,27 +45,13 @@ function reqenter() {
 
 
 
+function carenter(slotnum){
 
-function deposit(){
-
-    window.location.replace(url + "/deposit")
-						  //btnToChange.onclick = function() { carenter(res.parkingSlot) }
-
-						  //document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
-	timeout = setInterval(function()
-	{
-		seconds--
-		document.getElementById("countdown").innerHTML = seconds + "s ";
-		if (seconds == 0) {
-			clearInterval(x);
-			window.location = prefix
-		}
-	}, 1000);
-}
-
-
-//////////
- /* fetch(apiUrl).then(response => {
+  seconds = timeoutValue
+  let resStatus = 0
+  console.log(slotnum)
+  var apiUrl = prefix + '/carenter?slotnum=' + slotnum;
+  fetch(apiUrl).then(response => {
       resStatus = response.status
       return response.json()
   }).then(res => {
@@ -78,34 +60,13 @@ function deposit(){
         console.log('success')
         console.log(res)
         var btnToChange = document.getElementById("btnToChange")
-        //TODO Make it better
-        btnToChange.setAttribute('data-bs-dismiss', 'alert')
-        btnToChange.setAttribute('data-bs-target', '#my-alert')
-        if(res.parkingSlot == 0) {
-          alertWithIcon("No parking slots available, try again later", 'warning')
-        }
-        else {
-          successAlert("Your parking slot is n. " + res.parkingSlot)
-          btnToChange.innerHTML = "Car placed"
-          btnToChange.onclick = function() { carenter(res.parkingSlot) }
-          document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
-          timeout = setInterval(function() {
-            seconds--
-            document.getElementById("countdown").innerHTML = seconds + "s ";
-            if (seconds == 0) {
-              clearInterval(x);
-              window.location = '/client'
-            }
-          }, 1000);
-        }
-        break
+        btnToChange.style.visibilty="visible"
+        btnToChange.innerHTML = "Return to Home Page"
+        btnToChange.onclick = function() {window.location.replace(prefix + "/home") }
       case 403:
         console.log('error')
         console.log(res)
         errorAlert(res.message)
-        var btnToChange = document.getElementById("btnToChange")
-        btnToChange.setAttribute('data-bs-dismiss', 'alert')
-        btnToChange.setAttribute('data-bs-target', '#my-alert')
         break
       default:
         console.log('unhandled')
@@ -115,6 +76,6 @@ function deposit(){
   .catch(err => {
     console.error(err)
   })
-}
 
-*/
+
+}
