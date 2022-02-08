@@ -2,11 +2,13 @@ package it.unibo.webspring.demo
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 
@@ -38,6 +40,11 @@ class BaseController {
         return "Deposit" //ovviamente numero a caso, PROVA
     }
 
+    @GetMapping("/client/carenter")
+    fun carenter(@RequestParam slotnum: Int): ResponseEntity<Int> {
+
+        return ResponseEntity.ok(3)
+    }
 
     /*
     @ExceptionHandler
