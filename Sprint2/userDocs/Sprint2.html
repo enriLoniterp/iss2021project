@@ -267,7 +267,7 @@ div.imagedesc{
   </div>
 </div>
 <h3>Transport trolley</h3>
-<div class = "remark">
+<div class = "remark" id = "transport_trolley_analysis">
   This component, as stated in the <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_transport_trolley" target = "_blank">first analysis</a>, moves within the parking area by reaching specific points:
   <ul>
     <li>HOME;</li>
@@ -290,6 +290,13 @@ div.imagedesc{
     <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/BasicStepRobotActorUsage.html#distrSys" target = "_blank">basicStepRobot</a>: actor which performs basic moves and step and returns info to its owner;</li>
     <li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.cautiousExplorer/userDocs/LabPlanner2021.html" target = "_blank">plannerUtil</a>: Kotlin object for planning the actions of a robot working in logical space (a map) composed of a set of square cells, each large as the robot.</li>
   </ul>
+  As regards the movement of the trolley, the case of the virtual and real environment must be considered separately:
+  <ul>
+    <li>in the case of virtual environment, it is possible to control the trolley using the commands indicated in <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html#commands" target = "_blank">VirtualRobot2021</a>;</li>
+    <li>in the case of real environment, if the previously indicated resource (basicRobot) is used, the interaction can take place using the commands
+    described in <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html#basicrobot" target = "_blank">basicRobot</a>,
+    otherwise it is necessary to build an infrastructure that allows integration and interaction with the physical robot.</li>
+  </ul>
 </div>
 <h4>Consideration about <b>MACRO</b> moves</h4>
 <div class="remark" id="consideration_macro_moves">
@@ -300,8 +307,24 @@ div.imagedesc{
     <li><b>moveToSlot</b>: sequence of moves from transport trolley's current position to a specified point of the map;</li>
     <li><b>moveToHome</b>: sequence of moves to transport trolley's current position to <ks>HOME.</b></li>
   </ul>
-  <ks>Transport trolley</ks> should be able to determine if a MACRO move has been completed successfully or return an error if it has encurred in obstacle during
-  its jurney. This behaviour must be tested by checking transport trolley updates during a MACRO move.
+These moves represent messages from the caller to the transport trolley to make the robot (virtual or real) move.
+The interaction for sending these messages can take place with different logics (represented as qak model to make them machine understandable):
+<ul>
+  <li><b>request-response</b>(<a href="../src/req-resp.qakt" target="_blank">req-resp.qakt</a>):
+    the caller make a request and expects a reply. In this case, it is suggested to use a <b>non-blocking</b> model to allow the caller to complete other tasks;</li>
+  <li><b>dispatch-event</b>(<a href="../src/disp-event.qakt" target="_blank">disp-event.qakt</a>):
+    the caller send a dispatch and the trolley emits an event as soon as it successfully complete the MACRO move
+    or when it encounter an obstacle. This solution is less recommended since the described interaction is <b>1 to 1</b>;</li>
+  <li><b>dispatch-observable</b>(<a href="../src/disp-obs.qakt" target="_blank">disp-obs.qakt</a>):
+    the caller send a dispatch and observe trolley status to check the correctness of the move. This allows the caller to complete other tasks and get
+    notified when the status of the trolley changes;</li>
+    In every scenario, the information relative to the outcome of the macro move contains the current position of the trolley as spatial coordinates (e.g. (1,5)).
+    These model allows an easier future implementation of unit test.<br>
+    It is also necessary to deal with the problem of possible failures during the execution of a move. The problem can be treated in two ways:
+    <ul>
+      <li>repeat the move not completed correctly and in the event of further errors block the system and provide an error message;</li>
+      <li>lock the system and provide an error message.</li>
+    </ul>
 </div>
 </div>
 The Sprint 2 should be done in <b>five days</b>.
