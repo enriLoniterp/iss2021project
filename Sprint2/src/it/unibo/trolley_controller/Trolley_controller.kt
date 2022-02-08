@@ -20,6 +20,8 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 		
 				var currentTask : String = "NONE"
 				lateinit var mv : String
+				var x = 0
+				var y = 0
 				lateinit var ttAd : ActuatorPort
 				val HOME : Pair<String,String> = Pair("0", "0")
 				val INDOOR : Pair<String,String> = Pair("5", "0")
@@ -78,7 +80,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 												} 
 								println("trolley trip to INDOOR end")
-								updateResourceRep( "trolley in INDOOR"  
+								updateResourceRep( "(5,0)"  
 								)
 						}
 						if( checkMsgContent( Term.createTerm("moveToOut(X)"), Term.createTerm("moveToOut(WHERE)"), 
@@ -96,7 +98,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()	
 												} 
 								println("trolley trip to OUTDOOR end")
-								updateResourceRep( "trolley in OUTDOOR"  
+								updateResourceRep( "(5,4)"  
 								)
 								forward("moveToHome", "moveToHome(X)" ,"trolley_controller" ) 
 						}
@@ -111,12 +113,12 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 								println("trolley trip to slot $SLOTNUM start")
 								
 												when(SLOTNUM){
-													1 -> itunibo.planner.plannerUtil.planForGoal(SLOT1.first, SLOT1.second)
-													2 -> itunibo.planner.plannerUtil.planForGoal(SLOT2.first, SLOT2.second)
-													3 -> itunibo.planner.plannerUtil.planForGoal(SLOT3.first, SLOT3.second)
-													4 -> itunibo.planner.plannerUtil.planForGoal(SLOT4.first, SLOT4.second)
-													5 -> itunibo.planner.plannerUtil.planForGoal(SLOT5.first, SLOT5.second)
-													6 -> itunibo.planner.plannerUtil.planForGoal(SLOT6.first, SLOT6.second)
+													1 -> {itunibo.planner.plannerUtil.planForGoal(SLOT1.first, SLOT1.second);x=1;y=1}
+													2 -> {itunibo.planner.plannerUtil.planForGoal(SLOT2.first, SLOT2.second);x=1;y=2}
+													3 -> {itunibo.planner.plannerUtil.planForGoal(SLOT3.first, SLOT3.second);x=1;y=3}
+													4 -> {itunibo.planner.plannerUtil.planForGoal(SLOT4.first, SLOT4.second);x=4;y=1}
+													5 -> {itunibo.planner.plannerUtil.planForGoal(SLOT5.first, SLOT5.second);x=4;y=2}
+													6 -> {itunibo.planner.plannerUtil.planForGoal(SLOT6.first, SLOT6.second);x=4;y=3}
 												}
 												
 												var mv = itunibo.planner.plannerUtil.getNextPlannedMove()
@@ -126,7 +128,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														itunibo.planner.plannerUtil.updateMap(mv)
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()		
 												} 
-								updateResourceRep( "trolley in slot $SLOTNUM"  
+								updateResourceRep( "("+x+","+y+")"  
 								)
 								println("trolley trip to slot $SLOTNUM end")
 								println("trolley $currentTask")
@@ -147,7 +149,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = itunibo.planner.plannerUtil.getNextPlannedMove()
 												} 
 								println("trolley in HOME")
-								updateResourceRep( "trolley in HOME"  
+								updateResourceRep( "(0,0)"  
 								)
 						}
 					}
