@@ -82,17 +82,17 @@ class TrolleyTest {
         val stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(1)", "trolley_controller")
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"trolley in HOME" )
+        testingObserver!!.addObserver( channelForObserver,"(0,0)" )
 
         runBlocking{
             var result  = ""
             MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in HOME"))
+            assertTrue( result.equals("(0,0)"))
         }
     }
  
-
+/*
 
     @Test
     fun testCompleteCycle(){
@@ -100,30 +100,30 @@ class TrolleyTest {
         var stepDispatch = MsgUtil.buildDispatch("tester", "moveToIn", "moveToIn(X)", "trolley_controller")
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"trolley" )
+        testingObserver!!.addObserver( channelForObserver,"(" )
 
         runBlocking{
             var result  = ""
             MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in INDOOR"))
+            assertTrue( result.equals("(5,0)"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(3)", "trolley_controller")
             MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in slot 3"))
+            assertTrue( result.equals("(1,3)"))
             result = channelForObserver.receive()
 
             stepDispatch = MsgUtil.buildDispatch("tester", "moveToOut", "moveToOut(X)", "trolley_controller")
             MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
             println(result)
-            assertTrue( result.equals("trolley in OUTDOOR"))
+            assertTrue( result.equals("(5,4)"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "moveToHome", "moveToHome(X)", "trolley_controller")
             MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in HOME"))
+            assertTrue( result.equals("(0,0)"))
 
         }
     }
@@ -135,7 +135,7 @@ class TrolleyTest {
         var stepDispatch = MsgUtil.buildDispatch("tester", "moveToSlot", "moveToSlot(1)", "trolley_controller")
         val channelForObserver = Channel<String>()
         //val testingObserver    = CoapObserverForTesting("obsstep")
-        testingObserver!!.addObserver( channelForObserver,"trolley" )
+        testingObserver!!.addObserver( channelForObserver,"(" )
 
         runBlocking{
             var result  = ""
@@ -143,12 +143,12 @@ class TrolleyTest {
             stepDispatch = MsgUtil.buildDispatch("tester", "stop", "stop(1)", "trolley_controller")
 			MsgUtil.sendMsg(stepDispatch, myactor!!)
             result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in slot 1"))
+            assertTrue( result.equals("(1,1)"))
 
             stepDispatch = MsgUtil.buildDispatch("tester", "resume", "resume(1)", "trolley_controller")
 			MsgUtil.sendMsg(stepDispatch, myactor!!)
 			 result = channelForObserver.receive()
-            assertTrue( result.equals("trolley in HOME"))
+            assertTrue( result.equals("(0,0)"))
 
         }
     }
@@ -156,6 +156,6 @@ class TrolleyTest {
 
 
 
-
+*/
 
 }
