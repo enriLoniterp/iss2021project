@@ -212,7 +212,7 @@ div.imagedesc{
 <div id = "backlog">
   <h2>Sprint 3 Backlog</h2>
   <div class="remark">
-    Sprint 2 regards the develop of the <ks>PMS</ks> able to manage user requests:
+    Sprint 3 regards the develop of the <ks>PMS</ks> able to manage user requests:
     <ul>
       <li><ks>PMS</ks> processes car deposit requests:
         <a href="../../requirements/userDocs/Automated Car-Parking.html#R1" target = "_blank">R1</a>,
@@ -232,8 +232,8 @@ div.imagedesc{
 <div class="remark">
   This Sprint aim is to develop and deeper describe the following entities:
   <ul>
-    <li><ks>Park Manager Service</ks>;</li>
-    <li><ks>ParkServiceGUI</ks>;</li>
+    <li><ks>ParkServiceGUI</ks> interacts directly with clients;</li>
+    <li><ks>Park Manager Service</ks> processes clients' requests;</li>
   </ul>
 </div>
 <div class = "remark">
@@ -243,14 +243,52 @@ div.imagedesc{
   <div class = "remark" id="problem_analysis_PMS">
     From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to processes car deposit and pick-up requests. <br>
     Following the <b>single-responsability principle</b>, the introduction of a new entity would allow the <ks>PMS</ks> to perform these tasks without interferring
-    with the rest of the application. In addition, this entity should comunicate with the <a>TrolleyController</a> developed in the previous sprint. <br>
-    Regarding the interaction with the client, it is necessary to generate an unique receipt (<kr>TOKENID</kr>) every time a client request a deposit.
+    with the rest of the application. Transport trolley interaction occurs with the <a href="../../Sprint2/src/it/unibo/trolley_controller/Trolley_controller.kt" target = "_blank">TrolleyController</a> developed in the previous sprint. <br>
+    Regarding the interaction with the client, as requested by the customer, it is necessary to generate an unique receipt (<kr>TOKENID</kr>) every time a client request a deposit
+    which will be used during pick-up phase. <br>
     As per requirements, the TOKENID should be representative of the SLOTNUM assigned to the parked car to allow the PMS recognize
-    the SLOTNUM where the car is parked. A possible way to generate an unique TOKENID can consider using the current date and time. Another possibility is to concatenate
-    the SLOTNUM to a random string long enough. Another necessity is the managment of the parking status using a specific datastructure.
-    In case of system crashes, storing the parking status in a file make the system robust.<br>
+    the SLOTNUM where the car is parked. An unique TOKENID can be generated following two strategies:
+    <ul>
+      <li>Using current <b>date and time</b> + <kr>SLOTNUM</kr>;</li>
+      <li><kr>SLOTNUM</kr> + <b>random string</b> long enough to avoid recurrences.</li>
+    </ul>
+    During pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
+    near the parking, <ks>DTFREE</ks> should be relatively short meanwhile if it is done far from the parking the interval should be longer.
+
+    Another necessity is the managment of the parking status using a specific datastructure.
+    In case of system crashes, storing the parking status in a local file make the system robust.<br>
+
+
+    <!--
+    - modelli e test
     The entity should be also reliable in case of a high number of request.
+  -->
   </div>
+  <h3>ParkServiceGUI</h3>
+  <div class="remark" id="problem_analysis_parking_service_GUI">
+      ParkServiceGUI is a user interface to allow clients interact with the parking system and has already been analyze in
+      <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">Automated Car-Parking.html</a>.
+  </div>
+  <h4>ParkServiceGUI - PMS interaction</h4>
+  <div class="remark">
+    Interaction between these two entites takes place through different messages pointed out
+    <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
+    already detailed (request/response and dispatches).
+    In addition to these messages, it may be necessary to introduce an additional message (<b>pick_up_available</b>) to notify the client that the car
+    is available for picking in the outdoor area. This message should be send using dispatches since the PMS does not need any response by the client
+    (the information about outdoor release is given by data from the outsonar) and because it remains a 1-1 communication. <br>
+    In this scenario, in case of an alarm, the client will always immediately pick-up the car. <br><br>
+    Given the distributed nature of the application and the presence of concurrency requests, we highlight some particular scenario:
+    <ul>
+      <li>client requests the service but does not complete it;</li>
+      <li>the application receives two concurrencies requests: in that case, the system must be able to queue all the requests received in one or eventually more
+        queues based on priorities and execute them in a sequential way (<b>FIFO</b>);</li>
+      <li>After an acceptIN which still miss the relative CARENTER phase, another acceptIN request can arrive and should be executed, CARENTER phase can
+        have some problem: in this scenario, to avoid any conflicts CARENTER must encode the information about the SLOTNUM priovously received.</li>
+    </ul>
+  </div>
+
+
 </div>
 The Sprint 3 should be done in <b>four days</b>.
 <div id = "project">

@@ -821,7 +821,7 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
   receipt and to pick up the car using the same receipt. These three phases consist in <a href="#R1">R1</a>, <a href="#R2B">R2B</a> and <a href="#R3">R3</a> requirements.
   These requirements are satisfied using a request/response communication. This type of communication is needed due to the fact that the client needs
   a feedback everytime he asks for a service. <br>
-  Another feature that the <ks>ParkServiceGUI</ks> must implement is the capability of receiving an alert if the car stands at the outdoor area for more than <ks>TMAX</ks>.
+  Another feature that the <ks>ParkServiceGUI</ks> must implement is the capability of receiving an alert if the car stands at the outdoor area for more than <ks>DTFREE</ks>.
   Alerts are a type of information sent by the <ks>PMS</ks> which don't require replies.
   </div>
   <table cellpadding="20%" style="border: 0px solid transparent;width:98%;" style="width:98%">
@@ -875,19 +875,9 @@ state whenever the <ks>PMS</ks> requests its state of activation. Similarly to t
                 </td>
               </tr>
               <tr>
-                <td rowspan="3">Alert</td>
-                <td>free_indoor_area</td>
-                <td rowspan="3">dispatch</td>
-              </tr>
-              <tr>
-                <td>
-                  pick_up_available
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  pick_up_needed
-                </td>
+                <td>Alert</td>
+                <td>free_outdoor_area</td>
+                <td>dispatch</td>
               </tr>
             </tbody>
           </table>
