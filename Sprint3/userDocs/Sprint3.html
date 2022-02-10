@@ -237,7 +237,7 @@ div.imagedesc{
   </ul>
 </div>
 <div class = "remark">
-  An initial model of these entities, without interaction between them, can be found <a href = "../model1/model1.qak" target = "_blank">here</a>.<br>
+  An initial model of these entities, without interaction between them, can be found <a href = "../src/model1_sprint3.qakt" target = "_blank">here</a>.<br>
 </div>
   <h3>PMS</h3>
   <div class = "remark" id="problem_analysis_PMS">
@@ -250,10 +250,11 @@ div.imagedesc{
     the SLOTNUM where the car is parked. An unique TOKENID can be generated following two strategies:
     <ul>
       <li>Using current <b>date and time</b> + <kr>SLOTNUM</kr>;</li>
-      <li><kr>SLOTNUM</kr> + <b>random string</b> long enough to avoid recurrences.</li>
+      <li><b>random string</b> long enough to avoid recurrences + <kr>SLOTNUM</kr>.</li>
     </ul>
     During pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
     near the parking, <ks>DTFREE</ks> should be relatively short meanwhile if it is done far from the parking the interval should be longer.
+    If all parking slot are engaged and the client makes an <ks>acceptIN</ks> request, <ks>PMS</ks> should reply with a fail message.
 
     Another necessity is the managment of the parking status using a specific datastructure.
     In case of system crashes, storing the parking status in a local file make the system robust.<br>
@@ -286,6 +287,63 @@ div.imagedesc{
       <li>After an acceptIN which still miss the relative CARENTER phase, another acceptIN request can arrive and should be executed, CARENTER phase can
         have some problem: in this scenario, to avoid any conflicts CARENTER must encode the information about the SLOTNUM priovously received.</li>
     </ul>
+  </div>
+  <div class="remark">
+    A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
+  </div>
+  <h4>Test Unit</h4>
+  <div class="remark">
+    Given the following assumptions:
+    <ul>
+      <li>Free <ks>INDOOR</ks> area;</li>
+      <li>Only parking slot <b>3</b> is available.</li>
+    </ul>
+    <pre>
+      <b>Parking Phase</b>
+      client -> <ks>acceptIN</ks>
+      check if response == <b>3</b>
+      client -> <ks>CARENTER</ks>
+      check if response[last_char] == <b>3</b>
+      check if parking_slot(<b>3</b>) not free
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Engaged <ks>INDOOR</ks> area;</li>
+      <li>At least one parking slot is available.</li>
+    </ul>
+    <pre>
+      <b>Wait message</b>
+      client -> <ks>acceptIN</ks>
+      check(wait)
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>All parking slots engaged.</li>
+    </ul>
+    <pre>
+      <b>Fail message</b>
+      client -> <ks>acceptIN</ks>
+      check(fail)
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Free <ks>OUTDOOR</ks> area;</li>
+      <li>Transport Trolley status(<kr>IDLE</kr>);</li>
+      <li>Car requested is in parking slot <b>3</b>.</li>
+    </ul>
+    <pre>
+      <b>Pick-Up Phase</b>
+      client -> acceptOUT(<ks>TOKENID</ks>(<b>3</b>))
+      check if parking_slot(<b>3</b>) free
+      check if <ks>OUTDOOR</ks> area is engaged.
+
+
+      <b>Alert Scenario</b>
+      client -> acceptOUT(<ks>TOKENID</ks>(<b>3</b>))
+      check if <ks>OUTDOOR</ks> area is engaged.
+      sleep(<ks>DTFREE</ks>)
+      check(alert)
+    </pre>
   </div>
 
 
