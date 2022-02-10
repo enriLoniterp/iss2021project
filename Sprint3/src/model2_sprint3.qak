@@ -1,0 +1,115 @@
+System carparking
+
+Request acceptIn : acceptIn(req)
+Reply responseAcceptIn: responseAcceptIn(X)
+
+Request carenter : carenter(SN)
+Reply responseCarenter : responseCarenter(X)
+
+Request acceptOut : acceptOut(req)
+Reply responseAcceptOut: responseAcceptOut(X)
+
+Dispatch pick_up_available : pick_up_available(av)
+
+Dispatch command : command(C) //command received from client user interface
+
+Dispatch car_ready : car_ready(X) //information about car in outdoor area from sonar or trolleyController
+
+Dispatch alert : alert(X)
+
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+
+QActor parkmanagerservice context ctxcarparking{
+	
+	State s0 initial{
+		println("parkmanagerservice STARTS")	
+	}
+	Goto idle
+	
+	State idle{
+		println("parkmanagerservice waiting ...")
+	}
+	Transition t0 whenRequest acceptIn -> working
+		      whenRequest acceptOut -> working
+ 		      whenRequest carenter -> working
+ 		      whenMsg car_ready -> working
+	
+	State working{
+		[# 
+			SLOTNUM = 0
+			TOKENID= 0
+		#]
+		onMsg(acceptIn : acceptIn(req)) {
+			//TODO check for free parking and generate SLOTNUM
+			replyTo acceptIn with responseAcceptIn : responseAcceptIn($SLOTNUM)
+		}
+
+		onMsg(acceptOut : acceptOut(req)) {
+			//TODO extract TOKENID start take out the car
+			replyTo acceptOut with responseAcceptOut : responseAcceptOut(ok)
+		}
+
+		onMsg(carenter : carenter(SN)) {
+			//TODO extract SLOTNUM, schedule park and generate TOKENID
+			replyTo carenter with responseCarenter : responseCarenter($TOKENID)
+		}
+		
+		
+		onMsg(car_ready : car_ready(X)) {
+			//TODO init timer for alert
+			forward park_service_gui -m pick_up_available : pick_up_available(ready)
+		}
+		
+	}
+	Goto idle
+	
+		
+}
+
+
+QActor park_service_gui context ctxcarparking{
+	[# type = 0 #]
+	State s0 initial{
+		println("parkservicegui STARTS")	
+	}
+	Goto idle
+	
+	State idle{
+		println("parkservicegui idle")	
+	}
+	Transition t0 whenMsg command -> working
+				  whenMsg alert -> processMessage
+	
+	
+	
+	State working{
+		println("parkservicegui execute command")
+		onMsg(command : command(C)) {
+		[#	
+			type = payloadArg(0).toInt()
+			when(type){
+				1->#] request parkmanagerservice -m  acceptIn : acceptIn(name) [#
+				2->#]  request parkmanagerservice -m acceptOut : acceptOut(name)[#
+				3->#]  request parkmanagerservice -m carenter : carenter(SLOTNUM)[#
+				}
+			#
+		]
+		}
+		
+	}
+	Transition t0 whenReply responseAcceptIn -> processMessage
+				  whenReply responseAcceptOut -> processMessage
+				  whenReply responseCarenter -> processMessage
+
+	State processMessage{
+		//TODO message processing
+	}
+	Goto idle
+
+
+}
+
+
+ 
