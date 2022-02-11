@@ -24,11 +24,6 @@ function reqenter() {
                      var deposit = document.getElementById("deposit")
                      deposit.onclick = function() { carenter(resp) }
 			}
-
-/*
-					document.getElementById( "TextBoxCustomerName"    ).value = "Not found";
-					document.getElementById( "TextBoxCustomerAddress" ).value = "";
-					*/
 				}
 				else
 				{
@@ -61,7 +56,6 @@ function carenter(slotnum){
         console.log(res)
         var btnToChange = document.getElementById("btnToChange")
         btnToChange.style.visibilty="visible"
-        btnToChange.innerHTML = "Return to Home Page"
         btnToChange.onclick = function() {window.location.replace(prefix + "/home") }
       case 403:
         console.log('error')
