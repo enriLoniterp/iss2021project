@@ -40,9 +40,15 @@ class BaseController {
     @GetMapping("/client/carenter")
     fun carenter(@RequestParam slotnum: Int): ResponseEntity<Int> {
 
+        //tokenId etc
         return ResponseEntity.ok(3)
     }
 
+    @GetMapping("/client/reqexit")
+    fun reqexit(@RequestParam tokenId: String): ResponseEntity<Int> {
+
+        return ResponseEntity.ok(3)
+    }
 
     @ExceptionHandler
     fun handle(ex: Exception): ResponseEntity<*> {

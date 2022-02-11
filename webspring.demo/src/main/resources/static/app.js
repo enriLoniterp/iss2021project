@@ -71,5 +71,4 @@ function carenter(slotnum){
     console.error(err)
   })
 
-
 }
