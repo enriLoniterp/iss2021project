@@ -9,7 +9,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
 
-@Controller
+@RestController
 class BaseController {
     @Value("\${spring.application.name}")
     var appName: String? = null
@@ -34,7 +34,7 @@ class BaseController {
         //interazione con clientService
 
         println("logica...c'è posto....\n")
-        return "Deposit" //ovviamente numero a caso, PROVA
+        return "Deposit" 
     }
 
     @GetMapping("/client/carenter")
