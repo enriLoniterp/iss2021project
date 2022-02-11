@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class BaseController {
+    final val connParkClientService: connQakBase = connQakTcp()
+
     @Value("\${spring.application.name}")
     var appName: String? = null
     @GetMapping("/home")
@@ -18,6 +20,9 @@ class BaseController {
         return "Home"
     }
 
+    init {
+        connParkClientService.createConnection("localhost", 8023)
+    }
 
     @GetMapping("/reqenter")
     fun pickUpPage(model: Model): ResponseEntity<Int>  {
@@ -34,7 +39,7 @@ class BaseController {
         //interazione con clientService
 
         println("logica...c'è posto....\n")
-        return "Deposit" 
+        return "Deposit"
     }
 
     @GetMapping("/client/carenter")
