@@ -255,8 +255,8 @@ div.imagedesc{
     During pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
     near the parking, <ks>DTFREE</ks> should be relatively short meanwhile if it is done far from the parking the interval should be longer.
     If all parking slot are engaged and the client makes an <ks>acceptIN</ks> request, <ks>PMS</ks> should reply with a fail message.
-
-    Another necessity is the managment of the parking status using a specific datastructure.
+    <br><br>
+    Another necessity is the managment of the <a>parking status</a> using a specific datastructure.
     In case of system crashes, storing the parking status in a local file make the system robust.<br>
 
 
@@ -351,6 +351,43 @@ div.imagedesc{
 The Sprint 3 should be done in <b>four days</b>.
 <div id = "project">
 <h2>Project</h2>
+Starting from what suggested in the analysis, we decided to introduce a new entity called <ks>clientservice</ks>, taking part of the <ks>PMS</ks>
+which processes clients' requests.<br>
+We decided to use the framework SpringMVC to implement the ParkServiceGUI, splitting it into two components:
+<ul>
+  <li><b>Spring View</b>: user interfaces</li>
+  <li><b>Spring Controller</b>: receives requests and generates content view for the client</li>
+</ul>
+<h4>clientservice</h4>
+<table>
+  <tbody>
+    <tr>
+    <td style="width: 50%; vertical-align:top">
+      In order to accept, queue and process different requests in a non-blocking manner, the clientservice is implemented as an actor which has
+      multiple status to exploit different scenarios. clientservice logic is message-based so that its state changes are triggered by message or events.
+      In addition, clientservice needs to take care about the <a>current state of the system</a>.
+      The scheme on the side shows clientservice behaviour.
+    </td>
+    <td>
+    </td>
+    </tr>
+    <tr>
+      <td>
+        <h4>clientservice communication</h4>
+        clientservice interacts with SpringController, from which receives client's requests and to which sends tasks outcomes. Since the clienservice is modelled
+        as an actor, the communication with the SpringController using a request/response logic,<b> CHECK over a TCP session, using the connQakTcp.kt </b>
+        with the help of the MsgUtil.kt to build qak-understandable requests.
+        As said during the analysis phase, clientservice interacts with trolleyController to move the robot and fulfill client requests using the semantic
+        described in <a>Sprint2</a>.
+        Finally, clientservice needs to stay updated about the current data sent by the sensors.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
 Starting from the <a href="../../requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
 and from the <a href="#backlog">product backlog</a> we can now and design the <ks>transport trolley</ks>, its managment and the <ks>fan</ks>.<br>
 We maintain the <b>hexagonal architecture</b>, introduced in the previous sprint, developing port and adapter. This allows to keep separate the
