@@ -1,4 +1,5 @@
 prefix = "http://localhost:8081"
+var tokenid = ""
 
 function reqenter() {
 
@@ -56,6 +57,9 @@ function carenter(slotnum){
         console.log(res)
         var btnToChange = document.getElementById("btnToChange")
         btnToChange.style.visibilty="visible"
+        var tokenidblock = document.getElementById("tokenid")
+        tokenid=res
+        tokenidblock.value = tokenid
         btnToChange.onclick = function() {window.location.replace(prefix + "/home") }
       case 403:
         console.log('error')
@@ -71,4 +75,71 @@ function carenter(slotnum){
     console.error(err)
   })
 
+}
+
+
+function reqexit() {
+  seconds = timeoutValue
+  let resStatus = 0
+  var tokenid = document.getElementById("token").value
+  if(tokenid == "") {
+    alertWithIcon("Insert a token id", 'warning')
+    var btnToChange = document.getElementById("btnToChange")
+    btnToChange.setAttribute('data-bs-dismiss', 'alert')
+    btnToChange.setAttribute('data-bs-target', '#my-alert')
+    return
+  }
+  var apiUrl = prefix + '/client/reqexit?tokenid=' + tokenid;
+  fetch(apiUrl).then(response => {
+      resStatus = response.status
+      if(resStatus != 200)
+        return response.json()
+      else
+        return response
+  }).then(res => {
+    switch (resStatus) {
+      case 200:
+        console.log('success')
+        console.log(res)
+        successAlert("The trolley will collect your car and bring it to you! Please stand by...<br><b>WHEN YOUR CAR ARRIVES, PLEASE LEAVE THE AREA IN ONE MINUTE:</b> <br> Thank you, and see you soon!", 'success')
+        var btnToChange = document.getElementById("btnToChange")
+        btnToChange.setAttribute('value', "Return to Home Page")
+        btnToChange.onclick = function() { window.location = '/clientOut' }
+        btnToChange.setAttribute('data-bs-dismiss', 'alert')
+        btnToChange.setAttribute('data-bs-target', '#my-alert')
+        document.getElementById("form").setAttribute("style", "display:none;")
+        document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
+        var x = setInterval(function() {
+          seconds--
+          document.getElementById("countdown").innerHTML = seconds + "s ";
+          if (seconds == 0) {
+            clearInterval(x);
+            window.location = '/clientOut'
+          }
+        }, 1000);
+        break
+      case 400:
+        console.log('error')
+        console.log(res)
+        alertWithIcon(res.message, 'warning')
+        var btnToChange = document.getElementById("btnToChange")
+        btnToChange.setAttribute('data-bs-dismiss', 'alert')
+        btnToChange.setAttribute('data-bs-target', '#my-alert')
+        break
+      case 403:
+        console.log('error')
+        console.log(res)
+        errorAlert(res.message)
+        var btnToChange = document.getElementById("btnToChange")
+        btnToChange.setAttribute('data-bs-dismiss', 'alert')
+        btnToChange.setAttribute('data-bs-target', '#my-alert')
+        break
+      default:
+        console.log('unhandled')
+        break
+    }
+  })
+  .catch(err => {
+    console.error(err)
+  })
 }

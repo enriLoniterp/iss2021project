@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class BaseController {
-    final val connParkClientService: connQakBase = connQakTcp()
+    //final val connParkClientService: connQakBase = connQakTcp()
 
     @Value("\${spring.application.name}")
     var appName: String? = null
@@ -21,7 +21,7 @@ class BaseController {
     }
 
     init {
-        connParkClientService.createConnection("localhost", 8023)
+       // connParkClientService.createConnection("localhost", 8023)
     }
 
     @GetMapping("/reqenter")
@@ -32,7 +32,7 @@ class BaseController {
         println("logica...c'è posto....\n")
         return ResponseEntity.ok(3) //ovviamente numero a caso, PROVA
     }
-
+/*
     @GetMapping("/reqenter/deposit")
     fun depositPage(model: Model): String  {
 
@@ -41,12 +41,12 @@ class BaseController {
         println("logica...c'è posto....\n")
         return "Deposit"
     }
-
-    @GetMapping("/client/carenter")
+*/
+    @GetMapping("/carenter")
     fun carenter(@RequestParam slotnum: Int): String {
-
+        val TOKENID = "ABC"
         //tokenId etc
-        return ResponseEntity.ok(3)
+        return TOKENID
     }
 
     @GetMapping("/client/reqexit")
