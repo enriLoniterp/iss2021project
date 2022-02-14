@@ -353,12 +353,25 @@ The Sprint 3 should be done in <b>four days</b>.
 <h2>Project</h2>
 Starting from what suggested in the analysis, we decided to introduce a new entity called <ks>clientservice</ks>, taking part of the <ks>PMS</ks>
 which processes clients' requests.<br>
-We decided to use the framework SpringMVC to implement the ParkServiceGUI, splitting it into two components:
+We decided to adopt the MVC pattern to develop the ParkServiceGUI, splitting it into two components (Model not needed in our case):
 <ul>
-  <li><b>Spring View</b>: user interfaces</li>
-  <li><b>Spring Controller</b>: receives requests and generates content view for the client</li>
+  <li><b>View</b>: user interfaces</li>
+  <li><b>Controller</b>: receives requests and generates content view for the client</li>
 </ul>
-<h4>clientservice</h4>
+<h4>Parking state</h4>
+<div class="remark">
+  For the sake of semplicity we represented parking state using a single resource which encodes the following variable:
+  <ul>
+    <li>Transport trolley state (internal state, position)</li>
+    <li>Fan state</li>
+    <li>Temperature</li>
+    <li>Weight measured by the weightsensor</li>
+    <li>Sonar distance</li>
+    <li>Parking slot state</li>
+  </ul>
+  This resource is a seriazable kotlin dataclass which can be easily saved in a file.
+</div>
+<h4><a>clientservice</a></h4>
 <table>
   <tbody>
     <tr>
@@ -384,14 +397,40 @@ We decided to use the framework SpringMVC to implement the ParkServiceGUI, split
     </tr>
   </tbody>
 </table>
+<h4>ParkServiceGUI</h4>
+The Spring Framework will be used to implement the MCV pattern (SpringMVC and SpringBoot in particular) for its ability to boost productivity with the use of annotations,
+Dependency Injection and easily configurable web services. In addition, Spring is light-weight container which guarantees a minimal overhead and an easy integration
+with current services.
+<table>
+  <tbody>
+    <tr>
+      <td style="width: 50%; vertical-align:top">
+        <h4><a>GuiAdapter</a></h4>
+        This component is the <b>SpringController</b> which generates the right View for the client and fulfills his requests by interacting with <ks>clientservice</ks>.
+        We used annotations to let Spring container to manage functionalities not linked to business-logic.
+      </td>
+      <td>
+        immagine classi con metodi
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h4>ParkServiceView</h4>
+      Multiple html files have been written to represents client views:
+      <ul>
+        <li>home.html</li>
+        <li>acceptIN.html</li>
+        <li>acceptOUT.html</li>
+      </ul>
+      These htmls pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
+    </td>
+    </tr>
+  </tbody>
+</table>
 
 
 
 
-Starting from the <a href="../../requirements/userDocs/Automated%20Car-Parking.html#architectural_model" target = "_blank">logical architecture</a>
-and from the <a href="#backlog">product backlog</a> we can now and design the <ks>transport trolley</ks>, its managment and the <ks>fan</ks>.<br>
-We maintain the <b>hexagonal architecture</b>, introduced in the previous sprint, developing port and adapter. This allows to keep separate the
-technology independent part from the technology dependent one.
 <h4>Specifications common to all actuators</h4>
 <table cellpadding="5%">
   <tbody><tr>
