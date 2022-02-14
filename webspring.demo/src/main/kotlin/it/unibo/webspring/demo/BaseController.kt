@@ -43,7 +43,7 @@ class BaseController {
     }
 
     @GetMapping("/client/carenter")
-    fun carenter(@RequestParam slotnum: Int): ResponseEntity<Int> {
+    fun carenter(@RequestParam slotnum: Int): String {
 
         //tokenId etc
         return ResponseEntity.ok(3)
