@@ -9,7 +9,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
 
-@RestController
+@Controller
 class BaseController {
     //final val connParkClientService: connQakBase = connQakTcp()
 
@@ -32,28 +32,40 @@ class BaseController {
         println("logica...c'è posto....\n")
         return ResponseEntity.ok(3) //ovviamente numero a caso, PROVA
     }
-/*
-    @GetMapping("/reqenter/deposit")
+
+
+    @GetMapping("/deposit")
     fun depositPage(model: Model): String  {
 
         //interazione con clientService
-
-        println("logica...c'è posto....\n")
+        println("/deposit")
         return "Deposit"
     }
-*/
+
     @GetMapping("/carenter")
-    fun carenter(@RequestParam slotnum: Int): String {
-        val TOKENID = "ABC"
-        //tokenId etc
-        return TOKENID
+    fun carenter(@RequestParam slotnum: Int): ResponseEntity<String> {
+       // val TOKENID = "ABC"
+        println("/carenter")
+        return ResponseEntity.ok("abc")
+    }
+
+    @GetMapping("/timer")
+    fun timer(@RequestParam tokenId: String): ResponseEntity<Int>{
+
+        return ResponseEntity.ok(1)
     }
 
     @GetMapping("/client/reqexit")
     fun reqexit(@RequestParam tokenId: String): ResponseEntity<Int> {
 
-        return ResponseEntity.ok(3)
+        return ResponseEntity.ok(1)
     }
+
+
+   /* fun alarm(risultato: String): {
+
+    }
+    */
 
     @ExceptionHandler
     fun handle(ex: Exception): ResponseEntity<*> {

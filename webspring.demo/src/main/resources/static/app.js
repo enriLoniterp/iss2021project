@@ -3,49 +3,40 @@ var tokenid = ""
 
 function reqenter() {
 
-   var xmlHttp = new XMLHttpRequest();
+   var xhr = new XMLHttpRequest();
    var url = prefix + '/reqenter';
 
-   var resp = xmlHttp.responseText
-   xmlHttp.open( "GET", url , true );
-   xmlHttp.send( );
-   xmlHttp.onreadystatechange = function(){
 
-	  if ( xmlHttp.readyState == 4  )
+   xhr.onreadystatechange = function(){
+	  if ( xhr.readyState == 4  )
 	  {
-			if(xmlHttp.status == 200){
-
-
-					if(xmlHttp.parkingSlot == 0) {
+			if(xhr.status == 200){
+					if(xhr.parkingSlot == 0) {
 						alert("No parking slots available, try again later", 'warning')
 					} else {
-					 alert("Your parking slot is n. " + resp)
-
-                     window.location.replace(url + "/deposit")
-                     var deposit = document.getElementById("deposit")
-                     deposit.onclick = function() { carenter(resp) }
-			}
+					 slotnum = xhr.responseText
+					 alert("Your parking slot is n. " + slotnum)
+					 deposit(slotnum)
+				}
 				}
 				else
 				{
-					var info = eval ( "(" + xmlHttp.responseText + ")" );
+					var info = eval ( "(" + xhr.responseText + ")" );
 					console.log('error')
-
-
 				}
 
 		}
 	   };
 
+
+   xhr.open( "GET", url , true );
+   xhr.send( );
 }
 
 
 
 function carenter(slotnum){
-
-  seconds = timeoutValue
-  let resStatus = 0
-  console.log(slotnum)
+    alert("carenter" + slotnum)
   var apiUrl = prefix + '/carenter?slotnum=' + slotnum;
   fetch(apiUrl).then(response => {
       resStatus = response.status
@@ -77,19 +68,93 @@ function carenter(slotnum){
 
 }
 
+function deposit2(){
+
+}
+
+function deposit(slotnum){
+var slot=slotnum
+alert(slot)
+window.location.replace(prefix + "/deposit")
+var dep = document.getElementById("deposit")
+   dep.innerHTML='ciao'
+   dep.onclick = function() { carenter(slot) }
+/*
+var apiUrl = prefix + "/deposit"
+fetch(apiUrl).then(response => {
+          resStatus = response.status
+          return response.json()
+      }).then(res => {
+        switch (resStatus) {
+          case 200:
+            console.log('success')
+            console.log(res)
+            var btnToChange = document.getElementById("btnToChange")
+            btnToChange.style.visibilty="visible"
+            var tokenidblock = document.getElementById("tokenid")
+            tokenid=res
+            tokenidblock.value = tokenid
+            btnToChange.onclick = function() {window.location.replace(prefix + "/home") }
+          case 403:
+            console.log('error')
+            console.log(res)
+            errorAlert(res.message)
+            break
+          default:
+            console.log('unhandled')
+            break
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+
+*/
+
+}
+function timer(tokenid){
+
+  var apiUrl = prefix + '/timer?tokenid=' + tokenid;
+
+    fetch(apiUrl).then(response => {
+          resStatus = response.status
+          return response.json()
+      }).then(res => {
+        switch (resStatus) {
+          case 200:
+            console.log('success')
+            console.log(res)
+            var btnToChange = document.getElementById("btnToChange")
+            btnToChange.style.visibilty="visible"
+            var tokenidblock = document.getElementById("tokenid")
+            tokenid=res
+            tokenidblock.value = tokenid
+            btnToChange.onclick = function() {window.location.replace(prefix + "/home") }
+          case 403:
+            console.log('error')
+            console.log(res)
+            errorAlert(res.message)
+            break
+          default:
+            console.log('unhandled')
+            break
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+
+
+}
+
 
 function reqexit() {
-  seconds = timeoutValue
-  let resStatus = 0
-  var tokenid = document.getElementById("token").value
+  var tokenid = document.getElementById("tokenid").value
   if(tokenid == "") {
-    alertWithIcon("Insert a token id", 'warning')
     var btnToChange = document.getElementById("btnToChange")
-    btnToChange.setAttribute('data-bs-dismiss', 'alert')
-    btnToChange.setAttribute('data-bs-target', '#my-alert')
     return
   }
-  var apiUrl = prefix + '/client/reqexit?tokenid=' + tokenid;
+  var apiUrl = prefix + '/reqexit?tokenid=' + tokenid;
   fetch(apiUrl).then(response => {
       resStatus = response.status
       if(resStatus != 200)
@@ -99,17 +164,13 @@ function reqexit() {
   }).then(res => {
     switch (resStatus) {
       case 200:
-        console.log('success')
         console.log(res)
-        successAlert("The trolley will collect your car and bring it to you! Please stand by...<br><b>WHEN YOUR CAR ARRIVES, PLEASE LEAVE THE AREA IN ONE MINUTE:</b> <br> Thank you, and see you soon!", 'success')
-        var btnToChange = document.getElementById("btnToChange")
-        btnToChange.setAttribute('value', "Return to Home Page")
-        btnToChange.onclick = function() { window.location = '/clientOut' }
-        btnToChange.setAttribute('data-bs-dismiss', 'alert')
-        btnToChange.setAttribute('data-bs-target', '#my-alert')
+
+      //  btnToChange.onclick = function() { window.location = '/clientOut' }
         document.getElementById("form").setAttribute("style", "display:none;")
         document.getElementById("returnDiv").setAttribute("style", "visibility:visible;")
-        var x = setInterval(function() {
+
+       /* var x = setInterval(function() {
           seconds--
           document.getElementById("countdown").innerHTML = seconds + "s ";
           if (seconds == 0) {
@@ -118,21 +179,15 @@ function reqexit() {
           }
         }, 1000);
         break
+        */
       case 400:
         console.log('error')
         console.log(res)
-        alertWithIcon(res.message, 'warning')
         var btnToChange = document.getElementById("btnToChange")
-        btnToChange.setAttribute('data-bs-dismiss', 'alert')
-        btnToChange.setAttribute('data-bs-target', '#my-alert')
         break
       case 403:
         console.log('error')
         console.log(res)
-        errorAlert(res.message)
-        var btnToChange = document.getElementById("btnToChange")
-        btnToChange.setAttribute('data-bs-dismiss', 'alert')
-        btnToChange.setAttribute('data-bs-target', '#my-alert')
         break
       default:
         console.log('unhandled')
