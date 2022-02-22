@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.messaging.handler.annotation.MessageMapping
+import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-
+import org.springframework.web.util.HtmlUtils
 
 @Controller
 class BaseController {
@@ -24,22 +26,31 @@ class BaseController {
        // connParkClientService.createConnection("localhost", 8023)
     }
 
+
     @GetMapping("/reqenter")
     fun pickUpPage(model: Model): ResponseEntity<Int>  {
 
         //interazione con clientService
 
         println("logica...c'è posto....\n")
-        return ResponseEntity.ok(3) //ovviamente numero a caso, PROVA
+        return ResponseEntity.ok(3)
     }
 
 
+
     @GetMapping("/deposit")
-    fun depositPage(model: Model): String  {
+    fun depositPage(@RequestParam slotnum: Int): String  {
 
         //interazione con clientService
         println("/deposit")
         return "Deposit"
+    }
+
+    @GetMapping("/pickup")
+    fun pickupPage(): String  {
+
+        println("/pickup")
+        return "Pickup"
     }
 
     @GetMapping("/carenter")
@@ -49,23 +60,24 @@ class BaseController {
         return ResponseEntity.ok("abc")
     }
 
-    @GetMapping("/timer")
-    fun timer(@RequestParam tokenId: String): ResponseEntity<Int>{
 
-        return ResponseEntity.ok(1)
+    @GetMapping("/reqexit")
+    fun reqexit(@RequestParam tokenid: String): ResponseEntity<Int> {
+
+        println("/reqexit")
+        println("la tua macchina è in fase di trasporto")
+
+        return ResponseEntity.ok(0)
     }
 
-    @GetMapping("/client/reqexit")
-    fun reqexit(@RequestParam tokenId: String): ResponseEntity<Int> {
-
-        return ResponseEntity.ok(1)
+    @MessageMapping("/hello")
+    @SendTo("/topic/greetings")
+    @Throws(java.lang.Exception::class)
+    fun greeting(message: Int): Int? {
+        Thread.sleep(5000) // simulated delay
+        return 10
     }
 
-
-   /* fun alarm(risultato: String): {
-
-    }
-    */
 
     @ExceptionHandler
     fun handle(ex: Exception): ResponseEntity<*> {

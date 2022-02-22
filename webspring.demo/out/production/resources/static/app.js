@@ -1,5 +1,4 @@
 prefix = "http://localhost:8081"
-var stompClient = null
 
 function reqenter() {
 
@@ -41,6 +40,7 @@ function carenter(slotnum){
      xhr.onreadystatechange = function(){
   	  if ( xhr.readyState == 4  )
   	  {
+  	  alert("readystate")
   			if(xhr.status == 200){
   				 var tokenid = xhr.responseText
   				 document.getElementById("tokenid").setAttribute("style", "display:inline")
@@ -76,8 +76,8 @@ function reqexit() {
 
 function pickup(){
   var tokenid = document.getElementById("tokenid").value
-  alert(tokenid)
   if(tokenid == "") {
+    var btnToChange = document.getElementById("btnToChange")
     return
   }
 
@@ -89,49 +89,19 @@ function pickup(){
   	  {
   			if(xhr.status == 200){
   				 var resp = xhr.responseText
+
   				 if(resp==0){
   				     document.getElementById("success").setAttribute("style", "display:inline")
-  				     document.getElementById("pickup").setAttribute("style", "display:none")
-
-  				 }else if(resp==1){
+  				 }else{
   				     document.getElementById("fail").setAttribute("style", "display:inline")
   				 }
-
+  			}else
+  				{
+  					var info = eval ( "(" + xhr.responseText + ")" );
+  				}
   		}
-  	   }
-
-};
-	    xhr.open( "GET", apiUrl , true );
+  	   };
+  	    xhr.open( "GET", apiUrl , true );
         xhr.send( );
-        connect()
-
 }
 
-//WEBSOCKETS//
-
-function connect() {
-    //var location = prefix + '/app/timer'
-    var socket = new SockJS('/gs-guide-websocket');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (greeting) {
-            console.log("timeout")
-        });
-    });
-
-}
-
-function disconnect() {
-    if (stompClient !== null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
-}
-
-function setConnected(connected) {
-    $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
-
-}

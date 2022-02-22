@@ -21,10 +21,6 @@
 		"@type": "Organization",
 		"name": ""
 }</script>
-      <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <script src="/webjars/jquery/jquery.min.js"></script>
-      <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-      <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="app.js"></script>
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="Pickup">
@@ -40,19 +36,20 @@
             <span style="font-size: 30px;">Please insert the TOKEN previously received and click the button below</span>
           </h1>
           <div class="u-form u-form-1">
+            <form class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 0px;">
               <div class="u-form-group u-form-name">
-                <label for="tokenid" class="u-form-control-hidden u-label"></label>
-                <input type="text" id="tokenid" placeholder="Insert your TOKEN"  name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+                <label for="name-d313" class="u-form-control-hidden u-label"></label>
+                <input type="text" id="tokenid" placeholder="Insert your TOKEN" id="name-d313" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
               </div>
-              <div c lass="u-align-left u-form-group u-form-submit">
-                <button id="pickup" onclick="pickup();" class="u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-base u-palette-3-base u-radius-30 u-btn-1">pick up car<br>
-                </button>
-                <input type="text"  value="submit" class="u-form-control-hidden">
+              <div class="u-align-left u-form-group u-form-submit">
+                <a href="#" class="u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-4-base u-palette-3-base u-radius-30 u-btn-1">pick up car<br>
+                </a>
+                <input type="submit" onclick="pickup();" value="submit" class="u-form-control-hidden">
               </div>
               <div style="display:none" id="success" class="u-form-send-message u-form-send-success"> Puoi andare a prendere la tua macchina! Affrettati!</div>
               <div style="display:none" id="fail" class="u-form-send-error u-form-send-message"> Impossibile inviare il messaggio. Si prega di correggere gli errori e riprovare a inviare. </div>
               <input type="hidden" value="" name="recaptchaResponse">
-
+            </form>
           </div>
         </div>
       </div>
@@ -60,7 +57,45 @@
         <div class="u-repeater u-repeater-1"></div>
       </div>
       <div class="u-container-style u-expanded-width u-group u-palette-3-base u-shape-rectangle u-group-2">
-
+        <div class="u-container-layout u-container-layout-2">
+          <div class="u-countdown u-countdown-1" data-timer-id="c646" data-type="to-time" data-target-date="Thu, 06 Jan 2022 04:42:08 GMT" data-for="everyone" data-direction="down" data-target-number="100" data-frequency="1s" data-start-time="Wed, 05 Jan 2022 16:12:07 GMT" data-time-left="750m">
+            <div class="u-countdown-wrapper u-spacing-20">
+              <div class="u-countdown-item u-countdown-years u-hidden u-spacing-10">
+                <div class="u-countdown-counter u-countdown-counter-1"><span class="u-countdown-number">0</span><span class="u-countdown-number u-hidden">0</span></div>
+                <div class="u-countdown-label u-countdown-label-1">Years</div>
+              </div>
+              <div class="u-countdown-separator u-hidden u-countdown-separator-1">:</div>
+              <div class="u-countdown-days u-countdown-item u-hidden u-spacing-10">
+                <div class="u-countdown-counter u-countdown-counter-2"><span class="u-countdown-number">0</span><span class="u-countdown-number u-hidden">6</span><span class="u-countdown-number u-hidden">0</span></div>
+                <div class="u-countdown-label u-countdown-label-2">Days</div>
+              </div>
+              <div class="u-countdown-separator u-hidden u-countdown-separator-2">:</div>
+              <div class="u-countdown-hours u-countdown-item u-spacing-10">
+                <div class="u-countdown-counter u-countdown-counter-3"><span class="u-countdown-number">1</span><span class="u-countdown-number">2</span></div>
+                <div class="u-countdown-label u-countdown-label-3">Hours</div>
+              </div>
+              <div class="u-countdown-separator u-countdown-separator-3">:</div>
+              <div class="u-countdown-item u-countdown-minutes u-spacing-10">
+                <div class="u-countdown-counter u-countdown-counter-4"><span class="u-countdown-number">3</span><span class="u-countdown-number">0</span></div>
+                <div class="u-countdown-label u-countdown-label-4">Minutes</div>
+              </div>
+              <div class="u-countdown-separator u-countdown-separator-4">:</div>
+              <div class="u-countdown-item u-countdown-seconds u-spacing-10">
+                <div class="u-countdown-counter u-countdown-counter-5"><span class="u-countdown-number">0</span><span class="u-countdown-number">0</span></div>
+                <div class="u-countdown-label u-countdown-label-5">Seconds</div>
+              </div>
+              <div class="u-countdown-separator u-hidden u-countdown-separator-5">:</div>
+              <div class="u-countdown-item u-countdown-numbers u-hidden u-spacing-10">
+                <div class="u-countdown-counter u-countdown-counter-6"><span class="u-countdown-number">0</span><span class="u-countdown-number">1</span><span class="u-countdown-number">0</span><span class="u-countdown-number">0</span></div>
+                <div class="u-countdown-label u-countdown-label-6">Items</div>
+              </div>
+            </div>
+            <div class="u-countdown-message u-hidden">
+              <p>Sorry, the time is up.</p>
+            </div>
+          </div>
+          <h2 class="u-text u-text-default u-text-2">Time left to pick up your car f​rom the outdoor area: ​&nbsp;</h2>
+        </div>
       </div>
     </section>
     
