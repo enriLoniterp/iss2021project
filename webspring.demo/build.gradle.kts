@@ -13,11 +13,11 @@ plugins {
 
 group = "it.unibo"
 version = "1.0"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_15
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
 	kotlinOptions {
-		jvmTarget = "11"
+		jvmTarget = "15"
 	}
 }
 
@@ -59,6 +59,8 @@ dependencies {
 
 	// This dependency is used by the application.
 	implementation("com.google.guava:guava:29.0-jre")
+	implementation("org.eclipse.californium:californium-core:2.0.0-M12")
+	implementation("org.eclipse.californium:californium-proxy:2.0.0-M12")
 
 	//COROUTINE
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.1.0")
@@ -68,6 +70,7 @@ dependencies {
 //JSON
 	// https://mvnrepository.com/artifact/org.json/json
 	implementation("org.json:json:20201115" )
+	//implementation("org.json:json:20210307")
 
 	//OkHttp library for websockets with Kotlin
 	implementation("com.squareup.okhttp3:okhttp:4.9.0")
@@ -94,9 +97,16 @@ dependencies {
 
 	implementation("IssActorKotlinRobotSupport:IssActorKotlinRobotSupport:2.0")
 	implementation("uniboIssSupport:IssWsHttpJavaSupport:1.0")
-	implementation("uniboInterfaces:uniboInterfaces")
+	//implementation("uniboInterfaces:uniboInterfaces")
 	implementation("uniboProtocolSupport:unibonoawtsupports")
 	implementation("uniboplanner20:it.unibo.planner20:1.0")
+	implementation("tuprolog:2p301")
+	implementation("qak:it.unibo.qakactor:2.4")
+	//implementation("uniboIssActorKotlin:IssActorKotlinRobotSupport:2.0")
+	implementation("uniboInterfaces:uniboInterfaces")
+	//implementation("uniboProtocolSupport:unibonoawtsupports")
+	implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.1")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
 
 
@@ -105,7 +115,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "15"
 	}
 }
 

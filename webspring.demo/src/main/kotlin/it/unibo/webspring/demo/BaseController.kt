@@ -1,5 +1,8 @@
 package it.unibo.webspring.demo
 
+import connQak.connQakBase
+import connQak.connQakTcp
+import it.unibo.kactor.MsgUtil
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -13,7 +16,11 @@ import org.springframework.web.util.HtmlUtils
 
 @Controller
 class BaseController {
-    //final val connParkClientService: connQakBase = connQakTcp()
+    final val connParkClientService: connQakBase = connQakTcp()
+
+    init {
+        connParkClientService.createConnection("localhost", 8002)
+    }
 
     @Value("\${spring.application.name}")
     var appName: String? = null
@@ -22,18 +29,15 @@ class BaseController {
         return "Home"
     }
 
-    init {
-       // connParkClientService.createConnection("localhost", 8023)
-    }
-
 
     @GetMapping("/reqenter")
     fun pickUpPage(model: Model): ResponseEntity<Int>  {
+        var request = MsgUtil.buildRequest("springcontroller", "acceptIn", "acceptIn(X)", "park_client_service")
+        val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
 
+        //Error
         //interazione con clientService
-
-        println("logica...c'è posto....\n")
-        return ResponseEntity.ok(3)
+        return ResponseEntity.ok(reply.msgContent.toInt())
     }
 
 
@@ -56,26 +60,35 @@ class BaseController {
     @GetMapping("/carenter")
     fun carenter(@RequestParam slotnum: Int): ResponseEntity<String> {
        // val TOKENID = "ABC"
+        var request = MsgUtil.buildRequest("springcontroller", "carenter", "carenter($slotnum)", "park_client_service")
+        val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
+
+        //Error
+
+        return ResponseEntity.ok(reply.msgContent)
         println("/carenter")
-        return ResponseEntity.ok("abc")
+
     }
 
 
     @GetMapping("/reqexit")
-    fun reqexit(@RequestParam tokenid: String): ResponseEntity<Int> {
+    fun reqexit(@RequestParam tokenid: String): ResponseEntity<String> {
+        var request = MsgUtil.buildRequest("springcontroller", "acceptOut", "acceptOut($tokenid)", "park_client_service")
+        val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
 
+        //Error
         println("/reqexit")
         println("la tua macchina è in fase di trasporto")
 
-        return ResponseEntity.ok(0)
+        return ResponseEntity.ok(reply.msgContent)
     }
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
     @Throws(java.lang.Exception::class)
-    fun greeting(message: Int): Int? {
-        Thread.sleep(5000) // simulated delay
-        return 10
+    fun greeting(message: String): String? {
+
+        return "TAKE OUT THE CAR! TIME FINISHED"
     }
 
 
