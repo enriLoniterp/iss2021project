@@ -246,14 +246,14 @@ div.imagedesc{
     with the rest of the application. Transport trolley interaction occurs with the <a href="../../Sprint2/src/it/unibo/trolley_controller/Trolley_controller.kt" target = "_blank">TrolleyController</a> developed in the previous sprint. <br>
     Regarding the interaction with the client, as requested by the customer, it is necessary to generate an unique receipt (<kr>TOKENID</kr>) every time a client request a deposit
     which will be used during pick-up phase. <br>
-    As per requirements, the TOKENID should be representative of the SLOTNUM assigned to the parked car to allow the PMS recognize
-    the SLOTNUM where the car is parked. An unique TOKENID can be generated following two strategies:
+    As per requirements, the <ks>TOKENID</ks> has to be representative of the <ks>SLOTNUM</ks> assigned to the parked car<!--to allow the <ks>PMS</ks> recognize
+    the <ks>SLOTNUM</ks> where the car is parked-->. An unique <ks>TOKENID</ks> can be generated following two strategies:
     <ul>
-      <li>Using current <b>date and time</b> + <kr>SLOTNUM</kr>;</li>
+      <li>using current <b>date and time</b> + <kr>SLOTNUM</kr>;</li>
       <li><b>random string</b> long enough to avoid recurrences + <kr>SLOTNUM</kr>.</li>
     </ul>
-    During pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
-    near the parking, <ks>DTFREE</ks> should be relatively short meanwhile if it is done far from the parking the interval should be longer.
+    During the pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
+    near the parking, <ks>DTFREE</ks> should be relatively short,<!-- meanwhile if it is done far from the parking the interval should be --> longer otherwise.<br>
     If all parking slot are engaged and the client makes an <ks>acceptIN</ks> request, <ks>PMS</ks> should reply with a fail message.
     <br><br>
     Another necessity is the managment of the <a>parking status</a> using a specific datastructure.
@@ -261,26 +261,28 @@ div.imagedesc{
   </div>
   <h3>ParkServiceGUI</h3>
   <div class="remark" id="problem_analysis_parking_service_GUI">
-      ParkServiceGUI is a user interface to allow clients interact with the parking system and has already been analyze in
+      ParkServiceGUI is a user interface which allows clients interact with the parking system and has already been analyzed in
       <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">Automated Car-Parking.html</a>.
   </div>
   <h4>ParkServiceGUI - PMS interaction</h4>
   <div class="remark">
-    Interaction between these two entites takes place through different messages pointed out
+    The interaction between these two entites takes place through different messages pointed out
     <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
-    already detailed (request/response and dispatches).
+    already detailed (request/response and dispatches).<br>
+    ***<b>PROBABILMENTE NON SERVE</b>****<br>
     In addition to these messages, it may be necessary to introduce an additional message (<b>pick_up_available</b>) to notify the client that the car
     is available for picking in the outdoor area. This message should be send using dispatches since the PMS does not need any response by the client
     (the information about outdoor release is given by data from the outsonar) and because it remains a 1-1 communication. <br>
     In this scenario, in case of an alarm, the client will always immediately pick-up the car. <br><br>
+    *****<br>
     Given the distributed nature of the application and the presence of concurrency requests, we highlight some particular scenario:
-    <ul>
-      <li>client requests the service but does not complete it;</li>
-      <li>the application receives two concurrencies requests: in that case, the system must be able to queue all the requests received in one or eventually more
-        queues based on priorities and execute them in a sequential way (<b>FIFO</b>);</li>
-      <li>After an acceptIN which still miss the relative CARENTER phase, another acceptIN request can arrive and should be executed, CARENTER phase can
+    <ol>
+      <li>client requests the service but does not complete it.</li>
+      <li>the application receives two concurrent requests: the system must be able to queue all the requests received in one or eventually more
+        queues based on priorities and execute them in a sequential way (<b>FIFO</b>).</li>
+      <li>After an acceptIN which still miss the relative CARENTER phase and another acceptIN request arrives, CARENTER phase can
         have some problem: in this scenario, to avoid any conflicts CARENTER must encode the information about the SLOTNUM priovously received.</li>
-    </ul>
+    </ol>
   </div>
   <div class="remark">
     A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
@@ -345,12 +347,12 @@ div.imagedesc{
 The Sprint 3 should be done in <b>four days</b>.
 <div id = "project">
 <h2>Project</h2>
-Starting from what suggested in the analysis, we decided to introduce a new entity called <ks>parkClientService</ks>, taking part of the <ks>PMS</ks>
-which processes clients' requests.<br>
-We decided to adopt the MVC pattern to develop the ParkServiceGUI, splitting it into two components (Model not needed in our case):
+Starting from what suggested in the analysis, we decided to introduce a new entity called <ks>parkClientService</ks>
+which processes clients' requests and is part of the <ks>PMS</ks>. <br>
+We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitting it into two components (Model not needed in our case):
 <ul>
-  <li><b>View</b>: user interfaces</li>
-  <li><b>Controller</b>: receives requests and generates content view for the client</li>
+  <li><b>View</b>: user interfaces.</li>
+  <li><b>Controller</b>: receives requests and generates content view for the client.</li>
 </ul>
 <h4>Parking state</h4>
 <div class="remark">
@@ -366,13 +368,13 @@ We decided to adopt the MVC pattern to develop the ParkServiceGUI, splitting it 
   This resource is a <b>seriazable singleton</b> kotlin dataclass which can be easily saved into a file.
 </div>
 <h4><a>parkClientService</a></h4>
-<table>
+<table cellpadding="5%">
   <tbody>
     <tr>
     <td style="width: 50%; vertical-align:top">
       <br>
       In order to accept, queue and process different requests in a non-blocking manner, the parkClientService is implemented as an actor which has
-      multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by message or events.<br>
+      multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by messages or events.<br>
       In addition, parkClientService needs to take care about the <a>current state of the system</a>. <br>
       The scheme on the side shows parkClientService behaviour.
     </td>
@@ -384,15 +386,15 @@ We decided to adopt the MVC pattern to develop the ParkServiceGUI, splitting it 
     </tr>
   </tbody>
 </table>
-<table>
+<table cellpadding="5%">
   <tbody>
     <tr>
       <td>
         <h4>parkClientService communication</h4>
         parkClientService interacts with <a href="#GUIAdapter">GUIAdapter</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
         In order to send QAK understandable messages, GUIAdapter uses <a>connQakTcp.kt</a> and <a>MsgUtil.kt</a>.<br>
-        As said during the analysis phase, parkClientService interacts with trolleyController to move the robot and fulfill client requests using the semantic
-        described in <a>Sprint2</a>.
+        As said during the analysis phase, parkClientService interacts with trolleyController using the semantic
+        described in <a>Sprint2</a> to move the robot and fulfill client requests.
         Finally, parkClientService needs to stay updated about the current data sent by the sensors through <a>ParkingState</a>.
       </td>
     </tr>
@@ -401,7 +403,7 @@ We decided to adopt the MVC pattern to develop the ParkServiceGUI, splitting it 
 <br>
 The sequence diagrams below shows the main interaction between the components of this Sprint.
 <br>
-<table width="100%">
+<table width="100%" cellpadding="5%">
   <tr>
     <td style="width: 50%; vertical-align:top">
       <center>
@@ -431,13 +433,13 @@ The sequence diagrams below shows the main interaction between the components of
 The Spring Framework will be used to implement the MCV pattern (SpringMVC and SpringBoot in particular) for its ability to boost productivity with the use of annotations,
 Dependency Injection and easily configurable web services. In addition, Spring is a light-weight container which guarantees a minimal overhead and an easy integration
 with current services.<br><br>
-<table>
+<table cellpadding="5%">
   <tbody>
     <tr>
       <td style="width: 50%; vertical-align:top">
         <h4 id = "GUIAdapter"><a>GUIAdapter</a></h4>
         This component is the <b>SpringController</b> which generates the right View for the client and fulfills his requests by interacting with <ks>parkClientService</ks>.
-        We used annotations to let Spring container to manage functionalities not linked to business-logic.
+        We used annotations to let Spring container managing functionalities not linked to business-logic.
       </td>
       <td>
         <center>
@@ -454,7 +456,7 @@ with current services.<br><br>
         <li>acceptIN.html</li>
         <li>acceptOUT.html</li>
       </ul>
-      These htmls pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
+      These HTML pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
     </td>
     </tr>
   </tbody>
