@@ -201,30 +201,31 @@ div.imagedesc{
 
 <head>
 
-<title>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 3</title></head>
+<title>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 4</title></head>
 
 <body>
 <div id="top">
-<h1>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 3<font size="5"></font> </h1>
+<h1>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 4<font size="5"></font> </h1>
 </div>
 
 <div class="body">
 <div id = "backlog">
-  <h2>Sprint 3 Backlog</h2>
+  <h2>Sprint 4 Backlog</h2>
   <div class="remark">
-    Sprint 3 regards the develop of the <ks>PMS</ks> able to manage user requests:
+    Sprint 4 regards the develop of the <ks>PMS</ks> able to manage interaction with manager and care of system status:
     <ul>
-      <li><ks>PMS</ks> processes car deposit requests:
-        <a href="../../requirements/userDocs/Automated Car-Parking.html#R1" target = "_blank">R1</a>,
-        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2" target = "_blank">R2</a>,
-        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2B" target = "_blank">R2B</a>;
-      <li><ks>PMS</ks> processes car pick-up requests:
-        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3" target = "_blank">R3</a>.</li>
+      <li><ks>PMS</ks> satisfies manager's start and stop trolley and fan requests:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R5" target = "_blank">R5</a>.
+      <li><ks>PMS</ks> maintains an updated version of the system status:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>.</li>
+      <li><ks>PMS</ks> recognizes critical OUTDOOR-area situation and generates an alarm for the manager:
+          <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>.</li>
     </ul>
   </div>
 </div>
 <h4>Starting point</h4>
-<center><img src="IMG/StartingPoint.jpg" alt="starting_point_sprint" width="40%"></center>
+<center><img src="IMG/StartingPoint.png" alt="starting_point_sprint" width="40%"></center>
 
 
 <div id = "problem_analysis">
@@ -232,8 +233,8 @@ div.imagedesc{
 <div class="remark">
   This Sprint aim is to develop and deeper describe the following entities:
   <ul>
-    <li><ks>ParkServiceGUI</ks> interacts directly with clients;</li>
-    <li><ks>Park Manager Service</ks> processes clients' requests;</li>
+    <li><ks>ParkServiceStatusGUI</ks> interacts directly with the manager;</li>
+    <li><ks>Park Manager Service</ks> processes managers' requests;</li>
   </ul>
 </div>
 <div class = "remark">
