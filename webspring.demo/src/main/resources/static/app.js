@@ -45,7 +45,7 @@ function carenter(slotnum){
   				 var tokenid = xhr.responseText
   				 document.getElementById("tokenid").setAttribute("style", "display:inline")
   				 document.getElementById("tokenid").setAttribute("value", tokenid)
-  			     alert(tokenid)
+  			     //alert(tokenid)
   			}
   				else
   				{
@@ -64,7 +64,7 @@ function deposit(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const slotnum = urlParams.get('slotnum')
-    alert(slotnum)
+    //alert(slotnum)
     carenter(slotnum)
 }
 

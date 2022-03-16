@@ -53,15 +53,15 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 						)
 						println("trolleyController idle")
 					}
-					 transition(edgeName="t016",targetState="working",cond=whenRequest("moveToIn"))
-					transition(edgeName="t017",targetState="working",cond=whenRequest("moveToOut"))
-					transition(edgeName="t018",targetState="working",cond=whenRequest("moveToSlot"))
-					transition(edgeName="t019",targetState="working",cond=whenDispatch("moveToHome"))
-					transition(edgeName="t020",targetState="stopped",cond=whenDispatch("stop"))
+					 transition(edgeName="t017",targetState="working",cond=whenRequest("moveToIn"))
+					transition(edgeName="t018",targetState="working",cond=whenRequest("moveToOut"))
+					transition(edgeName="t019",targetState="working",cond=whenRequest("moveToSlot"))
+					transition(edgeName="t020",targetState="working",cond=whenDispatch("moveToHome"))
+					transition(edgeName="t021",targetState="stopped",cond=whenDispatch("stop"))
 				}	 
 				state("working") { //this:State
 					action { //it:State
-						resources.ParkingState.getInstance().trolleyState = "trolley WORKING" 
+						resources.ParkingState.trolleyState = "trolley WORKING" 
 						println("$name in ${currentState.stateName} | $currentMsg")
 						println("trolley WORKING")
 						updateResourceRep( "WORKING"  
@@ -70,7 +70,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								println("trolley trip to INDOOR start")
 								 
-													planner.plannerUtil.planForGoal(INDOOR.first,INDOOR.second)
+													planner.plannerUtil.planForGoal(INDOOR.first,INDOOR.second) 
 													currentTask = "INDOOR"
 											
 													var mv : String = planner.plannerUtil.getNextPlannedMove()
@@ -161,28 +161,28 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 								)
 						}
 					}
-					 transition(edgeName="t121",targetState="blocked",cond=whenDispatch("error"))
-					transition(edgeName="t122",targetState="stopped",cond=whenDispatch("stop"))
-					transition(edgeName="t123",targetState="working",cond=whenDispatch("moveToHome"))
-					transition(edgeName="t124",targetState="working",cond=whenRequest("moveToIn"))
-					transition(edgeName="t125",targetState="working",cond=whenRequest("moveToOut"))
-					transition(edgeName="t126",targetState="working",cond=whenRequest("moveToSlot"))
-					transition(edgeName="t127",targetState="idle",cond=whenDispatch("goToIdle"))
+					 transition(edgeName="t122",targetState="blocked",cond=whenDispatch("error"))
+					transition(edgeName="t123",targetState="stopped",cond=whenDispatch("stop"))
+					transition(edgeName="t124",targetState="working",cond=whenDispatch("moveToHome"))
+					transition(edgeName="t125",targetState="working",cond=whenRequest("moveToIn"))
+					transition(edgeName="t126",targetState="working",cond=whenRequest("moveToOut"))
+					transition(edgeName="t127",targetState="working",cond=whenRequest("moveToSlot"))
+					transition(edgeName="t128",targetState="idle",cond=whenDispatch("goToIdle"))
 				}	 
 				state("blocked") { //this:State
 					action { //it:State
 						println("trolleyController blocked")
-						resources.ParkingState.getInstance().trolleyState="trolley STOPPED" 
+						resources.ParkingState.trolleyState="trolley STOPPED" 
 					}
 				}	 
 				state("stopped") { //this:State
 					action { //it:State
 						println("trolleyController stopped")
-						resources.ParkingState.getInstance().trolleyState = "trolley STOPPED" 
+						resources.ParkingState.trolleyState = "trolley STOPPED" 
 					}
-					 transition(edgeName="t228",targetState="idle",cond=whenDispatchGuarded("resume",{ currentTask == "HOME" || currentTask == "IDLE"  
+					 transition(edgeName="t229",targetState="idle",cond=whenDispatchGuarded("resume",{ currentTask == "HOME" || currentTask == "IDLE"  
 					}))
-					transition(edgeName="t229",targetState="working",cond=whenDispatchGuarded("resume",{ currentTask == "PARKIN" || currentTask == "PARKOUT" || currentTask == "OUTDOOR" || currentTask == "INDOOR" 
+					transition(edgeName="t230",targetState="working",cond=whenDispatchGuarded("resume",{ currentTask == "PARKIN" || currentTask == "PARKOUT" || currentTask == "OUTDOOR" || currentTask == "INDOOR" 
 					}))
 				}	 
 			}

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.HtmlUtils
+import resources.ParkingState
 
 @Controller
 class BaseController {
@@ -31,13 +32,14 @@ class BaseController {
 
 
     @GetMapping("/reqenter")
-    fun pickUpPage(model: Model): ResponseEntity<Int>  {
+    fun pickUpPage(model: Model): ResponseEntity<String>  {
+        println("EI")
         var request = MsgUtil.buildRequest("springcontroller", "acceptIn", "acceptIn(X)", "park_client_service")
         val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
-
+        println("EI")
         //Error
         //interazione con clientService
-        return ResponseEntity.ok(reply.msgContent.toInt())
+        return ResponseEntity.ok(reply.msgContent)
     }
 
 
@@ -60,10 +62,14 @@ class BaseController {
     @GetMapping("/carenter")
     fun carenter(@RequestParam slotnum: Int): ResponseEntity<String> {
        // val TOKENID = "ABC"
+        println("CARE")
+        println(ParkingState.toString())
+        ParkingState.indoorFree = false
         var request = MsgUtil.buildRequest("springcontroller", "carenter", "carenter($slotnum)", "park_client_service")
         val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
 
         //Error
+        println("qui")
 
         return ResponseEntity.ok(reply.msgContent)
         println("/carenter")
@@ -74,6 +80,7 @@ class BaseController {
     @GetMapping("/reqexit")
     fun reqexit(@RequestParam tokenid: String): ResponseEntity<String> {
         var request = MsgUtil.buildRequest("springcontroller", "acceptOut", "acceptOut($tokenid)", "park_client_service")
+        println("PP")
         val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
 
         //Error
@@ -82,6 +89,7 @@ class BaseController {
 
         return ResponseEntity.ok(reply.msgContent)
     }
+    /*
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
@@ -90,6 +98,8 @@ class BaseController {
 
         return "TAKE OUT THE CAR! TIME FINISHED"
     }
+
+     */
 
 
     @ExceptionHandler
