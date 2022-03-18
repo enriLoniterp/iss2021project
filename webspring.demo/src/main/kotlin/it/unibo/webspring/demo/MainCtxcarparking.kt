@@ -13,13 +13,13 @@ import org.springframework.boot.runApplication
 open class MainCtxcarparking
 
 @ObsoleteCoroutinesApi
-fun main(args: Array<String>) {
+fun main() {
     runBlocking {
         launch(newSingleThreadContext("QakThread")) {
             QakContext.createContexts("localhost", this, "carparking.pl", "sysRules.pl")
         }
         launch(newSingleThreadContext("SpringThread")) {
-            runApplication<MainCtxcarparking>(*args)
+            runApplication<MainCtxcarparking>()
         }
     }
 
