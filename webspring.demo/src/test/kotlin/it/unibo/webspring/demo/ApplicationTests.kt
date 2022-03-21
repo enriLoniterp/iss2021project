@@ -54,7 +54,7 @@ class ApplicationTests {
         @JvmStatic
         @BeforeClass
 
-
+		// Inizialization
 		@BeforeAll
 		fun init() {
 			GlobalScope.launch {
@@ -68,6 +68,8 @@ class ApplicationTests {
 		}
 	}
 
+
+	//Client request a free-slot and it completes all the procedure to the end
 	@Test
 	fun ParkingPhaseCorrect() {
 
@@ -93,12 +95,18 @@ class ApplicationTests {
 		assertTrue(stringTokenizer.nextToken().equals("3"))
 	}
 
+
+	//Client receives the slot correctly
+	//Indoor area is full
+	//Client receives wait message
+
+
 	@Test
 	fun IndoorAreaFull() {
-		ParkingState.slotState.set(1, "16/03/2022-22:00")
-		ParkingState.slotState.set(2, "16/03/2022-22:02")
-		ParkingState.slotState.set(5, "16/03/2022-22:03")
-		ParkingState.slotState.set(6, "16/03/2022-22:05")
+		ParkingState.slotState.set(1, "16/03/2022-22:00-1")
+		ParkingState.slotState.set(2, "16/03/2022-22:02-2")
+		ParkingState.slotState.set(5, "16/03/2022-22:03-3")
+		ParkingState.slotState.set(6, "16/03/2022-22:05-4")
 // We expect to receive numer 0 which indicate that parking is full
 		var respo = mockMvc.perform(get("/reqenter")).andDo(print()).andExpect(status().isOk)
 			.andReturn()
@@ -113,6 +121,8 @@ class ApplicationTests {
 	}
 
 
+	//Client request for a free-slot
+	//Client receives 0 because all parking-slots are occupied
 	@Test
 	fun AllParkingSlotEngaged() {
 		ParkingState.slotState.set(1, "1603202222:00-1")
@@ -127,8 +137,11 @@ class ApplicationTests {
 	}
 
 
+	//Client sends the tokenId to recover his car
+	//Client completes the procedure and r
+	//DA FINIRE
 	@Test
-	fun Pickupphasecorrect() {
+	fun PickupPhaseCorrect() {
 
 		val tokenId:String= "1703202022:03-3"
 		//Outsonar detects that there is not car's inside the outdoor-area
@@ -151,12 +164,14 @@ class ApplicationTests {
 	}
 
 
+	//test invalid parking slot? non ha senso che nell'url sia diverso... argomento da sicurezza informatica.
+	//
 	@Test
-	fun Pickupphasewrong() {
+	fun PickupPhaseWrong() {
 		//same situation as before, but in this case outsonar detects the presence of a car
 		val tokenId:String= "1703202022:03-3"
 		//Outsonar detects that there is not car's inside the outdoor-area
-		outSonar.updateDistance("100")
+		outSonar.updateDistance("5")
 		//parkng slot 3 is occupied and it is required
 		ParkingState.slotState.set(1, "1603202022:00-1")
 		ParkingState.slotState.set(2, "1603202023:02-3")
@@ -170,8 +185,32 @@ class ApplicationTests {
 		// We expect to receive 1. That means that that the request is not completed
 
 		mockMvc.perform(get("/reqexit?tokeind="+tokenId)).andDo(print()).andExpect(status().isOk)
-			.andExpect(content().json(Json.encodeToString("!")))
+			.andExpect(content().json(Json.encodeToString("1")))
 
+	}
+
+
+	// The client sends his tokenId
+	// The client's tokenId is not valid (not currently existing)
+	// The client receives an error message
+	@Test fun InvalidTokenId(){
+		val tokenId:String= "1702202022:03-3"
+		//Outsonar detects that there is not car's inside the outdoor-area
+		outSonar.updateDistance("100")
+		//parkng slot 3 is occupied and it is required
+		ParkingState.slotState.set(1, "1603202022:00-1")
+		ParkingState.slotState.set(2, "1603202023:02-3")
+		ParkingState.slotState.set(4, "1603202022:03-4")
+		////////////////////////////////////////////////
+		ParkingState.slotState.set(3, "1703202022:03-3")
+		////////////////////////////////////////////////
+		ParkingState.slotState.set(6, "1603202022:05-6")
+
+		// Send acceptout
+		// We expect to receive 0. That means the car is been succesfully recovered
+
+		mockMvc.perform(get("/reqexit?tokeind="+tokenId)).andDo(print()).andExpect(status().isOk)
+			.andExpect(content().json(Json.encodeToString("1")))
 	}
 
 }
