@@ -11,7 +11,6 @@ import resources.ParkingState
 
 class WeightSensorAdapter : SensorPort{
     private var weight: String = "9999999"
-	private lateinit var ps : ParkingState
     private val weightSensorCB: WeightSensorCallback = WeightSensorCallback(this)
 	private val client: MqttClient? = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId())
 	             
@@ -25,20 +24,13 @@ class WeightSensorAdapter : SensorPort{
 	
 	fun updateWeight(weight : String){
 		this.weight = weight
-		if(weight.toInt() > 0){
-			this.ps.indoorFree = false
-		}else{
-			this.ps.indoorFree = true
-		}
+		ParkingState.indoorFree = weight.toInt() <= 0
 	}
 	
 	override fun getValue() : String{
 		return this.weight
 	}
-	
-	fun setParkingState( ps : ParkingState){
-		this.ps = ps
-	}
+
 		
 
 }

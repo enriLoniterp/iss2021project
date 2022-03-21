@@ -7,6 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import resources.ObjectHelper.Companion.loadObject
+import resources.ObjectHelper.Companion.saveObject
 import resources.ParkingState
 
 class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, scope ){
@@ -30,13 +32,8 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						println("parkClientService STARTS")
 						  
 									try{
-									var fs = java.io.ObjectInputStream(java.io.FileInputStream("ParkingState.bin"))
-									val ps = fs.readObject() as ParkingState
-									ParkingState.slotState = ps.slotState
-									ParkingState.trolleyState = ps.trolleyState
-										ParkingState.indoorFree = ps.indoorFree
-									ParkingState.outdoorFree = ps.outdoorFree
-									ParkingState.temperature = ps.temperature
+									loadObject("ParkingState.json", ParkingState)
+									println(ParkingState.slotState.toString())
 									}catch(e : Exception){
 									   var slots: HashMap<Int,String> = HashMap()
 									   for(i in 1..6){
@@ -57,11 +54,6 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 					transition(edgeName="t02",targetState="working",cond=whenRequest("acceptOut"))
 					transition(edgeName="t03",targetState="working",cond=whenRequest("carenter"))
 				}	 
-				state("error") { //this:State
-					action { //it:State
-						println("ERORR!")
-					}
-				}	 
 				state("working") { //this:State
 					action { //it:State
 						 
@@ -72,7 +64,7 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						println("$name in ${currentState.stateName} | $currentMsg")
 						if( checkMsgContent( Term.createTerm("acceptIn(req)"), Term.createTerm("acceptIn(req)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
-								if(  ParkingState.indoorFree && ParkingState.trolleyState != ("trolley STOPPED")
+								if(  ParkingState.indoorFree && ParkingState.trolleyState != ("trolley STOPPED")  
 								 ){
 								                		for(i in 1..6) {
 								                    			if(ParkingState.slotState.get(i).equals("")) {
@@ -99,7 +91,6 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						}
 						if( checkMsgContent( Term.createTerm("acceptOut(TI)"), Term.createTerm("acceptOut(TI)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
-								println("clientservice acceptOut")
 								 TOKENID = payloadArg(0)  
 								if(  ParkingState.outdoorFree && ParkingState.trolleyState != ("trolley STOPPED")  
 								 ){ 
@@ -112,15 +103,12 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								answer("acceptOut", "responseAcceptOut", "responseAcceptOut($RESPONSE)"   )  
 								request("moveToSlot", "moveToSlot($SLOTNUM)" ,"trolley_controller" )  
 								currentJob = "parkOut" 
-								println("clientservice moves the car from SLOTNUM = $SLOTNUM")
+								println("clientservice moves the car from SLOTNUM = $SLOTNUM to out")
 								updateResourceRep( "clientservice moves the car from SLOTNUM = $SLOTNUM"  
 								)
 								ParkingState.slotState.put(SLOTNUM, "")  
 								
-															val os = java.io.ObjectOutputStream( java.io.FileOutputStream("ParkingState.bin") )
-															os.writeObject(ParkingState)
-															os.flush()
-															os.close()
+															saveObject("ParkingState.json", ParkingState)
 								}
 								else
 								 { RESPONSE = "Invalid tokenid"  
@@ -153,10 +141,7 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								)
 								 ParkingState.slotState.put(SLOTNUM, "$TOKENID")  
 								
-														val os = java.io.ObjectOutputStream( java.io.FileOutputStream("ParkingState.bin") )
-														os.writeObject(ParkingState)
-														os.flush()
-														os.close()
+														saveObject("ParkingState.json", ParkingState)
 								}
 								else
 								 { RESPONSE = "The indoor area is free"  
@@ -185,24 +170,25 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 				}	 
 				state("processReply") { //this:State
 					action { //it:State
-						println("process message")
 						if( checkMsgContent( Term.createTerm("movedToSlot(SUCCESS)"), Term.createTerm("movedToSlot(done)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								if(currentJob == "parkOut"){
 								request("moveToOut", "moveToOut(move)" ,"trolley_controller" )  
 								}else{ 
-								println("client_service go to idle")
 								forward("goToIdle", "goToIdle(go)" ,"park_client_service" ) 
 								}
 						}
 						if( checkMsgContent( Term.createTerm("movedToIn(MOVED)"), Term.createTerm("movedToIn(done)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								request("moveToSlot", "moveToSlot($SLOTNUM)" ,"trolley_controller" )  
-								currentJob = "parkIn" 
+								currentJob = "parkIn"
+												ParkingState.indoorFree = true
 						}
 						if( checkMsgContent( Term.createTerm("movedToOut(SUCCESS)"), Term.createTerm("movedToOut(done)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								forward("goToIdle", "goToIdle(go)" ,"park_client_service" ) 
+								
+												ParkingState.outdoorFree = false 
 						}
 					}
 					 transition(edgeName="t09",targetState="idle",cond=whenDispatch("goToIdle"))

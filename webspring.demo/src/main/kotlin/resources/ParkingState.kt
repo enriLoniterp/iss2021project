@@ -2,8 +2,8 @@ package resources
 
 import kotlinx.serialization.Serializable
 
-//@Serializable
-object ParkingState: java.io.Serializable{
+@Serializable
+object ParkingState{
     var trolleyState: String = "idle"
     var temperature : Int = 20
     var indoorFree : Boolean = true

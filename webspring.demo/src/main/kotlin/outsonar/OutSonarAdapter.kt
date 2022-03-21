@@ -10,8 +10,7 @@ import java.util.Timer
 
 class OutSonarAdapter : SensorPort{
     private var distance: String = "9999"
-	private lateinit var ps : ParkingState
-	private var t : Timer? = null
+	//private var t : Timer? = null
     private val outsonarCB: OutSonarCallback = OutSonarCallback(this)
 	private val client: MqttClient? = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId())
 	             
@@ -24,26 +23,14 @@ class OutSonarAdapter : SensorPort{
 	
 	fun updateDistance(distance : String){
 		this.distance = distance
-		if(distance.toInt() < 50){
-			ps.outdoorFree = false
-		}else{
-			ps.outdoorFree = true
-			if(t != null){
-				t!!.cancel()
-				t!!.purge()
-				deleteTimer()
-			}
-		}
+		ParkingState.outdoorFree = distance.toInt() >= 50
 	}
 	
 	override fun getValue() : String{
 		return this.distance
 	}
 	
-	fun setParkingState( ps : ParkingState){
-		this.ps = ps
-	}
-	
+	/*
 	fun setTimer(t : Timer){
 		this.t = t
 	}
@@ -51,6 +38,8 @@ class OutSonarAdapter : SensorPort{
 	fun deleteTimer(){
 		this.t = null
 	}
+
+	 */
 		
 		
 
