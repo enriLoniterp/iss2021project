@@ -69,7 +69,12 @@ class ApplicationTests {
 	}
 
 
-	//Client request a free-slot and it completes all the procedure to the end
+	//Clients request a free-slot
+	//The only slot available is number 3
+	//Clients receive the correct slot and send back another request when in the INDOOR AREA
+	//Clients receive tokenid representing the time they entered
+	//We check our tokenId contains the slotnumber at the end
+	//Clients has parked their cars correctly
 	@Test
 	fun ParkingPhaseCorrect() {
 
@@ -87,20 +92,18 @@ class ApplicationTests {
 
 
 		//Send carenter with our received slotnum=3
-		val result =
-			mockMvc.perform(get("/client/carenter?slotnum=3")).andDo(print()).andExpect(status().isOk).andReturn()
+		val result = mockMvc.perform(get("/client/carenter?slotnum=3")).andDo(print()).andExpect(status().isOk).andReturn()
 		//get the tokenid
 		val tokenId: String = Json.decodeFromString(result.response.contentAsString)
 		val stringTokenizer = StringTokenizer(tokenId, "-")
+		//tokenid has to mantain slot-number
 		assertTrue(stringTokenizer.nextToken().equals("3"))
 	}
 
 
-	//Client receives the slot correctly
+	//Clients receive the slot correctly
 	//Indoor area is full
-	//Client receives wait message
-
-
+	//Clients receive wait message
 	@Test
 	fun IndoorAreaFull() {
 		ParkingState.slotState.set(1, "16/03/2022-22:00-1")
@@ -135,6 +138,11 @@ class ApplicationTests {
 		var result = mockMvc.perform(get("/reqenter")).andDo(print()).andExpect(status().isOk)
 			.andExpect(content().json(Json.encodeToString("0")))
 	}
+
+
+
+	////PICK-UP////
+
 
 
 	//Client sends the tokenId to recover his car
@@ -206,6 +214,8 @@ class ApplicationTests {
 		////////////////////////////////////////////////
 		ParkingState.slotState.set(6, "1603202022:05-6")
 
+		//Outsonar detects that there is not car's inside the outdoor-area
+		outSonar.updateDistance("100")
 		// Send acceptout
 		// We expect to receive 0. That means the car is been succesfully recovered
 
