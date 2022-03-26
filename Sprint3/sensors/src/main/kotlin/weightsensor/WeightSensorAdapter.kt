@@ -23,6 +23,8 @@ class WeightSensorAdapter : SensorPort{
 	
 	fun updateWeight(weight : String){
 		this.weight = weight
+		if(weight>0){
+		}
 	}
 	
 	override fun getValue() : String{
