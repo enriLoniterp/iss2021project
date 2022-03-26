@@ -459,16 +459,17 @@ with current services.<br><br>
 <div class="remark">
 Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
 <ul>
-  <li>PARKING PHASE</li>
+  <b>PARKING PHASE</b>
   <li><a>TEST #1 - Parking phase</a></li>
   <li><a>TEST #2 - Wait message</a></li>
   <li><a>TEST #3 - Fail message</a></li>
-  <li>PICK-UP PHASE</li>
+  PICK-UP PHASE
   <li><a>TEST #4 - Pick-up phase</a></li> 
   <li><a>TEST #5 - Invalid tokenId</a></li>
   
-  Tests have been developed as described below in the problem analysis section.
-  TEST #5 has been added during the project and it is described here:
+  Tests from 1 to 5 have been developed as described above in 
+  <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">the Test Unit section</a>.
+  Instead TEST #5 has been added successively as reported below:
   <pre>
       <b>Invalid tokenId</b>
       outSonar update distance(100) //no cars are detected
@@ -476,9 +477,9 @@ Starting from what as been said in the analysis phase, the integration tests hav
 	  check if response == <b>1</b>
     </pre>
 	</br>
-  The focus point of this integration tests is controlling the complete cycle of the ParkManagerService during the parking and pick up phase.
-  It deals with all the components in action, from the web parts composed of html pages and Spring Controller to the ParkmanagerServer itself and the main
-  funcionality in which is occupied.
+	</br>
+  The focus point of those integration tests is controlling the complete cycle of the ParkManagerService during the parking and pick up phase.
+  It deals with all the components in action, from the web components made of user interaction html pages and Spring Controller to the ParkmanagerService itself.
   
 
 
