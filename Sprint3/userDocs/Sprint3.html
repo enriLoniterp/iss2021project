@@ -490,6 +490,31 @@ Starting from what as been said in the analysis phase, the integration tests hav
 <center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
 <h2>Deployment</h2>
 <div class="remark">
+
+
+  In this Sprint we deployed the code of the entire application developed until now. It has been deployed
+  using Docker, in particular the image for PMS and the image for the virtual environment modified with the correct scene:</br>
+ <ul>
+ <li><a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>PMS image</em></a></li>
+ 
+  <li><a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>Virtual environment image</em></a></li>
+ 
+ </ul>
+In order to run the two Docker images it is necessary to use two distinctive commands in the following sequence:
+<pre>
+  <b>VIRTUAL ENVIRONMENT</b>
+  </br>
+  docker run -p 8090:8090 -p 8091:8091 --rm virtualrobot
+  </pre>
+  To visualize the virtual environment open your browser in <b>http://localhost:8090/</b>
+ </br>
+  <pre>
+  <b>PMS</b> 
+  </br>
+  docker run -p 8081:8081 carparking
+  </pre>
+ Then you can open your browser in <b>http://localhost:8081/home</b> for starting the whole application.
+
 </div>
 
 <h2>Job task</h2>
