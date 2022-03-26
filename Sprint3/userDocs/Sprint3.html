@@ -333,12 +333,6 @@ div.imagedesc{
       check if parking_slot(<b>3</b>) free
       check if <ks>OUTDOOR</ks> area is engaged.
 
-
-      <b>Alert Scenario</b>
-      client -> acceptOUT(<ks>TOKENID</ks>(<b>3</b>))
-      check if <ks>OUTDOOR</ks> area is engaged.
-      sleep(<ks>DTFREE</ks>)
-      check(alert)
     </pre>
   </div>
 
@@ -465,9 +459,29 @@ with current services.<br><br>
 <div class="remark">
 Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
 <ul>
-  <li><a>TEST #1 - no queue task</a></li>
-  <li><a>TEST #2 - complete cycle of tasks</a></li>
-  <li><a>TEST #3 - halt functionality</a></li>
+  <li>PARKING PHASE</li>
+  <li><a>TEST #1 - Parking phase</a></li>
+  <li><a>TEST #2 - Wait message</a></li>
+  <li><a>TEST #3 - Fail message</a></li>
+  <li>PICK-UP PHASE</li>
+  <li><a>TEST #4 - Pick-up phase</a></li> 
+  <li><a>TEST #5 - Invalid tokenId</a></li>
+  
+  Tests have been developed as described below in the problem analysis section.
+  TEST #5 has been added during the project and it is described here:
+  <pre>
+      <b>Invalid tokenId</b>
+      outSonar update distance(100) //no cars are detected
+      client -> reqexit
+	  check if response == <b>1</b>
+    </pre>
+	</br>
+  The focus point of this integration tests is controlling the complete cycle of the ParkManagerService during the parking and pick up phase.
+  It deals with all the components in action, from the web parts composed of html pages and Spring Controller to the ParkmanagerServer itself and the main
+  funcionality in which is occupied.
+  
+
+
 <ul>
 </div>
 
