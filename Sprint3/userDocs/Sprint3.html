@@ -361,7 +361,7 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
   </ul>
   This resource is a <b>seriazable singleton</b> kotlin dataclass which can be easily saved into a file.
 </div>
-<h4><a>parkClientService</a></h4>
+<h4><a href="../src/main/kotlin/park_client_service/Park_client_service.kt" target = "_blank">parkClientService</a></h4>
 <table cellpadding="5%">
   <tbody>
     <tr>
@@ -369,7 +369,7 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
       <br>
       In order to accept, queue and process different requests in a non-blocking manner, the parkClientService is implemented as an actor which has
       multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by messages or events.<br>
-      In addition, parkClientService needs to take care about the <a>current state of the system</a>. <br>
+      In addition, parkClientService needs to take care about the <a href="../src/ParkingState.json" target = "_blank">current state of the system</a>. <br>
       The scheme on the side shows parkClientService behaviour.
     </td>
     <td>
@@ -385,11 +385,12 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
     <tr>
       <td>
         <h4>parkClientService communication</h4>
-        parkClientService interacts with <a href="#GUIAdapter">GUIAdapter</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
-        In order to send QAK understandable messages, GUIAdapter uses <a>connQakTcp.kt</a> and <a>MsgUtil.kt</a>.<br>
+        parkClientService interacts with <a href="#GuiAdapter">GuiAdapter</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
+        In order to send QAK understandable messages, GuiAdapter uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and
+        <a>MsgUtil.kt</a>.<br>
         As said during the analysis phase, parkClientService interacts with trolleyController using the semantic
-        described in <a>Sprint2</a> to move the robot and fulfill client requests.
-        Finally, parkClientService needs to stay updated about the current data sent by the sensors through <a>ParkingState</a>.
+        described in <a <a href="../../userDocs/Sprint2.html" target = "_blank">>Sprint2</a> to move the robot and fulfill client requests.
+        Finally, parkClientService needs to stay updated about the current data sent by the sensors through <a href="../src/ParkingState.json" target = "_blank">ParkingState</a>.
       </td>
     </tr>
   </tbody>
@@ -431,7 +432,7 @@ with current services.<br><br>
   <tbody>
     <tr>
       <td style="width: 50%; vertical-align:top">
-        <h4 id = "GUIAdapter"><a>GUIAdapter</a></h4>
+        <h4 id = "GuiAdapter"><a>GuiAdapter</a></h4>
         This component is the <b>SpringController</b> which generates the right View for the client and fulfills his requests by interacting with <ks>parkClientService</ks>.
         We used annotations to let Spring container managing functionalities not linked to business-logic.
       </td>
@@ -446,9 +447,8 @@ with current services.<br><br>
       <h4>ParkServiceView</h4>
       Multiple html files have been written to represents client views:
       <ul>
-        <li>home.html</li>
-        <li>acceptIN.html</li>
-        <li>acceptOUT.html</li>
+        <li><a href="../src/main/resources/static/home.html" target = "_blank">home.html</a></li>
+        <li<a href="../src/main/resources/static/pickup.html" target = "_blank">pickup.html</a></li>
       </ul>
       These HTML pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
     </td>
@@ -464,10 +464,10 @@ Starting from what as been said in the analysis phase, the integration tests hav
   <li><a>TEST #2 - Wait message</a></li>
   <li><a>TEST #3 - Fail message</a></li>
   PICK-UP PHASE
-  <li><a>TEST #4 - Pick-up phase</a></li> 
+  <li><a>TEST #4 - Pick-up phase</a></li>
   <li><a>TEST #5 - Invalid tokenId</a></li>
-  
-  Tests from 1 to 5 have been developed as described above in 
+
+  Tests from 1 to 5 have been developed as described above in
   <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">the Test Unit section</a>.
   Instead TEST #5 has been added successively as reported below:
   <pre>
@@ -480,7 +480,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
 	</br>
   The focus point of those integration tests is controlling the complete cycle of the ParkManagerService during the parking and pick up phase.
   It deals with all the components in action, from the web components made of user interaction html pages and Spring Controller to the ParkmanagerService itself.
-  
+
 
 
 <ul>
@@ -489,6 +489,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
 <h4>Summary point</h4>
 <center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
 <h2>Deployment</h2>
+<!--
 <div class="remark">
 
 
@@ -496,9 +497,9 @@ Starting from what as been said in the analysis phase, the integration tests hav
   using Docker, in particular the image for PMS and the image for the virtual environment modified with the correct scene:</br>
  <ul>
  <li><a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>PMS image</em></a></li>
- 
+
   <li><a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>Virtual environment image</em></a></li>
- 
+
  </ul>
 In order to run the two Docker images it is necessary to use two distinctive commands in the following sequence:
 <pre>
@@ -509,14 +510,14 @@ In order to run the two Docker images it is necessary to use two distinctive com
   To visualize the virtual environment open your browser in <b>http://localhost:8090/</b>
  </br>
   <pre>
-  <b>PMS</b> 
+  <b>PMS</b>
   </br>
   docker run -p 8081:8081 carparking
   </pre>
  Then you can open your browser in <b>http://localhost:8081/home</b> for starting the whole application.
 
 </div>
-
+-->
 <h2>Job task</h2>
 <table cellpadding="5%">
   <tr>
@@ -535,7 +536,7 @@ In order to run the two Docker images it is necessary to use two distinctive com
     <td><center><b>Andrini Enrico</b><br>enrico.andrini2@studio.unibo.it</center></td>
     <td>
       <ul>
-        <li>GUIAdapter</li>
+        <li>GuiAdapter</li>
       </ul>
     </td>
   </tr>
