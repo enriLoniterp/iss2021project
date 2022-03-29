@@ -268,13 +268,8 @@ div.imagedesc{
   <div class="remark">
     The interaction between these two entites takes place through different messages pointed out
     <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
-    already detailed (request/response and dispatches).<br>
-    ***<b>PROBABILMENTE NON SERVE</b>****<br>
-    In addition to these messages, it may be necessary to introduce an additional message (<b>pick_up_available</b>) to notify the client that the car
-    is available for picking in the outdoor area. This message should be send using dispatches since the PMS does not need any response by the client
-    (the information about outdoor release is given by data from the outsonar) and because it remains a 1-1 communication. <br>
-    In this scenario, in case of an alarm, the client will always immediately pick-up the car. <br><br>
-    *****<br>
+    already detailed (request/response and dispatches).<br><br>
+   
     Given the distributed nature of the application and the presence of concurrency requests, we highlight some particular scenario:
     <ol>
       <li>client requests the service but does not complete it.</li>
@@ -287,8 +282,8 @@ div.imagedesc{
   <div class="remark">
     A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
   </div>
-  <h4>Test Unit</h4>
-  <div class="remark">
+  <h4>Test</h4>
+  <div class="remark" id= "test">
     Given the following assumptions:
     <ul>
       <li>Free <ks>INDOOR</ks> area;</li>
@@ -352,14 +347,14 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
 <div class="remark">
   For the sake of semplicity we represented parking state using a single resource which encodes the following variable:
   <ul>
-    <li>Transport trolley state (internal state, position)</li>
+    <li>Transport trolley state</li>
     <li>Fan state</li>
     <li>Temperature</li>
-    <li>Weight measured by the weightsensor</li>
-    <li>Sonar distance</li>
-    <li>Parking slot state</li>
+    <li>indoor state</li>
+    <li>outdoor state</li>
+    <li>Parking slots state</li>
   </ul>
-  This resource is a <b>seriazable singleton</b> kotlin dataclass which can be easily saved into a file.
+  This resource is a <b>seriazable</b> kotlin class which can be easily saved into a json file.
 </div>
 <h4><a href="../src/main/kotlin/park_client_service/Park_client_service.kt" target = "_blank">parkClientService</a></h4>
 <table cellpadding="5%">
@@ -369,7 +364,7 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
       <br>
       In order to accept, queue and process different requests in a non-blocking manner, the parkClientService is implemented as an actor which has
       multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by messages or events.<br>
-      In addition, parkClientService needs to take care about the <a href="../src/ParkingState.json" target = "_blank">current state of the system</a>. <br>
+      In addition, parkClientService needs to take care about the <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">current state of the system</a>. <br>
       The scheme on the side shows parkClientService behaviour.
     </td>
     <td>
@@ -386,11 +381,11 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
       <td>
         <h4>parkClientService communication</h4>
         parkClientService interacts with <a href="#GuiAdapter">GuiAdapter</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
-        In order to send QAK understandable messages, GuiAdapter uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and
-        <a>MsgUtil.kt</a>.<br>
+        In order to send QAK understandable messages, GuiAdapter uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a>,
+        MsgUtil class and ApplMessageUtil class.<br>
         As said during the analysis phase, parkClientService interacts with trolleyController using the semantic
-        described in <a <a href="../../userDocs/Sprint2.html" target = "_blank">>Sprint2</a> to move the robot and fulfill client requests.
-        Finally, parkClientService needs to stay updated about the current data sent by the sensors through <a href="../src/ParkingState.json" target = "_blank">ParkingState</a>.
+        described in <a <a href="../../Sprint2/userDocs/Sprint2.html" target = "_blank">Sprint2</a> to move the robot and fulfill client requests.
+        Finally, parkClientService needs to stay updated about the current data sent by the sensors through <a href="../src/main/kotlin/resources/ParkingState.json" target = "_blank">ParkingState</a>.
       </td>
     </tr>
   </tbody>
@@ -447,8 +442,9 @@ with current services.<br><br>
       <h4>ParkServiceView</h4>
       Multiple html files have been written to represents client views:
       <ul>
-        <li><a href="../src/main/resources/static/home.html" target = "_blank">home.html</a></li>
-        <li<a href="../src/main/resources/static/pickup.html" target = "_blank">pickup.html</a></li>
+        <li><a href="../src/main/resources/templates/home.html" target = "_blank">home.html</a></li>
+        <li><a href="../src/main/resources/templates/pickup.html" target = "_blank">pickup.html</a></li>
+		<li><a href="../src/main/resources/templates/Deposit.html" target = "_blank">deposit.html</a></li>
       </ul>
       These HTML pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
     </td>
@@ -457,7 +453,7 @@ with current services.<br><br>
 </table>
 <h2>Testing</h2>
 <div class="remark">
-Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
+Starting from what as been said in the analysis phase, the <a href="../src/test/ApplicationTests.kt" target = "_blank">integration tests</a> have been developed as follow:
 <ul>
   <b>PARKING PHASE</b>
   <li><a>TEST #1 - Parking phase</a></li>
@@ -468,7 +464,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
   <li><a>TEST #5 - Invalid tokenId</a></li>
 
   Tests from 1 to 5 have been developed as described above in
-  <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">the Test Unit section</a>.
+  <a href="#test">test section</a>.
   Instead TEST #5 has been added successively as reported below:
   <pre>
       <b>Invalid tokenId</b>
@@ -479,7 +475,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
 	</br>
 	</br>
   The focus point of those integration tests is controlling the complete cycle of the ParkManagerService during the parking and pick up phase.
-  It deals with all the components in action, from the web components made of user interaction html pages and Spring Controller to the ParkmanagerService itself.
+  It deals with all the components in action, from the web components made of user interaction html pages and Spring Controller, to the ParkmanagerService itself.
 
 
 
@@ -489,35 +485,22 @@ Starting from what as been said in the analysis phase, the integration tests hav
 <h4>Summary point</h4>
 <center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
 <h2>Deployment</h2>
-<!--
 <div class="remark">
 
 
   In this Sprint we deployed the code of the entire application developed until now. It has been deployed
-  using Docker, in particular the image for PMS and the image for the virtual environment modified with the correct scene:</br>
+  using Docker, in particular the <a href = "https://hub.docker.com/layers/mfilo/carparking/latest/images/sha256:d3588c39bc8af22fd250fafd35da6eee3bad361964f2b011a5979a5fc0a8a529" target = "_blank"><em>image</em></a></li> for the entire PMS:</br>
  <ul>
- <li><a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>PMS image</em></a></li>
-
-  <li><a href = "../distributions/it.unibo.qak21.basicrobot-1.0.zip" target = "_blank"><em>Virtual environment image</em></a></li>
-
+ <li>
  </ul>
-In order to run the two Docker images it is necessary to use two distinctive commands in the following sequence:
-<pre>
-  <b>VIRTUAL ENVIRONMENT</b>
-  </br>
-  docker run -p 8090:8090 -p 8091:8091 --rm virtualrobot
-  </pre>
-  To visualize the virtual environment open your browser in <b>http://localhost:8090/</b>
- </br>
+In order to run the Docker image it is necessary to use the following command:
+
   <pre>
-  <b>PMS</b>
-  </br>
   docker run -p 8081:8081 carparking
   </pre>
  Then you can open your browser in <b>http://localhost:8081/home</b> for starting the whole application.
 
 </div>
--->
 <h2>Job task</h2>
 <table cellpadding="5%">
   <tr>
