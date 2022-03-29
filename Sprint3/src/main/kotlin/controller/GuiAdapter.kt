@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 import resources.ParkingState
 
 @Controller
-class ClientController {
+class GuiAdapter {
     final val connParkClientService: connQakBase = connQakTcp()
 
     init {
