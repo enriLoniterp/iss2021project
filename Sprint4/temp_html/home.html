@@ -1,0 +1,305 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <title>Parking Area</title>
+  <meta name="description" content="A WEB application to interact with a park service.">
+  <meta name="author" content="Andrini Enrico & Cristaudo Giuseppe & Manfreda Filippo">
+
+  <meta property="og:title" content="Parking Area WEB application">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/enriLoniterp/iss2021project">
+  <meta property="og:description" content="A WEB application to interact with a park service.">
+  <meta property="og:image" content="img/car.webp"> <!-- icona scheda -->
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <style type="text/css">
+		body {
+			margin: 0;
+		}
+
+    body {
+			font-family: "Poppins";
+		}
+		.info, .success, .warning, .error, .validation {
+			border: 1px solid;
+			margin: 10px 0px;
+			padding: 15px 10px 15px 50px;
+			background-repeat: no-repeat;
+			background-position: 10px center;
+		}
+		.info {
+			color: #00529B;
+			background-color: #BDE5F8;
+			background-image: url('https://i.imgur.com/ilgqWuX.png');
+		}
+		.success {
+			color: #4F8A10;
+			background-color: #DFF2BF;
+			background-image: url('https://i.imgur.com/Q9BGTuy.png');
+		}
+		.warning {
+			color: #9F6000;
+			background-color: #FEEFB3;
+			background-image: url('https://i.imgur.com/Z8q7ww7.png');
+		}
+		.error{
+			color: #D8000C;
+			background-color: #FFBABA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+		}
+		.validation{
+			color: #D63301;
+			background-color: #FFCCBA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+		}
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: left
+      }
+      img {
+        max-width: 120%
+      }
+      .image {
+        padding-left: 3em;
+        flex-basis: 5%
+      }
+      .text {
+        padding-left: 1em;
+      }
+
+      .logout {
+        background-color:#b39700;
+        border-radius:30px;
+        padding-left: 3em;
+        cursor:pointer;
+        color:#000000;
+        font-family: Poppins;
+        font-size:15px;
+        font-weight:bold;
+        padding:10px 40px;
+      }
+
+      .trolley_button {
+        background-color:#ffd700;
+        border-radius:30px;
+        border:1px solid;
+        display:inline-block;
+        cursor:pointer;
+        color:#000000;
+        font-family: Poppins;
+        font-size:20px;
+        font-weight:bold;
+        padding:5px;
+        width: 120px;
+      }
+
+      .button:hover {
+        background-color:#ffd900;
+      }
+      .button:active {
+        position:relative;
+        top:1px;
+      }
+
+
+		h1 {
+			font-size: 200%;
+      font-family: Poppins;
+		}
+
+    h2 {
+      padding-left: 4em;
+      font-size: 200%;
+      font-family: Poppins;
+    }
+
+    p {
+      font-family: Poppins;
+      font-size: 25px;
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+    
+
+    #park_not_free{ width:30px; height:30px; border-radius:20px; background-color:red; }
+    #park_free{ width:30px; height:30px; border-radius:20px; background-color:green; }
+
+    #sub_title {
+      padding-left: 10%;
+      font-size: large;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    #rect {
+      width: 100%;
+      height: 300px;
+      background: #ffd700;
+    }
+
+</style>
+
+</head>
+
+<body>
+  <!--
+    button {
+      position:relative;
+      bot: 20%;
+      left: 20%;
+    }
+
+    button {
+      background-color:#ffd700;
+      border-radius:30px;
+      border:1px solid;
+      display:inline-block;
+      cursor:pointer;
+      color:#000000;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size:18px;
+      font-weight:bold;
+      padding:15px 50px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px #2f6627;
+      width: 280px;
+      height: 80px;
+    }
+    .button:hover {
+      background-color:#ffd900;
+    }
+    .button:active {
+      position:relative;
+      top:1px;
+    }
+  -->
+
+
+  <table width="100%" height="30%" bgcolor="#ffd700">
+  	<tr>
+      <td>
+        <div class="container">
+          <div class="image">
+            <img src="img/park1.png">
+          </div>
+          <div class="text">
+            <h1>Parking Area Manager Dashboard</h1>
+          </div>
+        </div>
+    </td>
+      <td>
+          <button class="logout">LOGOUT</button>
+      </td>
+      </tr>
+  </table>
+
+  <h2>Welcome, Username</h2>
+
+
+  <table style="width:  100%; height: 350px; border: 0;">
+
+    <tr>
+      <td width="50%" style="padding-left: 5em; vertical-align: top;">
+        <table>
+          <tr>
+            <td>
+              <div class="container">
+                <div class="image">
+                  <img src="img/temperature.png">
+                </div>
+                <div class="text">
+                  <p id="temperature">Temperature: <b style="color: red;">5 C</b></p>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="70%">
+              <div class="container">
+                <div class="image">
+                  <img src="img/fan.png">
+                </div>
+                <div class="text">
+                 <p id="fan_state">Fan State: <b style="color: red;">ON</b></p>
+               </div>
+            </td>
+            <td>
+              <button class="trolley_button">START</button>
+            </td>
+            <td style="padding-right: 3em;">
+              <button class="trolley_button">STOP</button>
+            </td>
+          </tr>
+          <tr width="70%">
+            <td>
+              <div class="container">
+                <div class="image">
+                  <img src="img/trolley.png">
+                </div>
+                <div class="text">
+                  <p id="trolley_state">Trolley State: <b style="color: red;">IDLE</b></p>
+                </div>
+            </td>
+            <td>
+              <button class="trolley_button">START</button>
+            </td>
+            <td style="padding-right: 3em;">
+              <button class="trolley_button">STOP</button>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td style="vertical-align: top; padding-left: 10em;">
+        <center>
+        <b style="font-family: Poppins; font-size: 25px;">Parking State</b><br><br>
+        <table class="park_state" border="1" cellpadding="30%">
+          <tr border="4">
+            <td><center><b>1</b><br><br><div id="park_not_free"></div></center></td>
+            <td><center><b>2</b><br><br><div id="park_not_free"></div></center></td>
+            <td><center><b>3</b><br><br><div id="park_not_free"></div></center></td>
+          </tr>
+          <tr border="4">
+            <td><center><b>4</b><br><br><div id="park_free"></div></center></td>
+            <td><center><b>5</b><br><br><div id="park_not_free"></div></center></td>
+            <td><center><b>6</b><br><br><div id="park_free"></div></center></td>
+          </tr>
+        </table>
+      </center>
+      </td>
+    </tr>
+  </table>
+<!--  <div id="rect"></div>-->
+  <table width="100%" height="300px" bgcolor="#ffd700" cellpadding="5%">
+    <!--
+    <tr>
+      <td>
+        <div class="info">Info message</div>
+    	<div class="success">Successful operation message</div>
+    	<div class="warning">Warning message</div>
+    	<div class="error">Error message</div>
+    	<div class="validation">Validation message 1<br>Validation message 2</div>
+      </td>
+    </tr>
+  -->
+  </table>
+  <table width="100%" height="10%" bgcolor="#2f4f4f" cellpadding="5%">
+  	<tr>
+  		<td><p style="color:white;">Authors:</p></td>
+  		<td><p style="color:white;">giuseppe.cristaudo@studio.unibo.it</p></td>
+  		<td><p style="color:white;">filippo.manfreda@studio.unibo.it</p></td>
+  		<td><p style="color:white;">enrico.andrini2@studio.unibo.it</p></td>
+  	</tr>
+  </table>
+</body>
+</html>
