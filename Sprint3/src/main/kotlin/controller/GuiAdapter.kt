@@ -45,12 +45,6 @@ class GuiAdapter {
         return "Deposit"
     }
 
-    @GetMapping("/pickup")
-    fun pickupPage(): String  {
-        println("/pickup")
-        return "Pickup"
-    }
-
     @GetMapping("/carenter")
     fun carenter(@RequestParam slotnum: Int): ResponseEntity<String> {
         println("/carenter")
@@ -87,7 +81,7 @@ class GuiAdapter {
         val responseHeaders = HttpHeaders()
         responseHeaders.set("stato", "ERROR")
         return ResponseEntity<Any?>(
-            "BaseController ERROR ${ex.message}",
+            "GuiAdapter ERROR ${ex.message}",
             responseHeaders, HttpStatus.CREATED
         )
     }
