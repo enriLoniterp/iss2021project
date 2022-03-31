@@ -8,6 +8,10 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.support.beans
+import org.springframework.security.core.userdetails.User
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
+import org.springframework.security.provisioning.InMemoryUserDetailsManager
 
 @SpringBootApplication
 open class MainCtxcarparking
@@ -19,7 +23,20 @@ fun main(args: Array<String>) {
             QakContext.createContexts("localhost", this, "carparking.pl", "sysRules.pl")
         }
         launch(newSingleThreadContext("SpringThread")) {
-            runApplication<MainCtxcarparking>(*args)
+            runApplication<MainCtxcarparking>(*args){
+ /*               addInitializers(beans {
+                    bean {
+                        val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+                        fun user(username: String, password: String, vararg roles: String) =
+                            User.withUsername(username)
+                                .password(encoder.encode(password))
+                                .roles(*roles)
+                                .build()
+                        InMemoryUserDetailsManager(user(MANAGER_USERNAME, MANAGER_PASSWORD, "MANAGER"))
+                    }
+                })
+*/
+            }
         }
     }
 

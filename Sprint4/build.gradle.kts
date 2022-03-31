@@ -32,9 +32,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation ("org.springframework.boot:spring-boot-starter-security")
+	implementation ("org.springframework.security:spring-security-test")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	//Websocket
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation ("org.springframework.boot:spring-boot-starter-websocket")
 	implementation ("org.webjars:webjars-locator-core")
@@ -42,7 +45,8 @@ dependencies {
 	implementation ("org.webjars:stomp-websocket:2.3.3")
 	implementation ("org.webjars:bootstrap:3.3.7")
 	implementation ("org.webjars:jquery:3.1.1-1")
-
+	implementation ("org.apache.httpcomponents:httpclient:4.5")
+	implementation ("commons-io:commons-io:2.6")
 	//See https://mkyong.com/spring-boot/intellij-idea-spring-boot-template-reload-is-not-working/
 	/* INTELLIJ
 	File –> Setting –> Build, Execution, Deployment –> Compiler –> check this Build project automatically

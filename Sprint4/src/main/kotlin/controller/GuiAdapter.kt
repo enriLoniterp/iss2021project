@@ -76,6 +76,26 @@ class GuiAdapter {
      */
 
 
+    ////LOGIN REQUESTS
+
+
+    @RequestMapping("/login")
+    fun login(): String {
+        return "login"
+    }
+
+    //loginconsuccesso
+    @RequestMapping("/manager/perform_login")
+    fun perform_login() {
+        println("ciao ciao")
+    }
+
+    //logout con successo
+    @RequestMapping("/manager/perform_logout")
+    fun perform_logout(): String {
+        return "login"
+    }
+
     @ExceptionHandler
     fun handle(ex: Exception): ResponseEntity<*> {
         val responseHeaders = HttpHeaders()
@@ -85,6 +105,4 @@ class GuiAdapter {
             responseHeaders, HttpStatus.CREATED
         )
     }
-
-
 }
