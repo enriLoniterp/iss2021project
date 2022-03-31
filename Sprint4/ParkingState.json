@@ -1,0 +1,14 @@
+{
+  "temperature" : 20,
+  "slotState" : {
+    "1" : "",
+    "2" : "",
+    "3" : "",
+    "4" : "",
+    "5" : "",
+    "6" : ""
+  },
+  "indoorFree" : true,
+  "trolleyState" : "idle",
+  "outdoorFree" : true
+}
