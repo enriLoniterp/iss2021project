@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.support.beans
 import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 
@@ -18,13 +19,15 @@ open class MainCtxcarparking
 
 @ObsoleteCoroutinesApi
 fun main(args: Array<String>) {
+
     runBlocking {
         launch(newSingleThreadContext("QakThread")) {
             QakContext.createContexts("localhost", this, "carparking.pl", "sysRules.pl")
         }
         launch(newSingleThreadContext("SpringThread")) {
             runApplication<MainCtxcarparking>(*args){
- /*               addInitializers(beans {
+             /*
+             addInitializers(beans {
                     bean {
                         val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
                         fun user(username: String, password: String, vararg roles: String) =

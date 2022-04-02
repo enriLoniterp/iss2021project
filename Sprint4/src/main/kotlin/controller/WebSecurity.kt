@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 
@@ -15,33 +14,28 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager
 @EnableWebSecurity
 class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
 
+    @kotlin.jvm.Throws(Exception::class)
+    override fun configure(http: HttpSecurity) {
+        http
+            .authorizeRequests()
+            .antMatchers("/", "/home").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login")
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll()
+    }
+
     @Bean
     override fun userDetailsService(): UserDetailsService? {
-        val user: UserDetails = User.withDefaultPasswordEncoder()
-            .username("antonionatali")
-            .password("antonionatali")
+        val user = User.withDefaultPasswordEncoder()
+            .username("user")
+            .password("password")
             .roles("USER")
             .build()
         return InMemoryUserDetailsManager(user)
     }
-
-     @Throws(Exception::class)
-     override fun configure(http: HttpSecurity) {
-         http
-             .csrf().disable()
-             .authorizeRequests()
-             .antMatchers("/admin/**").hasRole("ADMIN")
-             .antMatchers("/login*").permitAll()
-             .anyRequest().authenticated()
-             .and()
-             .formLogin()
-             .loginPage("/login.html")
-             .loginProcessingUrl("/manager/perform_login")
-             .defaultSuccessUrl("/homeMgmt.html", true)
-             .failureUrl("/login.html?error=true")
-             .and()
-             .logout()
-             .logoutUrl("/manager/logout")
-
-     }
  }

@@ -79,10 +79,6 @@ class GuiAdapter {
     ////LOGIN REQUESTS
 
 
-    @RequestMapping("/login")
-    fun login(): String {
-        return "login"
-    }
 
     //loginconsuccesso
     @RequestMapping("/manager/perform_login")
