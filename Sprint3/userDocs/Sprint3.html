@@ -256,7 +256,7 @@ div.imagedesc{
     near the parking, <ks>DTFREE</ks> should be relatively short,<!-- meanwhile if it is done far from the parking the interval should be --> longer otherwise.<br>
     If all parking slot are engaged and the client makes an <ks>acceptIN</ks> request, <ks>PMS</ks> should reply with a fail message.
     <br><br>
-    Another necessity is the managment of the <a>parking status</a> using a specific datastructure.
+    Another necessity is the managment of the parking state using a specific datastructure.
     In case of system crashes, storing the parking status in a local file make the system robust.<br>
   </div>
   <h3>ParkServiceGUI</h3>
@@ -354,7 +354,8 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
     <li>outdoor state</li>
     <li>Parking slots state</li>
   </ul>
-  This resource is a <b>seriazable</b> kotlin class which can be easily saved into a json file.
+  This resource is a <b>seriazable</b> kotlin class which can be easily saved into a json file.</br>
+  Differently from Sprint 1, sensors' adapters modify directly ParkingState instance, so the business logic doesn't need to interact with them.
 </div>
 <h4><a href="../src/main/kotlin/park_client_service/Park_client_service.kt" target = "_blank">parkClientService</a></h4>
 <table cellpadding="5%">
@@ -443,14 +444,10 @@ with current services.<br><br>
       Multiple html files have been written to represents client views:
       <ul>
         <li><a href="../src/main/resources/templates/home.html" target = "_blank">home.html</a></li>
-<<<<<<< HEAD
-        <li<a href="../src/main/resources/templates/pickup.html" target = "_blank">pickup.html</a></li>
-=======
         <li><a href="../src/main/resources/templates/pickup.html" target = "_blank">pickup.html</a></li>
 		<li><a href="../src/main/resources/templates/Deposit.html" target = "_blank">deposit.html</a></li>
->>>>>>> 298ab9f693ea0603301ab1d21d1b57622248e515
       </ul>
-      These HTML pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
+      These HTML pages contains <a href="../src/main/resources/static/app.js" target = "_blank">javascript code</a> to make requests to the controller and to dynamically modify html DOM.
     </td>
     </tr>
   </tbody>
@@ -494,15 +491,12 @@ Starting from what as been said in the analysis phase, the <a href="../src/test/
 
   In this Sprint we deployed the code of the entire application developed until now. It has been deployed
   using Docker, in particular the <a href = "https://hub.docker.com/layers/mfilo/carparking/latest/images/sha256:d3588c39bc8af22fd250fafd35da6eee3bad361964f2b011a5979a5fc0a8a529" target = "_blank"><em>image</em></a></li> for the entire PMS:</br>
- <ul>
- <li>
- </ul>
 In order to run the Docker image it is necessary to use the following command:
 
   <pre>
   docker run -p 8081:8081 carparking
   </pre>
- Then you can open your browser in <b>http://localhost:8081/home</b> for starting the whole application.
+ Then, for starting the whole application, open the browser in <b>http://localhost:8081/home</b> .
 
 </div>
 <h2>Job task</h2>
