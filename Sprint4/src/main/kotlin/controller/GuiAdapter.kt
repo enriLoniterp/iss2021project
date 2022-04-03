@@ -81,9 +81,10 @@ class GuiAdapter {
 
 
     //loginconsuccesso
-    @RequestMapping("/manager/perform_login")
-    fun perform_login() {
+    @RequestMapping("/manager/login")
+    fun perform_login() : String{
         println("ciao ciao")
+        return "homeMgmt"
     }
 
     //logout con successo

@@ -23,6 +23,7 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
             .and()
             .formLogin()
             .loginPage("/login")
+            .defaultSuccessUrl("/manager/login", true)
             .permitAll()
             .and()
             .logout()
@@ -30,7 +31,7 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    override fun userDetailsService(): UserDetailsService? {
+    override fun userDetailsServiceBean(): UserDetailsService? {
         val user = User.withDefaultPasswordEncoder()
             .username("user")
             .password("password")
