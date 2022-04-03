@@ -3,10 +3,16 @@ var temperatureSystem= document.getElementById('temperature')
 var fanElement = document.getElementById('fan_state')
 var trolleyState = document.getElementById('trolley_state')
 
-fun updateParkingArea(){
+
+setInterval(function (){
+parkState()
+},500);
+
+
+fun parkState(){
 
    var xhr = new XMLHttpRequest();
-   var url = prefix + '/manager/ParkingState';
+   var url = prefix + '/manager/parkingstate';
 
    xhr.onreadystatechange = function(){
 	  if ( xhr.readyState == 4  )
@@ -40,12 +46,13 @@ var stompClient
 
 function connect() {
     //var location = prefix + '/app/timer'
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/information_ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (greeting) {
-            console.log("timeout")
+        stompClient.subscribe('/topic/temperature', function (temperature) {
+            console.log("temperature")
+            var temper =
         });
     });
 
@@ -64,3 +71,40 @@ function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
 
 }
+
+
+function connect() {
+    var socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/manager/temperature', function (message) {
+            console.log(message)
+            var myMessage = JSON.parse(message.body)
+
+            if(myMessage.code == 1) {
+                alertWithIcon(myMessage.message, 'warning', false, "temperatureAlert")
+            }
+            else if(myMessage.code == 2) {
+                var myAlert = document.getElementById('temperatureAlert')
+                var bsAlert = new bootstrap.Alert(myAlert)
+                bsAlert.close()
+            }
+        });
+        stompClient.subscribe('/manager/sonar', function (message) {
+            console.log(message)
+            warningAlert(JSON.parse(message.body).message, true)
+        });
+    });
+}
+
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+connect()

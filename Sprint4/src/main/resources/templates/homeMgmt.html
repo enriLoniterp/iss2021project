@@ -24,7 +24,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="home.css">
-
+  <script src="mgmt.js"></script>
 </head>
 
 <body>
@@ -43,7 +43,9 @@
         </div>
     </td>
       <td>
+        <form th:action="@{/manager/performlogout}" method="post">
           <button class="logout">LOGOUT</button>
+        </form>
       </td>
       </tr>
   </table>

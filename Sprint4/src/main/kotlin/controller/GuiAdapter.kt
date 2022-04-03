@@ -74,7 +74,11 @@ class GuiAdapter {
     }
 
      */
-
+    @RequestMapping("/manager/parkingstate")
+    fun parkingstate():String{
+        var state =""
+        return state
+    }
 
     ////LOGIN REQUESTS
 
@@ -88,7 +92,7 @@ class GuiAdapter {
     }
 
     //logout con successo
-    @RequestMapping("/manager/perform_logout")
+    @RequestMapping("/manager/performlogout")
     fun perform_logout(): String {
         return "login"
     }
