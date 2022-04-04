@@ -2,7 +2,13 @@ package controller
 
 import connQak.connQakBase
 import connQak.connQakTcp
+import it.unibo.kactor.ApplMessageType
 import it.unibo.kactor.MsgUtil
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.encodeToJsonElement
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -74,15 +80,23 @@ class GuiAdapter {
     }
 
      */
+
+
+    //GESTIONE DELLO STATO DEL PARCHEGGIO
+
+    //richiesta dati
     @RequestMapping("/manager/parkingstate")
-    fun parkingstate():String{
-        var state =""
-        return state
+    fun parkingstate():ResponseEntity<JsonElement>{
+        val message: JsonElement = Json.encodeToJsonElement(ParkingState)
+        return ResponseEntity.ok(message)
     }
 
+
+
+
+
+
     ////LOGIN REQUESTS
-
-
 
     //loginconsuccesso
     @RequestMapping("/manager/login")

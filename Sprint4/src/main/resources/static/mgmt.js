@@ -3,7 +3,6 @@ var temperatureSystem= document.getElementById('temperature')
 var fanElement = document.getElementById('fan_state')
 var trolleyState = document.getElementById('trolley_state')
 
-
 setInterval(function (){
 parkState()
 },500);
@@ -17,24 +16,38 @@ fun parkState(){
    xhr.onreadystatechange = function(){
 	  if ( xhr.readyState == 4  )
 	  {
-			if(xhr.status == 200){
-					if(xhr.responseText == 0) {
-						alert("No parking slots available, try again later", 'warning')
-					} else {
-					 var slotnum = xhr.responseText
-					// alert("Your parking slot is n. " + slotnum)
-                     window.location = prefix + "/deposit?slotnum=" + slotnum
-                     //deposit(slotnum)
-				}
-				}
-				else
-				{
-					var info = eval ( "(" + xhr.responseText + ")" );
-					console.log('error')
-				}
-		}
-	   };
+			if(xhr.status == 200)
+			{
+			   var response= JSON.parse(xhr.responseText)
+			   // recupero dati
+			   trolleyState.innerHTML = response.trolleyState
+			   fanElement.innerHTML = response.fanState
+			   temperatureSystem.innerHTML = response.temperature
+               var startButton= document.getElementById("start")
+               var stopButton=document.getElementById("stop")
+               //setto i valori dei pulsanti coerentemente
+               //fan non c'è ancora
+               switch (trolley_state.innerHTML)
+			    {
+			        case "working":
+			             startButton.style.visibility="hidden"
+			             stopButton.style.visibility="visible"
+			        case "idle":
+			             startButton.style.visibility="visible"
+			             stopButton.style.visibility="visible"
+			    }
 
+
+			}
+			else
+			{
+                console.log("errore messaggio")
+                alert("conncetion error")
+			}
+		}
+
+
+   };
 
    xhr.open( "GET", url , true );
    xhr.send( );

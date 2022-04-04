@@ -16,7 +16,7 @@
   <meta property="og:url" content="https://github.com/enriLoniterp/iss2021project">
   <meta property="og:description" content="A WEB application to interact with a park service.">
   <meta property="og:image" content="img/car.webp"> <!-- icona scheda -->
-  <script src="/mgmt.js"></script>
+  <script src="mgmt.js"></script>
   <script src="/webjars/jquery/jquery.min.js"></script>
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -94,14 +94,15 @@
                   <img src="img/trolley.png">
                 </div>
                 <div class="text">
-                  <p id="trolley_state">Trolley State: <b style="color: red;">IDLE</b></p>
+                  <p style="text-align:left">Trolley state:</p>
+                  <p id="trolley_state">idle</p>
                 </div>
             </td>
             <td>
-              <button class="trolley_button">START</button>
+              <button id="start" style="visible" class="trolley_button">START</button>
             </td>
             <td style="padding-right: 2em;">
-              <button class="trolley_button">STOP</button>
+              <button id="stop" class="trolley_button">STOP</button>
             </td>
           </tr>
         </table>
