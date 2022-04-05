@@ -11,5 +11,6 @@ object ParkingState{
     var outdoorFree : Boolean = true
     var slotState : HashMap<Int, String> = HashMap<Int, String>()
 
+
 }
 
