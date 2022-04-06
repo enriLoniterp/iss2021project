@@ -242,46 +242,30 @@ div.imagedesc{
 </div>
   <h3>PMS</h3>
   <div class = "remark" id="problem_analysis_PMS">
-    From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to processes car deposit and pick-up requests. <br>
-    Following the <b>single-responsability principle</b>, the introduction of a new entity would allow the <ks>PMS</ks> to perform these tasks without interferring
-    with the rest of the application. Transport trolley interaction occurs with the <a href="../../Sprint2/src/it/unibo/trolley_controller/Trolley_controller.kt" target = "_blank">TrolleyController</a> developed in the previous sprint. <br>
-    Regarding the interaction with the client, as requested by the customer, it is necessary to generate an unique receipt (<kr>TOKENID</kr>) every time a client request a deposit
-    which will be used during pick-up phase. <br>
-    As per requirements, the TOKENID should be representative of the SLOTNUM assigned to the parked car to allow the PMS recognize
-    the SLOTNUM where the car is parked. An unique TOKENID can be generated following two strategies:
-    <ul>
-      <li>Using current <b>date and time</b> + <kr>SLOTNUM</kr>;</li>
-      <li><b>random string</b> long enough to avoid recurrences + <kr>SLOTNUM</kr>.</li>
-    </ul>
-    During pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
-    near the parking, <ks>DTFREE</ks> should be relatively short meanwhile if it is done far from the parking the interval should be longer.
-    If all parking slot are engaged and the client makes an <ks>acceptIN</ks> request, <ks>PMS</ks> should reply with a fail message.
-    <br><br>
-    Another necessity is the managment of the <a>parking status</a> using a specific datastructure.
-    In case of system crashes, storing the parking status in a local file make the system robust.<br>
+    Dal backlog il PMS deve processare le richieste del manager e fornire a quest'ultimo le informazioni relative allo stato del sistema.
+	Allo stesso modo di come è stato fatto negli sprint precedenti, l'introduzione di una nuova entità permette di gestire separatamente i task relativi al manager da resto del sistema.
+	Per quanto riguarda lo stato del sistema da mostrare al manager, non si riscontrano particolari necessità, in quanto è possibile utilizzare la rappresentazione dello stato definita nel precedente Sprint (con link).
+	Poichè le informazioni rappresentano lo stato corrente, ogni cambiamento dello stato deve essere notificato al manager in maniera istantanea.
+	Passando alle operazioni che il manager può fare, queste dipendono dalla temperatura all'interno del parcheggio;  Questo dovrebbe essere notificato in maniera opportuna ed evidente in caso in cui la temperatura superi la soglia TMAX. per evitare la possibilità di errori umani la gestione della fan dovrebbe essere fatta in maniera automatica interagendo con FanAdapter(link) per cambiare il suo stato.
+	La gestione del trolley è compito esclusivo del manager in prima persona e si può fare utilizzando il TrolleyController(link).
+	Per ultimo il pms deve utilizzare qualche tipo di timer per controllare la presenza di una macchina nella outdoor area per più di DTFREE time. Per quanto riguarda DTFREE rifarsi a quanto detto nello sprint precedente (link).
+	
   </div>
-  <h3>ParkServiceGUI</h3>
+  <h3>ParkServiceStatusGUI</h3>
   <div class="remark" id="problem_analysis_parking_service_GUI">
-      ParkServiceGUI is a user interface to allow clients interact with the parking system and has already been analyze in
+      ParkServiceStatusGUI is a user interface to allow managers interact with the parking system and has already been analyze in LINK GIUSTO
       <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">Automated Car-Parking.html</a>.
   </div>
   <h4>ParkServiceGUI - PMS interaction</h4>
   <div class="remark">
-    Interaction between these two entites takes place through different messages pointed out
+    Interaction between these two entites takes place through different messages pointed out LINK GIUSTO
     <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
-    already detailed (request/response and dispatches).
-    In addition to these messages, it may be necessary to introduce an additional message (<b>pick_up_available</b>) to notify the client that the car
-    is available for picking in the outdoor area. This message should be send using dispatches since the PMS does not need any response by the client
-    (the information about outdoor release is given by data from the outsonar) and because it remains a 1-1 communication. <br>
-    In this scenario, in case of an alarm, the client will always immediately pick-up the car. <br><br>
-    Given the distributed nature of the application and the presence of concurrency requests, we highlight some particular scenario:
-    <ul>
-      <li>client requests the service but does not complete it;</li>
-      <li>the application receives two concurrencies requests: in that case, the system must be able to queue all the requests received in one or eventually more
-        queues based on priorities and execute them in a sequential way (<b>FIFO</b>);</li>
-      <li>After an acceptIN which still miss the relative CARENTER phase, another acceptIN request can arrive and should be executed, CARENTER phase can
-        have some problem: in this scenario, to avoid any conflicts CARENTER must encode the information about the SLOTNUM priovously received.</li>
-    </ul>
+    already detailed (request/response and dispatches), togliendo i messaggi realtivi alla fan poichè questa viene gestita in maniera automatica.
+    Per quanto riguarda le informazioni sullo stato del sistema, queste possono essere scambiate utlizzando una modilità a polling di richieste da parte della gui o utilizando un canale di
+	comunicazione in cui il pms manda gli aggiornamenti delle informazioni senza necessità di continue richieste. La modalità a polling risulta essere più dispendiosa in termini di esecuzione lato gui.
+	Due tecnologie che possono essere utilizzate a questo scopo sono il protocollo HTTP o le WebSocket.
+	Allo stesso modo si può trattare la gestione dell'allarme, ma la modalità a polling non risulta concettualmente corretta in quanto l'evento di allarme avviene in maniera discontinua e non periodica differentemente dal cambiamento di stato generale del sistema.
+	
   </div>
   <div class="remark">
     A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
