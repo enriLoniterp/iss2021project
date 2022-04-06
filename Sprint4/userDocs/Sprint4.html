@@ -272,18 +272,25 @@ div.imagedesc{
   </div>
   <h4>Test Unit</h4>
   <div class="remark">
+	In this unit-test we take in consideration the correct functioning of the ParkServiceGUI in relation with the con il ParkManagerService. In particolare si andrà
+	ad analizzare che il manager sia in grado di ricevere gli aggiornamenti sullo stato del sistema dal pms, che riceva l'alert sul raggiungimento della temperaturaMAX limite
+	e che infine riesca a disattivare e riattivare il trolley a proprio piacimento. sono stati esclusi test riguardanti l'accendimento e lo spegnimento perche come specificato sopra
+	è escluso lo scenario di una fan direttamente governabile da un umano. Infine si progetteranno dei test per gestire la fase di login per l'accesso alla schermata principale.
+
     Given the following assumptions:
     <ul>
-      <li>Free <ks>INDOOR</ks> area;</li>
-      <li>Only parking slot <b>3</b> is available.</li>
+	
+      <li>PMS correttamente in funzione <ks>(non mi è venuto nulla)</ks> </li>
+      <li>l'utente che svolge l'operazione non è un cliente ma il manager loggato, verrà indicato come "manager"</li>
     </ul>
+	RESPONSE ha 3 attributi
+	RESPONSE.fanstate,RESPONSE.thermoter,RESPONSE.trolleycontroller
     <pre>
-      <b>Parking Phase</b>
-      client -> <ks>acceptIN</ks>
-      check if response == <b>3</b>
-      client -> <ks>CARENTER</ks>
-      check if response[last_char] == <b>3</b>
-      check if parking_slot(<b>3</b>) not free
+      <b>PARKSTATE</b>
+      manager logged in with ParkServiceStatusGUI ON
+	  PMS -> monitor
+      check if (response.fanstate==thermoter.value && response.fanstate==fanstate.value)
+     
     </pre>
     Given the following assumptions:
     <ul>
