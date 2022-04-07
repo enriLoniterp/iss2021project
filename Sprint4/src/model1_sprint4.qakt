@@ -18,15 +18,15 @@ QActor parkmanagerservice context  ctxcarparking{
 }
 
 
-QActor park_service_gui context  ctxcarparking{
+QActor park_service_status_gui context  ctxcarparking{
 	
 	State s0 initial{
-		println("ParkServiceGUI STARTS")
+		println("ParkServiceStatusGUI STARTS")
 	}
 	Goto work
 	
 	State work{
-		println("ParkServiceGUI waiting ...")
+		println("ParkServiceStatusGUI waiting ...")
 	}
 		
 }
