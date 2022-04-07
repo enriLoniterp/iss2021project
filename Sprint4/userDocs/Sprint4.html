@@ -294,42 +294,49 @@ div.imagedesc{
     </pre>
     Given the following assumptions:
     <ul>
-      <li>Engaged <ks>INDOOR</ks> area;</li>
-      <li>At least one parking slot is available.</li>
+      <li>currently<ks>fan state=OFF</ks></li>
+      
     </ul>
     <pre>
-      <b>Wait message</b>
-      client -> <ks>acceptIN</ks>
-      check(wait)
+      <b>FAN ACTIVATION</b>
+	  TA = TMAX
+      adpter -> <ks>temperature HIGH</ks>
+      PMS -> activate fAN
+	  check if fan_state=ON
     </pre>
     Given the following assumptions:
     <ul>
-      <li>All parking slots engaged.</li>
+      <li>Currently<ks>fan state=ON</ks></li>
     </ul>
     <pre>
-      <b>Fail message</b>
-      client -> <ks>acceptIN</ks>
-      check(fail)
+      <b>FAN DE-ACTIVATION</b>
+	  TA < TMAX
+      adpter -> <ks>temperature low</ks>
+      PMS -> deactivate fan
+	  check if fan_state=OFF
     </pre>
     Given the following assumptions:
     <ul>
-      <li>Free <ks>OUTDOOR</ks> area;</li>
-      <li>Transport Trolley status(<kr>IDLE</kr>);</li>
-      <li>Car requested is in parking slot <b>3</b>.</li>
+      <li>Trolley can be only in all states </li>
+	  <li>TA < TMAX</li>
     </ul>
     <pre>
-      <b>Pick-Up Phase</b>
-      client -> acceptOUT(<ks>TOKENID</ks>(<b>3</b>))
-      check if parking_slot(<b>3</b>) free
-      check if <ks>OUTDOOR</ks> area is engaged.
-
-
-      <b>Alert Scenario</b>
-      client -> acceptOUT(<ks>TOKENID</ks>(<b>3</b>))
-      check if <ks>OUTDOOR</ks> area is engaged.
-      sleep(<ks>DTFREE</ks>)
-      check(alert)
+      <b>TROLLEY START</b>
+      manager -> trolley state=ON
+	  PMS -> manage
+	  check if trolley state = ON
     </pre>
+	    Given the following assumptions:
+    <ul>
+      <li>Trolley can be only in two states <ks>WORKING</ks></li>
+    </ul>
+    <pre>
+      <b>TROLLEY STOP</b>
+      manager -> trolley state=OFF
+	  PMS -> manage
+	  check if trolley state = OFF
+    </pre>
+	
   </div>
 
 
