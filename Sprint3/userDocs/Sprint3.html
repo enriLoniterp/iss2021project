@@ -364,9 +364,10 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
     <td style="width: 50%; vertical-align:top">
       <br>
       In order to accept, queue and process different requests in a non-blocking manner, the parkClientService is implemented as an actor which has
-      multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by messages or events.<br>
+      multiple status to exploit different tasks.  parkClientService logic is message-based so that its state changes are triggered by messages or events.<br>
       In addition, parkClientService needs to take care about the <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">current state of the system</a>. <br>
-      The scheme on the side shows parkClientService behaviour.
+	  This actor is created from a <a href="../src/model3_sprint3.qak" target = "_blank">Qak model</a>, which includes the TrolleyController developed in the previous Sprint.</br>
+	  The scheme on the side shows parkClientService behaviour.
     </td>
     <td>
       <center>
