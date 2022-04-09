@@ -269,7 +269,7 @@ div.imagedesc{
     The interaction between these two entites takes place through different messages pointed out
     <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
     already detailed (request/response and dispatches).<br><br>
-   
+
     Given the distributed nature of the application and the presence of concurrency requests, we highlight some particular scenario:
     <ol>
       <li>client requests the service but does not complete it.</li>
@@ -344,7 +344,7 @@ We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitt
   <li><b>Controller</b>: receives requests and generates content view for the client.</li>
 </ul>
 <h4><a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">ParkingState</a></h4>
-<div class="remark">
+<div class="remark" id="parking_state">
   For the sake of semplicity we represented parking state using a single resource which encodes the following variable:
   <ul>
     <li>Transport trolley state</li>

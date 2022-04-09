@@ -242,99 +242,116 @@ div.imagedesc{
 </div>
   <h3>PMS</h3>
   <div class = "remark" id="problem_analysis_PMS">
-    Dal backlog il PMS deve processare le richieste del manager e fornire a quest'ultimo le informazioni relative allo stato del sistema.
+    From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to process manager's requests and provide information about current system status. <br>
+    As suggested in previous Sprint, the introduction of a new entity allows to process manager's tasks without affect the rest of the application. In particular, thanks 
+    to the <a href="href=../../Sprint2/userDocs/Sprint3.html#parking_state" target = "_blank">Parking State</a> described in the last Sprint, this Sprint will focus on how
+    to properly send that data to the manager GUI. Since the data represent the current system status, every change must be notified as soon as possibile (instantly non mi piaceva). <br>
+
+    In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAS</ks> threshold. Infact, the manager is able
+    to start or stop the trolley and turn off the fan is temperature is below <ks>TMAX</ks> and turn on the fan otherwise. <br>
+
+    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
+    Finally, <ks>PMS</ks> must be able to support some kind of timer which times car presence in the <ks>OUTDOOR AREA</ks> for more than 
+    <a href="../../Sprint2/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> threshold.
+
+   <!-- Dal backlog il PMS deve processare le richieste del manager e fornire a quest'ultimo le informazioni relative allo stato del sistema.
 	Allo stesso modo di come è stato fatto negli sprint precedenti, l'introduzione di una nuova entità permette di gestire separatamente i task relativi al manager da resto del sistema.
 	Per quanto riguarda lo stato del sistema da mostrare al manager, non si riscontrano particolari necessità, in quanto è possibile utilizzare la rappresentazione dello stato definita nel precedente Sprint (con link).
 	Poichè le informazioni rappresentano lo stato corrente, ogni cambiamento dello stato deve essere notificato al manager in maniera istantanea.
 	Passando alle operazioni che il manager può fare, queste dipendono dalla temperatura all'interno del parcheggio;  Questo dovrebbe essere notificato in maniera opportuna ed evidente in caso in cui la temperatura superi la soglia TMAX. per evitare la possibilità di errori umani la gestione della fan dovrebbe essere fatta in maniera automatica interagendo con FanAdapter(link) per cambiare il suo stato.
 	La gestione del trolley è compito esclusivo del manager in prima persona e si può fare utilizzando il TrolleyController(link).
-	Per ultimo il pms deve utilizzare qualche tipo di timer per controllare la presenza di una macchina nella outdoor area per più di DTFREE time. Per quanto riguarda DTFREE rifarsi a quanto detto nello sprint precedente (link).
+	Per ultimo il pms deve utilizzare qualche tipo di timer per controllare la presenza di una macchina nella outdoor area per più di DTFREE time. Per quanto riguarda DTFREE rifarsi a quanto detto nello sprint precedente (link). -->
 	
   </div>
   <h3>ParkServiceStatusGUI</h3>
   <div class="remark" id="problem_analysis_parking_service_GUI">
-      ParkServiceStatusGUI is a user interface to allow managers interact with the parking system and has already been analyze in LINK GIUSTO
-      <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">Automated Car-Parking.html</a>.
+      <ks>ParkServiceStatusGUI</ks> is a user interface which allows managers to interact with the parking system and has already been analyze <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_status_GUI" target = "_blank">here</a>. 
   </div>
   <h4>ParkServiceGUI - PMS interaction</h4>
   <div class="remark">
-    Interaction between these two entites takes place through different messages pointed out LINK GIUSTO
+    Interaction between these two entites takes place through different messages pointed out
     <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
-    already detailed (request/response and dispatches), togliendo i messaggi realtivi alla fan poichè questa viene gestita in maniera automatica.
-    Per quanto riguarda le informazioni sullo stato del sistema, queste possono essere scambiate utlizzando una modilità a polling di richieste da parte della gui o utilizando un canale di
-	comunicazione in cui il pms manda gli aggiornamenti delle informazioni senza necessità di continue richieste. La modalità a polling risulta essere più dispendiosa in termini di esecuzione lato gui.
-	Due tecnologie che possono essere utilizzate a questo scopo sono il protocollo HTTP o le WebSocket.
-	Allo stesso modo si può trattare la gestione dell'allarme, ma la modalità a polling non risulta concettualmente corretta in quanto l'evento di allarme avviene in maniera discontinua e non periodica differentemente dal cambiamento di stato generale del sistema.
-	
+    already detailed (<b>request/response</b> and <b>dispatches</b>).
+    Data relative to the parking state can be exchanged using:
+    <ul>
+      <li><b>POLLING</b>: requests are continuously sent by the GUI. This methodology affects client performance.</li>
+      <li><b>Open communication channel</b>: PMS continuously send new data to the client side. This methodology affects server performance.</li>
+    </ul>
+    Both methodoly can be deployed using <b>HTTP protocol</b> or <b>Websocket</b>. <br>
+	 Alarm management can be treated in the same way, but the polling mode doesn't really fit this scenario as the alarm event occurs discontinuously and not periodically differently from the change in the general state of the system.
   </div>
   <div class="remark">
     A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
   </div>
+  <h3>Login feature</h3>
+  <div class="remark" id="problem_analysis_login_feature">
+    Since only parking managers should be able to perform tasks previously described, an authentication form must be deployed into the application. This brings the attention on how
+    ParkServiceStatusGUI web page should be protected from undesiderd users and how to properly store managers credentials. The first point can be accomplished by easily deploy a login 
+    page which must redirects unauthorized users which try to access ParkServiceStatusGUI. The deployment can be faster achieved by using 
+    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build ParkServiceGui.
+    At the same time managers' credentials should be stored in a dislocated server and crypted with any kind of hash function such as SHA-256 or MD5 to provent dictionary or injection attacks. However, for the sake of semplicity we can consider the deploy server for the ParkServiceStatusGUI safe and store credentials clearly in a file.
+  </div>
+
+
+
+
   <h4>Test Unit</h4>
   <div class="remark">
-	In this unit-test we take in consideration the correct functioning of the ParkServiceGUI in relation with the con il ParkManagerService. In particolare si andrà
+	In this functional test we consider the right interaction between <ks>ParkServiceGUI</ks> and <ks>ParkManagerService</ks>. In particular, we will analyzing some core functionalities 
+  such as parking state updates, high temperature alarm, trasport trolley interaction and manager login.
+
+
+  <!--
+  In particolare si andrà
 	ad analizzare che il manager sia in grado di ricevere gli aggiornamenti sullo stato del sistema dal pms, che riceva l'alert sul raggiungimento della temperaturaMAX limite
 	e che infine riesca a disattivare e riattivare il trolley a proprio piacimento. sono stati esclusi test riguardanti l'accendimento e lo spegnimento perche come specificato sopra
-	è escluso lo scenario di una fan direttamente governabile da un umano. Infine si progetteranno dei test per gestire la fase di login per l'accesso alla schermata principale.
+	è escluso lo scenario di una fan direttamente governabile da un umano. Infine si progetteranno dei test per gestire la fase di login per l'accesso alla schermata principale.-->
 
-    Given the following assumptions:
+    Given the following assumption:
     <ul>
-	
-      <li>PMS correttamente in funzione <ks>(non mi è venuto nulla)</ks> </li>
-      <li>l'utente che svolge l'operazione non è un cliente ma il manager loggato, verrà indicato come "manager"</li>
+      <li>Manager logged.</li>
     </ul>
-	RESPONSE ha 3 attributi
-	RESPONSE.fanstate,RESPONSE.thermoter,RESPONSE.trolleycontroller
     <pre>
       <b>PARKSTATE</b>
-      manager logged in with ParkServiceStatusGUI ON
-	  PMS -> monitor
-      check if (response.fanstate==thermoter.value && response.fanstate==fanstate.value)
-     
+	    PMS -> <ks>monitor</ks>
+      check if response data contains right data from parking status
     </pre>
     Given the following assumptions:
     <ul>
-      <li>currently<ks>fan state=OFF</ks></li>
-      
+      <li>Manager logged.</li>
+      <li><ks>FAN</ks> <b>OFF</b></li>
     </ul>
     <pre>
       <b>FAN ACTIVATION</b>
-	  TA = TMAX
-      adpter -> <ks>temperature HIGH</ks>
-      PMS -> activate fAN
-	  check if fan_state=ON
+	   <ks>PMS</ks> check if TA > TMAX
+     <!-- adpter -> <ks>temperature HIGH</ks> -->
+      PMS -> TURN_ON 
+	    check if fan_state = <b>ON</b>
     </pre>
     Given the following assumptions:
     <ul>
-      <li>Currently<ks>fan state=ON</ks></li>
+      <li>Manager logged.</li>
+      <li><ks>FAN</ks> <b>ON</b></li>
     </ul>
     <pre>
+      <!-- controllo automatico della fan -->
       <b>FAN DE-ACTIVATION</b>
-	  TA < TMAX
-      adpter -> <ks>temperature low</ks>
-      PMS -> deactivate fan
-	  check if fan_state=OFF
+	   <ks>PMS</ks> check if TA <= TMAX
+        PMS -> TURN_OFF
+	      check if fan_state = <b>OFF</b>
     </pre>
     Given the following assumptions:
     <ul>
-      <li>Trolley can be only in all states </li>
-	  <li>TA < TMAX</li>
+      <li>Manager logged.</li>
+	    <li>TA < TMAX</li>
     </ul>
     <pre>
-      <b>TROLLEY START</b>
-      manager -> trolley state=ON
-	  PMS -> manage
-	  check if trolley state = ON
-    </pre>
-	    Given the following assumptions:
-    <ul>
-      <li>Trolley can be only in two states <ks>WORKING</ks></li>
-    </ul>
-    <pre>
-      <b>TROLLEY STOP</b>
-      manager -> trolley state=OFF
-	  PMS -> manage
-	  check if trolley state = OFF
+      <b>TROLLEY START/STOP</b>
+      manager -> STOP 
+      <!--PMS -> manage-->
+      check if trolley state = <b>STOPPED</b>
+      manager -> START 
+	    check if trolley state = <b>WORKING</b>
     </pre>
 	
   </div>
