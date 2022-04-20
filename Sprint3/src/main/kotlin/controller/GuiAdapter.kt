@@ -45,6 +45,12 @@ class GuiAdapter {
         return "Deposit"
     }
 
+    @GetMapping("/pickup")
+    fun pickPage(): String  {
+        println("/pickup")
+        return "Pickup"
+    }
+
     @GetMapping("/carenter")
     fun carenter(@RequestParam slotnum: Int): ResponseEntity<String> {
         println("/carenter")
@@ -85,6 +91,8 @@ class GuiAdapter {
             responseHeaders, HttpStatus.CREATED
         )
     }
+
+    fun send(){}
 
 
 }

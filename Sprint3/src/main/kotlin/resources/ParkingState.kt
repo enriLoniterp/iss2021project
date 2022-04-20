@@ -1,9 +1,13 @@
 package resources
 
+
+import controller.GuiAdapter
 import kotlinx.serialization.Serializable
+import kotlin.collections.HashMap
+import kotlin.properties.Delegates
 
 @Serializable
-object ParkingState{
+object ParkingState {
     var trolleyState: String = "idle"
     var fanState : String = "off"
     var temperature : Int = 20

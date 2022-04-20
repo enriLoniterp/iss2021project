@@ -12,7 +12,7 @@ class OutSonarAdapter : SensorPort{
     private var distance: String = "9999"
 	//private var t : Timer? = null
     private val outsonarCB: OutSonarCallback = OutSonarCallback(this)
-	private val client: MqttClient? = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId())
+	private val client: MqttClient? = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId(), null)
 	             
     init{
 		client!!.setCallback(outsonarCB)

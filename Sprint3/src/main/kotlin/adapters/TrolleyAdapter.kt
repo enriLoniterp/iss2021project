@@ -55,7 +55,7 @@ class TrolleyAdapter( ) : ActuatorPort/*, IssObserver*/ {
 			rto = RealTrolleyObserver(url)
 			rto.observe()			
 		}else{
-			support = IssWsSupport("localhost:8091")
+			support = IssWsSupport("host.docker.internal:8091")
 			vto = VirtualTrolleyObserver()
 			support.registerObserver(vto)
 		}

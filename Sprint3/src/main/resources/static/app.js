@@ -78,7 +78,6 @@ function reqexit() {
 
 function pickup(){
   var tokenid = document.getElementById("tokenid").value
-  alert(tokenid)
   if(tokenid == "") {
     return
   }
@@ -92,12 +91,14 @@ function pickup(){
   			if(xhr.status == 200){
   				 var resp = xhr.responseText
   				 if(resp==0){
+                   				     document.getElementById("fail").setAttribute("style", "display:inline")
+                 }else{
   				     document.getElementById("success").setAttribute("style", "display:inline")
   				     document.getElementById("pickup").setAttribute("style", "display:none")
+  				     }
 
-  				 }else if(resp==1){
-  				     document.getElementById("fail").setAttribute("style", "display:inline")
-  				 }
+
+
 
   		}
   	   }
@@ -105,7 +106,6 @@ function pickup(){
 };
 	    xhr.open( "GET", apiUrl , true );
         xhr.send( );
-        connect()
 
 }
 

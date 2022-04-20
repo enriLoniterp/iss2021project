@@ -9,7 +9,7 @@ import resources.ParkingState
 class ThermometerAdapter : SensorPort{
     private var temperature: String = "9999"
     private val thermometerCB: ThermometerCallback = ThermometerCallback(this)
-	private val client: MqttClient? = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId())
+	private val client: MqttClient? = MqttClient("tcp://broker.hivemq.com:1883", MqttClient.generateClientId(), null)
 	             
     init{
 		client!!.setCallback(thermometerCB)
@@ -27,6 +27,5 @@ class ThermometerAdapter : SensorPort{
 	override fun getValue() : String{
 		return this.temperature
 	}
-
 
 }
