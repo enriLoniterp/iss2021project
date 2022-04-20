@@ -3,7 +3,6 @@ bin/default
 .metadata
 .classpath
 .project
-build
 logs
 
 log4jInfo.log
@@ -17,9 +16,6 @@ package-lock.json
 *-tcp*
 
  # Ignore Gradle project-specific cache directory
-.gradle
-gradlew
-gradlew.bat
 
 
 /ReadMe.html
