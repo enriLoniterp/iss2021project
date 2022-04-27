@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <title>Parking Area</title>
+    <meta name="description" content="A WEB application to interact with a park service.">
+    <meta name="author" content="Andrini Enrico & Cristaudo Giuseppe & Manfreda Filippo">
+
+    <meta property="og:title" content="Parking Area WEB application">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/enriLoniterp/iss2021project">
+    <meta property="og:description" content="A WEB application to interact with a park service.">
+    <meta property="og:image" content="img/car.webp"> <!-- icona scheda -->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="/Home.css">
+    <script src="/mgmt.js"></script>
+
+</head>
+
+<body>
+
+
+<table width="100%" height="30%" bgcolor="#ffd700">
+    <tr>
+        <td>
+            <div class="container">
+                <div class="image">
+                    <img src="/img/park1.png">
+                </div>
+                <div class="text">
+                    <h1>Parking Area Manager Dashboard</h1>
+                </div>
+            </div>
+        </td>
+        <td>
+            <form th:action="@{/manager/performlogout}" method="post">
+                <button class="logout">LOGOUT</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<h2>Welcome, Username</h2>
+
+
+<table style="width:  100%; height: 350px; border: 0;">
+
+    <tr>
+        <td width="50%" style="padding-left: 5em; vertical-align: top;">
+            <table>
+                <tr>
+                    <td>
+                        <div class="container">
+                            <div class="image">
+                                <img src="/img/temperature.png">
+                            </div>
+                            <div class="text">
+                                <p>Temperature</p>
+                                <p id="temperature"></p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70%">
+                        <div class="container">
+                            <div class="image">
+                                <img src="/img/fan.png">
+                            </div>
+                            <div class="text">
+                                <p>Fan State</p>
+                                <p id="fan_state"></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="container">
+                            <div class="image">
+                                <img src="/img/trolley.png">
+                            </div>
+                            <div class="text">
+                                <p style="text-align:left">Trolley state:</p>
+                                <p id="trolley_state" ></p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                         <button id="start" onclick="trolleystate(this);" style="visible" class="trolley_button">START</button>
+                    </td>
+                    <td style="padding-right: 2em;">
+                        <button id="stop" onclick="trolleystate(this);" class="trolley_button">STOP</button>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+        <td style="vertical-align: top; padding-left: 10em;">
+            <center>
+                <b style="font-family: Poppins; font-size: 25px;">Parking State</b><br><br>
+                <table id="slot" class="park_state" border="1" cellpadding="30%">
+                    <tr border="4">
+                        <td><center id="1">1<br><br><div id="park_not_free"></div></center></td>
+                        <td><center id="2"><b>2</b><br><br><div id="park_not_free"></div></center></td>
+                        <td><center id="3" value="3"><b>3</b><br><br><div id="park_not_free"></div></center></td>
+                    </tr>
+                    <tr border="4">
+                        <td><center id="4"><b>4</b><br><br><div id="park_free"></div></center></td>
+                        <td><center id="5"><b>5</b><br><br><div id="park_not_free"></div></center></td>
+                        <td><center id="6"><b>6</b><br><br><div id="park_free"></div></center></td>
+                    </tr>
+                </table>
+            </center>
+        </td>
+    </tr>
+</table>
+<!--  <div id="rect"></div>-->
+<table width="100%" height="300px" bgcolor="#ffd700" cellpadding="5%">
+    <!--
+    <tr>
+      <td>
+        <div class="info">Info message</div>
+    	<div class="success">Successful operation message</div>
+    	<div class="warning">Warning message</div>
+    	<div class="error">Error message</div>
+    	<div class="validation">Validation message 1<br>Validation message 2</div>
+      </td>
+    </tr>
+  -->
+</table>
+<table width="100%" height="10%" bgcolor="#2f4f4f" cellpadding="5%">
+    <tr>
+        <td><p style="color:white;">Authors:</p></td>
+        <td><p style="color:white;">giuseppe.cristaudo@studio.unibo.it</p></td>
+        <td><p style="color:white;">filippo.manfreda@studio.unibo.it</p></td>
+        <td><p style="color:white;">enrico.andrini2@studio.unibo.it</p></td>
+    </tr>
+</table>
+</body>
+</html>

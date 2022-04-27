@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+kr{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #ff0000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 100%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#exampleclass tbody,
+#exampleclass thead,
+#exampleclass th {
+  border: 0;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+
+<head>
+
+<title>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 3</title></head>
+
+<body>
+<div id="top">
+<h1>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 3<font size="5"></font> </h1>
+</div>
+
+<div class="body">
+<div id = "backlog">
+  <h2>Sprint 3 Backlog</h2>
+  <div class="remark">
+    Sprint 3 regards the develop of the <ks>PMS</ks> able to manage user requests:
+    <ul>
+      <li><ks>PMS</ks> processes car deposit requests:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R1" target = "_blank">R1</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2" target = "_blank">R2</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R2B" target = "_blank">R2B</a>;
+      <li><ks>PMS</ks> processes car pick-up requests:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R3" target = "_blank">R3</a>.</li>
+    </ul>
+  </div>
+</div>
+<h4>Starting point</h4>
+<center><img src="IMG/StartingPoint.jpg" alt="starting_point_sprint" width="40%"></center>
+
+
+<div id = "problem_analysis">
+<h2>Problem analysis</h2>
+<div class="remark">
+  This Sprint aim is to develop and deeper describe the following entities:
+  <ul>
+    <li><ks>ParkServiceGUI</ks> interacts directly with clients;</li>
+    <li><ks>Park Manager Service</ks> processes clients' requests;</li>
+  </ul>
+</div>
+<div class = "remark">
+  An initial model of these entities, without interaction between them, can be found <a href = "../src/model1_sprint3.qakt" target = "_blank">here</a>.<br>
+</div>
+  <h3>PMS</h3>
+  <div class = "remark" id="problem_analysis_PMS">
+    From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to processes car deposit and pick-up requests. <br>
+    Following the <b>single-responsability principle</b>, the introduction of a new entity would allow the <ks>PMS</ks> to perform these tasks without interferring
+    with the rest of the application. Transport trolley interaction occurs with the <a href="../../Sprint2/src/it/unibo/trolley_controller/Trolley_controller.kt" target = "_blank">TrolleyController</a> developed in the previous sprint. <br>
+    Regarding the interaction with the client, as requested by the customer, it is necessary to generate an unique receipt (<kr>TOKENID</kr>) every time a client request a deposit
+    which will be used during pick-up phase. <br>
+    As per requirements, the <ks>TOKENID</ks> has to be representative of the <ks>SLOTNUM</ks> assigned to the parked car<!--to allow the <ks>PMS</ks> recognize
+    the <ks>SLOTNUM</ks> where the car is parked-->. An unique <ks>TOKENID</ks> can be generated following two strategies:
+    <ul>
+      <li>using current <b>date and time</b> + <kr>SLOTNUM</kr>;</li>
+      <li><b>random string</b> long enough to avoid recurrences + <kr>SLOTNUM</kr>.</li>
+    </ul>
+    During the pick-up phase, <ks>DTFREE</ks> interval must be correctly defined according to parking requirements. In particular, if pick-up request is done
+    near the parking, <ks>DTFREE</ks> should be relatively short,<!-- meanwhile if it is done far from the parking the interval should be --> longer otherwise.<br>
+    If all parking slot are engaged and the client makes an <ks>acceptIN</ks> request, <ks>PMS</ks> should reply with a fail message.
+    <br><br>
+    Another necessity is the managment of the <a>parking status</a> using a specific datastructure.
+    In case of system crashes, storing the parking status in a local file make the system robust.<br>
+  </div>
+  <h3>ParkServiceGUI</h3>
+  <div class="remark" id="problem_analysis_parking_service_GUI">
+      ParkServiceGUI is a user interface which allows clients interact with the parking system and has already been analyzed in
+      <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">Automated Car-Parking.html</a>.
+  </div>
+  <h4>ParkServiceGUI - PMS interaction</h4>
+  <div class="remark">
+    The interaction between these two entites takes place through different messages pointed out
+    <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
+    already detailed (request/response and dispatches).<br>
+    ***<b>PROBABILMENTE NON SERVE</b>****<br>
+    In addition to these messages, it may be necessary to introduce an additional message (<b>pick_up_available</b>) to notify the client that the car
+    is available for picking in the outdoor area. This message should be send using dispatches since the PMS does not need any response by the client
+    (the information about outdoor release is given by data from the outsonar) and because it remains a 1-1 communication. <br>
+    In this scenario, in case of an alarm, the client will always immediately pick-up the car. <br><br>
+    *****<br>
+    Given the distributed nature of the application and the presence of concurrency requests, we highlight some particular scenario:
+    <ol>
+      <li>client requests the service but does not complete it.</li>
+      <li>the application receives two concurrent requests: the system must be able to queue all the requests received in one or eventually more
+        queues based on priorities and execute them in a sequential way (<b>FIFO</b>).</li>
+      <li>After an acceptIN which still miss the relative CARENTER phase and another acceptIN request arrives, CARENTER phase can
+        have some problem: in this scenario, to avoid any conflicts CARENTER must encode the information about the SLOTNUM priovously received.</li>
+    </ol>
+  </div>
+  <div class="remark">
+    A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
+  </div>
+  <h4>Test Unit</h4>
+  <div class="remark">
+    Given the following assumptions:
+    <ul>
+      <li>Free <ks>INDOOR</ks> area;</li>
+      <li>Only parking slot <b>3</b> is available.</li>
+    </ul>
+    <pre>
+      <b>Parking Phase</b>
+      client -> <ks>acceptIN</ks>
+      check if response == <b>3</b>
+      client -> <ks>CARENTER</ks>
+      check if response[last_char] == <b>3</b>
+      check if parking_slot(<b>3</b>) not free
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Engaged <ks>INDOOR</ks> area;</li>
+      <li>At least one parking slot is available.</li>
+    </ul>
+    <pre>
+      <b>Wait message</b>
+      client -> <ks>acceptIN</ks>
+      check(wait)
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>All parking slots engaged.</li>
+    </ul>
+    <pre>
+      <b>Fail message</b>
+      client -> <ks>acceptIN</ks>
+      check(fail)
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Free <ks>OUTDOOR</ks> area;</li>
+      <li>Transport Trolley status(<kr>IDLE</kr>);</li>
+      <li>Car requested is in parking slot <b>3</b>.</li>
+    </ul>
+    <pre>
+      <b>Pick-Up Phase</b>
+      client -> acceptOUT(<ks>TOKENID</ks>(<b>3</b>))
+      check if parking_slot(<b>3</b>) free
+      check if <ks>OUTDOOR</ks> area is engaged.
+
+    </pre>
+  </div>
+
+
+</div>
+The Sprint 3 should be done in <b>four days</b>.
+<div id = "project">
+<h2>Project</h2>
+Starting from what suggested in the analysis, we decided to introduce a new entity called <ks>parkClientService</ks>
+which processes clients' requests and is part of the <ks>PMS</ks>. <br>
+We decided to adopt the <b>MVC</b> pattern to develop the ParkServiceGUI, splitting it into two components (Model not needed in our case):
+<ul>
+  <li><b>View</b>: user interfaces.</li>
+  <li><b>Controller</b>: receives requests and generates content view for the client.</li>
+</ul>
+<h4>Parking state</h4>
+<div class="remark">
+  For the sake of semplicity we represented parking state using a single resource which encodes the following variable:
+  <ul>
+    <li>Transport trolley state (internal state, position)</li>
+    <li>Fan state</li>
+    <li>Temperature</li>
+    <li>Weight measured by the weightsensor</li>
+    <li>Sonar distance</li>
+    <li>Parking slot state</li>
+  </ul>
+  This resource is a <b>seriazable singleton</b> kotlin dataclass which can be easily saved into a file.
+</div>
+<h4><a>parkClientService</a></h4>
+<table cellpadding="5%">
+  <tbody>
+    <tr>
+    <td style="width: 50%; vertical-align:top">
+      <br>
+      In order to accept, queue and process different requests in a non-blocking manner, the parkClientService is implemented as an actor which has
+      multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by messages or events.<br>
+      In addition, parkClientService needs to take care about the <a>current state of the system</a>. <br>
+      The scheme on the side shows parkClientService behaviour.
+    </td>
+    <td>
+      <center>
+        <img src="IMG/parkClientService_FSM.jpg" alt="parkClientService_FSM" width="90%">
+      </center>
+    </td>
+    </tr>
+  </tbody>
+</table>
+<table cellpadding="5%">
+  <tbody>
+    <tr>
+      <td>
+        <h4>parkClientService communication</h4>
+        parkClientService interacts with <a href="#GUIAdapter">GUIAdapter</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
+        In order to send QAK understandable messages, GUIAdapter uses <a>connQakTcp.kt</a> and <a>MsgUtil.kt</a>.<br>
+        As said during the analysis phase, parkClientService interacts with trolleyController using the semantic
+        described in <a>Sprint2</a> to move the robot and fulfill client requests.
+        Finally, parkClientService needs to stay updated about the current data sent by the sensors through <a>ParkingState</a>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+The sequence diagrams below shows the main interaction between the components of this Sprint.
+<br>
+<table width="100%" cellpadding="5%">
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <center>
+        <img src="IMG/1.jpg" width="70%">
+      </center>
+    </td>
+    <td>
+      <center>
+        <img src="IMG/2.jpg" width="70%">
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <center>
+        <img src="IMG/3.jpg" width="70%">
+      </center>
+    </td>
+    <td>
+      <center>
+        <img src="IMG/4.jpg" width="70%">
+      </center>
+    </td>
+  </tr>
+</table>
+<h4>ParkServiceGUI</h4>
+The Spring Framework will be used to implement the MCV pattern (SpringMVC and SpringBoot in particular) for its ability to boost productivity with the use of annotations,
+Dependency Injection and easily configurable web services. In addition, Spring is a light-weight container which guarantees a minimal overhead and an easy integration
+with current services.<br><br>
+<table cellpadding="5%">
+  <tbody>
+    <tr>
+      <td style="width: 50%; vertical-align:top">
+        <h4 id = "GUIAdapter"><a>GUIAdapter</a></h4>
+        This component is the <b>SpringController</b> which generates the right View for the client and fulfills his requests by interacting with <ks>parkClientService</ks>.
+        We used annotations to let Spring container managing functionalities not linked to business-logic.
+      </td>
+      <td>
+        <center>
+          <img src="IMG/GUiAdpater_class.jpg" width="30%">
+        </center>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <h4>ParkServiceView</h4>
+      Multiple html files have been written to represents client views:
+      <ul>
+        <li>home.html</li>
+        <li>acceptIN.html</li>
+        <li>acceptOUT.html</li>
+      </ul>
+      These HTML pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
+    </td>
+    </tr>
+  </tbody>
+</table>
+<h2>Testing</h2>
+<div class="remark">
+Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
+<ul>
+  <li>PARKING PHASE</li>
+  <li><a>TEST #1 - Parking phase</a></li>
+  <li><a>TEST #2 - Wait message</a></li>
+  <li><a>TEST #3 - Fail message</a></li>
+  <li>PICK-UP PHASE</li>
+  <li><a>TEST #4 - Pick-up phase</a></li> 
+  <li><a>TEST #5 - Invalid tokenId</a></li>
+  
+  Tests have been developed as described below in the problem analysis section.
+  TEST #5 has been added during the project and it is described here:
+  <pre>
+      <b>Invalid tokenId</b>
+      outSonar update distance(100) //no cars are detected
+      client -> reqexit
+	  check if response == <b>1</b>
+    </pre>
+	</br>
+  The focus point of this integration tests is controlling the complete cycle of the ParkManagerService during the parking and pick up phase.
+  It deals with all the components in action, from the web parts composed of html pages and Spring Controller to the ParkmanagerServer itself and the main
+  funcionality in which is occupied.
+  
+
+
+<ul>
+</div>
+
+<h4>Summary point</h4>
+<center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
+<h2>Deployment</h2>
+<div class="remark">
+</div>
+
+<h2>Job task</h2>
+<table cellpadding="5%">
+  <tr>
+    <th>Member</th>
+    <th>Task done</th>
+  </tr>
+  <tr>
+    <td><center><b>Manfreda Filippo</b><br>filippo.manfreda@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>parkClientService</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Andrini Enrico</b><br>enrico.andrini2@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>GUIAdapter</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Cristaudo Giuseppe</b><br>giuseppe.cristaudo@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>ParkServiceView</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Team</b></center></td>
+    <td>
+      <ul>
+        <li>Problem analysis;</li>
+        <li>Testing;</li>
+        <li>Deployment</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<h2>Sprint Review</h2>
+<div class="remark">
+</div>
+<h2>Maintenance</h2>
+
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+
+<br/><br/>
+</div>
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By Cristaudo Giuseppe, Manfreda Filippo, Andrini Enrico; email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini2@studio.unibo.it
+<!--<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">-->
+</div>
+</body>
+</html>
