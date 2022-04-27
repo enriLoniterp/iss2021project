@@ -33,7 +33,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation ("org.springframework.boot:spring-boot-starter-security")
 	implementation ("org.springframework.security:spring-security-test")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -79,7 +78,7 @@ dependencies {
 	implementation("com.squareup.okhttp3:okhttp:4.9.0")
 
 //OkHttp library for websockets with Kotlin
-	implementation( "com.squareup.okhttp3:okhttp:4.9.0" )
+	//implementation( "com.squareup.okhttp3:okhttp:4.9.0" )
 
 //ADDED FOR THE HTTP CLIENT
 	// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient

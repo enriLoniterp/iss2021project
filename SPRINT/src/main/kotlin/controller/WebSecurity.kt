@@ -19,8 +19,8 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
-            .antMatchers("/", "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup").permitAll()
-            .anyRequest().authenticated()
+            .antMatchers("/", "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**").permitAll()
+            .anyRequest().anonymous()
             .and()
             .formLogin()
             .loginPage("/login")
@@ -31,19 +31,21 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
             .permitAll()
     }
 
-    @Throws(java.lang.Exception::class)
-    override fun configure(web: WebSecurity) {
-        web.ignoring()
-            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**")
-            .anyRequest()
-    }
+ //   @Throws(java.lang.Exception::class)
+  //  override fun configure(web: WebSecurity) {
+  //      web.ignoring()
+  //          .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**")
+  //          .anyRequest()
+ //   }
+
 
     @Bean
+
     override fun userDetailsServiceBean(): UserDetailsService? {
         val user = User.withDefaultPasswordEncoder()
             .username("user")
             .password("password")
-            .roles("ADMIN")
+            .roles("USER")
             .build()
         return InMemoryUserDetailsManager(user)
     }
