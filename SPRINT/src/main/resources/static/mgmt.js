@@ -3,7 +3,7 @@ var prefix = "http://localhost:8081"
 
 setInterval(function (){
 parkState()
-},5000);
+},3000);
 
 function parkState(){
 
@@ -11,21 +11,22 @@ function parkState(){
    var url = prefix + '/manager/parkingstate';
 
    xhr.onreadystatechange = function(){
-
+    console.log(xhr.readyState)
+    console.log(xhr.responseText)
 	if( xhr.readyState == 4)
 	{
         if(xhr.status == 200)
         {
             var respjson=JSON.parse(xhr.responseText)
             document.getElementById('fan_state').innerHTML=respjson.fanState
-            document.getElementById('trolley_state').innerHTML=respjson.trolleystate
+            document.getElementById('trolley_state').innerHTML=respjson.trolleyState
             document.getElementById('temperature').innerHTML=respjson.temperature
             var startButton= document.getElementById("start")
             var stopButton=document.getElementById("stop")
             //setto i valori dei pulsanti coerentemente
             var temp=0
 /*
-              for(const park in respjson.slots){
+              for(const park in respjson.slotState){
                     var slot = temp.toString()
                     console.log(slot)
                     document.getElementById(slot).innerHTML=respjson.fanState
@@ -98,26 +99,26 @@ function trolleystate(element){
    xhr.send( );
 }
 
-var stompClient = null
+
+
 
 //WEBSOCKETS//
+var stompClient = null
 
 function connect() {
     //var location = prefix + '/app/timer'
-    var socket = new SockJS('/information_ws');
+    var socket = new SockJS('/information_manager');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/temperatureAlarm', function (response) {
+        stompClient.subscribe('/manager/temperatureAlarm', function (response) {
             console.log("temperatureAlarm")
             var temperature = JSON.parse(response.body)
-            
 
         });
 
-         stompClient.subscribe('/topic/sonarAlarm', function (message) {
+         stompClient.subscribe('/manager/sonarAlarm', function (message) {
              console.log("sonarAlarm")
-
 
         });
     });
@@ -131,19 +132,4 @@ function disconnect() {
     setConnected(false);
     console.log("Disconnected");
 }
-
-
-/*
-//websocket for starting robot with Spring
-function startRobot(){
-    var state ="1"
-    stompClient.send("/app/trolleystate",state)
-
-}
-
-function stopRobot(){
-    var state ="0"
-    stompClient.send("/app/trolleystate", state)
-}
-*/
 connect()

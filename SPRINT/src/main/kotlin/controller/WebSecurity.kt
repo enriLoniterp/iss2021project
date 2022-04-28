@@ -21,26 +21,17 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
             .authorizeRequests()
             .antMatchers( "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**").permitAll()
             .and()
-            .authorizeRequests().antMatchers("/manager/login").authenticated().and()
+            .authorizeRequests().antMatchers("/manager/login", "/manager/performlogout").authenticated().and()
             .formLogin()
             .loginPage("/login")
             .defaultSuccessUrl("/manager/login", true)
             .permitAll()
             .and()
-            .logout()
+            .logout().invalidateHttpSession(true)
             .permitAll()
     }
 
- //   @Throws(java.lang.Exception::class)
-  //  override fun configure(web: WebSecurity) {
-  //      web.ignoring()
-  //          .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**")
-  //          .anyRequest()
- //   }
-
-
     @Bean
-
     override fun userDetailsServiceBean(): UserDetailsService? {
         val user = User.withDefaultPasswordEncoder()
             .username("user")

@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import resources.ParkingState
+import resources.ParkingStateToSend
 
 class Park_manager_service ( name: String, scope: CoroutineScope  ) : ActorBasicFsm( name, scope ){
 
@@ -42,7 +43,7 @@ class Park_manager_service ( name: String, scope: CoroutineScope  ) : ActorBasic
 											
 												when(COMMAND){
 													"stop" -> { 
-															RESPONSE = Json.encodeToString("Success")
+															RESPONSE = Json.encodeToString("Success")	
 								forward("stop", "stop(X)" ,"trolley_controller" ) 
 								println("parkmanagerservice $COMMAND the trolley")
 								updateResourceRep( "parkmanagerservice $COMMAND the trolley"  
@@ -68,8 +69,9 @@ class Park_manager_service ( name: String, scope: CoroutineScope  ) : ActorBasic
 					action { //it:State
 						println("parkmanagerservice reply to state request")
 						
-									val RESPONSE = Json.encodeToString(ParkingState)
-						answer("getParkingState", "responseParkingState", "$RESPONSE"   )  
+									var park = ParkingStateToSend(ParkingState.trolleyState, ParkingState.fanState, ParkingState.temperature, ParkingState.slotState)
+									val RESPONSE = Json.encodeToString(park)
+						answer("getParkingState", "responseParkingState", "responseParkingState($RESPONSE)"   )  
 					}
 					 transition( edgeName="goto",targetState="idle", cond=doswitch() )
 				}	 
