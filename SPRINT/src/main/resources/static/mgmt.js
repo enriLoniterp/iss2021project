@@ -1,6 +1,5 @@
 var prefix = "http://localhost:8081"
 
-
 setInterval(function (){
 parkState()
 },3000);
@@ -25,6 +24,25 @@ function parkState(){
             var stopButton=document.getElementById("stop")
             //setto i valori dei pulsanti coerentemente
             var temp=0
+
+            var slotS = new Map (Object.entries(respjson.slotState))
+            var mapIter = slotS.entries()
+
+            for (var i = 1; i<=6; i++){
+                console.log(slotS.get(i.toString()))
+                if(slotS.get(i.toString()) != ""){
+                    //var btn = document.getElementById((i.toString()))
+                    //var t1 = btn.getElementById("park_not_free")
+                  //  if(t1 != null){
+                       // t1.id = "park_free"
+                   // }
+                }else{
+                   // var t1 = btn.getElementById("park_free")
+                   // if(t1 != null){
+                       // t1.id = "park_not_free"
+                   // }
+                }
+            }
 /*
               for(const park in respjson.slotState){
                     var slot = temp.toString()
@@ -44,16 +62,16 @@ function parkState(){
               }
 
             */
-
-            switch (respjson.trolleystate)
-            {
-                case "working":
-                    startButton.style.visibility="hidden"
-                    stopButton.style.visibility="visible"
-                case "idle":
-                    startButton.style.visibility="visible"
-                    stopButton.style.visibility="visible"
+            if(respjson.temperature >= 30 && respjson.trolleyState=="working"){
+                startButton.style.visibility="hidden"
+                stopButton.style.visibility="visible"
             }
+
+             if(respjson.temperature < 30 && respjson.trolleyState=="stopped"){
+                            startButton.style.visibility="visible"
+                            stopButton.style.visibility="hidden"
+             }
+
         }
         }
 		else
