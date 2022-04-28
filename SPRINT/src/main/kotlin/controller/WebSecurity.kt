@@ -19,9 +19,9 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
-            .antMatchers("/", "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**").permitAll()
-            .anyRequest().anonymous()
+            .antMatchers( "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**").permitAll()
             .and()
+            .authorizeRequests().antMatchers("/manager/login").authenticated().and()
             .formLogin()
             .loginPage("/login")
             .defaultSuccessUrl("/manager/login", true)
