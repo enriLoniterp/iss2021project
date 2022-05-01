@@ -16,10 +16,15 @@ function parkState(){
 	{
         if(xhr.status == 200)
         {
+
+            document.getElementById('ss').style.display = 'inline'
             var respjson=JSON.parse(xhr.responseText)
-            document.getElementById('fan_state').innerHTML=respjson.fanState
-            document.getElementById('trolley_state').innerHTML=respjson.trolleyState
-            document.getElementById('temperature').innerHTML=respjson.temperature
+            document.getElementById('fan_state').innerHTML='Fan state: '+respjson.fanState
+             document.getElementById('img2').style.display = 'inline'
+            document.getElementById('trolley_state').innerHTML='Trolley state: '+respjson.trolleyState
+            document.getElementById('img1').style.display = 'inline'
+            document.getElementById('temperature').innerHTML='Temperature: '+respjson.temperature
+            document.getElementById('img3').style.display = 'inline'
             var startButton= document.getElementById("start")
             var stopButton=document.getElementById("stop")
             //setto i valori dei pulsanti coerentemente
@@ -30,38 +35,23 @@ function parkState(){
 
             for (var i = 1; i<=6; i++){
                 console.log(slotS.get(i.toString()))
-                if(slotS.get(i.toString()) != ""){
-                    //var btn = document.getElementById((i.toString()))
-                    //var t1 = btn.getElementById("park_not_free")
-                  //  if(t1 != null){
-                       // t1.id = "park_free"
-                   // }
+                var d = document.getElementById((i.toString()))
+                console.log(d.id)
+                if(slotS.get(i.toString()) == ""){
+                    var t1 = d.getElementsByClassName("park_not_free")
+                    console.log(t1)
+                    if(t1[0] != null){
+                        t1[0].setAttribute('class', 'park_free')
+                    }
                 }else{
-                   // var t1 = btn.getElementById("park_free")
-                   // if(t1 != null){
-                       // t1.id = "park_not_free"
-                   // }
+                    var t1 = d.getElementsByClassName("park_free")
+                    if(t1[0] != null){
+                       t1[0].setAttribute('class', 'park_not_free')
+
+                    }
                 }
             }
-/*
-              for(const park in respjson.slotState){
-                    var slot = temp.toString()
-                    console.log(slot)
-                    document.getElementById(slot).innerHTML=respjson.fanState
-                     temp++
-                }
-            //var loadedData = JSON.parse(localStorage.getItem("tblArrayJson"));
-             var loadedTable = document.getElementById("slot");
-/*
-              for (var key in loadedData) {
-                var row = loadedTable.insertRow();
-                for (var i = 0; i < loadedData[key].length; i += 1) {
-                  var cell = row.insertCell(i);
-                  cell.innerHTML = loadedData[key][i];
-                }
-              }
 
-            */
             if(respjson.temperature >= 30 && respjson.trolleyState=="working"){
                 startButton.style.visibility="hidden"
                 stopButton.style.visibility="visible"

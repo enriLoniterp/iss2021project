@@ -62,11 +62,10 @@
                 <tr>
                     <td>
                         <div class="container">
-                            <div class="image">
+                            <div id="img3" class="image" style="display:none">
                                 <img src="/img/temperature.png">
                             </div>
                             <div class="text">
-                                <p>Temperature</p>
                                 <p id="temperature"></p>
                             </div>
                         </div>
@@ -75,11 +74,10 @@
                 <tr>
                     <td width="70%">
                         <div class="container">
-                            <div class="image">
+                            <div id="img2"  class="image" style="display:none">
                                 <img src="/img/fan.png">
                             </div>
                             <div class="text">
-                                <p>Fan State</p>
                                 <p id="fan_state"></p>
                             </div>
                         </div>
@@ -89,11 +87,10 @@
                 <tr>
                     <td>
                         <div class="container">
-                            <div class="image">
+                            <div id="img1" class="image" style="display:none">
                                 <img src="/img/trolley.png">
                             </div>
                             <div class="text">
-                                <p style="text-align:left">Trolley state:</p>
                                 <p id="trolley_state" ></p>
                             </div>
                         </div>
@@ -108,19 +105,19 @@
                 </tr>
             </table>
         </td>
-        <td style="vertical-align: top; padding-left: 10em;">
+        <td id="ss" style="vertical-align: top; padding-left: 10em; display: none;">
             <center>
                 <b style="font-family: Poppins; font-size: 25px;">Parking State</b><br><br>
                 <table id="slot" class="park_state" border="1" cellpadding="30%">
                     <tr border="4">
-                        <td><center id="1">1<br><br><div id="park_not_free"></div></center></td>
-                        <td><center id="2"><b>2</b><br><br><div id="park_not_free"></div></center></td>
-                        <td><center id="3" value="3"><b>3</b><br><br><div id="park_not_free"></div></center></td>
+                        <td><center id="1">1<br><br><div class="park_not_free" ></div></center></td>
+                        <td><center id="2"><b>2</b><br><br><div class="park_not_free"></div></center></td>
+                        <td><center id="3" value="3"><b>3</b><br><br><div class="park_not_free"></div></center></td>
                     </tr>
                     <tr border="4">
-                        <td><center id="4"><b>4</b><br><br><div id="park_free"></div></center></td>
-                        <td><center id="5"><b>5</b><br><br><div id="park_not_free"></div></center></td>
-                        <td><center id="6"><b>6</b><br><br><div id="park_free"></div></center></td>
+                        <td><center id="4"><b>4</b><br><br><div class="park_free"></div></center></td>
+                        <td><center id="5"><b>5</b><br><br><div class="park_not_free"></div></center></td>
+                        <td><center id="6"><b>6</b><br><br><div class="park_free"></div></center></td>
                     </tr>
                 </table>
             </center>

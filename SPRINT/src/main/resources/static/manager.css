@@ -103,14 +103,13 @@ body {
     p {
       font-family: Poppins;
       font-size: 25px;
-      padding-top: 0.7em;
-      padding-bottom: 0.7em;
+
     }
 
     
 
-    #park_not_free{ width:30px; height:30px; border-radius:20px; background-color:red; }
-    #park_free{ width:30px; height:30px; border-radius:20px; background-color:green; }
+    .park_not_free { width:30px; height:30px; border-radius:20px; background-color:red; }
+    .park_free { width:30px; height:30px; border-radius:20px; background-color:green; }
 
     #sub_title {
       padding-left: 10%;
