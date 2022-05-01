@@ -403,8 +403,8 @@ In addition, <a>parkingState</a> resource has been updated with a new informatio
 </table>
 <h4>ParkManagerServiceGUI</h4>
 In order to get the current state of the park, we used a polling strategy which makes request every five seconds. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
-Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing over the client. In order to achieve this architectural paradigm, communication is based over websockets included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
-Websocket has also been used since those events might occur rarely. This solution avoids web overloading.
+Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing over the client. In order to achieve this architectural paradigm, communication is based over websockets using a STOMP messaggin protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
+Websocket has also been used since those events might occur rarely. This solution avoids web overloading.(da modificare)
 <br><br>
 <table>
   <tbody>
