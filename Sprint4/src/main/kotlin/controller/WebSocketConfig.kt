@@ -21,12 +21,11 @@ class WebSocketConfig : WebSocketMessageBrokerConfigurer {
 
 
     override fun configureMessageBroker(config: MessageBrokerRegistry) {
-        config.enableSimpleBroker("/topic")
-        config.setApplicationDestinationPrefixes("/app")
+        config.enableSimpleBroker("/manager")
     }
 
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
-        registry.addEndpoint("/information_ws").withSockJS()
+        registry.addEndpoint("/information_manager").withSockJS()
 
     }
 

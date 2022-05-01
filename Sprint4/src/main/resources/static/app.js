@@ -73,12 +73,12 @@ function deposit(){
 function reqexit() {
 
     window.location = prefix + "/pickup"
+
 }
 
 
 function pickup(){
   var tokenid = document.getElementById("tokenid").value
-  alert(tokenid)
   if(tokenid == "") {
     return
   }
@@ -92,12 +92,14 @@ function pickup(){
   			if(xhr.status == 200){
   				 var resp = xhr.responseText
   				 if(resp==0){
+                   				     document.getElementById("fail").setAttribute("style", "display:inline")
+                 }else{
   				     document.getElementById("success").setAttribute("style", "display:inline")
   				     document.getElementById("pickup").setAttribute("style", "display:none")
+  				     }
 
-  				 }else if(resp==1){
-  				     document.getElementById("fail").setAttribute("style", "display:inline")
-  				 }
+
+
 
   		}
   	   }
@@ -105,6 +107,34 @@ function pickup(){
 };
 	    xhr.open( "GET", apiUrl , true );
         xhr.send( );
-        connect()
+
+}
+
+//WEBSOCKETS//
+
+function connect() {
+    //var location = prefix + '/app/timer'
+    var socket = new SockJS('/gs-guide-websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/greetings', function (greeting) {
+            console.log("timeout")
+        });
+    });
+
+}
+
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+function setConnected(connected) {
+    $("#connect").prop("disabled", connected);
+    $("#disconnect").prop("disabled", !connected);
 
 }

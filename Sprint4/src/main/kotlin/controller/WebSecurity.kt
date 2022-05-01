@@ -3,6 +3,7 @@ package  controller
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.core.userdetails.User
@@ -18,15 +19,15 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
-            .antMatchers("/", "/home").permitAll()
-            .anyRequest().authenticated()
+            .antMatchers( "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**").permitAll()
             .and()
+            .authorizeRequests().antMatchers("/manager/login", "/manager/performlogout").authenticated().and()
             .formLogin()
             .loginPage("/login")
             .defaultSuccessUrl("/manager/login", true)
             .permitAll()
             .and()
-            .logout()
+            .logout().invalidateHttpSession(true)
             .permitAll()
     }
 

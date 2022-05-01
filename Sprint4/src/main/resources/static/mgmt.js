@@ -1,13 +1,8 @@
 var prefix = "http://localhost:8081"
-var temperatureSystem= document.getElementById('temperature')
-var fanElement = document.getElementById('fan_state')
-var trolleyState = document.getElementById('trolley_state')
 
 setInterval(function (){
 parkState()
-},2000);
-
-
+},3000);
 
 function parkState(){
 
@@ -15,76 +10,93 @@ function parkState(){
    var url = prefix + '/manager/parkingstate';
 
    xhr.onreadystatechange = function(){
-	  if ( xhr.readyState == 4  )
-	  {
-            var resp=xhr.responseText
-			if(xhr.status == 200)
-			{
-			   // recupero dati
-			   var info = resp.split(",")
+    console.log(xhr.readyState)
+    console.log(xhr.responseText)
+	if( xhr.readyState == 4)
+	{
+        if(xhr.status == 200)
+        {
 
-			   trolleyState.innerHTML = info.
-			   fanElement.innerHTML = response.fanState
-			   temperatureSystem.innerHTML = response.temperature
-               var startButton= document.getElementById("start")
-               var stopButton=document.getElementById("stop")
-               //setto i valori dei pulsanti coerentemente
-               //fan non c'è ancora
-               switch (trolley_state.innerHTML)
-			    {
-			        case "working":
-			             startButton.style.visibility="hidden"
-			             stopButton.style.visibility="visible"
-			        case "idle":
-			             startButton.style.visibility="visible"
-			             stopButton.style.visibility="visible"
-			    }
+            document.getElementById('ss').style.display = 'inline'
+            var respjson=JSON.parse(xhr.responseText)
+            document.getElementById('fan_state').innerHTML='Fan state: '+respjson.fanState
+             document.getElementById('img2').style.display = 'inline'
+            document.getElementById('trolley_state').innerHTML='Trolley state: '+respjson.trolleyState
+            document.getElementById('img1').style.display = 'inline'
+            document.getElementById('temperature').innerHTML='Temperature: '+respjson.temperature
+            document.getElementById('img3').style.display = 'inline'
+            var startButton= document.getElementById("start")
+            var stopButton=document.getElementById("stop")
+            //setto i valori dei pulsanti coerentemente
+            var temp=0
 
-			}
-			else
-			{
-                console.log("errore messaggio")
-			}
+            var slotS = new Map (Object.entries(respjson.slotState))
+            var mapIter = slotS.entries()
+
+            for (var i = 1; i<=6; i++){
+                console.log(slotS.get(i.toString()))
+                var d = document.getElementById((i.toString()))
+                console.log(d.id)
+                if(slotS.get(i.toString()) == ""){
+                    var t1 = d.getElementsByClassName("park_not_free")
+                    console.log(t1)
+                    if(t1[0] != null){
+                        t1[0].setAttribute('class', 'park_free')
+                    }
+                }else{
+                    var t1 = d.getElementsByClassName("park_free")
+                    if(t1[0] != null){
+                       t1[0].setAttribute('class', 'park_not_free')
+
+                    }
+                }
+            }
+
+            if(respjson.temperature >= 30 && respjson.trolleyState=="working"){
+                startButton.style.visibility="hidden"
+                stopButton.style.visibility="visible"
+            }
+
+             if(respjson.temperature < 30 && respjson.trolleyState=="stopped"){
+                            startButton.style.visibility="visible"
+                            stopButton.style.visibility="hidden"
+             }
+
+        }
+        }
+		else
+		{
+            console.log("errore messaggio")
 		}
-
 
    };
 
-   xhr.open( "GET", url , true );
-   xhr.send( );
+    xhr.open("GET", url, true)
+    xhr.send( );
 }
 
 
 function trolleystate(element){
 
    var xhr = new XMLHttpRequest();
+   console.log(element.id)
    var button = element.id
-   var url = prefix + '/manager/trolleystate';
-   var urlcomplete = url + "/"+ button
+   var url = prefix + '/manager/trolley';
+   var urlcomplete = url +"?state="+ button
 
    xhr.onreadystatechange = function(){
 	  if ( xhr.readyState == 4  )
 	  {
-            var response = xhr.responseText
+	        //risultato ricevuto è una stringa
 			if(xhr.status == 200)
 			{
-			   // recupero dati
-			   console.log(response)
-			   alert("operazione eseguita con successo")
-               switch (trolley_state.innerHTML)
-			    {
-			        case "working":
-			             startButton.style.visibility="hidden"
-			             stopButton.style.visibility="visible"
-			        case "idle":
-			             startButton.style.visibility="visible"
-			             stopButton.style.visibility="visible"
-			    }
-
+			  var response = xhr.responseText
+               console.log(response)
+			   // recupero dat
 			}
 			else
 			{
-                console.log("errore messaggio")
+                console.log("errore invio msg trolley")
 			}
 		}
 
@@ -95,30 +107,31 @@ function trolleystate(element){
    xhr.send( );
 }
 
-var stompClient = null
+
+
 
 //WEBSOCKETS//
+var stompClient = null
 
 function connect() {
     //var location = prefix + '/app/timer'
-    var socket = new SockJS('/information_ws');
+    var socket = new SockJS('/information_manager');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/temperature', function (response) {
-            console.log("temperature")
-            var temperature = response.body
-            console.log(temperature)
+        stompClient.subscribe('/manager/temperatureAlarm', function (response) {
+            console.log("temperatureAlarm")
+            var temperature = JSON.parse(response.body)
+
         });
 
-         stompClient.subscribe('/topic/sonar', function (message) {
-                    console.log(message)
+         stompClient.subscribe('/manager/sonarAlarm', function (message) {
+             console.log("sonarAlarm")
 
         });
     });
 
 }
-
 
 function disconnect() {
     if (stompClient !== null) {
@@ -127,50 +140,4 @@ function disconnect() {
     setConnected(false);
     console.log("Disconnected");
 }
-
-function setConnected(connected) {
-    $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
-
-}
-
-/*
-function connect() {
-    var socket = new SockJS('/ws');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        setConnected(true);
-        console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/temperature', function (message) {
-            console.log(message)
-            var myMessage =message.body
-
-        });
-        stompClient.subscribe('/topic/sonar', function (message) {
-            console.log(message)
-
-        });
-
-    });
-}
-*/
-function disconnect() {
-    if (stompClient !== null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
-}
-
-function startRobot(){
-    var state ="1"
-    stompClient.send("/app/trolleystate",state)
-
-}
-
-function stopRobot(){
-    var state ="0"
-    stompClient.send("/app/trolleystate", state)
-}
-
 connect()

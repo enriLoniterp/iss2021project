@@ -7,15 +7,20 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.encodeToJsonElement
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import outsonar.OutSonarAdapter
 import resources.ParkingState
+import thermometer.ThermometerAdapter
+import weightsensor.WeightSensorAdapter
 import java.lang.StringBuilder
 
 
@@ -23,8 +28,41 @@ import java.lang.StringBuilder
 class GuiAdapter {
     final val connParkClientService: connQakBase = connQakTcp()
 
+    private lateinit var template: SimpMessagingTemplate
+    private lateinit var oAd : OutSonarAdapter
+    private lateinit var wAd : WeightSensorAdapter
+    private lateinit var tAd : ThermometerAdapter
+
+     @Autowired
+     constructor (template: SimpMessagingTemplate) : this() {
+         this.template = template
+     }
+
+    constructor()
+
     init {
         connParkClientService.createConnection("localhost", 8002)
+        oAd = OutSonarAdapter()
+        wAd = WeightSensorAdapter()
+        tAd = ThermometerAdapter()
+
+        tAd.addObserver {
+            if(ParkingState.highTemperature) {
+                template.convertAndSend("/manager/temperatureAlarm", "High Temperature! Fan on")
+            }else{
+                template.convertAndSend("/manager/temperatureAlarm", "Low Temperature! Fan off")
+            }
+        }
+
+        oAd.addAlert {
+            template.convertAndSend("/manager/sonarAlarm", "Too much time on the outdoor!")
+        }
+    }
+
+    @GetMapping("/pickup")
+    fun pickPage(): String  {
+        println("/pickup")
+        return "Pickup"
     }
 
     //@Value("\${spring.application.name}")
@@ -79,28 +117,18 @@ class GuiAdapter {
     //richiesta dati
     @RequestMapping("/manager/parkingstate")
     fun parkingstate():ResponseEntity<String>{
-        var sep = "/"
-        var sb:StringBuilder = StringBuilder()
-
-        sb.append(ParkingState.fanState)
-            .append(sep)
-            .append(ParkingState.trolleyState.toString())
-            .append(sep)
-            .append(ParkingState.indoorFree.toString())
-            .append(sep)
-            .append(ParkingState.outdoorFree.toString())
-            .append(sep)
-            .append(ParkingState.temperature.toString())
-            .append(sep).append(ParkingState.slotState.toString())
-        val message:JsonElement = Json.decodeFromString(sb.toString())
-        print(message)
-        return ResponseEntity.ok(sb.toString())
+        val request = MsgUtil.buildRequest("springcontroller", "getParkingState", "getParkingState(x)", "park_manager_service")
+        println("Request")
+        val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
+        println("Response "+ reply.msgContent)
+        return ResponseEntity.ok(reply.msgContent)
     }
 
     @RequestMapping("/manager/trolley")
     fun trolleystate(@RequestParam state:String): ResponseEntity<String> {
-            val request = MsgUtil.buildRequest("springcontroller", "trolleyState", "trolleystate($state)", "park_client_service")
+            val request = MsgUtil.buildRequest("springcontroller", "changeTrolley", "changeTrolley($state)", "park_manager_service")
             val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
+
              return ResponseEntity.ok(reply.msgContent)
     }
 
@@ -110,7 +138,6 @@ class GuiAdapter {
     //loginconsuccesso
     @RequestMapping("/manager/login")
     fun perform_login() : String{
-        println("ciao ciao")
         return "homeMgmt"
     }
 

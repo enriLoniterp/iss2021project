@@ -125,6 +125,7 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						}
 						if( checkMsgContent( Term.createTerm("carenter(SN)"), Term.createTerm("carenter(SN)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
+								//ParkingState.indoorFree = false
 								 SLOTNUM = payloadArg(0).toInt()  
 								if(  SLOTNUM in 1..6 && ParkingState.slotState.get(SLOTNUM).equals("R")  
 								 ){if(  !ParkingState.indoorFree  
