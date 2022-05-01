@@ -247,7 +247,7 @@ div.imagedesc{
     to the <a href="href=../../Sprint2/userDocs/Sprint3.html#parking_state" target = "_blank">Parking State</a> described in the last Sprint, this Sprint will focus on how
     to properly send that data to the manager GUI. Since the data represent the current system status, every change must be notified as soon as possibile (instantly non mi piaceva). <br>
 
-    In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAS</ks> threshold. Infact, the manager is able
+    In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAX</ks> threshold. Infact, the manager is able
     to start or stop the trolley and turn off the fan is temperature is below <ks>TMAX</ks> and turn on the fan otherwise. <br>
 
     In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
@@ -366,7 +366,7 @@ which processes managers' requests.<br>
 The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed in the Sprint 3. This pattern requires to split the ParkServiceManagerGUI into two components (Model not needed in our case):
 <ul>
   <li><b>View</b>: user interfaces.</li>
-  <li><b>Controller</b>: receives requests and generates content view for the manager.</li>
+  <li><b>Controller</b>: receives requests and generates content view for the manager and manage communication between the bew client and the PMS.</li>
 </ul>
 <br>
 In addition, <a>parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park.
@@ -402,8 +402,9 @@ In addition, <a>parkingState</a> resource has been updated with a new informatio
   </tbody>
 </table>
 <h4>ParkManagerServiceGUI</h4>
-In order to get the current state of the park, we used a polling strategy which makes request every five seconds. This has been choosen since the GUI requires live updates and polling with a small interval fit well this requirement. <br>
-Meanwhile the alarm related to the outdoor area and the high temperature notification are sent by the server over a websocket connection based on socketJS library. Websocket has been used since those event might occur rarely.
+In order to get the current state of the park, we used a polling strategy which makes request every five seconds. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
+Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing over the client. In order to achieve this architectural paradigm, communication is based over websockets included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
+Websocket has also been used since those events might occur rarely. This solution avoids web overloading.
 <br><br>
 <table>
   <tbody>
@@ -427,14 +428,15 @@ Meanwhile the alarm related to the outdoor area and the high temperature notific
         <li><a>login.html</a></li>
         <li><a>homeMgmt.html</a></li>
       </ul>
-      These htmls pages contains javascript code to make requests to the controller and to dynamically modify html DOM.
+      Together with this pages JavaScript files are included to create the requests to the controller. They also dynamically modify html's DOM.
     </td>
     </tr>
   </tbody>
 </table>
 <h3>Security</h3>
 <div class="remark">
-  The login process has been secured using SpringBoot Security as suggested in the analysis phase. This feature has been implemented through a kotlin class (<a>WebSecurity.kt</a>) which contains the security policy.
+The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/"SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through (<a>WebSecurity.kt</a>) which contains the security policy.
+For more simplify case the user and password has been saved in a file. This should be improve in future reviews.
 </div>
 <br>
 The sequence diagrams below shows the main interaction between the components of this Sprint.
