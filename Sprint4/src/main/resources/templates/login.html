@@ -31,12 +31,12 @@ body {
   padding: 1em;
   display: flex;
   flex-direction: column;
-  border-radius: 30px;
+  border-radius: 35px;
   box-shadow: 0 0 2em #ccac00;
-  gap: 1.5em;
+  gap: 3em;
 }
 .screen-1 .logo {
-  margin-top: -2em;
+  margin-top: -1em;
 }
 .screen-1 .username {
   background: white;
@@ -47,9 +47,8 @@ body {
   gap: 0.5em;
   border-radius: 20px;
   color: #4d4d4d;
-  margin-top: -1em;
-  margin-left: 2em;
-  margin-right: 2em;
+  margin-left: 3em;
+  margin-right: 3em;
 }
 .screen-1 .username input {
   outline: none;
@@ -80,8 +79,9 @@ body {
   gap: 0.5em;
   border-radius: 20px;
   color: #4d4d4d;
-  margin-left: 2em;
-  margin-right: 2em;
+  margin-top: 1em;
+  margin-left: 3em;
+  margin-right: 3em;
 }
 .screen-1 .password input {
   outline: none;
@@ -127,22 +127,20 @@ body {
 .screen-1 .footer span {
   cursor: pointer;
 }
-.screen-1 .submit {
-      background-color:#ffd700;
-      border-radius:30px;
-      border:1px solid;
-      display:inline-block;
-      cursor:pointer;
-      color:#000000;
-      font-family: Verdana, Arial, Helvetica, sans-serif;
-      font-size:18px;
-      font-weight:bold;
-      padding:15px 50px;
-      text-decoration:none;
-      text-shadow:0px 1px 0px #2f6627;
-      width: 280px;
-      height: 80px;
-    }
+.screen-1 .SignIn {
+  background-color:#ffd700;
+  border-radius:15px;
+  border:1px solid;
+  display:inline-block;
+  cursor:pointer;
+  color:#000000;
+  font-family: Poppins;
+  font-size:15px;
+  padding:10px 30px;
+  margin-top: 1em;
+  margin-left: 3em;
+  margin-right: 3em;
+}
 
 
 </style>
@@ -152,7 +150,7 @@ body {
 <!-- partial:index.partial.html -->
 <div class="screen-1">
   <center><h1 style="font-family:Poppins;">Parking Area Login</h1></center>
-  <center><img src="img/park1.png" height="25%" width="35%"></center>
+  <center><img src="img/car.webp" height="20%" width="30%"></center>
  <div th:if="${param.error}" type="hidden">
   Invalid username and password.
 </div>
@@ -176,7 +174,7 @@ body {
     </div>
     </label>
   </div>
-    <div ><center><input type="submit" value="Sign In"/></center></div>
+  <div><center><input type="submit" class="SignIn" value="Sign In"/></center></div>
 </form>
 <!-- partial -->
 </div>
