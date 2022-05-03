@@ -36,10 +36,10 @@ function parkState(){
             for (var i = 1; i<=6; i++){
                 console.log(slotS.get(i.toString()))
                 var d = document.getElementById((i.toString()))
-                console.log(d.id)
+               // console.log(d.id)
                 if(slotS.get(i.toString()) == ""){
                     var t1 = d.getElementsByClassName("park_not_free")
-                    console.log(t1)
+                    //console.log(t1)
                     if(t1[0] != null){
                         t1[0].setAttribute('class', 'park_free')
                     }
@@ -119,15 +119,12 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/manager/temperatureAlarm', function (response) {
-            console.log("temperatureAlarm")
-            var temperature = JSON.parse(response.body)
-
+        stompClient.subscribe('/manager/temperatureAlarm', function (message) {
+           alert (message.body)
         });
 
          stompClient.subscribe('/manager/sonarAlarm', function (message) {
-             console.log("sonarAlarm")
-
+              alert (message.body)
         });
     });
 

@@ -29,12 +29,14 @@ class OutSonarAdapter : SensorPort{
 	fun updateDistance(distance : String){
 		this.distance = distance
 		if(ParkingState.outdoorFree && distance.toInt() < 50){
+			println("Scheduling timer")
 			t = Timer()
 			t!!.schedule(object : TimerTask() {
 				override fun run() {
 					alert()
+					println("EIIII!")
 				}
-			}, 60000)
+			}, 5000)
 		}
 
 		if(!ParkingState.outdoorFree && distance.toInt() >= 50){

@@ -9,7 +9,7 @@ import resources.SensorPort
 import resources.ParkingState
 
 class ThermometerAdapter : SensorPort{
-    private var temperature: String = "9999"
+    private var temperature: String = "0"
 	private  var fan :FanAdapter
 	private val thermometerCB: ThermometerCallback = ThermometerCallback(this)
 	lateinit var observer: () -> Unit
@@ -28,9 +28,11 @@ class ThermometerAdapter : SensorPort{
 	
 	
 	fun updateTemperature(temperature : String){
+		println(this.temperature + " "+ temperature.toInt())
 		if(this.temperature.toInt() <30 && temperature.toInt()>=30){
-			this.fan.sendCommand("on")
+			//this.fan.sendCommand("on")
 			ParkingState.highTemperature = true
+			println("HIGH TEMPERATURE")
 			observer()
 
 		}else if(this.temperature.toInt() >=30 && temperature.toInt()<30){

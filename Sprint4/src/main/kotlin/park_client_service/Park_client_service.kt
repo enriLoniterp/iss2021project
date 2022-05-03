@@ -20,8 +20,8 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 	@kotlinx.coroutines.ExperimentalCoroutinesApi			
 	override fun getBody() : (ActorBasicFsm.() -> Unit){
 		
-				val weightSensorAdapter = weightsensor.WeightSensorAdapter()
-		        val outSonarAdapter = outsonar.OutSonarAdapter()
+				//val weightSensorAdapter = weightsensor.WeightSensorAdapter()
+		        //val outSonarAdapter = outsonar.OutSonarAdapter()
 				lateinit var currentJob : String
 				
 				var RESPONSE  = ""

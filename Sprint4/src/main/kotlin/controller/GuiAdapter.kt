@@ -34,11 +34,10 @@ class GuiAdapter {
     private lateinit var tAd : ThermometerAdapter
 
      @Autowired
-     constructor (template: SimpMessagingTemplate) : this() {
+     constructor (template: SimpMessagingTemplate) {
          this.template = template
      }
 
-    constructor()
 
     init {
         connParkClientService.createConnection("localhost", 8002)
@@ -48,6 +47,7 @@ class GuiAdapter {
 
         tAd.addObserver {
             if(ParkingState.highTemperature) {
+                println("INVIO!")
                 template.convertAndSend("/manager/temperatureAlarm", "High Temperature! Fan on")
             }else{
                 template.convertAndSend("/manager/temperatureAlarm", "Low Temperature! Fan off")
@@ -55,7 +55,7 @@ class GuiAdapter {
         }
 
         oAd.addAlert {
-            template.convertAndSend("/manager/sonarAlarm", "Too much time on the outdoor!")
+            template.convertAndSend("/manager/sonarAlarm", "Client too much time on the outdoor!")
         }
     }
 

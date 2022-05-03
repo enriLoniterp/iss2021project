@@ -17,6 +17,7 @@ class OutSonarCallback(adapter : OutSonarAdapter) : MqttCallback {
     override fun messageArrived(s: String?, mqttMessage: MqttMessage) {
         println("""Message received:${String(mqttMessage.payload)}""")
 		val msg = ApplMessage(String(mqttMessage.payload))
+        println(msg.msgContent())
         sonarAdapter.updateDistance(msg.msgContent())
     }
 
