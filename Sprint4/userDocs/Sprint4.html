@@ -244,28 +244,19 @@ div.imagedesc{
   <div class = "remark" id="problem_analysis_PMS">
     From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to process manager's requests and provide information about current system status. <br>
     As suggested in previous Sprint, the introduction of a new entity allows to process manager's tasks without affect the rest of the application. In particular, thanks 
-    to the <a href="href=../../Sprint2/userDocs/Sprint3.html#parking_state" target = "_blank">Parking State</a> described in the last Sprint, this Sprint will focus on how
+    to the <a href="../../Sprint3/userDocs/Sprint3.html#parking_state" target = "_blank">Parking State</a> described in the last Sprint, this Sprint will focus on how
     to properly send that data to the manager GUI. Since the data represent the current system status, every change must be notified as soon as possibile (instantly non mi piaceva). <br>
 
     In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAX</ks> threshold. Infact, the manager is able
     to start or stop the trolley and turn off the fan is temperature is below <ks>TMAX</ks> and turn on the fan otherwise. <br>
 
-    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
+    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
     Finally, <ks>PMS</ks> must be able to support some kind of timer which times car presence in the <ks>OUTDOOR AREA</ks> for more than 
-    <a href="../../Sprint2/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> threshold.
-
-   <!-- Dal backlog il PMS deve processare le richieste del manager e fornire a quest'ultimo le informazioni relative allo stato del sistema.
-	Allo stesso modo di come è stato fatto negli sprint precedenti, l'introduzione di una nuova entità permette di gestire separatamente i task relativi al manager da resto del sistema.
-	Per quanto riguarda lo stato del sistema da mostrare al manager, non si riscontrano particolari necessità, in quanto è possibile utilizzare la rappresentazione dello stato definita nel precedente Sprint (con link).
-	Poichè le informazioni rappresentano lo stato corrente, ogni cambiamento dello stato deve essere notificato al manager in maniera istantanea.
-	Passando alle operazioni che il manager può fare, queste dipendono dalla temperatura all'interno del parcheggio;  Questo dovrebbe essere notificato in maniera opportuna ed evidente in caso in cui la temperatura superi la soglia TMAX. per evitare la possibilità di errori umani la gestione della fan dovrebbe essere fatta in maniera automatica interagendo con FanAdapter(link) per cambiare il suo stato.
-	La gestione del trolley è compito esclusivo del manager in prima persona e si può fare utilizzando il TrolleyController(link).
-	Per ultimo il pms deve utilizzare qualche tipo di timer per controllare la presenza di una macchina nella outdoor area per più di DTFREE time. Per quanto riguarda DTFREE rifarsi a quanto detto nello sprint precedente (link). -->
-	
+    <a href="../../Sprint3/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> threshold.
   </div>
   <h3>ParkServiceStatusGUI</h3>
   <div class="remark" id="problem_analysis_parking_service_GUI">
-      <ks>ParkServiceStatusGUI</ks> is a user interface which allows managers to interact with the parking system and has already been analyze <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_status_GUI" target = "_blank">here</a>. 
+      <ks>ParkServiceStatusGUI</ks> is a user interface which allows managers to interact with the parking system and has already been analyzed <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_status_GUI" target = "_blank">here</a>. 
   </div>
   <h4>ParkServiceGUI - PMS interaction</h4>
   <div class="remark">
@@ -313,7 +304,8 @@ div.imagedesc{
     </ul>
     <pre>
       <b>PARKSTATE</b>
-	    PMS -> <ks>monitor</ks>
+
+      PMS -> <ks>monitor</ks>
       check if response data contains right data from parking status
     </pre>
     Given the following assumptions:
@@ -322,10 +314,10 @@ div.imagedesc{
       <li><ks>FAN</ks> <b>OFF</b></li>
     </ul>
     <pre>
-      <b>FAN ACTIVATION</b>
-	   <ks>PMS</ks> check if TA > TMAX
-     <!-- adpter -> <ks>temperature HIGH</ks> -->
-      PMS -> TURN_ON 
+    <b>FAN ACTIVATION</b>
+
+    <ks>PMS</ks> check if TA > TMAX
+    <ks>PMS</ks> -> TURN_ON 
 	    check if fan_state = <b>ON</b>
     </pre>
     Given the following assumptions:
@@ -335,9 +327,10 @@ div.imagedesc{
     </ul>
     <pre>
       <!-- controllo automatico della fan -->
-      <b>FAN DE-ACTIVATION</b>
-	   <ks>PMS</ks> check if TA <= TMAX
-        PMS -> TURN_OFF
+    <b>FAN DE-ACTIVATION</b>
+
+    <ks>PMS</ks> check if TA <= TMAX
+    <ks>PMS</ks> -> TURN_OFF
 	      check if fan_state = <b>OFF</b>
     </pre>
     Given the following assumptions:
@@ -347,6 +340,7 @@ div.imagedesc{
     </ul>
     <pre>
       <b>TROLLEY START/STOP</b>
+
       manager -> STOP 
       <!--PMS -> manage-->
       check if trolley state = <b>STOPPED</b>
@@ -369,8 +363,8 @@ The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed 
   <li><b>Controller</b>: receives requests and generates content view for the manager and manage communication between the bew client and the PMS.</li>
 </ul>
 <br>
-In addition, <a>parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park.
-<h4><a>parkManagerService</a></h4>
+In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park. 
+<h4><a href="../src/main/kotlin/park_manager_service/Park_manager_service.kt" target = "_blank">parkManagerService</a></h4>
 <table>
   <tbody>
     <tr>
@@ -394,9 +388,9 @@ In addition, <a>parkingState</a> resource has been updated with a new informatio
     <tr>
       <td>
         <h4>parkManagerService communication</h4>
-        parkClientService interacts with <a href="#GUIAdapter">GUIAdapter</a>, developed in the previous Sprint and updated with new features described <a>below</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
+        parkClientService interacts with <ks>GUIAdapter</ks>, developed in the previous Sprint and updated with new features described <a href="#GUIAdapter">below</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
         <br>
-        In order to send QAK understandable messages, GUIAdapter uses <a>connQakTcp.kt</a> and <a>MsgUtil.kt</a>.<br>
+        In order to send QAK understandable messages, GUIAdapter uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and <a>MsgUtil.kt</a>.<br>
       </td>
     </tr>
   </tbody>
@@ -410,7 +404,7 @@ Websocket has also been used since those events might occur rarely. This solutio
   <tbody>
     <tr>
       <td style="width: 50%; vertical-align:top">
-        <h4 id = "GUIAdapter"><a>GUIAdapter</a></h4>
+        <h4 id = "GUIAdapter"><a href="../src/main/kotlin/controller/GuiAdapter.kt" target = "_blank">GUIAdapter</a></h4>
         The GUIAdapter developed in the last Sprint has been expanded with new methods to fulfill manager's requests.<br>
         Moreover GUIAdapter aim is to open the connection via websocket and add new callback functions to the temperature and outdoor adapter which are called when their events occur.
       </td>
@@ -425,8 +419,8 @@ Websocket has also been used since those events might occur rarely. This solutio
       <h4>ParkManagerServiceView</h4>
       Multiple html files have been written to represents client views:
       <ul>
-        <li><a>login.html</a></li>
-        <li><a>homeMgmt.html</a></li>
+        <li><a href="../src/main/resources/templates/login.html" target = "_blank">login.html</a></li>
+        <li><a href="../src/main/resources/templates/homeMgmt.html" target = "_blank">homeMgmt.html</a></li>
       </ul>
       Together with this pages JavaScript files are included to create the requests to the controller. They also dynamically modify html's DOM.
     </td>
@@ -435,7 +429,7 @@ Websocket has also been used since those events might occur rarely. This solutio
 </table>
 <h3>Security</h3>
 <div class="remark">
-The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through (<a>WebSecurity.kt</a>) which contains the security policy.
+The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through (<a href="../src/main/kotlin/controller/WebSecurity.kt" target = "_blank">WebSecurity.kt</a>) which contains the security policy.
 For more simplicity the user and password has been saved in a file not encrypted. This should be improve in future reviews.
 </div>
 <br>
