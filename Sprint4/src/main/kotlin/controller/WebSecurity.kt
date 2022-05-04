@@ -34,9 +34,9 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     @Bean
     override fun userDetailsServiceBean(): UserDetailsService? {
         val user = User.withDefaultPasswordEncoder()
-            .username("user")
+            .username("manager")
             .password("password")
-            .roles("USER")
+            .roles("MANAGER")
             .build()
         return InMemoryUserDetailsManager(user)
     }

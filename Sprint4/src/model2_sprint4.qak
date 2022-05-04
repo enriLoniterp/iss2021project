@@ -1,0 +1,113 @@
+System carparking
+
+// CHANGE TO DISPATCH FOR AUTOMATIC MANAGEMENT
+Request changeFan : changeFan(X)
+Reply responseChangeFan: responseChangeFan(X)
+
+Request changeTrolley : changeTrolley(S)
+Reply responseChangeTrolley : responseChangeTrolley(X)
+
+Dispatch alert : alert(X)
+Dispatch sendAlarm : sendAlarm(X)
+
+Dispatch command : command(X, Y)
+
+Context ctxcarparking ip[host="localhost" port=8002]
+
+
+QActor parkmanagerservice context ctxcarparking{
+	
+	State s0 initial{
+		println("parkmanagerservice STARTS")	
+	}
+	Goto idle
+	
+	State idle{
+		println("parkmanagerservice waiting ...")
+	}
+	Transition t0 whenMsg sendAlarm -> alarmS
+		      whenRequest changeFan -> changeF
+		      whenRequest changeTrolley -> changeT
+ 		      
+ 	State changeF{
+		onMsg(changeFan : changeFan(S)) {
+			//TODO check if to turn on or turn off and change fan status
+			replyTo changeTrolley with responseChangeTrolley : responseChangeTrolley("OK")
+		}
+ 	}   
+ 	Goto idle
+ 	
+ 	State changeT{
+ 		onMsg(changeTrolley : changeTrolley(S)) {
+			//TODO check if to turn on or turn off and change trolley status
+			replyTo changeTrolley with responseChangeTrolley : responseChangeTrolley("OK")
+		}
+ 	}  
+ 	Goto idle
+ 	
+ 	State alarmS{
+ 		onMsg(sendAlarm : sendAlarm(req)) {
+			//TODO sendAlarm to manager GUI
+		}
+ 	}
+ 	Goto idle
+			
+}
+
+
+QActor park_service_status_gui context ctxcarparking{
+	[# type = 0 
+		state = ""
+		#
+	]
+	State s0 initial{
+		println("parkservicestatusgui STARTS")	
+	}
+	Goto idle
+	
+	State idle{
+		println("parkservicestatusgui idle")	
+	}
+	Transition t0 whenMsg command -> working
+				  whenMsg alert -> processMessage
+	
+	
+	
+	State working{
+		println("parkservicestatusgui execute command")
+		onMsg(command : command(C)) {
+		[#	
+			type = payloadArg(0).toInt()
+			state = payloadArg(1).toString()
+			when(type){
+				1->#]  request parkmanagerservice -m changeFan : changeFan(state) [#
+				2->#]  request parkmanagerservice -m changeTrolley: changeTrolley(state)[#
+				}
+			#
+		]
+		}
+		
+		
+	}
+	Transition t0 whenReply responseChangeFan -> processMessage
+				  whenReply responseChangeTrolley -> processMessage
+
+	State processMessage{
+		onMsg(alert : alert(A)){
+			//TODO alert the manager
+		}
+		onMsg(responseChangeFan : responseChangeFan(O)){
+			//TODO show the outcome to the manager
+		}
+		onMsg(responseChangeTrolley : responseChangeTrolley(O)){
+			//TODO show the outcome to the manager
+		}
+		
+	}
+	Goto idle
+
+
+}
+
+
+ 

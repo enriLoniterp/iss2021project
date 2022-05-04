@@ -3,16 +3,10 @@ package controller
 import connQak.connQakBase
 import connQak.connQakTcp
 import it.unibo.kactor.MsgUtil
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.encodeToJsonElement
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.messaging.handler.annotation.MessageMapping
-import org.springframework.messaging.handler.annotation.SendTo
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -21,7 +15,6 @@ import outsonar.OutSonarAdapter
 import resources.ParkingState
 import thermometer.ThermometerAdapter
 import weightsensor.WeightSensorAdapter
-import java.lang.StringBuilder
 
 
 @Controller
@@ -117,7 +110,7 @@ class GuiAdapter {
     //richiesta dati
     @RequestMapping("/manager/parkingstate")
     fun parkingstate():ResponseEntity<String>{
-        val request = MsgUtil.buildRequest("springcontroller", "getParkingState", "getParkingState(x)", "park_manager_service")
+        val request = MsgUtil.buildRequest("springcontroller", "getParkingState", "getParkingState(x)", "manager_service")
         println("Request")
         val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
         println("Response "+ reply.msgContent)
@@ -126,7 +119,7 @@ class GuiAdapter {
 
     @RequestMapping("/manager/trolley")
     fun trolleystate(@RequestParam state:String): ResponseEntity<String> {
-            val request = MsgUtil.buildRequest("springcontroller", "changeTrolley", "changeTrolley($state)", "park_manager_service")
+            val request = MsgUtil.buildRequest("springcontroller", "changeTrolley", "changeTrolley($state)", "manager_service")
             val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
 
              return ResponseEntity.ok(reply.msgContent)
