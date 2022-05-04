@@ -340,12 +340,10 @@ div.imagedesc{
     </ul>
     <pre>
       <b>TROLLEY START/STOP</b>
-
       manager -> STOP 
-      <!--PMS -> manage-->
-      check if trolley state = <b>STOPPED</b>
+        check if trolley state = <b>STOPPED</b>
       manager -> START 
-	    check if trolley state = <b>WORKING</b>
+        check if trolley state = <b>WORKING</b>
     </pre>
 	
   </div>
@@ -355,7 +353,7 @@ div.imagedesc{
 The Sprint 4 should be done in <b>four days</b>.
 <div id = "project">
 <h2>Project</h2>
-Starting from what stated in the analysis phase, we introduce a new entity called <ks>parkManagerService</ks>, taking part of the <ks>PMS</ks>
+Starting from what stated in the analysis phase, we introduce a new entity called <ks>managerService</ks>, taking part of the <ks>PMS</ks>
 which processes managers' requests.<br>
 The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed in the Sprint 3. This pattern requires to split the ParkServiceManagerGUI into two components (Model not needed in our case):
 <ul>
@@ -364,16 +362,16 @@ The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed 
 </ul>
 <br>
 In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park. 
-<h4><a href="../src/main/kotlin/park_manager_service/Park_manager_service.kt" target = "_blank">parkManagerService</a></h4>
+<h4><a href="../src/main/kotlin/park_manager_service/Park_manager_service.kt" target = "_blank">managerService</a></h4>
 <table>
   <tbody>
     <tr>
     <td style="width: 50%; vertical-align:top">
       <br>
-      In order to accept, queue and process different requests in a non-blocking manner, the parkClientService is implemented as an actor which has
-      multiple status to exploit different tasks. parkClientService logic is message-based so that its state changes are triggered by message or events.<br>
-      The parkManagerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a>temperature adapter</a>.
-      The scheme on the side shows parkClientService behaviour.
+      In order to accept, queue and process different requests in a non-blocking manner, the managerService is implemented as an actor which has
+      multiple status to exploit different tasks. managerService logic is message-based so that its state changes are triggered by message or events.<br>
+      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a>temperature adapter</a>.
+      The scheme on the side shows managerService behaviour.
     </td>
     <td>
       <center>
@@ -387,19 +385,18 @@ In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_b
   <tbody>
     <tr>
       <td>
-        <h4>parkManagerService communication</h4>
-        parkClientService interacts with <ks>GUIAdapter</ks>, developed in the previous Sprint and updated with new features described <a href="#GUIAdapter">below</a>, from which receives client's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
+        <h4>managerService communication</h4>
+        managerService interacts with <ks>GUIAdapter</ks>, developed in the previous Sprint and updated with new features described <a href="#GUIAdapter">below</a>, from which receives manager's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
         <br>
-        In order to send QAK understandable messages, GUIAdapter uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and <a>MsgUtil.kt</a>.<br>
+        In order to send QAK understandable messages, <ks>GUIAdapter</ks> uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and MsgUtil.kt.<br>
       </td>
     </tr>
   </tbody>
 </table>
 <h4>ParkManagerServiceGUI</h4>
-In order to get the current state of the park, we used a polling strategy which makes request every five seconds. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
-Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing over the client. In order to achieve this architectural paradigm, communication is based over websockets using a STOMP messaggin protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
-Websocket has also been used since those events might occur rarely. This solution avoids web overloading.(da modificare)
-<br><br>
+In order to get the current state of the park, we used a polling strategy which makes request every few seconds, programmable via an ambient variable. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
+Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing over the client. In order to achieve this architectural paradigm, communication is based over websockets using the STOMP messagging protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
+Websocket avoids traffic overhead has also been used since those events might occur rarely.
 <table>
   <tbody>
     <tr>
@@ -422,15 +419,14 @@ Websocket has also been used since those events might occur rarely. This solutio
         <li><a href="../src/main/resources/templates/login.html" target = "_blank">login.html</a></li>
         <li><a href="../src/main/resources/templates/homeMgmt.html" target = "_blank">homeMgmt.html</a></li>
       </ul>
-      Together with this pages JavaScript files are included to create the requests to the controller. They also dynamically modify html's DOM.
+      Together with this pages, JavaScript files are included to manage commincation with the server. They also dynamically modify html's DOM.
     </td>
     </tr>
   </tbody>
 </table>
 <h3>Security</h3>
 <div class="remark">
-The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through (<a href="../src/main/kotlin/controller/WebSecurity.kt" target = "_blank">WebSecurity.kt</a>) which contains the security policy.
-For more simplicity the user and password has been saved in a file not encrypted. This should be improve in future reviews.
+The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through a configuration class (<a href="../src/main/kotlin/controller/WebSecurity.kt" target = "_blank">WebSecurity.kt</a>) which contains the security policy.
 </div>
 <br>
 The sequence diagrams below shows the main interaction between the components of this Sprint.
