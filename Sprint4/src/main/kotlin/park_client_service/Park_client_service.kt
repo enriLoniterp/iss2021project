@@ -145,8 +145,10 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 														saveObject("ParkingState.json", ParkingState)
 								}
 								else
-								 { RESPONSE = "The indoor area is free"  
-								 answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )  
+								 { RESPONSE = "The indoor area is free"
+									 forward("goToIdle", "goToIdle(go)" ,"park_client_service" )
+									 ParkingState.slotState.put(SLOTNUM, "")
+									 answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )
 								 }
 								}
 								else
