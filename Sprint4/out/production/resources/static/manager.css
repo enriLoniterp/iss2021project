@@ -1,0 +1,124 @@
+body {
+			margin: 0;
+		}
+
+    body {
+			font-family: "Poppins";
+		}
+		.info, .success, .warning, .error, .validation {
+			border: 1px solid;
+			margin: 10px 0px;
+			padding: 15px 10px 15px 50px;
+			background-repeat: no-repeat;
+			background-position: 10px center;
+		}
+		.info {
+			color: #00529B;
+			background-color: #BDE5F8;
+			background-image: url('https://i.imgur.com/ilgqWuX.png');
+		}
+		.success {
+			color: #4F8A10;
+			background-color: #DFF2BF;
+			background-image: url('https://i.imgur.com/Q9BGTuy.png');
+		}
+		.warning {
+			color: #9F6000;
+			background-color: #FEEFB3;
+			background-image: url('https://i.imgur.com/Z8q7ww7.png');
+		}
+		.error{
+			color: #D8000C;
+			background-color: #FFBABA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+		}
+		.validation{
+			color: #D63301;
+			background-color: #FFCCBA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+		}
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: left
+      }
+      img {
+        max-width: 120%
+      }
+      .image {
+        padding-left: 3em;
+        flex-basis: 5%
+      }
+      .text {
+        padding-left: 1em;
+      }
+
+      .logout {
+        background-color:#b39700;
+        border-radius:30px;
+        padding-left: 3em;
+        cursor:pointer;
+        color:#000000;
+        font-family: Poppins;
+        font-size:15px;
+        font-weight:bold;
+        padding:10px 40px;
+      }
+
+      .trolley_button {
+        background-color:#ffd700;
+        border-radius:30px;
+        border:1px solid;
+        display:inline-block;
+        cursor:pointer;
+        color:#000000;
+        font-family: Poppins;
+        font-size:20px;
+        padding:4px;
+        width: 110px;
+        visibility: hidden;
+      }
+
+      .button:hover {
+        background-color:#ffd900;
+      }
+      .button:active {
+        position:relative;
+        top:1px;
+      }
+
+
+		h1 {
+			font-size: 200%;
+      font-family: Poppins;
+		}
+
+    h2 {
+      padding-left: 4em;
+      font-size: 200%;
+      font-family: Poppins;
+    }
+
+    p {
+      font-family: Poppins;
+      font-size: 25px;
+
+    }
+
+    
+
+    .park_not_free { width:30px; height:30px; border-radius:20px; background-color:red; }
+    .park_free { width:30px; height:30px; border-radius:20px; background-color:green; }
+
+    #sub_title {
+      padding-left: 10%;
+      font-size: large;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    #rect {
+      width: 100%;
+      height: 300px;
+      background: #ffd700;
+    }

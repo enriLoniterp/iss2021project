@@ -4,6 +4,9 @@ import it.unibo.kactor.ActorBasic
 import it.unibo.kactor.QakContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import org.json.JSONObject
 import org.junit.BeforeClass
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.runApplication
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
@@ -32,19 +36,19 @@ class ApplicationTests {
 
 	companion object {
 
-        var testingObserver   : CoapObserverForTesting? = null
-        var systemStarted         = false
-        val channelSyncStart      = Channel<String>()
+		var testingObserver   : CoapObserverForTesting? = null
+		var systemStarted         = false
+		val channelSyncStart      = Channel<String>()
 		val init:Array<String>   ?=    null
-        var myactor               : ActorBasic? = null
-        var counter               = 1
+		var myactor               : ActorBasic? = null
+		var counter               = 1
 		var weightSensor:WeightSensorAdapter= WeightSensorAdapter()
 		var outSonar:OutSonarAdapter= OutSonarAdapter()
 		val actors: Array<String> = arrayOf("park_client_service")
 		var args : Array<String> = arrayOf()
 		//var mainpark:MainCtxcarparking= MainCtxcarparking()
-        @JvmStatic
-        @BeforeClass
+		@JvmStatic
+		@BeforeClass
 
 		// Inizialization
 		@BeforeAll
@@ -218,6 +222,52 @@ class ApplicationTests {
 		// Send acceptout
 		var result = mockMvc.perform(get("/reqexit?tokenid="+tokenId)).andDo(print()).andExpect(status().isOk).andReturn().response.contentAsString
 		assertFalse(result == "Success")
+	}
+
+
+	//Sprint 4
+	@Test
+	@WithMockUser(value = "user")
+	fun checkParkState() {
+		// set park state
+		// park slot 1 / 2 / 4 engaged
+		ParkingState.slotState.set(1, "160320202200051")
+		ParkingState.slotState.set(2, "160320202302052")
+		ParkingState.slotState.set(4, "160320202203054")
+
+		// indoor and outdoor area free
+		ParkingState.indoorFree=true
+		ParkingState.outdoorFree=true
+
+		// park temperature 23 degrees
+		var temperature: Int = 23
+		ParkingState.temperature=temperature
+
+		// trolley status "idle"
+		var trolleyState: String = "idle"
+		ParkingState.trolleyState=trolleyState
+
+		// fan state "off"
+		var fanState: String = "off"
+		ParkingState.fanState=fanState
+
+		// get current park state from controller
+		var res1 = mockMvc.perform(get("/manager/parkingstate")).andDo(print()).andExpect(status().isOk).andReturn()
+		val data = res1.response.contentAsString
+		val root = JSONObject(data)
+		val parks:HashMap<Int,String> = Json.decodeFromString<HashMap<Int,String>>(root.get("slotState").toString())
+
+		//
+		Assertions.assertEquals(root.get("trolleyState"), trolleyState)
+		//
+		Assertions.assertEquals(root.get("temperature"), temperature)
+		//
+		Assertions.assertEquals(root.get("fanState"), fanState)
+		//
+		Assertions.assertEquals(parks.get(1), "160320202200051")
+		Assertions.assertEquals(parks.get(2), "160320202302052")
+		Assertions.assertEquals(parks.get(4), "160320202203054")
+
 	}
 
 }
