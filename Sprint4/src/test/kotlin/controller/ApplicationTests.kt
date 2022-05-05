@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import outsonar.OutSonarAdapter
 import resources.CoapObserverForTesting
 import resources.ParkingState
+import thermometer.ThermometerAdapter
 import weightsensor.WeightSensorAdapter
 
 
@@ -46,6 +47,7 @@ class ApplicationTests {
 		var outSonar:OutSonarAdapter= OutSonarAdapter()
 		val actors: Array<String> = arrayOf("park_client_service")
 		var args : Array<String> = arrayOf()
+//		var thermometerAdapter:ThermometerAdapter = ThermometerAdapter()
 		//var mainpark:MainCtxcarparking= MainCtxcarparking()
 		@JvmStatic
 		@BeforeClass
@@ -269,5 +271,73 @@ class ApplicationTests {
 		Assertions.assertEquals(parks.get(4), "160320202203054")
 
 	}
+
+	//test funzionale su websocket
+	/*
+	@Test
+	@WithMockUser( value="user")
+	fun fanActivation(){
+
+		runBlocking {
+			val client = HttpClient(CIO){
+				install(WebSockets)
+			}
+
+			client.webSocket(method = HttpMethod.Get, host = "127.0.0.1", port = 8080, path = "/echo") {
+				while(true) {
+					val othersMessage = incoming.receive() as? Frame.Text
+					println(othersMessage?.readText())
+					val myMessage = Scanner(System.`in`).next()
+
+				}
+			}
+			client.close()
+
+		}
+	}
+*/
+/*
+	//test attivazione fan
+	@Test
+	fun testFanOnHighTemperature() {
+		thermometerAdapter.updateTemperature("35")
+		runBlocking { delay(50) }
+		Assertions.assertEquals(ParkingState.highTemperature, true)
+	}
+@Test
+	fun testFanStayOn() {
+
+		thermometerAdapter.updateTemperature("36")
+		runBlocking { delay(100) }
+		Assertions.assertEquals("on", ParkingState.fanState)
+		thermometerAdapter.updateTemperature("32")
+
+		runBlocking { delay(100) }
+		Assertions.assertEquals("on", ParkingState.fanState )
+	}
+	@Test
+	fun testFanOffTemperature() {
+		thermometerAdapter.updateTemperature("15")
+		runBlocking { delay(50) }
+		Assertions.assertEquals(ParkingState.highTemperature, false)
+	}
+
+*/
+
+	//test outdoor area(da integrare con interazione websocket in futuro)
+	@Test
+	fun testOutdoorEngaged() {
+		ParkingState.outdoorFree=true
+		outSonar.updateDistance("5")
+		Assertions.assertEquals(ParkingState.outdoorFree,false)
+	}
+
+	@Test
+	fun testOutdoorNotEngaged() {
+		ParkingState.outdoorFree=true
+		outSonar.updateDistance("60")
+		Assertions.assertEquals(ParkingState.outdoorFree,true)
+	}
+
 
 }
