@@ -238,7 +238,7 @@ div.imagedesc{
   </ul>
 </div>
 <div class = "remark">
-  An initial model of these entities, without interaction between them, can be found <a href = "../src/model1_sprint3.qakt" target = "_blank">here</a>.<br>
+  An initial model of these entities, without interaction between them, can be found <a href = "../src/model1_sprint4.qakt" target = "_blank">here</a>.<br>
 </div>
   <h3>PMS</h3>
   <div class = "remark" id="problem_analysis_PMS">
@@ -272,7 +272,7 @@ div.imagedesc{
 	 Alarm management can be treated in the same way, but the polling mode doesn't really fit this scenario as the alarm event occurs discontinuously and not periodically differently from the change in the general state of the system.
   </div>
   <div class="remark">
-    A model of the two entites and their interaction is available <a href="../src/model2_sprint3.qak" target = "_blank">here</a>.
+    A model of the two entites and their interaction is available <a href="../src/model2_sprint4.qak" target = "_blank">here</a>.
   </div>
   <h3>Login feature</h3>
   <div class="remark" id="problem_analysis_login_feature">
@@ -412,7 +412,7 @@ Websocket avoids traffic overhead has also been used since those events might oc
       </td>
     </tr>
     <tr>
-      <td>
+      <td  style="width: 50%; vertical-align:top">
       <h4>ParkManagerServiceView</h4>
       Multiple html files have been written to represents client views:
       <ul>
@@ -421,12 +421,18 @@ Websocket avoids traffic overhead has also been used since those events might oc
       </ul>
       Together with this pages, JavaScript files are included to manage commincation with the server. They also dynamically modify html's DOM.
     </td>
+    <td>
+      <center><b>Login Page</b></center><br>
+      <center><img src="IMG/login_page.jpg" width="70%"></center>
+      <br><center><b>Home Mgmt Page</b></center><br>
+      <center><img src="IMG/homeMgmt_page.jpg" width="70%"></center>
+    </td>
     </tr>
   </tbody>
 </table>
 <h3>Security</h3>
 <div class="remark">
-The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through a configuration class (<a href="../src/main/kotlin/controller/WebSecurity.kt" target = "_blank">WebSecurity.kt</a>) which contains the security policy.
+The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/" target = "_blank">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through a configuration class (<a href="../src/main/kotlin/controller/WebSecurity.kt" target = "_blank">WebSecurity.kt</a>) which contains the security policy.
 </div>
 <br>
 The sequence diagrams below shows the main interaction between the components of this Sprint.
@@ -472,6 +478,24 @@ Starting from what as been said in the analysis phase, the integration tests hav
 <center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
 <h2>Deployment</h2>
 <div class="remark">
+  This is the final Sprint and now we present the deployment of the full system. The <ks>application</ks> is made of three main components:
+  <ul>
+    <li>The virtual enviroment <b>WEnv</b> represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a>.</li>
+    <li>The <b>ParkManagerService</b> which deals with business logic represeted by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
+    <li>The <b>basicRobot</b> developed in <a>Sprint 2</a> represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
+  </ul>
+  The first two components have been deployed in a machine standing in the parking area meanwhile the third one has been deployed in the real <a><b>DDR robot</b></a> built by us.<br> 
+  In order to make system inizialization easier, a <a>docker-compose file</a> which includes WEnv and the PMS has been developed and deployed. <br><br>
+  We also believe in a strong system flexibility and for that reason we decided to externalize some priviously embedded variables are used by the system for the initial configuration. This feature has been developed using a <b><a>variables.env</a></b> file, which includes the values which are assigned to the variables. Those values are loaded in the PMS container when the docker command (docker-compose -f automatedcarparking.yaml up) is performed. <br><br>
+  
+  <b>How to run the system</b>
+  <pre>
+  <ol>
+    <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry and run bash it.unibo.qak21.basicrobot in the <b>raspberry console</b></li>
+    <li>Run docker-compose -f automatedcarparking.yaml up</li>
+    <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client and to localhost:8081/login to login in the system as manager</li>
+  </ol>
+  </pre>
 </div>
 
 <h2>Job task</h2>
