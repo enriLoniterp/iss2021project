@@ -60,7 +60,7 @@ class Manager_service (name: String, scope: CoroutineScope  ) : ActorBasicFsm( n
 													
 												
 												} 
-								answer("changeTrolley", "responseChangeTrolley", "$RESPONSE"   )  
+								answer("changeTrolley", "responseChangeTrolley", "responseChangeTrolley($RESPONSE)"   )
 						}
 					}
 					 transition( edgeName="goto",targetState="idle", cond=doswitch() )

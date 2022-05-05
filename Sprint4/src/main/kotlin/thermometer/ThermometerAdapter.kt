@@ -30,10 +30,10 @@ class ThermometerAdapter : SensorPort{
 	fun updateTemperature(temperature : String){
 		println(this.temperature + " "+ temperature.toInt())
 		if(this.temperature.toInt() <30 && temperature.toInt()>=30){
-			//this.fan.sendCommand("on")
 			ParkingState.highTemperature = true
 			println("HIGH TEMPERATURE")
 			observer()
+			this.fan.sendCommand("on")
 
 		}else if(this.temperature.toInt() >=30 && temperature.toInt()<30){
 			this.fan.sendCommand("off")
@@ -42,6 +42,7 @@ class ThermometerAdapter : SensorPort{
 		}
 		this.temperature = temperature
 		ParkingState.temperature = temperature.toInt()
+
 
 	}
 

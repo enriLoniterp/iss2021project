@@ -121,8 +121,8 @@ class GuiAdapter {
     fun trolleystate(@RequestParam state:String): ResponseEntity<String> {
             val request = MsgUtil.buildRequest("springcontroller", "changeTrolley", "changeTrolley($state)", "manager_service")
             val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
-
-             return ResponseEntity.ok(reply.msgContent)
+            println("QUI!!!! "+ reply.msgContent)
+            return ResponseEntity.ok(reply.msgContent)
     }
 
 

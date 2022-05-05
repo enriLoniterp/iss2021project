@@ -336,15 +336,29 @@ div.imagedesc{
     Given the following assumptions:
     <ul>
       <li>Manager logged.</li>
+		<li>Trolley STOPPED</li>
 	    <li>TA < TMAX</li>
     </ul>
     <pre>
-      <b>TROLLEY START/STOP</b>
-      manager -> STOP 
-        check if trolley state = <b>STOPPED</b>
+      <b>TROLLEY START</b>
+     
       manager -> START 
         check if trolley state = <b>WORKING</b>
     </pre>
+	Given the following assumptions:
+    <ul>
+      <li>Manager logged.</li>
+		<li>Trolley WORKING</li>
+	    <li>TA > TMAX</li>
+    </ul>
+    <pre>
+      <b>TROLLEY STOP</b>
+     
+      manager -> STOP 
+        check if trolley state = <b>STOPPED</b>
+    </pre>
+	
+	
 	
   </div>
 
@@ -419,7 +433,9 @@ Websocket avoids traffic overhead has also been used since those events might oc
         <li><a href="../src/main/resources/templates/login.html" target = "_blank">login.html</a></li>
         <li><a href="../src/main/resources/templates/homeMgmt.html" target = "_blank">homeMgmt.html</a></li>
       </ul>
-      Together with this pages, JavaScript files are included to manage commincation with the server. They also dynamically modify html's DOM.
+      Together with this pages, <a href="../src/main/resources/static/mgmt.js" target = "_blank">mgmt.js</a> is included to manage commincation with the server. They also dynamically modify html's DOM.</br>
+	  In order to remove situations of error related to trolley management, commands to change trolley state are available only in specific scenarios. In particular command to stop the trolley is available only if temperature is over the threshold and trolley is not stopped,
+	  and command to resume the trolley in available only if temperature is under the threshold and trolley is stopped. 
     </td>
     <td>
       <center><b>Login Page</b></center><br>
@@ -468,9 +484,35 @@ The sequence diagrams below shows the main interaction between the components of
 <div class="remark">
 Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
 <ul>
-  <li><a>TEST #1 - no queue task</a></li>
-  <li><a>TEST #2 - complete cycle of tasks</a></li>
-  <li><a>TEST #3 - halt functionality</a></li>
+  <li><a>TEST #1 - PARKSTATE</a></li>
+  <li><a>TEST #2 - FAN ACTIVATION</a></li>
+  <li><a>TEST #3 - FAN DE-ACTIVATION</a></li>
+  <li><a>TEST #4 - TROLLEY START</a></li>
+  <li><a>TEST #5 - TROLLEY STOP</a></li>
+  <li><a>TEST #6 - FAN MANTAINING ON</a></li> 
+  <li><a>TEST #7 - FAN MANTAINING OFF</a></li>
+  
+  Tests have been developed as described below in the problem analysis section.
+  TEST #6 and #7 have been added during the project and they are described here:
+  <pre>
+      <b>FAN MANTAINING ON</b>
+      temperature 32
+	  check if FAN  <b>ON</b>
+	  temperature 36
+	  check if FAN  <b>ON</b>
+	  
+	  <b>FAN MANTAINING OFF</b>
+      temperature 28
+	  check if FAN  <b>OFF</b>
+	  temperature 23
+	  check if FAN  <b>OFF</b>
+    </pre>
+	</br>
+  The focus point of this integration tests is controlling the correct functioning of the functions made available to the manager.
+ 
+  
+
+
 <ul>
 </div>
 

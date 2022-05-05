@@ -48,7 +48,8 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 				}	 
 				state("idle") { //this:State
 					action { //it:State
-						 currentTask = "INDOOR"  
+						 currentTask = "IDLE"
+						resources.ParkingState.trolleyState = "idle"
 						updateResourceRep( "trolley IDLE"  
 						)
 						println("trolleyController idle")
@@ -61,7 +62,7 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 				}	 
 				state("working") { //this:State
 					action { //it:State
-						resources.ParkingState.trolleyState = "trolley WORKING" 
+						resources.ParkingState.trolleyState = "working"
 						println("$name in ${currentState.stateName} | $currentMsg")
 						println("trolley WORKING")
 						updateResourceRep( "WORKING"  
@@ -172,13 +173,13 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 				state("blocked") { //this:State
 					action { //it:State
 						println("trolleyController blocked")
-						resources.ParkingState.trolleyState="trolley STOPPED" 
+						resources.ParkingState.trolleyState="stopped"
 					}
 				}	 
 				state("stopped") { //this:State
 					action { //it:State
 						println("trolleyController stopped")
-						resources.ParkingState.trolleyState = "trolley STOPPED" 
+						resources.ParkingState.trolleyState = "stopped"
 					}
 					 transition(edgeName="t229",targetState="idle",cond=whenDispatchGuarded("resume",{ currentTask == "HOME" || currentTask == "IDLE"  
 					}))

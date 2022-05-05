@@ -2,7 +2,7 @@ var prefix = "http://localhost:8081"
 
 setInterval(function (){
 parkState()
-},3000);
+},2000);
 
 function parkState(){
 
@@ -52,7 +52,7 @@ function parkState(){
                 }
             }
 
-            if(respjson.temperature >= 30 && respjson.trolleyState=="working"){
+            if(respjson.temperature >= 30 && (respjson.trolleyState=="working" || respjson.trolleyState=="idle")){
                 startButton.style.visibility="hidden"
                 stopButton.style.visibility="visible"
             }
@@ -82,6 +82,7 @@ function trolleystate(element){
    console.log(element.id)
    var button = element.id
    var url = prefix + '/manager/trolley';
+   if(button == "start"){button = "resume"}
    var urlcomplete = url +"?state="+ button
 
    xhr.onreadystatechange = function(){
@@ -92,6 +93,13 @@ function trolleystate(element){
 			{
 			  var response = xhr.responseText
                console.log(response)
+                var startButton= document.getElementById("start")
+                var stopButton=document.getElementById("stop")
+               if (button == "resume"){
+                    startButton.style.visibility="hidden"
+               }else{
+               stopButton.style.visibility="hidden"
+               }
 			   // recupero dat
 			}
 			else
