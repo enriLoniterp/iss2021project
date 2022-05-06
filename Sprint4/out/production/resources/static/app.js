@@ -43,17 +43,17 @@ function carenter(slotnum){
   	  {
   			if(xhr.status == 200){
   				 var tokenid = xhr.responseText
-  				 console.log(tokenid)
+  				 if(check_receipt==0){
   				 document.getElementById("tokenid").setAttribute("style", "display:inline")
   				 document.getElementById("tokenid").setAttribute("value", tokenid)
-  				  document.getElementById("message").setAttribute("style", "display:inline")
+  				 document.getElementById("message").setAttribute("style", "display:inline")
   			     //alert(tokenid)
+  			     }
+  			}else
+  			{
+  				var info = eval ( "(" + xhr.responseText + ")" );
+  				alert("alert in fase di carenter")
   			}
-  				else
-  				{
-  					var info = eval ( "(" + xhr.responseText + ")" );
-  					alert("alert in fase di carenter")
-  				}
 
   		}
   	   };
@@ -61,6 +61,12 @@ function carenter(slotnum){
         xhr.send( );
 }
 
+function check_receipt(rec){
+if(rec=="The indoor area is free"){
+    return 1
+}
+return 0
+}
 
 function deposit(){
     const queryString = window.location.search;
