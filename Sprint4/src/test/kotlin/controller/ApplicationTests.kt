@@ -47,7 +47,6 @@ class ApplicationTests {
 		var outSonar:OutSonarAdapter= OutSonarAdapter()
 		val actors: Array<String> = arrayOf("park_client_service")
 		var args : Array<String> = arrayOf()
-//		var thermometerAdapter:ThermometerAdapter = ThermometerAdapter()
 		//var mainpark:MainCtxcarparking= MainCtxcarparking()
 		@JvmStatic
 		@BeforeClass
@@ -296,17 +295,21 @@ class ApplicationTests {
 		}
 	}
 */
-/*
+
 	//test attivazione fan
 	@Test
 	fun testFanOnHighTemperature() {
+		var thermometerAdapter:ThermometerAdapter = ThermometerAdapter()
+		thermometerAdapter.addObserver { println("TEST") }
 		thermometerAdapter.updateTemperature("35")
 		runBlocking { delay(50) }
 		Assertions.assertEquals(ParkingState.highTemperature, true)
 	}
-@Test
-	fun testFanStayOn() {
 
+	@Test
+	fun testFanStayOn() {
+		var thermometerAdapter:ThermometerAdapter = ThermometerAdapter()
+		thermometerAdapter.addObserver { println("TEST") }
 		thermometerAdapter.updateTemperature("36")
 		runBlocking { delay(100) }
 		Assertions.assertEquals("on", ParkingState.fanState)
@@ -317,12 +320,12 @@ class ApplicationTests {
 	}
 	@Test
 	fun testFanOffTemperature() {
+		var thermometerAdapter:ThermometerAdapter = ThermometerAdapter()
+		thermometerAdapter.addObserver { println("TEST") }
 		thermometerAdapter.updateTemperature("15")
 		runBlocking { delay(50) }
 		Assertions.assertEquals(ParkingState.highTemperature, false)
 	}
-
-*/
 
 	//test outdoor area(da integrare con interazione websocket in futuro)
 	@Test
