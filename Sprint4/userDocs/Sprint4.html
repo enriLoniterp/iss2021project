@@ -234,7 +234,7 @@ div.imagedesc{
   This Sprint aim is to develop and deeper describe the following entities:
   <ul>
     <li><ks>ParkServiceStatusGUI</ks> interacts directly with the manager;</li>
-    <li><ks>Park Manager Service</ks> processes managers' requests;</li>
+    <li><ks>Park Manager Service</ks> processes manager's requests;</li>
   </ul>
 </div>
 <div class = "remark">
@@ -245,14 +245,14 @@ div.imagedesc{
     From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to process manager's requests and provide information about current system status. <br>
     As suggested in previous Sprint, the introduction of a new entity allows to process manager's tasks without affect the rest of the application. In particular, thanks 
     to the <a href="../../Sprint3/userDocs/Sprint3.html#parking_state" target = "_blank">Parking State</a> described in the last Sprint, this Sprint will focus on how
-    to properly send that data to the manager GUI. Since the data represent the current system status, every change must be notified as soon as possibile (instantly non mi piaceva). <br>
+    to properly send that data to the manager GUI. Since the data represent the current system status, every change must be notified as soon as possibile. <br>
 
     In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAX</ks> threshold. Infact, the manager is able
-    to start or stop the trolley and turn off the fan is temperature is below <ks>TMAX</ks> and turn on the fan otherwise. <br>
+    to start the trolley and turn off the fan if temperature is below <ks>TMAX</ks> and turn on the fan and start stop the trolley otherwise. <br>
 
     In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
     Finally, <ks>PMS</ks> must be able to support some kind of timer which times car presence in the <ks>OUTDOOR AREA</ks> for more than 
-    <a href="../../Sprint3/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> threshold.
+    <a href="../../Sprint3/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> time.
   </div>
   <h3>ParkServiceStatusGUI</h3>
   <div class="remark" id="problem_analysis_parking_service_GUI">
@@ -268,7 +268,7 @@ div.imagedesc{
       <li><b>POLLING</b>: requests are continuously sent by the GUI. This methodology affects client performance.</li>
       <li><b>Open communication channel</b>: PMS continuously send new data to the client side. This methodology affects server performance.</li>
     </ul>
-    Both methodoly can be deployed using <b>HTTP protocol</b> or <b>Websocket</b>. <br>
+    Both methods can be implemented using <b>HTTP protocol</b> or <b>Websocket</b>. <br>
 	 Alarm management can be treated in the same way, but the polling mode doesn't really fit this scenario as the alarm event occurs discontinuously and not periodically differently from the change in the general state of the system.
   </div>
   <div class="remark">
@@ -279,7 +279,7 @@ div.imagedesc{
     Since only parking managers should be able to perform tasks previously described, an authentication form must be deployed into the application. This brings the attention on how
     ParkServiceStatusGUI web page should be protected from undesiderd users and how to properly store managers credentials. The first point can be accomplished by easily deploy a login 
     page which must redirects unauthorized users which try to access ParkServiceStatusGUI. The deployment can be faster achieved by using 
-    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build ParkServiceGui.
+    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build ParkServiceGUI.
     At the same time managers' credentials should be stored in a dislocated server and crypted with any kind of hash function such as SHA-256 or MD5 to provent dictionary or injection attacks. However, for the sake of semplicity we can consider the deploy server for the ParkServiceStatusGUI safe and store credentials clearly in a file.
   </div>
 
@@ -288,7 +288,7 @@ div.imagedesc{
 
   <h4>Test Unit</h4>
   <div class="remark">
-	In this functional test we consider the right interaction between <ks>ParkServiceGUI</ks> and <ks>ParkManagerService</ks>. In particular, we will analyzing some core functionalities 
+	In this functional test we consider the right interaction between <ks>ParkServiceGUI</ks> and <ks>PMS</ks>. In particular, we will analyze some core functionalities 
   such as parking state updates, high temperature alarm, trasport trolley interaction and manager login.
 
 
@@ -317,8 +317,8 @@ div.imagedesc{
     <b>FAN ACTIVATION</b>
 
     <ks>PMS</ks> check if TA > TMAX
-    <ks>PMS</ks> -> TURN_ON 
-	    check if fan_state = <b>ON</b>
+    <ks>PMS</ks> -> TURN_ON
+    check if fan_state = <b>ON</b>
     </pre>
     Given the following assumptions:
     <ul>
@@ -331,31 +331,31 @@ div.imagedesc{
 
     <ks>PMS</ks> check if TA <= TMAX
     <ks>PMS</ks> -> TURN_OFF
-	      check if fan_state = <b>OFF</b>
+    check if fan_state = <b>OFF</b>
     </pre>
     Given the following assumptions:
     <ul>
       <li>Manager logged.</li>
-		<li>Trolley STOPPED</li>
+		<li><ks>Trolley</ks> <b>STOPPED</b></li>
 	    <li>TA < TMAX</li>
     </ul>
     <pre>
       <b>TROLLEY START</b>
      
       manager -> START 
-        check if trolley state = <b>WORKING</b>
+      check if trolley state = <b>WORKING</b> or <b>IDLE</b>
     </pre>
 	Given the following assumptions:
     <ul>
       <li>Manager logged.</li>
-		<li>Trolley WORKING</li>
+		<li><ks>Trolley</ks> <b>WORKING/IDLE</b></li>
 	    <li>TA > TMAX</li>
     </ul>
     <pre>
       <b>TROLLEY STOP</b>
      
       manager -> STOP 
-        check if trolley state = <b>STOPPED</b>
+      check if trolley state = <b>STOPPED</b>
     </pre>
 	
 	
@@ -372,7 +372,7 @@ which processes managers' requests.<br>
 The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed in the Sprint 3. This pattern requires to split the ParkServiceManagerGUI into two components (Model not needed in our case):
 <ul>
   <li><b>View</b>: user interfaces.</li>
-  <li><b>Controller</b>: receives requests and generates content view for the manager and manage communication between the bew client and the PMS.</li>
+  <li><b>Controller</b>: receives requests and generates content view for the manager and manage communication between the manager and the PMS.</li>
 </ul>
 <br>
 In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park. 
@@ -384,7 +384,7 @@ In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_b
       <br>
       In order to accept, queue and process different requests in a non-blocking manner, the managerService is implemented as an actor which has
       multiple status to exploit different tasks. managerService logic is message-based so that its state changes are triggered by message or events.<br>
-      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a>temperature adapter</a>.
+      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a href="../src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerAdapter</a>.
       The scheme on the side shows managerService behaviour.
     </td>
     <td>
@@ -408,16 +408,16 @@ In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_b
   </tbody>
 </table>
 <h4>ParkManagerServiceGUI</h4>
-In order to get the current state of the park, we used a polling strategy which makes request every few seconds, programmable via an ambient variable. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
-Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing over the client. In order to achieve this architectural paradigm, communication is based over websockets using the STOMP messagging protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
-Websocket avoids traffic overhead has also been used since those events might occur rarely.
+In order to get the current state of the park, we used a polling strategy which makes request every 2 seconds. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
+Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing to the client. In order to achieve this architectural paradigm, communication is based over websockets using the STOMP messagging protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
+Websocket avoids traffic overhead and it is used since those events might occur rarely.</br></br>
 <table>
   <tbody>
     <tr>
       <td style="width: 50%; vertical-align:top">
         <h4 id = "GUIAdapter"><a href="../src/main/kotlin/controller/GuiAdapter.kt" target = "_blank">GUIAdapter</a></h4>
         The GUIAdapter developed in the last Sprint has been expanded with new methods to fulfill manager's requests.<br>
-        Moreover GUIAdapter aim is to open the connection via websocket and add new callback functions to the temperature and outdoor adapter which are called when their events occur.
+        Moreover GUIAdapter aim is to open the connection via websocket and add new callback functions to the thermometer and outdoor adapter which are called when their events occur.
       </td>
       <td>
         <center>
@@ -428,14 +428,16 @@ Websocket avoids traffic overhead has also been used since those events might oc
     <tr>
       <td  style="width: 50%; vertical-align:top">
       <h4>ParkManagerServiceView</h4>
-      Multiple html files have been written to represents client views:
+      Two html files have been written to represents client views:
       <ul>
         <li><a href="../src/main/resources/templates/login.html" target = "_blank">login.html</a></li>
         <li><a href="../src/main/resources/templates/homeMgmt.html" target = "_blank">homeMgmt.html</a></li>
       </ul>
       Together with this pages, <a href="../src/main/resources/static/mgmt.js" target = "_blank">mgmt.js</a> is included to manage commincation with the server. They also dynamically modify html's DOM.</br>
-	  In order to remove situations of error related to trolley management, commands to change trolley state are available only in specific scenarios. In particular command to stop the trolley is available only if temperature is over the threshold and trolley is not stopped,
-	  and command to resume the trolley in available only if temperature is under the threshold and trolley is stopped. 
+	  In order to remove situations of error related to trolley management, commands to change trolley state are available only in specific scenarios. In particular command to stop the trolley is available only if temperature is over <ks>TMAX</ks> and trolley is not stopped,
+	  and command to resume the trolley in available only if temperature is under <ks>TMAX</ks> and trolley is stopped. </br>
+	  As value for <ks>TMAX</ks> is chosen 30 degree celsius.</br></br>
+	  In addition in homeMgmt.html page is included the parking slots status, represented by a table with cells and green and red button, as shown in the image.
     </td>
     <td>
       <center><b>Login Page</b></center><br>
@@ -492,7 +494,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
   <li><a>TEST #6 - FAN MANTAINING ON</a></li> 
   <li><a>TEST #7 - FAN MANTAINING OFF</a></li>
   
-  Tests have been developed as described below in the problem analysis section.
+  Tests have been developed as described above in the problem analysis section.
   TEST #6 and #7 have been added during the project and they are described here:
   <pre>
   <b>FAN MANTAINING ON</b>
@@ -508,6 +510,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     check if FAN  <b>OFF</b>
   </pre>
 	</br>
+	The code of these tests can be found in <a href="../src/test/kotlin/controller/ApplicationTests.kt" target = "_blank">ApplicationTests.kt</a></br>
   The focus point of this integration tests is controlling the correct functioning of the functions made available to the manager.
  
   
@@ -523,19 +526,20 @@ Starting from what as been said in the analysis phase, the integration tests hav
   This is the final Sprint and now we present the deployment of the full system. The <ks>application</ks> is made of three main components:
   <ul>
     <li>The virtual enviroment <b>WEnv</b> represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a>.</li>
-    <li>The <b>ParkManagerService</b> which deals with business logic represeted by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
+    <li>The <b>ParkManagerService</b> which deals with business logic represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
     <li>The <b>basicRobot</b> developed in <a>Sprint 2</a> represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
   </ul>
-  The first two components have been deployed in a machine standing in the parking area meanwhile the third one has been deployed in the real <a><b>DDR robot</b></a> built by us.<br> 
+  The first two components have been deployed in a machine standing in the parking area meanwhile the third one has been deployed in the real <a><b>DDR robot</b></a> built by us. A detailed description on how we built the robot and how it works can be found in <a href="" target = "_blank">ParkingBot</a>.<br>
   In order to make system inizialization easier, a <a>docker-compose file</a> which includes WEnv and the PMS has been developed and deployed. <br><br>
-  We also believe in a strong system flexibility and for that reason we decided to externalize some priviously embedded variables are used by the system for the initial configuration. This feature has been developed using a <b><a>variables.env</a></b> file, which includes the values which are assigned to the variables. Those values are loaded in the PMS container when the docker command (docker-compose -f automatedcarparking.yaml up) is performed. <br><br>
+  
+  In order to make the system more flexible, in future we suggest to externalize some priviously embedded variables used by the system for the initial configuration.<br><br>
   
   <b>How to run the system</b>
   <pre>
   <ol>
-    <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry and run bash it.unibo.qak21.basicrobot in the <b>raspberry console</b></li>
+    <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry, go to the bin directory and run bash it.unibo.qak21.basicrobot</li>
     <li>Run docker-compose -f automatedcarparking.yaml up</li>
-    <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client and to localhost:8081/login to login in the system as manager</li>
+    <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client or to localhost:8081/login to login in the system as manager</li>
   </ol>
   </pre>
 </div>
@@ -550,7 +554,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <td><center><b>Manfreda Filippo</b><br>filippo.manfreda@studio.unibo.it</center></td>
     <td>
       <ul>
-        <li>parkClientService</li>
+        <li>managerService and physical robot</li>
       </ul>
     </td>
   </tr>
@@ -558,7 +562,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <td><center><b>Andrini Enrico</b><br>enrico.andrini2@studio.unibo.it</center></td>
     <td>
       <ul>
-        <li>GUIAdapter</li>
+        <li>Spring infrastracture</li>
       </ul>
     </td>
   </tr>
@@ -566,7 +570,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <td><center><b>Cristaudo Giuseppe</b><br>giuseppe.cristaudo@studio.unibo.it</center></td>
     <td>
       <ul>
-        <li>ParkServiceView</li>
+        <li>ParkManagerServiceView</li>
       </ul>
     </td>
   </tr>
