@@ -81,7 +81,7 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								 }
 								}
 								else
-								 { RESPONSE= "The indoor area is engaged or the trolley is stopped"  
+								 { RESPONSE= "The indoor area is engaged or the trolley is stopped"
 								 }
 								println("parkclientservice reply enter($SLOTNUM)")
 								updateResourceRep( "$SLOTNUM"  
@@ -111,12 +111,14 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 															saveObject("ParkingState.json", ParkingState)
 								}
 								else
-								 { RESPONSE = "Invalid tokenid"  
+								 { RESPONSE = "Invalid tokenid"
+									 forward("goToIdle", "goToIdle(go)" ,"park_client_service" )
 								 answer("acceptOut", "responseAcceptOut", "responseAcceptOut($RESPONSE)"   )  
 								 }
 								}
 								else
-								 { RESPONSE = "The trolley is stopped or outdoor not free"  
+								 { RESPONSE = "The trolley is stopped or outdoor not free"
+									 forward("goToIdle", "goToIdle(go)" ,"park_client_service" )
 								 answer("acceptOut", "responseAcceptOut", "responseAcceptOut($RESPONSE)"   )  
 								 }
 								println("parkclientservice reply")
@@ -152,7 +154,8 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								 }
 								}
 								else
-								 { RESPONSE = "Invalid parking slot number"  
+								 { RESPONSE = "Invalid parking slot number"
+									 forward("goToIdle", "goToIdle(go)" ,"park_client_service" )
 								 answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )  
 								 }
 								println("parkclientservice reply")
