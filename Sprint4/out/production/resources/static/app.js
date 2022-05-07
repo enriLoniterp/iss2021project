@@ -89,24 +89,25 @@ function pickup(){
   if(tokenid == "") {
     return
   }
+  document.getElementById("fail").setAttribute("style", "display:none")
 
   var apiUrl = prefix + '/reqexit?tokenid=' + tokenid;
   var xhr = new XMLHttpRequest();
+  				     console.log("ok")
 
      xhr.onreadystatechange = function(){
   	  if ( xhr.readyState == 4  )
   	  {
   			if(xhr.status == 200){
   				 var resp = xhr.responseText
-  				 if(resp==0){
+  				 if(resp=="Invalid tokenid"){
                    	 document.getElementById("fail").setAttribute("style", "display:inline")
+
                  }else{
   				     document.getElementById("success").setAttribute("style", "display:inline")
   				     document.getElementById("pickup").setAttribute("style", "display:none")
+  				     console.log("oksucces")
   				     }
-
-
-
 
   		}
   	   }
@@ -114,9 +115,9 @@ function pickup(){
 };
 	    xhr.open( "GET", apiUrl , true );
         xhr.send( );
+  document.getElementById("pickup").setAttribute("style", "display:inline")
 
 }
-
 //WEBSOCKETS//
 
 function connect() {
