@@ -302,7 +302,7 @@ div.imagedesc{
     <ul>
       <li>Manager logged.</li>
     </ul>
-    <pre>
+    <pre id="test_parkstate">
       <b>PARKSTATE</b>
 
       PMS -> <ks>monitor</ks>
@@ -313,7 +313,7 @@ div.imagedesc{
       <li>Manager logged.</li>
       <li><ks>FAN</ks> <b>OFF</b></li>
     </ul>
-    <pre>
+    <pre id="fan_ON">
     <b>FAN ACTIVATION</b>
 
     <ks>PMS</ks> check if TA > TMAX
@@ -325,7 +325,7 @@ div.imagedesc{
       <li>Manager logged.</li>
       <li><ks>FAN</ks> <b>ON</b></li>
     </ul>
-    <pre>
+    <pre id="fan_OFF">
       <!-- controllo automatico della fan -->
     <b>FAN DE-ACTIVATION</b>
 
@@ -339,7 +339,7 @@ div.imagedesc{
 		<li><ks>Trolley</ks> <b>STOPPED</b></li>
 	    <li>TA < TMAX</li>
     </ul>
-    <pre>
+    <pre id="trolley_START">
       <b>TROLLEY START</b>
      
       manager -> START 
@@ -351,7 +351,7 @@ div.imagedesc{
 		<li><ks>Trolley</ks> <b>WORKING/IDLE</b></li>
 	    <li>TA > TMAX</li>
     </ul>
-    <pre>
+    <pre id="trolley_STOP">
       <b>TROLLEY STOP</b>
      
       manager -> STOP 
@@ -486,13 +486,13 @@ The sequence diagrams below shows the main interaction between the components of
 <div class="remark">
 Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
 <ul>
-  <li><a>TEST #1 - PARKSTATE</a></li>
-  <li><a>TEST #2 - FAN ACTIVATION</a></li>
-  <li><a>TEST #3 - FAN DE-ACTIVATION</a></li>
-  <li><a>TEST #4 - TROLLEY START</a></li>
-  <li><a>TEST #5 - TROLLEY STOP</a></li>
-  <li><a>TEST #6 - FAN MANTAINING ON</a></li> 
-  <li><a>TEST #7 - FAN MANTAINING OFF</a></li>
+  <li><a href="#test_parkstate">TEST #1 - PARKSTATE</a></li>
+  <li><a href="#fan_ON">TEST #2 - FAN ACTIVATION</a></li>
+  <li><a href="#fan_OFF">TEST #3 - FAN DE-ACTIVATION</a></li>
+  <li><a href="#trolley_START">TEST #4 - TROLLEY START</a></li>
+  <li><a href="#trolley_STOP">TEST #5 - TROLLEY STOP</a></li>
+  <li>TEST #6 - FAN MANTAINING ON</li> 
+  <li>TEST #7 - FAN MANTAINING OFF</li>
   
   Tests have been developed as described above in the problem analysis section.
   TEST #6 and #7 have been added during the project and they are described here:
