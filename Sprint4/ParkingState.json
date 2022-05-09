@@ -5,7 +5,7 @@
     "1" : "160320202200051",
     "2" : "160320202302052",
     "3" : "",
-    "4" : "",
+    "4" : "160320202203054",
     "5" : "160320202302055",
     "6" : "160320202205056"
   },
@@ -17,8 +17,8 @@
         "elementsCount" : 0,
         "annotations" : [ ],
         "serialNames" : [ ],
-        "inline" : false,
-        "nullable" : false
+        "nullable" : false,
+        "inline" : false
       }
     },
     "initialized" : true

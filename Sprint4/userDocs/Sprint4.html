@@ -277,9 +277,9 @@ div.imagedesc{
   <h3>Login feature</h3>
   <div class="remark" id="problem_analysis_login_feature">
     Since only parking managers should be able to perform tasks previously described, an authentication form must be deployed into the application. This brings the attention on how
-    <ks>ParkServiceStatusGUI</ks> web page should be protected from undesiderd users and how to properly store managers credentials. The first point can be accomplished by easily deploy a login 
+    ParkServiceStatusGUI web page should be protected from undesiderd users and how to properly store managers credentials. The first point can be accomplished by easily deploy a login 
     page which must redirects unauthorized users which try to access ParkServiceStatusGUI. The deployment can be faster achieved by using 
-    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build <ks>ParkServiceGUI</ks>.
+    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build ParkServiceGUI.
     At the same time managers' credentials should be stored in a dislocated server and crypted with any kind of hash function such as SHA-256 or MD5 to provent dictionary or injection attacks. However, for the sake of semplicity we can consider the deploy server for the ParkServiceStatusGUI safe and store credentials clearly in a file.
   </div>
 
@@ -367,29 +367,29 @@ div.imagedesc{
 The Sprint 4 should be done in <b>four days</b>.
 <div id = "project">
 <h2>Project</h2>
-Starting from what stated in the analysis phase, we introduce a new entity called <ks><ks>managerService</ks></ks>, taking part of the <ks>PMS</ks>
+Starting from what stated in the analysis phase, we introduce a new entity called <ks>managerService</ks>, taking part of the <ks>PMS</ks>
 which processes managers' requests.<br>
-The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed in the Sprint 3. This pattern requires to split the <ks>ParkServiceManagerGUI</ks> into two components (Model not needed in our case):
+The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed in the Sprint 3. This pattern requires to split the ParkServiceManagerGUI into two components (Model not needed in our case):
 <ul>
   <li><b>View</b>: user interfaces.</li>
   <li><b>Controller</b>: receives requests and generates content view for the manager and manage communication between the manager and the PMS.</li>
 </ul>
 <br>
 In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park. 
-<h4><a href="../src/main/kotlin/manager_service/Park_manager_service.kt" target = "_blank"><ks>managerService</ks></a></h4>
+<h4><a href="../src/main/kotlin/manager_service/Park_manager_service.kt" target = "_blank">managerService</a></h4>
 <table>
   <tbody>
     <tr>
     <td style="width: 50%; vertical-align:top">
       <br>
-      In order to accept, queue and process different requests in a non-blocking manner, the <ks>managerService</ks> is implemented as an actor which has
-      multiple status to exploit different tasks. <ks>managerService</ks> logic is message-based so that its state changes are triggered by message or events.<br>
-      The <ks><ks>managerService</ks></ks> costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a href="../src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerAdapter</a>.
-      The scheme on the side shows <ks>managerService</ks> behaviour.
+      In order to accept, queue and process different requests in a non-blocking manner, the managerService is implemented as an actor which has
+      multiple status to exploit different tasks. managerService logic is message-based so that its state changes are triggered by message or events.<br>
+      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a href="../src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerAdapter</a>.
+      The scheme on the side shows managerService behaviour.
     </td>
     <td>
       <center>
-        <img src="IMG/park<ks>managerService</ks>_FSM.png" alt="park<ks>managerService</ks>_FSM" width="70%">
+        <img src="IMG/parkManagerService_FSM.png" alt="parkManagerService_FSM" width="70%">
       </center>
     </td>
     </tr>
@@ -399,15 +399,15 @@ In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_b
   <tbody>
     <tr>
       <td>
-        <h4><ks>managerService</ks> communication</h4>
-        <ks>managerService</ks> interacts with <ks><ks>GuiAdapter</ks></ks>, developed in the previous Sprint and updated with new features described <a href="#<ks>GuiAdapter</ks>">below</a>, from which receives manager's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
+        <h4>managerService communication</h4>
+        managerService interacts with <ks>GUIAdapter</ks>, developed in the previous Sprint and updated with new features described <a href="#GUIAdapter">below</a>, from which receives manager's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
         <br>
-        In order to send QAK understandable messages, <ks><ks>GuiAdapter</ks></ks> uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and MsgUtil.kt.<br>
+        In order to send QAK understandable messages, <ks>GUIAdapter</ks> uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and MsgUtil.kt.<br>
       </td>
     </tr>
   </tbody>
 </table>
-<h4>Park<ks>managerService</ks>GUI</h4>
+<h4>ParkManagerServiceGUI</h4>
 In order to get the current state of the park, we used a polling strategy which makes request every 2 seconds. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
 Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing to the client. In order to achieve this architectural paradigm, communication is based over websockets using the STOMP messagging protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
 Websocket avoids traffic overhead and it is used since those events might occur rarely.</br></br>
@@ -415,9 +415,9 @@ Websocket avoids traffic overhead and it is used since those events might occur 
   <tbody>
     <tr>
       <td style="width: 50%; vertical-align:top">
-        <h4 id = "<ks>GuiAdapter</ks>"><a href="../src/main/kotlin/controller/<ks>GuiAdapter</ks>.kt" target = "_blank"><ks>GuiAdapter</ks></a></h4>
-        The <ks>GuiAdapter</ks> developed in the last Sprint has been expanded with new methods to fulfill manager's requests.<br>
-        Moreover <ks>GuiAdapter</ks> aim is to open the connection via websocket and add new callback functions to the thermometer and outdoor adapter which are called when their events occur.
+        <h4 id = "GUIAdapter"><a href="../src/main/kotlin/controller/GuiAdapter.kt" target = "_blank">GUIAdapter</a></h4>
+        The GUIAdapter developed in the last Sprint has been expanded with new methods to fulfill manager's requests.<br>
+        Moreover GUIAdapter aim is to open the connection via websocket and add new callback functions to the thermometer and outdoor adapter which are called when their events occur.
       </td>
       <td>
         <center>
@@ -427,7 +427,7 @@ Websocket avoids traffic overhead and it is used since those events might occur 
     </tr>
     <tr>
       <td  style="width: 50%; vertical-align:top">
-      <h4>Park<ks>managerService</ks>View</h4>
+      <h4>ParkManagerServiceView</h4>
       Two html files have been written to represents client views:
       <ul>
         <li><a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint4/src/main/resources/templates/login.html" target = "_blank">login.html</a></li>
@@ -525,11 +525,11 @@ Starting from what as been said in the analysis phase, the integration tests hav
   This is the final Sprint and now we present the deployment of the full system. The <ks>application</ks> is made of three main components:
   <ul>
     <li>The virtual enviroment <b>WEnv</b> represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a>.</li>
-    <li>The <b>Park<ks>managerService</ks></b> which deals with business logic represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
-    <li>The <b>basicRobot</b> developed in <a>Sprint 2</a> represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
+    <li>The <b>ParkManagerService</b> which deals with business logic represented by a <a href="https://hub.docker.com/repository/docker/mfilo/carparkingv2" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
+    <li>The <b>basicRobot</b> developed in Sprint 2 represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
   </ul>
   The first two components have been deployed in a machine standing in the parking area meanwhile the third one has been deployed in the real <a href="#ParkingBot">DDR robot</a> built by us.<br>
-  In order to make system inizialization easier, a <a>docker-compose file</a> which includes WEnv and the <ks>PMS</ks> has been developed and deployed. <br><br>
+  In order to make system inizialization easier, a <a href="../pms.yaml" target="_blank">docker compose file</a> which includes WEnv and the PMS has been developed and deployed. <br><br>
   
   In order to make the system more flexible, in future we suggest to externalize some priviously embedded variables used by the system for the initial configuration.<br><br>
   
@@ -537,7 +537,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
   <pre>
   <ol>
     <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry, go to the bin directory and run bash it.unibo.qak21.basicrobot</li>
-    <li>Run docker-compose -f automatedcarparking.yaml up</li>
+    <li>Run docker-compose -f pms.yaml up</li>
     <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client or to localhost:8081/login to login in the system as manager</li>
   </ol>
   </pre>
@@ -593,7 +593,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <td><center><b>Manfreda Filippo</b><br>filippo.manfreda@studio.unibo.it</center></td>
     <td>
       <ul>
-        <li><ks>managerService</ks> and physical robot</li>
+        <li>managerService and physical robot</li>
       </ul>
     </td>
   </tr>
@@ -609,7 +609,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <td><center><b>Cristaudo Giuseppe</b><br>giuseppe.cristaudo@studio.unibo.it</center></td>
     <td>
       <ul>
-        <li>Park<ks>managerService</ks>View</li>
+        <li>ParkManagerServiceView</li>
       </ul>
     </td>
   </tr>

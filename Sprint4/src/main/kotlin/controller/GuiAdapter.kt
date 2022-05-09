@@ -55,7 +55,7 @@ class GuiAdapter {
     @GetMapping("/pickup")
     fun pickPage(): String  {
         println("/pickup")
-        return "Pickup"
+        return "pickup"
     }
 
     //@Value("\${spring.application.name}")
