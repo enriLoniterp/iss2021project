@@ -316,7 +316,7 @@ class ApplicationTests {
 		thermometerAdapter.updateTemperature("32")
 
 		runBlocking { delay(100) }
-		Assertions.assertEquals("on", ParkingState.fanState )
+		Assertions.assertEquals("working", ParkingState.fanState )
 	}
 	@Test
 	fun testFanOffTemperature() {
@@ -342,5 +342,43 @@ class ApplicationTests {
 		Assertions.assertEquals(ParkingState.outdoorFree,true)
 	}
 
+	@Test
+	fun activateTrolley() {
+
+		ParkingState.temperature=35
+		mockMvc.perform(get("/manager/trolley?state=stop"))
+		runBlocking { delay(100) }
+		ParkingState.temperature=22
+		var state = "resume"
+		mockMvc.perform(get("/manager/trolley?state="+state)).andDo(print())
+		runBlocking { delay(200) }
+		Assertions.assertEquals("idle",ParkingState.trolleyState)
+	}
+
+	//from working to stopped
+	@Test
+	fun deactivateTrolley_fromworking() {
+		ParkingState.temperature=22
+		ParkingState.trolleyState="working"
+		runBlocking { delay(100) }
+		ParkingState.temperature=32
+		var state = "stop"
+		var res1 = mockMvc.perform(get("/manager/trolley?state="+state)).andDo(print()).andReturn()
+		runBlocking { delay(100) }
+		Assertions.assertEquals("stopped",ParkingState.trolleyState)
+	}
+
+	//from idle to stopped
+	@Test
+	fun deactivateTrolley_fromidle() {
+		ParkingState.temperature=22
+		ParkingState.trolleyState="idle"
+		runBlocking { delay(100) }
+		ParkingState.temperature=32
+		var state = "stop"
+		var res1 = mockMvc.perform(get("/manager/trolley?state="+state)).andDo(print()).andReturn()
+		runBlocking { delay(100) }
+		Assertions.assertEquals("stopped",ParkingState.trolleyState)
+	}
 
 }

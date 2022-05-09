@@ -122,6 +122,7 @@ class GuiAdapter {
             val request = MsgUtil.buildRequest("springcontroller", "changeTrolley", "changeTrolley($state)", "manager_service")
             val reply = ApplMessageUtil.messageFromString(connParkClientService.request(request))
             println("QUI!!!! "+ reply.msgContent)
+            println(ParkingState.trolleyState)
             return ResponseEntity.ok(reply.msgContent)
     }
 

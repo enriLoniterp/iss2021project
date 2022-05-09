@@ -15,8 +15,13 @@ function reqenter() {
 						alert("No parking slots available, try again later", 'warning')
 					} else {
 					 var slotnum = xhr.responseText
+					 if(isNaN(slotnum))
+					 {
+					    alert(slotnum)}
+					 else{
+					     window.location = prefix + "/deposit?slotnum=" + slotnum
+					 }
 					// alert("Your parking slot is n. " + slotnum)
-                     window.location = prefix + "/deposit?slotnum=" + slotnum
                      //deposit(slotnum)
 				}
 				}
@@ -43,7 +48,7 @@ function carenter(slotnum){
   	  {
   			if(xhr.status == 200){
   				 var tokenid = xhr.responseText
-  				 if(check_receipt==0){
+  				 if(check_receipt(tokenid)==0){
   				 document.getElementById("tokenid").setAttribute("style", "display:inline")
   				 document.getElementById("tokenid").setAttribute("value", tokenid)
   				 document.getElementById("message").setAttribute("style", "display:inline")
