@@ -128,20 +128,25 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						if( checkMsgContent( Term.createTerm("carenter(SN)"), Term.createTerm("carenter(SN)"), 
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								//ParkingState.indoorFree = false
-								 SLOTNUM = payloadArg(0).toInt()  
-								if(  SLOTNUM in 1..6 && ParkingState.slotState.get(SLOTNUM).equals("R")  
-								 ){if(  !ParkingState.indoorFree  
+								 SLOTNUM = payloadArg(0).toInt()
+							println(ParkingState)
+								if(  SLOTNUM in 1..6 && ParkingState.slotState.get(SLOTNUM).equals("R")
+								 ){if(  !ParkingState.indoorFree
 								 ){
 														val sdf = java.text.SimpleDateFormat("dd/MM/yyyy-hh:mm:ss")
 														val currentDate = sdf.format(java.util.Date())	
 														val TOKENID_RAW = "$currentDate-$SLOTNUM"
-														val TOKENID = TOKENID_RAW.filter{it.isDigit()}
+														var TOKENID = TOKENID_RAW.filter{it.isDigit()}
+									println(TOKENID)
 								RESPONSE = "$TOKENID"  
-								answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )  
+								answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )
 								request("moveToIn", "moveToIn(move)" ,"trolley_controller" )  
 								println("parkclientservice moves the car to SLOTNUM = $SLOTNUM")
 								updateResourceRep( "parkingclientservice moves the car to SLOTNUM = $SLOTNUM"  
 								)
+									if(TOKENID.startsWith("0")){
+										TOKENID = TOKENID.removePrefix("0")
+									}
 								 ParkingState.slotState.put(SLOTNUM, "$TOKENID")  
 								
 														saveObject("ParkingState.json", ParkingState)
