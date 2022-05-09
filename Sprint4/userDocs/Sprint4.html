@@ -258,7 +258,7 @@ div.imagedesc{
   <div class="remark" id="problem_analysis_parking_service_GUI">
       <ks>ParkServiceStatusGUI</ks> is a user interface which allows managers to interact with the parking system and has already been analyzed <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_status_GUI" target = "_blank">here</a>. 
   </div>
-  <h4>ParkServiceGUI - PMS interaction</h4>
+  <h4><ks>ParkServiceGui</ks> - PMS interaction</h4>
   <div class="remark">
     Interaction between these two entites takes place through different messages pointed out
     <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
@@ -279,7 +279,7 @@ div.imagedesc{
     Since only parking managers should be able to perform tasks previously described, an authentication form must be deployed into the application. This brings the attention on how
     <ks>ParkServiceStatusGUI</ks> web page should be protected from undesiderd users and how to properly store managers credentials. The first point can be accomplished by easily deploy a login 
     page which must redirects unauthorized users which try to access ParkServiceStatusGUI. The deployment can be faster achieved by using 
-    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build <ks>ParkServiceGUI</ks>.
+    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build <ks><ks>ParkServiceGui</ks></ks>.
     At the same time managers' credentials should be stored in a dislocated server and crypted with any kind of hash function such as SHA-256 or MD5 to provent dictionary or injection attacks. However, for the sake of semplicity we can consider the deploy server for the ParkServiceStatusGUI safe and store credentials clearly in a file.
   </div>
 
@@ -288,7 +288,7 @@ div.imagedesc{
 
   <h4>Test Unit</h4>
   <div class="remark">
-	In this functional test we consider the right interaction between <ks>ParkServiceGUI</ks> and <ks>PMS</ks>. In particular, we will analyze some core functionalities 
+	In this functional test we consider the right interaction between <ks><ks>ParkServiceGui</ks></ks> and <ks>PMS</ks>. In particular, we will analyze some core functionalities 
   such as parking state updates, high temperature alarm, trasport trolley interaction and manager login.
 
 
