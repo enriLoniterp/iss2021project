@@ -525,11 +525,11 @@ Starting from what as been said in the analysis phase, the integration tests hav
   This is the final Sprint and now we present the deployment of the full system. The <ks>application</ks> is made of three main components:
   <ul>
     <li>The virtual enviroment <b>WEnv</b> represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a>.</li>
-    <li>The <b>ParkManagerService</b> which deals with business logic represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
-    <li>The <b>basicRobot</b> developed in <a>Sprint 2</a> represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
+    <li>The <b>ParkManagerService</b> which deals with business logic represented by a <a href="https://hub.docker.com/repository/docker/mfilo/carparkingv2" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
+    <li>The <b>basicRobot</b> developed in Sprint 2 represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
   </ul>
   The first two components have been deployed in a machine standing in the parking area meanwhile the third one has been deployed in the real <a href="#ParkingBot">DDR robot</a> built by us.<br>
-  In order to make system inizialization easier, a <a>docker-compose file</a> which includes WEnv and the PMS has been developed and deployed. <br><br>
+  In order to make system inizialization easier, a <a href="../pms.yaml" target="_blank">docker compose file</a> which includes WEnv and the PMS has been developed and deployed. <br><br>
   
   In order to make the system more flexible, in future we suggest to externalize some priviously embedded variables used by the system for the initial configuration.<br><br>
   
@@ -537,7 +537,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
   <pre>
   <ol>
     <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry, go to the bin directory and run bash it.unibo.qak21.basicrobot</li>
-    <li>Run docker-compose -f automatedcarparking.yaml up</li>
+    <li>Run docker-compose -f pms.yaml up</li>
     <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client or to localhost:8081/login to login in the system as manager</li>
   </ol>
   </pre>
