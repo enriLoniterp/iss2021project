@@ -158,7 +158,8 @@ class Trolley_controller ( name: String, scope: CoroutineScope  ) : ActorBasicFs
 														mv = planner.plannerUtil.getNextPlannedMove()
 												} 
 								println("trolley in HOME")
-								updateResourceRep( "(0,0)"  
+							forward("goToIdle", "goToIdle(X)" ,"trolley_controller" )
+							updateResourceRep( "(0,0)"
 								)
 						}
 					}

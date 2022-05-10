@@ -534,11 +534,20 @@ Starting from what as been said in the analysis phase, the integration tests hav
   In order to make the system more flexible, in future we suggest to externalize some priviously embedded variables used by the system for the initial configuration.<br><br>
   
   <b>How to run the system</b>
-  <pre>
+  <pre></br>
+  In the virtual environment:
   <ol>
-    <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry, go to the bin directory and run bash it.unibo.qak21.basicrobot</li>
-    <li>Run docker-compose -f pms.yaml up</li>
-    <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client or to localhost:8081/login to login in the system as manager</li>
+    <li>Run <b>docker-compose -f pms.yaml up</b></li>
+	<li>Move to <b>localhost:8090</b> to display the virtual environment</li>
+    <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
+  </ol>
+  In the real environment:
+  <ol>
+    <li>Extract <b>it.unibo.qak21.basicrobot.zip</b> file into the raspberry, go to the bin directory and run <b>bash it.unibo.qak21.basicrobot</b></li>
+	<li>Change the first line of <a href="../connTrolley.txt" target = "_blank">connTrolley.txt</a> from <b>virtual</b> to <b>real</b> and push the file in the docker image.</li>
+    <li>Run <b>docker-compose -f pms.yaml up</b></li>
+    <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
 	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
   </ol>
   </pre>

@@ -37,7 +37,7 @@ function parkState(){
                 console.log(slotS.get(i.toString()))
                 var d = document.getElementById((i.toString()))
                // console.log(d.id)
-                if(slotS.get(i.toString()) == ""){
+                if(slotS.get(i.toString()) == "" || slotS.get(i.toString()) == "R"){
                     var t1 = d.getElementsByClassName("park_not_free")
                     //console.log(t1)
                     if(t1[0] != null){
@@ -60,6 +60,9 @@ function parkState(){
              if(respjson.temperature < 30 && respjson.trolleyState=="stopped"){
                             startButton.style.visibility="visible"
                             stopButton.style.visibility="hidden"
+             }
+             if(respjson.trolleyState=="stopped"){
+             topButton.style.visibility="hidden"
              }
 
         }
