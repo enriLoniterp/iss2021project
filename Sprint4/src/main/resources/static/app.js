@@ -67,7 +67,8 @@ function carenter(slotnum){
 }
 
 function check_receipt(rec){
-if(rec=="The indoor area is free"){
+if(rec=="The indoor area is free" || rec == "Invalid parking slot number"){
+    alert(rec)
     return 1
 }
 return 0

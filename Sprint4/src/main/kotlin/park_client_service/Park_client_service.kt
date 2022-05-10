@@ -129,7 +129,6 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 						                        currentMsg.msgContent()) ) { //set msgArgList
 								//ParkingState.indoorFree = false
 								 SLOTNUM = payloadArg(0).toInt()
-							println(ParkingState)
 								if(  SLOTNUM in 1..6 && ParkingState.slotState.get(SLOTNUM).equals("R")
 								 ){if(  !ParkingState.indoorFree
 								 ){
@@ -137,7 +136,7 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 														val currentDate = sdf.format(java.util.Date())	
 														val TOKENID_RAW = "$currentDate-$SLOTNUM"
 														var TOKENID = TOKENID_RAW.filter{it.isDigit()}
-									println(TOKENID)
+
 								RESPONSE = "$TOKENID"  
 								answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )
 								request("moveToIn", "moveToIn(move)" ,"trolley_controller" )  
@@ -154,7 +153,7 @@ class Park_client_service ( name: String, scope: CoroutineScope  ) : ActorBasicF
 								else
 								 { RESPONSE = "The indoor area is free"
 									 forward("goToIdle", "goToIdle(go)" ,"park_client_service" )
-									 ParkingState.slotState.put(SLOTNUM, "")
+									 //ParkingState.slotState.put(SLOTNUM, "")
 									 answer("carenter", "responseCarenter", "responseCarenter($RESPONSE)"   )
 								 }
 								}

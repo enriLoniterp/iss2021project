@@ -30,7 +30,7 @@ class WeightSensorAdapter : SensorPort{
 	fun updateWeight(weight : String){
 		this.weight = weight
 		ParkingState.indoorFree = weight.toInt() <= 0
-		observer()
+		//observer()
 	}
 	
 	override fun getValue() : String{

@@ -384,12 +384,12 @@ In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_b
       <br>
       In order to accept, queue and process different requests in a non-blocking manner, the managerService is implemented as an actor which has
       multiple status to exploit different tasks. managerService logic is message-based so that its state changes are triggered by message or events.<br>
-      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a href="../src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerAdapter</a>.
-      The scheme on the side shows managerService behaviour.
+      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a href="../src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerAdapter</a>.</br>
+	  The actor is generated using <a href="../src/model3_sprint4.qak" target = "_blank">model3_sprint4.qak</a> and the scheme on the side shows managerService behaviour.
     </td>
     <td>
       <center>
-        <img src="IMG/parkManagerService_FSM.png" alt="parkManagerService_FSM" width="70%">
+        <img src="IMG/managerService_FSM.jpg" alt="parkManagerService_FSM" width="70%">
       </center>
     </td>
     </tr>
@@ -539,6 +539,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <li>Extract it.unibo.qak21.basicrobot.zip file into the raspberry, go to the bin directory and run bash it.unibo.qak21.basicrobot</li>
     <li>Run docker-compose -f pms.yaml up</li>
     <li>Move to localhost:8081/home to use the <ks>PMS</ks> as client or to localhost:8081/login to login in the system as manager</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
   </ol>
   </pre>
 </div>
@@ -553,7 +554,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
 <h3>Components used to build the DDR robot:</h3>	
 	<div class="remark">
 <ui>
-    <li><b>Raspberry PI 4 Model B</b>, the brain of the robot</br>
+    <li><b>Raspberry PI 4 Model B</b></br>
     </li></br>
 <li><b>Cooling system for Raspberry</b>
 </li>    </br>
