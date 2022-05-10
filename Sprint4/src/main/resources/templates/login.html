@@ -28,15 +28,15 @@ body {
 
 .screen-1 {
   background: #b39700;
-  padding: 1em;
+  padding: 0.5em;
   display: flex;
   flex-direction: column;
   border-radius: 35px;
   box-shadow: 0 0 2em #ccac00;
-  gap: 3em;
+  gap: 1.3em;
 }
 .screen-1 .logo {
-  margin-top: -1em;
+  margin-top: -0.2em;
 }
 .screen-1 .username {
   background: white;
@@ -150,13 +150,13 @@ body {
 <!-- partial:index.partial.html -->
 <div class="screen-1">
   <center><h1 style="font-family:Poppins;">Parking Area Login</h1></center>
-  <center><img src="img/car.webp" height="20%" width="30%"></center>
- <div th:if="${param.error}" type="hidden">
-  Invalid username and password.
-</div>
-  <div th:if="${param.logout}" type="hidden">
-    You have been logged out.
-  </div>
+  <center><img src="img/car.webp" height="20%" width="25%"></center>
+ <center><div th:if="${param.error}" type="hidden">
+  <p style="color:red; font-family:Poppins; font-size: 1.2em";><b>Invalid username and password.</b></p>
+</div></center>
+  <center><div th:if="${param.logout}" type="hidden">
+    <p style="font-family:Poppins; font-size: 1.2em"><b>You have been logged out.</b></p>
+  </div></center>
   <form th:action="@{/login}" method="post">
   <div class="username">
     <label for="Username">Username
