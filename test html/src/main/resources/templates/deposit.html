@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <title>Parking Area</title>
+    <meta name="description" content="A WEB application to interact with a park service.">
+    <meta name="author" content="Andrini Enrico & Cristaudo Giuseppe & Manfreda Filippo">
+
+    <meta property="og:title" content="Parking Area WEB application">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/enriLoniterp/iss2021project">
+    <meta property="og:description" content="A WEB application to interact with a park service.">
+    <meta property="og:image" content="img/car.webp"> <!-- icona scheda -->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="/deposit.css">
+    <script src="app.js"></script>
+
+</head>
+
+<body>
+  
+  <table width="100%" height="130px" bgcolor="#ffd700">
+    <tr>
+        <td>
+            <div class="container">
+                <div class="image">
+                    <img src="img/park1.png">
+                </div>
+                <div class="text">
+                    <p><h1>Parking Area</h1></p>
+                </div>
+            </div>
+        </td>
+        <td>
+            <form th:action="@{/back}" method="post">
+                <button class="back">BACK</button>
+            </form>
+        </td>
+    </tr>
+</table>
+  <table style="width:  100%; height: 350px; border: 0; " cellpadding="30%">
+    <tr>
+      <td style="vertical-align:top; "; >
+        <h2>Please leave the car in the INDOOR area and click the button below!</h2>
+      </td>
+    </tr>
+    <tr>
+        <td>
+            <button id="deposit"  type="button" onclick="deposit();">DEPOSIT CAR</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" id="tokenid" value=""  style="display:none" readonly>
+            <p id="message" style="display:none">Save the receipt!</p></br></br>
+        </td>
+    </tr>
+  </table>
+  <div id="rect"></div>
+  <table width="100%" height="10%" bgcolor="#2f4f4f" cellpadding="5%">
+    <tr>
+        <td><p style="color:white;">Authors:</p></td>
+        <td><p style="color:white;">giuseppe.cristaudo@studio.unibo.it</p></td>
+        <td><p style="color:white;">filippo.manfreda@studio.unibo.it</p></td>
+        <td><p style="color:white;">enrico.andrini2@studio.unibo.it</p></td>
+    </tr>
+  </table>
+</body>
+</html>

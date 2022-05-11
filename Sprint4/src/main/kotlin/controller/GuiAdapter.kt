@@ -126,7 +126,6 @@ class GuiAdapter {
             return ResponseEntity.ok(reply.msgContent)
     }
 
-
     ////LOGIN REQUESTS
 
     //loginconsuccesso

@@ -1,0 +1,660 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+kr{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #ff0000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 100%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#exampleclass tbody,
+#exampleclass thead,
+#exampleclass th {
+  border: 0;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+
+<head>
+
+<title>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 4</title></head>
+
+<body>
+<div id="top">
+<h1>Final task ISS-2021 Bologna: Automated Car-Parking - Sprint 4<font size="5"></font> </h1>
+</div>
+
+<div class="body">
+<div id = "backlog">
+  <h2>Sprint 4 Backlog</h2>
+  <div class="remark">
+    Sprint 4 regards the develop of the <ks>PMS</ks> able to manage interaction with manager and care of system status:
+    <ul>
+      <li><ks>PMS</ks> satisfies manager's start and stop trolley and fan requests:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>,
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R5" target = "_blank">R5</a>.
+      <li><ks>PMS</ks> maintains an updated version of the system status:
+        <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>.</li>
+      <li><ks>PMS</ks> recognizes critical OUTDOOR-area situation and generates an alarm for the manager:
+          <a href="../../requirements/userDocs/Automated Car-Parking.html#R4" target = "_blank">R4</a>.</li>
+    </ul>
+  </div>
+</div>
+<h4>Starting point</h4>
+<center><img src="IMG/StartingPoint.png" alt="starting_point_sprint" width="40%"></center>
+
+
+<div id = "problem_analysis">
+<h2>Problem analysis</h2>
+<div class="remark">
+  This Sprint aim is to develop and deeper describe the following entities:
+  <ul>
+    <li><ks>ParkServiceStatusGUI</ks> interacts directly with the manager;</li>
+    <li><ks>Park Manager Service</ks> processes manager's requests;</li>
+  </ul>
+</div>
+<div class = "remark">
+  An initial model of these entities, without interaction between them, can be found <a href = "../src/model1_sprint4.qakt" target = "_blank">here</a>.<br>
+</div>
+  <h3>PMS</h3>
+  <div class = "remark" id="problem_analysis_PMS">
+    From the <a href="#backlog">backlog</a>, the <ks>PMS</ks> needs to process manager's requests and provide information about current system status. <br>
+    As suggested in previous Sprint, the introduction of a new entity allows to process manager's tasks without affect the rest of the application. In particular, thanks 
+    to the <a href="../../Sprint3/userDocs/Sprint3.html#parking_state" target = "_blank">Parking State</a> described in the last Sprint, this Sprint will focus on how
+    to properly send that data to the manager GUI. Since the data represent the current system status, every change must be notified as soon as possibile. <br>
+
+    In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAX</ks> threshold. In fact, the manager is able
+    to start the trolley and turn off the fan if temperature is below <ks>TMAX</ks> and turn on the fan and start stop the trolley otherwise. <br>
+
+    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
+    Finally, <ks>PMS</ks> must be able to support some kind of timer which times car presence in the <ks>OUTDOOR AREA</ks> for more than 
+    <a href="../../Sprint3/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> time.
+  </div>
+  <h3>ParkServiceStatusGUI</h3>
+  <div class="remark" id="problem_analysis_parking_service_GUI">
+      <ks>ParkServiceStatusGUI</ks> is a user interface which allows managers to interact with the parking system and has already been analyzed <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_status_GUI" target = "_blank">here</a>. 
+  </div>
+  <h4>ParkServiceGUI - PMS interaction</h4>
+  <div class="remark">
+    Interaction between these two entites takes place through different messages pointed out
+    <a href="../../requirements/userDocs/Automated Car-Parking.html#problem_analysis_parking_service_GUI" target = "_blank">here</a> using the same communication logic
+    already detailed (<b>request/response</b> and <b>dispatches</b>).
+    Data relative to the parking state can be exchanged using:
+    <ul>
+      <li><b>POLLING</b>: requests are continuously sent by the GUI. This methodology affects client performance.</li>
+      <li><b>Open communication channel</b>: PMS continuously send new data to the client side. This methodology affects server performance.</li>
+    </ul>
+    Both methods can be implemented using <b>HTTP protocol</b> or <b>Websocket</b>. <br>
+	 Alarm management can be treated in the same way, but the polling mode doesn't really fit this scenario as the alarm event occurs discontinuously and not periodically differently from the change in the general state of the system.
+  </div>
+  <div class="remark">
+    A model of the two entites and their interaction is available <a href="../src/model2_sprint4.qak" target = "_blank">here</a>.
+  </div>
+  <h3>Login feature</h3>
+  <div class="remark" id="problem_analysis_login_feature">
+    Since only parking managers should be able to perform tasks previously described, an authentication form must be deployed into the application. This brings the attention on how
+    ParkServiceStatusGUI web page should be protected from undesiderd users and how to properly store managers credentials. The first point can be accomplished by easily deploy a login 
+    page which must redirects unauthorized users which try to access ParkServiceStatusGUI. The deployment can be faster achieved by using 
+    <a href="https://spring.io/guides/gs/securing-web/" target = "_blank"><b>spring-boot-starter-security</b></a> which meets spring boot framework already used to build ParkServiceGUI.
+    At the same time managers' credentials should be stored in a dislocated server and crypted with any kind of hash function such as SHA-256 or MD5 to provent dictionary or injection attacks. However, for the sake of semplicity we can consider the deploy server for the ParkServiceStatusGUI safe and store credentials clearly in a file.
+  </div>
+
+
+
+
+  <h4>Test Unit</h4>
+  <div class="remark">
+	In this functional test we consider the right interaction between <ks>ParkServiceGUI</ks> and <ks>PMS</ks>. In particular, we will analyze some core functionalities 
+  such as parking state updates, high temperature alarm, trasport trolley interaction and manager login.
+
+
+  <!--
+  In particolare si andrà
+	ad analizzare che il manager sia in grado di ricevere gli aggiornamenti sullo stato del sistema dal pms, che riceva l'alert sul raggiungimento della temperaturaMAX limite
+	e che infine riesca a disattivare e riattivare il trolley a proprio piacimento. sono stati esclusi test riguardanti l'accendimento e lo spegnimento perche come specificato sopra
+	è escluso lo scenario di una fan direttamente governabile da un umano. Infine si progetteranno dei test per gestire la fase di login per l'accesso alla schermata principale.-->
+
+    Given the following assumption:
+    <ul>
+      <li>Manager logged.</li>
+    </ul>
+    <pre id="test_parkstate">
+      <b>PARKSTATE</b>
+
+      PMS -> <ks>monitor</ks>
+      check if response data contains right data from parking status
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Manager logged.</li>
+      <li><ks>FAN</ks> <b>OFF</b></li>
+    </ul>
+    <pre id="fan_ON">
+    <b>FAN ACTIVATION</b>
+
+    <ks>PMS</ks> check if TA > TMAX
+    <ks>PMS</ks> -> TURN_ON
+    check if fan_state = <b>ON</b>
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Manager logged.</li>
+      <li><ks>FAN</ks> <b>ON</b></li>
+    </ul>
+    <pre id="fan_OFF">
+      <!-- controllo automatico della fan -->
+    <b>FAN DE-ACTIVATION</b>
+
+    <ks>PMS</ks> check if TA <= TMAX
+    <ks>PMS</ks> -> TURN_OFF
+    check if fan_state = <b>OFF</b>
+    </pre>
+    Given the following assumptions:
+    <ul>
+      <li>Manager logged.</li>
+		<li><ks>Trolley</ks> <b>STOPPED</b></li>
+	    <li>TA < TMAX</li>
+    </ul>
+    <pre id="trolley_START">
+      <b>TROLLEY START</b>
+     
+      manager -> START 
+      check if trolley state = <b>WORKING</b> or <b>IDLE</b>
+    </pre>
+	Given the following assumptions:
+    <ul>
+      <li>Manager logged.</li>
+		<li><ks>Trolley</ks> <b>WORKING/IDLE</b></li>
+	    <li>TA > TMAX</li>
+    </ul>
+    <pre id="trolley_STOP">
+      <b>TROLLEY STOP</b>
+     
+      manager -> STOP 
+      check if trolley state = <b>STOPPED</b>
+    </pre>
+	
+	
+	
+  </div>
+
+
+</div>
+The Sprint 4 should be done in <b>four days</b>.
+<div id = "project">
+<h2>Project</h2>
+Starting from what stated in the analysis phase, we introduce a new entity called <ks>managerService</ks>, taking part of the <ks>PMS</ks>
+which processes managers' requests.<br>
+The <ks>ParkServiceManagerGUI</ks> takes part of the MVC architecture developed in the Sprint 3. This pattern requires to split the ParkServiceManagerGUI into two components (Model not needed in our case):
+<ul>
+  <li><b>View</b>: user interfaces.</li>
+  <li><b>Controller</b>: receives requests and generates content view for the manager and manage communication between the manager and the PMS.</li>
+</ul>
+<br>
+In addition, <a href="../src/main/kotlin/resources/ParkingState.kt" target = "_blank">parkingState</a> resource has been updated with a new information that encodes an high temperature situation measured in the park. 
+<h4><a href="../src/main/kotlin/manager_service/Park_manager_service.kt" target = "_blank">managerService</a></h4>
+<table>
+  <tbody>
+    <tr>
+    <td style="width: 50%; vertical-align:top">
+      <br>
+      In order to accept, queue and process different requests in a non-blocking manner, the managerService is implemented as an actor which has
+      multiple status to exploit different tasks. managerService logic is message-based so that its state changes are triggered by message or events.<br>
+      The managerService costantly provides information about current park status to the manager and manages trolley requests while the fan is managed automatically by the <ks>PMS</ks>, in particular by the <a href="../src/main/kotlin/thermometer/ThermometerAdapter.kt" target = "_blank">ThermometerAdapter</a>.</br>
+	  The actor is generated using <a href="../src/model3_sprint4.qak" target = "_blank">model3_sprint4.qak</a> and the scheme on the side shows managerService behaviour.
+    </td>
+    <td>
+      <center>
+        <img src="IMG/managerService_FSM.jpg" alt="parkManagerService_FSM" width="70%">
+      </center>
+    </td>
+    </tr>
+  </tbody>
+</table>
+<table width="100%">
+  <tbody>
+    <tr>
+      <td>
+        <h4>managerService communication</h4>
+        managerService interacts with <ks>GUIAdapter</ks>, developed in the previous Sprint and updated with new features described <a href="#GUIAdapter">below</a>, from which receives manager's requests and to which sends tasks outcomes using a <b>request/response logic</b>.
+        <br>
+        In order to send QAK understandable messages, <ks>GUIAdapter</ks> uses <a href="../src/main/kotlin/connQak/connQakTcp.kt" target = "_blank">connQakTcp.kt</a> and MsgUtil.kt.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h4>ParkManagerServiceGUI</h4>
+In order to get the current state of the park, we used a polling strategy which makes request every 2 seconds. It has been choosen since the manager GUI requires frequent live updates and polling fits well since it is not involved any real-time interval constraint. <br>
+Meanwhile the alarm related to the outdoor area and the high temperature notification requires the server pushing to the client. In order to achieve this architectural paradigm, communication is based over websockets using the STOMP messagging protocol included in the Spring Boot framework as explained <a href="https://docs.spring.io/spring-framework/docs/4.3.x/spring-framework-reference/html/websocket.html" target = "_blank">here</a>.
+Websocket avoids traffic overhead and it is used since those events might occur rarely.</br></br>
+<table>
+  <tbody>
+    <tr>
+      <td style="width: 50%; vertical-align:top">
+        <h4 id = "GUIAdapter"><a href="../src/main/kotlin/controller/GuiAdapter.kt" target = "_blank">GUIAdapter</a></h4>
+        The GUIAdapter developed in the last Sprint has been expanded with new methods to fulfill manager's requests.<br>
+        Moreover GUIAdapter aim is to open the connection via websocket and add new callback functions to the thermometer and outdoor adapter which are called when their events occur.
+      </td>
+      <td>
+        <center>
+          <img src="IMG/GUiAdpater_class.jpg" width="30%">
+        </center>
+      </td>
+    </tr>
+    <tr>
+      <td  style="width: 50%; vertical-align:top">
+      <h4>ParkManagerServiceView</h4>
+      Two html files have been written to represents client views:
+      <ul>
+        <li><a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint4/src/main/resources/templates/login.html" target = "_blank">login.html</a></li>
+        <li><a href="https://github.com/enriLoniterp/iss2021project/blob/main/Sprint4/src/main/resources/templates/homeMgmt.html" target = "_blank">homeMgmt.html</a></li>
+      </ul>
+      Together with this pages, <a href="../src/main/resources/static/mgmt.js" target = "_blank">mgmt.js</a> is included to manage commincation with the server. They also dynamically modify html's DOM.</br>
+	  In order to remove situations of error related to trolley management, commands to change trolley state are available only in specific scenarios. In particular command to stop the trolley is available only if temperature is over <ks>TMAX</ks> and trolley is not stopped,
+	  and command to resume the trolley in available only if temperature is under <ks>TMAX</ks> and trolley is stopped. </br>
+	  As value for <ks>TMAX</ks> is chosen 30 degree celsius.</br></br>
+	  In addition in homeMgmt.html page is included the parking slots status, represented by a table with cells and green and red button, as shown in the image.
+    </td>
+    <td>
+      <center><b>Login Page</b></center><br>
+      <center><img src="IMG/login_page.jpg" width="70%"></center>
+      <br><center><b>Home Mgmt Page</b></center><br>
+      <center><img src="IMG/homeMgmt_page.jpg" width="70%"></center>
+    </td>
+    </tr>
+  </tbody>
+</table>
+<h3>Security</h3>
+<div class="remark">
+The login and logout process has been secured using <a href="https://spring.io/guides/gs/securing-web/" target = "_blank">SpringBoot Security</a> as suggested in the analysis phase. This feature has been implemented through a configuration class (<a href="../src/main/kotlin/controller/WebSecurity.kt" target = "_blank">WebSecurity.kt</a>) which contains the security policy.
+</div>
+<br>
+The sequence diagrams below shows the main interaction between the components of this Sprint.
+<br>
+<table width="100%">
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <center>
+        <img src="IMG/1.jpg" width="70%">
+      </center>
+    </td>
+    <td>
+      <center>
+        <img src="IMG/2.jpg" width="70%">
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 50%; vertical-align:top">
+      <center>
+        <img src="IMG/3.jpg" width="70%">
+      </center>
+    </td>
+    <td>
+      <center>
+        <img src="IMG/4.jpg" width="70%">
+      </center>
+    </td>
+  </tr>
+</table>
+
+<h2>Testing</h2>
+<div class="remark">
+Starting from what as been said in the analysis phase, the integration tests have been developed as follow:
+<ul>
+  <li><a href="#test_parkstate">TEST #1 - PARKSTATE</a></li>
+  <li><a href="#fan_ON">TEST #2 - FAN ACTIVATION</a></li>
+  <li><a href="#fan_OFF">TEST #3 - FAN DE-ACTIVATION</a></li>
+  <li><a href="#trolley_START">TEST #4 - TROLLEY START</a></li>
+  <li><a href="#trolley_STOP">TEST #5 - TROLLEY STOP</a></li>
+  <li>TEST #6 - FAN MANTAINING ON</li> 
+  <li>TEST #7 - FAN MANTAINING OFF</li>
+  
+  Tests have been developed as described above in the problem analysis section.
+  TEST #6 and #7 have been added during the project and they are described here:
+  <pre>
+  <b>FAN MANTAINING ON</b>
+    temperature 32
+    check if FAN  <b>ON</b>
+    temperature 36
+    check if FAN  <b>ON</b>
+
+  <b>FAN MANTAINING OFF</b>
+    temperature 28
+    check if FAN  <b>OFF</b>
+    temperature 23
+    check if FAN  <b>OFF</b>
+  </pre>
+	</br>
+	The code of these tests can be found in <a href="../src/test/kotlin/controller/ApplicationTests.kt" target = "_blank">ApplicationTests.kt</a></br>
+  The focus point of this integration tests is controlling the correct functioning of the functions made available to the manager.
+ 
+  
+
+
+<ul>
+</div>
+
+
+<h2>Deployment</h2>
+<div class="remark">
+  This is the final Sprint and now we present the deployment of the full system. The <ks>application</ks> is made of three main components:
+  <ul>
+    <li>The virtual enviroment <b>WEnv</b> represented by a <a href="https://hub.docker.com/repository/docker/mfilo/virtualrobot" target = "_blank">Docker image</a>.</li>
+    <li>The <b>ParkManagerService</b> which deals with business logic represented by a <a href="https://hub.docker.com/repository/docker/mfilo/carparkingv2" target = "_blank">Docker image</a> as well. This Docker image has been deployed starting from the image in the <a>Sprint 3</a>.</li>
+    <li>The <b>basicRobot</b> developed in Sprint 2 represented by a <a href="../../Sprint2/distributions/it.unibo.qak21.basicrobot-1.0.zip" target="_blank">zip file</a>.
+  </ul>
+  The first two components have been deployed in a machine standing in the parking area meanwhile the third one has been deployed in the real <a href="#ParkingBot">DDR robot</a> built by us.<br>
+  In order to make system inizialization easier, a <a href="../pms.yaml" target="_blank">docker compose file</a> which includes WEnv and the PMS has been developed and deployed. <br><br>
+  
+  In order to make the system more flexible, in future we suggest to externalize some priviously embedded variables used by the system for the initial configuration.<br><br>
+  
+  <b>How to run the system</b>
+  <pre></br>
+  In the virtual environment:
+  <ol>
+    <li>Run <b>docker-compose -f pms.yaml up</b></li>
+	<li>Move to <b>localhost:8090</b> to display the virtual environment</li>
+    <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
+  </ol>
+  In the real environment:
+  <ol>
+    <li>Extract <b>it.unibo.qak21.basicrobot.zip</b> file into the raspberry, go to the bin directory and run <b>bash it.unibo.qak21.basicrobot</b></li>
+	<li>Change the first line of <a href="../connTrolley.txt" target = "_blank">connTrolley.txt</a> from <b>virtual</b> to <b>real</b> and push the file in the docker image.</li>
+    <li>Run <b>docker-compose -f pms.yaml up</b></li>
+    <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
+  </ol>
+  </pre>
+</div>
+
+<h2 id ="ParkingBot">ParkingBot</h2> 
+
+
+<table style="width:100%">
+<tbody>	
+<tr>
+<td style="width: 40%; vertical-align:top" >
+<h3>Components used to build the DDR robot:</h3>	
+	<div class="remark">
+<ui>
+    <li><b>Raspberry PI 4 Model B</b></br>
+    </li></br>
+<li><b>Cooling system for Raspberry</b>
+</li>    </br>
+<li>
+<b>Powerbank</b> to supply power to all components	 
+</li>    </br>
+<li><b>Metallic tank chassis</b> to house modules</li></br>
+<li><b>Wheels, engines and tracks</b> to move the robot</li></br>
+<li><b>Sonar</b> to detect collisions</li></br>
+<li><b>H-Bridge</b> to control engines</li></br>
+<li><b>Jumper cables</b> to connect the components</li></br>
+
+</ui>
+ The image on the side shows what the robot looks like.</br>
+ Refers to <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.qak21.basicrobot/userDocs/basicrobot2021.html" target="web">
+ basicrobot2021.html</a> for more information.
+ </div>
+</td>
+<td>
+ <center><img src="./img/robot3.jpg" alt="robot1" width="50%" ></center>
+ <center><img src="./img/robot2.jpg" alt="robot2" width="50%" ></center>
+</td>
+</tr>
+ </tbody>
+</table>
+
+<h4>Complete architecture</h4>
+<center><img src="IMG/summaryPoint.jpg" alt="summary_point" width="50%"></center>
+
+<h2>Job task</h2>
+<table cellpadding="5%">
+  <tr>
+    <th>Member</th>
+    <th>Task done</th>
+  </tr>
+  <tr>
+    <td><center><b>Manfreda Filippo</b><br>filippo.manfreda@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>managerService and physical robot</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Andrini Enrico</b><br>enrico.andrini2@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>Spring infrastracture</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Cristaudo Giuseppe</b><br>giuseppe.cristaudo@studio.unibo.it</center></td>
+    <td>
+      <ul>
+        <li>ParkManagerServiceView</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td><center><b>Team</b></center></td>
+    <td>
+      <ul>
+        <li>Problem analysis;</li>
+        <li>Testing;</li>
+        <li>Deployment</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<h2>Sprint Review</h2>
+<div class="remark">
+</div>
+<h2>Maintenance</h2>
+
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+
+<br/><br/>
+</div>
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By Cristaudo Giuseppe, Manfreda Filippo, Andrini Enrico; email: giuseppe.cristaudo@studio.unibo.it, filippo.manfreda@studio.unibo.it, enrico.andrini2@studio.unibo.it
+<!--<img src="./img/emiglio.png" alt="mbot" width="15%" height="15%">-->
+</div>
+</body>
+</html>
