@@ -19,12 +19,12 @@ class HelloWebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .authorizeRequests()
-            .antMatchers( "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/vendor/**", "/fonts/**").permitAll()
+            .antMatchers( "/home", "/reqenter", "/deposit", "/carenter", "/reqexit", "/pickup", "/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/vendor/**", "/fonts/**").permitAll()
             .and()
-            .authorizeRequests().antMatchers("/manager/login", "/manager/performlogout").authenticated().and()
+            .authorizeRequests().antMatchers("/manager/performlogin", "/manager/performlogout").authenticated().and()
             .formLogin()
             .loginPage("/login")
-            .defaultSuccessUrl("/manager/login", true)
+            .defaultSuccessUrl("/manager/performlogin", true)
             .permitAll()
             .and()
             .logout().invalidateHttpSession(true)

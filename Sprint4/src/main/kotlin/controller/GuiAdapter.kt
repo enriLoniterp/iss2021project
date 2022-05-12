@@ -126,11 +126,17 @@ class GuiAdapter {
             return ResponseEntity.ok(reply.msgContent)
     }
 
+    //BACK REQUEST
+    @RequestMapping("/back")
+    fun perform_back(): String {
+        return "home"
+    }
+
     ////LOGIN REQUESTS
 
     //loginconsuccesso
-    @RequestMapping("/manager/login")
-    fun perform_login() : String{
+    @RequestMapping("/manager/performlogin")
+    fun perform_login(): String {
         return "homeMgmt"
     }
 
