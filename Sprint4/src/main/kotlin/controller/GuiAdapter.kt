@@ -80,7 +80,7 @@ class GuiAdapter {
     @GetMapping("/deposit")
     fun depositPage(@RequestParam slotnum: Int): String  {
         println("/deposit")
-        return "Deposit"
+        return "deposit"
     }
 
     @GetMapping("/carenter")
