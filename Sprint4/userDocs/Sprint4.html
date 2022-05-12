@@ -250,7 +250,7 @@ div.imagedesc{
     In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAX</ks> threshold. In fact, the manager is able
     to start the trolley and turn off the fan if temperature is below <ks>TMAX</ks> and turn on the fan and start stop the trolley otherwise. <br>
 
-    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
+    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../src/main/kotlin/trolley_controller/Trolley_controller.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
     Finally, <ks>PMS</ks> must be able to support some kind of timer which times car presence in the <ks>OUTDOOR AREA</ks> for more than 
     <a href="../../Sprint3/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> time.
   </div>
@@ -540,7 +540,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
     <li>Run <b>docker-compose -f pms.yaml up</b></li>
 	<li>Move to <b>localhost:8090</b> to display the virtual environment</li>
     <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
-	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target="_blank">thermometer</a>)</li>
   </ol>
   In the real environment:
   <ol>
@@ -548,7 +548,7 @@ Starting from what as been said in the analysis phase, the integration tests hav
 	<li>Change the first line of <a href="../connTrolley.txt" target = "_blank">connTrolley.txt</a> from <b>virtual</b> to <b>real</b> and push the file in the docker image.</li>
     <li>Run <b>docker-compose -f pms.yaml up</b></li>
     <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
-	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target="_blank">thermometer</a>)</li>
   </ol>
   </pre>
 </div>
