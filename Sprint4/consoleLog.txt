@@ -1,0 +1,375 @@
+"C:\Program Files\Java\jdk-15.0.2\bin\java.exe" -ea -Didea.test.cyclic.buffer.size=1048576 "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.2\lib\idea_rt.jar=51566:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.2\bin" -Dfile.encoding=UTF-8 -classpath "C:\Users\Filippo Manfreda\.m2\repository\org\junit\platform\junit-platform-launcher\1.7.1\junit-platform-launcher-1.7.1.jar;C:\Users\Filippo Manfreda\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Filippo Manfreda\.m2\repository\org\junit\platform\junit-platform-engine\1.7.1\junit-platform-engine-1.7.1.jar;C:\Users\Filippo Manfreda\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Filippo Manfreda\.m2\repository\org\junit\platform\junit-platform-commons\1.7.1\junit-platform-commons-1.7.1.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.2\lib\idea_rt.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.2\plugins\junit\lib\junit5-rt.jar;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.2\plugins\junit\lib\junit-rt.jar;C:\Users\Filippo Manfreda\Desktop\test html\out\test\classes;C:\Users\Filippo Manfreda\Desktop\test html\out\production\classes;C:\Users\Filippo Manfreda\Desktop\test html\out\production\resources;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-thymeleaf\2.4.5\ca8d998c7aa68bd3143906f71a15e985834bca56\spring-boot-starter-thymeleaf-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-websocket\2.4.5\bd1c93b7179bad3be53780c10fadb88b22abe348\spring-boot-starter-websocket-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-web\2.4.5\93cf2655557534e35723fbafa069bed2ee125832\spring-boot-starter-web-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\jackson-module-kotlin\2.11.4\544a83b23869a06d350226583ae607d22eeb6fe9\jackson-module-kotlin-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.4.32\ce852b166d97f0f1991b5130c2bb02e2ef6c554e\kotlin-reflect-1.4.32.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-security\2.4.5\d932e1169b4fdd12b51f3d4088e7b00cda32cf6a\spring-boot-starter-security-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.security\spring-security-test\5.4.6\9a5bbaa25ca8b74f67c9dd93f40ecfb2cc74c801\spring-security-test-5.4.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-webflux\2.4.5\45bd0ec9dd895e17d5e21f18ca0ca8ddce071e74\spring-boot-starter-webflux-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.webjars\webjars-locator-core\0.46\2c207eae0bf475d6e2444ece594c199f1f418322\webjars-locator-core-0.46.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.webjars\sockjs-client\1.5.1\69151ceb2e4ada6f6cbc002c255d1158fe581b52\sockjs-client-1.5.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.webjars\stomp-websocket\2.3.3\3ac153b386f7945bc756709df3d171105e8fd2d5\stomp-websocket-2.3.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.webjars\bootstrap\3.3.7\d6aeba80236573ed585baa657dac2b951caa8e7e\bootstrap-3.3.7.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.webjars\jquery\3.1.1-1\5aed832bcda6feeb7f0310ea7929d5412c3b4df5\jquery-3.1.1-1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.4.32\3302f9ec8a5c1ed220781dbd37770072549bd333\kotlin-stdlib-jdk8-1.4.32.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.eclipse.californium\californium-proxy\2.0.0-M12\fd089cbf97a2f89e15ad6ba965ff7a196ece2219\californium-proxy-2.0.0-M12.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\29.0-jre\801142b4c3d0f0770dd29abea50906cacfddd447\guava-29.0-jre.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.eclipse.californium\californium-core\2.0.0-M12\5b61477cf0f3634bbdf786b265178b7a50a07ae3\californium-core-2.0.0-M12.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core\1.1.0\20274ba816d8938fdb4d7a3806719691db60fa1e\kotlinx-coroutines-core-1.1.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-common\1.1.0\d81cc72afd6e49f5270db24bae935f9bfcfd859e\kotlinx-coroutines-core-common-1.1.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.json\json\20201115\f8e7a9953822c90e0701c3cd50764b5e9063f85c\json-20201115.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\4.9.0\8e17601d3bdc8cf57902c154de021931d2c27c1\okhttp-4.9.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.5\a1e6cbb3cc2c5f210dd1310ff9fcb2c09c0d1438\httpclient-4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.6\815893df5f31da2ece4040fe0a12fd44b577afaf\commons-io-2.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.googlecode.aima-java\aima-core\3.0.0\fd46a9bdd8ea9d9988adcd296c3af02af267df8a\aima-core-3.0.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.andreapivetta.kolor\kolor\1.0.0\9656a40347df87bc6eb118ff878265742a8c6dd2\kolor-1.0.0.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\IssActorKotlinRobotSupport-2.0.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\IssWsHttpJavaSupport-1.0.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\unibonoawtsupports.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\it.unibo.planner20-1.0.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\2p301.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\it.unibo.qakactor-2.4.jar;C:\Users\Filippo Manfreda\Desktop\unibolibs\uniboInterfaces.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.eclipse.paho\org.eclipse.paho.client.mqttv3\1.2.1\a0932397520960d23566d1d9d09075f28bc8164\org.eclipse.paho.client.mqttv3-1.2.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-test\2.4.5\a8f04cd49dc761c9a1af2f3e41cb0fc51b3de12f\spring-boot-starter-test-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter\2.4.5\5f5398f459beb958fc2ece1a433420bf03cec628\spring-boot-starter-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.thymeleaf\thymeleaf-spring5\3.0.12.RELEASE\aa640b214411978a23cbe271c3fb9569d1bda608\thymeleaf-spring5-3.0.12.RELEASE.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.thymeleaf.extras\thymeleaf-extras-java8time\3.0.4.RELEASE\36e7175ddce36c486fff4578b5af7bb32f54f5df\thymeleaf-extras-java8time-3.0.4.RELEASE.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-websocket\5.3.6\f19d7eab32dffd64ae92678e9c88d69083397b7d\spring-websocket-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-messaging\5.3.6\456f30b1060e691cc15110780201b680985fe896\spring-messaging-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-json\2.4.5\5c1623aa53adf10cd98884f60db2d9f5958dbc28\spring-boot-starter-json-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-tomcat\2.4.5\f562f975967df544afd88d8d10aa4bcd356b799d\spring-boot-starter-tomcat-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-webmvc\5.3.6\a9bff0c28f90c73b0443de1d9299f32778ac8421\spring-webmvc-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-web\5.3.6\f9290db7324194921c236ad9a940467f55304fa7\spring-web-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.11.4\5d9f3d441f99d721b957e3497f0a6465c764fad4\jackson-databind-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.11.4\2c3f5c079330f3a01726686a078979420f547ae4\jackson-annotations-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.4.32\461367948840adbb0839c51d91ed74ef4a9ccb52\kotlin-stdlib-1.4.32.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.security\spring-security-web\5.4.6\491f54f9e790f3bc97357ded58eb7167e10f7d\spring-security-web-5.4.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.security\spring-security-config\5.4.6\fc0f4927639326b6962da8964a5dfbc1d1844f4d\spring-security-config-5.4.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-aop\5.3.6\510d9afcfce1fa9a2086906ab87b9989973c251c\spring-aop-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.security\spring-security-core\5.4.6\6b416bf45e261281f855f9905e54c989e4b002f9\spring-security-core-5.4.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-test\5.3.6\5c193fe51327eb47f8d049ab40619ccdcfcf45e9\spring-test-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-core\5.3.6\8f91f60f628075701fde72bb5a43a33feeb27e93\spring-core-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-webflux\5.3.6\39370e45b105ae08298beb88a1a5d070995fe3dd\spring-webflux-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-reactor-netty\2.4.5\727f61ad77ff370ffbc33761dd52a71eae2e4204\spring-boot-starter-reactor-netty-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\1.7.30\b5a4b6d16ab13e34a88fae84c35cd5d68cac922c\slf4j-api-1.7.30.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.github.classgraph\classgraph\4.8.69\6bd8c9033563e162b5c12de12b139724dbf71f48\classgraph-4.8.69.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.11.4\593f7b18bab07a76767f181e2a2336135ce82cc4\jackson-core-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.4.32\3546900a3ebff0c43f31190baf87a9220e37b7ea\kotlin-stdlib-jdk7-1.4.32.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpasyncclient\4.1.4\f3a3240681faae3fa46b573a4c7e50cec9db0d86\httpasyncclient-4.1.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore-nio\4.4.14\175aeb59b09cf2ebbec622fe1704904a092ee291\httpcore-nio-4.4.14.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.4.14\9dd1a631c082d92ecd4bd8fd4cf55026c720a8c1\httpcore-4.4.14.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.google.guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\b421526c5f297295adef1c886e5246c39d4ac629\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.2\25ea2e8b0c338a877313bd4672d3fe056ea78f0d\jsr305-3.0.2.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.checkerframework\checker-qual\2.11.1\8c43bf8f99b841d23aadda6044329dad9b63c185\checker-qual-2.11.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.google.errorprone\error_prone_annotations\2.3.4\dac170e4594de319655ffb62f41cbd6dbb5e601e\error_prone_annotations-2.3.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.google.j2objc\j2objc-annotations\1.3\ba035118bc8bac37d7eff77700720999acd9986d\j2objc-annotations-1.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.eclipse.californium\element-connector\2.0.0-M12\11cc8c08be9d2d975e7a9d34f46e8fb9f03234ba\element-connector-2.0.0-M12.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.4.32\ef50bfa2c0491a11dcc35d9822edbfd6170e1ea2\kotlin-stdlib-common-1.4.32.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\2.8.0\49b64e09d81c0cc84b267edd0c2fd7df5a64c78c\okio-jvm-2.8.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.15\49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d\commons-codec-1.15.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-json-jvm\1.2.2\7cd520a077c5d1addfa8f80f39cd14cb2de027d7\kotlinx-serialization-json-jvm-1.2.2.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-test-autoconfigure\2.4.5\b90b78690bed25eb742f20c8584ce67e21b3a3f5\spring-boot-test-autoconfigure-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-test\2.4.5\5bf8d6e7dfd30e43c04c7b1980cead057cdf7267\spring-boot-test-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.jayway.jsonpath\json-path\2.4.0\765a4401ceb2dc8d40553c2075eb80a8fa35c2ae\json-path-2.4.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\jakarta.xml.bind\jakarta.xml.bind-api\2.3.3\48e3b9cfc10752fba3521d6511f4165bea951801\jakarta.xml.bind-api-2.3.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.assertj\assertj-core\3.18.1\aaa02680dd92a568a4278bb40aa4a6305f632ec0\assertj-core-3.18.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest\2.2\1820c0968dba3a11a1b30669bb1f01978a91dedc\hamcrest-2.2.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter\5.7.1\a4a80ea9b0cca47781edcf9f2d4f1f4f7ce9436e\junit-jupiter-5.7.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.mockito\mockito-junit-jupiter\3.6.28\23149890c3b6047604a682aa3d47151d440e1bfa\mockito-junit-jupiter-3.6.28.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.mockito\mockito-core\3.6.28\ad16f503916da658bd7b805816ae3b296f3eea4c\mockito-core-3.6.28.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.skyscreamer\jsonassert\1.5.0\6c9d5fe2f59da598d9aefc1cfc6528ff3cf32df3\jsonassert-1.5.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.xmlunit\xmlunit-core\2.7.0\4d014eac96329c70175116b185749765cee0aad5\xmlunit-core-2.7.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-autoconfigure\2.4.5\32887531b5a125d4840a08f9610aec766de73606\spring-boot-autoconfigure-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot\2.4.5\d9b82470df2e9549e448d7cef39e578d91f9867f\spring-boot-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-logging\2.4.5\1537bbc2e8c6c9db806f9fa11ca7af394d7adacc\spring-boot-starter-logging-2.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\jakarta.annotation\jakarta.annotation-api\1.3.5\59eb84ee0d616332ff44aba065f3888cf002cd2d\jakarta.annotation-api-1.3.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.yaml\snakeyaml\1.27\359d62567480b07a679dc643f82fc926b100eed5\snakeyaml-1.27.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.thymeleaf\thymeleaf\3.0.12.RELEASE\de1865b0d58590a50c33900115a293335dd8ef25\thymeleaf-3.0.12.RELEASE.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-context\5.3.6\d99d3931528309a4ff49b7d18f76f1657aa16c52\spring-context-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-beans\5.3.6\99cc944fb3454410b47fc98d4b148a6205bfe8f6\spring-beans-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jdk8\2.11.4\e1540dea3c6c681ea4e335a960f730861ee3bedb\jackson-datatype-jdk8-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jsr310\2.11.4\ce6fc76bba06623720e5a9308386b6ae74753f4d\jackson-datatype-jsr310-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\jackson-module-parameter-names\2.11.4\432e050d79f2282a66c320375d628f1b0842cb12\jackson-module-parameter-names-2.11.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-websocket\9.0.45\5cefd0aab62e2938f51110ebeb557b30ed5abab\tomcat-embed-websocket-9.0.45.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-core\9.0.45\8fb7d78b14e2deb8fec430498c64418ec0a2d983\tomcat-embed-core-9.0.45.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.glassfish\jakarta.el\3.0.3\dab46ee1ee23f7197c13d7c40fce14817c9017df\jakarta.el-3.0.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-expression\5.3.6\33ba1d8dfaab0fd60ce4213a206f5d4fc77ce27a\spring-expression-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.springframework\spring-jcl\5.3.6\53ddfc5cfdf438a1d3346fc2912c3e3049a8cb76\spring-jcl-5.3.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.projectreactor\reactor-core\3.4.5\c8adeb48f74b16c2dfb4f06a880820b9eaed50cf\reactor-core-3.4.5.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.projectreactor.netty\reactor-netty-http\1.0.6\6a76dd233bdb1e6dc5364ae1b5c8627c2cb0288f\reactor-netty-http-1.0.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\net.minidev\json-smart\2.3\7396407491352ce4fa30de92efb158adb76b5b\json-smart-2.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\jakarta.activation\jakarta.activation-api\1.2.2\99f53adba383cb1bf7c3862844488574b559621f\jakarta.activation-api-1.2.2.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-params\5.7.1\6f81b3c053433a8a40a378d2b4f056c5c31e50ff\junit-jupiter-params-5.7.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-api\5.7.1\a7261dff44e64aea7f621842eac5977fd6d2412d\junit-jupiter-api-5.7.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy\1.10.22\ef45d7e2cd1c600d279704f492ed5ce2ceb6cdb5\byte-buddy-1.10.22.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.10.22\b01df6b71a882b9fde5a608a26e641cd399a4d83\byte-buddy-agent-1.10.22.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.objenesis\objenesis\3.1\48f12deaae83a8dfc3775d830c9fd60ea59bbbca\objenesis-3.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\com.vaadin.external.google\android-json\0.0.20131108.vaadin1\fa26d351fe62a6a17f5cda1287c1c6110dec413f\android-json-0.0.20131108.vaadin1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-classic\1.2.3\7c4f3c474fb2c041d8028740440937705ebb473a\logback-classic-1.2.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-to-slf4j\2.13.3\966f6fd1af4959d6b12bfa880121d4a2b164f857\log4j-to-slf4j-2.13.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.slf4j\jul-to-slf4j\1.7.30\d58bebff8cbf70ff52b59208586095f467656c30\jul-to-slf4j-1.7.30.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.attoparser\attoparser\2.0.5.RELEASE\a93ad36df9560de3a5312c1d14f69d938099fa64\attoparser-2.0.5.RELEASE.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.unbescape\unbescape\1.1.6.RELEASE\7b90360afb2b860e09e8347112800d12c12b2a13\unbescape-1.1.6.RELEASE.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.reactivestreams\reactive-streams\1.0.3\d9fb7a7926ffa635b3dcaa5049fb2bfa25b3e7d0\reactive-streams-1.0.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.projectreactor.netty\reactor-netty-core\1.0.6\c24e7e989913d50c2ed592892e55ce1284364ac4\reactor-netty-core-1.0.6.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-http2\4.1.63.Final\294e90696d8d6e20c889511d2484b37158cb9caa\netty-codec-http2-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-http\4.1.63.Final\f8c9b159dcb76452dc98a370a5511ff993670419\netty-codec-http-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver-dns-native-macos\4.1.63.Final\d72f13b680d361b0e217704bda59ccb4b3256297\netty-resolver-dns-native-macos-4.1.63.Final-osx-x86_64.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver-dns\4.1.63.Final\f44dc8ed52ff8528a88c157879c9baffe464fa46\netty-resolver-dns-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.63.Final\98d898362dd9a00eb23e2857a49cb15ff37353dc\netty-transport-native-epoll-4.1.63.Final-linux-x86_64.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-core-jvm\1.2.2\f1facb8403cacd65ee314f91fec216ba229f9ac2\kotlinx-serialization-core-jvm-1.2.2.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\net.minidev\accessors-smart\1.2\c592b500269bfde36096641b01238a8350f8aa31\accessors-smart-1.2.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apiguardian\apiguardian-api\1.1.0\fc9dff4bb36d627bdc553de77e1f17efd790876c\apiguardian-api-1.1.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.junit.platform\junit-platform-commons\1.7.1\7c49f0074842d07f4335de2389d624a7437d1407\junit-platform-commons-1.7.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.opentest4j\opentest4j\1.2.0\28c11eb91f9b6d8e200631d46e20a7f407f2a046\opentest4j-1.2.0.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.2.3\864344400c3d4d92dfeb0a305dc87d953677c03c\logback-core-1.2.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.13.3\ec1508160b93d274b1add34419b897bae84c6ca9\log4j-api-2.13.3.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler-proxy\4.1.63.Final\d8cbdc537d75f219c04a057b984b2f0b55c1dbff\netty-handler-proxy-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.63.Final\879a43c2325b08e92e8967218b6ddb0ed4b7a0d3\netty-handler-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.63.Final\d4d2fccea88c80e56d59ce1053c53df0f9f4f5db\netty-codec-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.63.Final\9a8bbe1ba082c9434e6f524d3864a53f340f2df\netty-transport-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.63.Final\40028ce5ac7c43f1c9a1439f74637cad04013e23\netty-buffer-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.63.Final\e1206b46384d4dcbecee2901f18ce65ecf02e8a4\netty-common-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.63.Final\85bd91382ec54b300ad3ff59efccbb4fccb22a88\netty-transport-native-unix-common-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-dns\4.1.63.Final\91c445232b12e13bf6757579a39bab81e1233af5\netty-codec-dns-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.63.Final\d07cd47c101dfa655d6d5cc304d523742fd78ca8\netty-resolver-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\5.0.4\da08b8cce7bbf903602a25a3a163ae252435795\asm-5.0.4.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-socks\4.1.63.Final\97707b764c9287836dcf626dd03c81f3bbfc86c6\netty-codec-socks-4.1.63.Final.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-engine\5.7.1\7fcfa59c5533abb41f86b1408960737eeaf1f49f\junit-jupiter-engine-5.7.1.jar;C:\Users\Filippo Manfreda\.gradle\caches\modules-2\files-2.1\org.junit.platform\junit-platform-engine\1.7.1\d276a968c57f5d60a421dedd1f8b6ca2fae09e86\junit-platform-engine-1.7.1.jar" com.intellij.rt.junit.JUnitStarter -ideVersion5 -junit5 controller.LastTest
+11:09:09.868 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+11:09:09.883 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+11:09:09.952 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [controller.LastTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+11:09:09.983 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [controller.LastTest], using SpringBootContextLoader
+11:09:09.989 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [controller.LastTest]: class path resource [controller/LastTest-context.xml] does not exist
+11:09:09.989 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [controller.LastTest]: class path resource [controller/LastTestContext.groovy] does not exist
+11:09:09.989 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [controller.LastTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+11:09:09.989 [main] DEBUG org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Ignoring class [controller.LastTest$Companion]; it must be static, non-private, non-final, and annotated with @Configuration to be considered a default configuration class.
+11:09:09.989 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [controller.LastTest]: LastTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:09:10.099 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [controller.LastTest]
+11:09:10.300 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\Users\Filippo Manfreda\Desktop\test html\out\production\classes\controller\MainCtxcarparking.class]
+11:09:10.315 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration controller.MainCtxcarparking for test class controller.LastTest
+11:09:10.532 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [controller.LastTest]: using defaults.
+11:09:10.532 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener]
+11:09:10.554 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+11:09:10.554 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+11:09:10.569 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@604f2bd2, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1d3ac898, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@1b73be9f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@628c4ac0, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7b84fcf8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@30b19518, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@363042d7, org.springframework.test.context.event.EventPublishingTestExecutionListener@366ac49b, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@6ad59d92, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@56f0cc85, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@62e20a76, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2cc44ad, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@44b3606b, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1477089c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@663411de]
+11:09:10.569 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@6d23017e testClass = LastTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@54dcfa5a testClass = LastTest, locations = '{}', classes = '{class controller.MainCtxcarparking}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@1033576a, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@4b3fa0b3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@533bda92, [ImportsContextCustomizer@1817f1eb key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@33ecda92, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@3feb2dda, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@782859e, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@29d80d2b, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@3c756e4d], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+11:09:11.715 [main] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
+waiting for system startup ...
+               %%% sysUtil | createTheContext ctxcarparking FOR host=localhost  
+               %%% CoapResourceCtx ctxcarparking | created  
+               %%% QakContext |  localhost:8002 INIT 
+               %%% QakContextServer serverctxcarparking | READY TO RECEIVE TCP CONNS on 8002 
+2022-05-16 11:09:12.085  INFO 16508 --- [ad @coroutine#3] o.e.c.core.network.CoapEndpoint          : CoapEndpoint uses udp plain
+2022-05-16 11:09:12.085  INFO 16508 --- [ad @coroutine#3] o.e.c.core.network.CoapEndpoint          : CoapEndpoint uses udp plain
+  __  __     _ __        ___       __        __  _____     _
+ / / / /__  (_) /  ___  / _ \___  / /  ___  / /_/ ___/_ __(_)
+/ /_/ / _ \/ / _ \/ _ \/ , _/ _ \/ _ \/ _ \/ __/ (_ / // / /
+\____/_//_/_/_.__/\___/_/|_|\___/_.__/\___/\__/\___/\_,_/_/
+
+  __  __     _ __        ___       __        __  _____     _
+ / / / /__  (_) /  ___  / _ \___  / /  ___  / /_/ ___/_ __(_)
+/ /_/ / _ \/ / _ \/ _ \/ , _/ _ \/ _ \/ _ \/ __/ (_ / // / /
+\____/_//_/_/_.__/\___/_/|_|\___/_.__/\___/\__/\___/\_,_/_/
+
+2022-05-16 11:09:12.106  INFO 16508 --- [ad @coroutine#3] o.e.c.core.network.stack.BlockwiseLayer  : BlockwiseLayer uses MAX_MESSAGE_SIZE=1024, PREFERRED_BLOCK_SIZE=512, BLOCKWISE_STATUS_LIFETIME=300000 and MAX_RESOURCE_BODY_SIZE=8192
+2022-05-16 11:09:12.106  INFO 16508 --- [ad @coroutine#3] o.e.c.core.network.stack.BlockwiseLayer  : BlockwiseLayer uses MAX_MESSAGE_SIZE=1024, PREFERRED_BLOCK_SIZE=512, BLOCKWISE_STATUS_LIFETIME=300000 and MAX_RESOURCE_BODY_SIZE=8192
+2022-05-16 11:09:12.108  INFO 16508 --- [ad @coroutine#3] o.e.c.c.network.stack.ReliabilityLayer   : ReliabilityLayer uses ACK_TIMEOUT=2000, ACK_RANDOM_FACTOR=1.5, and ACK_TIMEOUT_SCALE=2.0
+2022-05-16 11:09:12.108  INFO 16508 --- [ad @coroutine#3] o.e.c.c.network.stack.ReliabilityLayer   : ReliabilityLayer uses ACK_TIMEOUT=2000, ACK_RANDOM_FACTOR=1.5, and ACK_TIMEOUT_SCALE=2.0
+2022-05-16 11:09:12.112  INFO 16508 --- [ad @coroutine#3] org.eclipse.californium.core.CoapServer  : Starting server
+2022-05-16 11:09:12.112  INFO 16508 --- [ad @coroutine#3] org.eclipse.californium.core.CoapServer  : Starting server
+2022-05-16 11:09:12.128  INFO 16508 --- [ad @coroutine#3] o.e.californium.elements.UDPConnector    : UDPConnector starts up 12 sender threads and 12 receiver threads
+2022-05-16 11:09:12.128  INFO 16508 --- [ad @coroutine#3] o.e.californium.elements.UDPConnector    : UDPConnector starts up 12 sender threads and 12 receiver threads
+2022-05-16 11:09:12.136  INFO 16508 --- [ad @coroutine#3] o.e.californium.elements.UDPConnector    : UDPConnector listening on /[0:0:0:0:0:0:0:0]:8002, recv buf = 65536, send buf = 65536, recv packet size = 2048
+2022-05-16 11:09:12.136  INFO 16508 --- [ad @coroutine#3] o.e.californium.elements.UDPConnector    : UDPConnector listening on /[0:0:0:0:0:0:0:0]:8002, recv buf = 65536, send buf = 65536, recv packet size = 2048
+2022-05-16 11:09:12.140  INFO 16508 --- [ad @coroutine#3] o.e.c.core.network.CoapEndpoint          : Started endpoint at coap://[0:0:0:0:0:0:0:0]:8002
+2022-05-16 11:09:12.140  INFO 16508 --- [ad @coroutine#3] o.e.c.core.network.CoapEndpoint          : Started endpoint at coap://[0:0:0:0:0:0:0:0]:8002
+               %%% QakContext ctxcarparking |  serverCoap started on port: 8002
+               %%% QakContext | CREATING THE ACTORS on localhost 
+2022-05-16 11:09:12.219  WARN 16508 --- [           main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/Filippo%20Manfreda/.gradle/caches/modules-2/files-2.1/org.json/json/20201115/f8e7a9953822c90e0701c3cd50764b5e9063f85c/json-20201115.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/Filippo%20Manfreda/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2022-05-16 11:09:12.219  WARN 16508 --- [           main] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/Filippo%20Manfreda/.gradle/caches/modules-2/files-2.1/org.json/json/20201115/f8e7a9953822c90e0701c3cd50764b5e9063f85c/json-20201115.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/Filippo%20Manfreda/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+               %%% CoapResourceCtx ctxcarparking | addActorResource park_client_service
+2022-05-16 11:09:12.228  INFO 16508 --- [           main] controller.LastTest                      : Starting LastTest using Java 15.0.2 on DESKTOP-AU6POMK with PID 16508 (started by Filippo Manfreda in C:\Users\Filippo Manfreda\Desktop\test html)
+2022-05-16 11:09:12.228  INFO 16508 --- [           main] controller.LastTest                      : Starting LastTest using Java 15.0.2 on DESKTOP-AU6POMK with PID 16508 (started by Filippo Manfreda in C:\Users\Filippo Manfreda\Desktop\test html)
+2022-05-16 11:09:12.232  INFO 16508 --- [           main] controller.LastTest                      : No active profile set, falling back to default profiles: default
+2022-05-16 11:09:12.232  INFO 16508 --- [           main] controller.LastTest                      : No active profile set, falling back to default profiles: default
+               %%% CoapResourceCtx ctxcarparking | addActorResource manager_service
+               %%% CoapResourceCtx ctxcarparking | addActorResource trolley_controller
+2022-05-16 11:09:12.352  INFO 16508 --- [ad @coroutine#4] o.s.boot.SpringApplication               : Starting application using Java 15.0.2 on DESKTOP-AU6POMK with PID 16508 (started by Filippo Manfreda in C:\Users\Filippo Manfreda\Desktop\test html)
+2022-05-16 11:09:12.352  INFO 16508 --- [ad @coroutine#4] o.s.boot.SpringApplication               : Starting application using Java 15.0.2 on DESKTOP-AU6POMK with PID 16508 (started by Filippo Manfreda in C:\Users\Filippo Manfreda\Desktop\test html)
+2022-05-16 11:09:12.352  INFO 16508 --- [ad @coroutine#4] o.s.boot.SpringApplication               : No active profile set, falling back to default profiles: default
+2022-05-16 11:09:12.352  INFO 16508 --- [ad @coroutine#4] o.s.boot.SpringApplication               : No active profile set, falling back to default profiles: default
+               %%% CoapResourceCtx ctxcarparking | addActorResource fan
+               %%% QakContext | createContexts on localhost ENDS 
+FAN STARTS
+parkclientservice STARTS
+{1=, 2=160520221103402, 3=, 4=, 5=, 6=150520220655096}
+managerservice STARTS
+false
+trolleyController STARTS
+plannerUtil initAI done
+INITIAL MAP
+|r, 0, 0, 0, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, 0, 0, 0, 0, X, 
+|X, X, X, X, X, X, X, 
+
+FAN OFF
+parkclientservice waiting ...
+managerservice waiting ...
+trolleyController idle
+2022-05-16 11:09:14.251  INFO 16508 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:09:14.251  INFO 16508 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:09:14.274  INFO 16508 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:09:14.274  INFO 16508 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:09:14.274  INFO 16508 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'brokerChannelExecutor'
+2022-05-16 11:09:14.274  INFO 16508 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'brokerChannelExecutor'
+      connQakTcp | connected with localhost
+2022-05-16 11:09:14.429  INFO 16508 --- [ad @coroutine#4] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2022-05-16 11:09:14.429  INFO 16508 --- [ad @coroutine#4] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-05-16 11:09:14.445  INFO 16508 --- [ad @coroutine#4] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+2022-05-16 11:09:14.752  INFO 16508 --- [ad @coroutine#4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-16 11:09:14.752  INFO 16508 --- [ad @coroutine#4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-16 11:09:14.752  INFO 16508 --- [ad @coroutine#4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-16 11:09:14.752  INFO 16508 --- [ad @coroutine#4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-05-16 11:09:14.752  INFO 16508 --- [ad @coroutine#4] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2395 ms
+2022-05-16 11:09:14.752  INFO 16508 --- [ad @coroutine#4] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2395 ms
+2022-05-16 11:09:14.846  INFO 16508 --- [ad @coroutine#4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:09:14.846  INFO 16508 --- [ad @coroutine#4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:09:14.846  INFO 16508 --- [ad @coroutine#4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:09:14.846  INFO 16508 --- [ad @coroutine#4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:09:14.846  INFO 16508 --- [ad @coroutine#4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'brokerChannelExecutor'
+2022-05-16 11:09:14.846  INFO 16508 --- [ad @coroutine#4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'brokerChannelExecutor'
+      connQakTcp | connected with localhost
+      connQakTcp | connected with localhost
+2022-05-16 11:09:15.856  WARN 16508 --- [           main] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+2022-05-16 11:09:15.856  WARN 16508 --- [           main] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+      connQakTcp | connected with localhost
+2022-05-16 11:09:16.172  WARN 16508 --- [ad @coroutine#4] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+2022-05-16 11:09:16.172  WARN 16508 --- [ad @coroutine#4] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+2022-05-16 11:09:16.256  INFO 16508 --- [ad @coroutine#4] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@723ec9e8, org.springframework.security.web.context.SecurityContextPersistenceFilter@18eff535, org.springframework.security.web.header.HeaderWriterFilter@35312369, org.springframework.security.web.csrf.CsrfFilter@64d90a26, org.springframework.security.web.authentication.logout.LogoutFilter@47a4c5f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@bb4a4a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31e59abd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@df3dd83, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7cf7914a, org.springframework.security.web.session.SessionManagementFilter@34cb51b0, org.springframework.security.web.access.ExceptionTranslationFilter@45dd9fda, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5e0b3a81]
+2022-05-16 11:09:16.256  INFO 16508 --- [ad @coroutine#4] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@723ec9e8, org.springframework.security.web.context.SecurityContextPersistenceFilter@18eff535, org.springframework.security.web.header.HeaderWriterFilter@35312369, org.springframework.security.web.csrf.CsrfFilter@64d90a26, org.springframework.security.web.authentication.logout.LogoutFilter@47a4c5f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@bb4a4a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31e59abd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@df3dd83, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7cf7914a, org.springframework.security.web.session.SessionManagementFilter@34cb51b0, org.springframework.security.web.access.ExceptionTranslationFilter@45dd9fda, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5e0b3a81]
+2022-05-16 11:09:16.256  INFO 16508 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6342d610, org.springframework.security.web.context.SecurityContextPersistenceFilter@6403e24c, org.springframework.security.web.header.HeaderWriterFilter@6d1dcdff, org.springframework.security.web.csrf.CsrfFilter@210308d5, org.springframework.security.web.authentication.logout.LogoutFilter@2f5ac102, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@10f7c76, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@767a014e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@63c12e52, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@dc4a691, org.springframework.security.web.session.SessionManagementFilter@26dc9bd5, org.springframework.security.web.access.ExceptionTranslationFilter@6920614, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4d95a72e]
+2022-05-16 11:09:16.256  INFO 16508 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6342d610, org.springframework.security.web.context.SecurityContextPersistenceFilter@6403e24c, org.springframework.security.web.header.HeaderWriterFilter@6d1dcdff, org.springframework.security.web.csrf.CsrfFilter@210308d5, org.springframework.security.web.authentication.logout.LogoutFilter@2f5ac102, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@10f7c76, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@767a014e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@63c12e52, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@dc4a691, org.springframework.security.web.session.SessionManagementFilter@26dc9bd5, org.springframework.security.web.access.ExceptionTranslationFilter@6920614, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4d95a72e]
+2022-05-16 11:09:16.287  INFO 16508 --- [ad @coroutine#4] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:09:16.287  INFO 16508 --- [ad @coroutine#4] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:09:16.320  INFO 16508 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:09:16.320  INFO 16508 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@15c2b25e]]
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@15c2b25e]]
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2022-05-16 11:09:18.325  INFO 16508 --- [ad @coroutine#4] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2022-05-16 11:09:18.347  INFO 16508 --- [ad @coroutine#4] o.s.boot.SpringApplication               : Started application in 6.63 seconds (JVM running for 9.732)
+2022-05-16 11:09:18.347  INFO 16508 --- [ad @coroutine#4] o.s.boot.SpringApplication               : Started application in 6.63 seconds (JVM running for 9.732)
+2022-05-16 11:09:18.378  INFO 16508 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-05-16 11:09:18.378  INFO 16508 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-05-16 11:09:18.378  INFO 16508 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-05-16 11:09:18.378  INFO 16508 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-05-16 11:09:18.378  INFO 16508 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2022-05-16 11:09:18.378  INFO 16508 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6342ff7f]]
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6342ff7f]]
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] controller.LastTest                      : Started LastTest in 6.68 seconds (JVM running for 9.789)
+2022-05-16 11:09:18.394  INFO 16508 --- [           main] controller.LastTest                      : Started LastTest in 6.68 seconds (JVM running for 9.789)
+connQakTcp | request= msg(acceptIn,request,springcontroller,park_client_service,acceptIn(X),13)
+WORKING
+park_client_service in working | msg(acceptIn,request,springcontroller,park_client_service,acceptIn(X),13)
+parkclientservice reply enter(0)
+connQakTcp | answer= msg(responseAcceptIn,reply,park_client_service,springcontroller,'responseAcceptIn(The indoor area is engaged or the trolley is stopped)',14)
+parkclientservice waiting ...
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /reqenter
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = controller.GuiAdapter
+           Method = controller.GuiAdapter#pickUpPage(Model)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"52", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = text/plain;charset=UTF-8
+             Body = The indoor area is engaged or the trolley is stopped
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=150520220651211, 2=160520221103402, 3=, 4=, 5=, 6=150520220655096})
+/carenter
+connQakTcp | request= msg(carenter,request,springcontroller,park_client_service,carenter(2),16)
+WORKING
+park_client_service in working | msg(carenter,request,springcontroller,park_client_service,carenter(2),16)
+parkclientservice reply
+connQakTcp | answer= msg(responseCarenter,reply,park_client_service,springcontroller,'responseCarenter(Invalid parking slot number)',18)
+parkclientservice waiting ...
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /carenter
+       Parameters = {slotnum=[2]}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = controller.GuiAdapter
+           Method = controller.GuiAdapter#carenter(int)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"27", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = text/plain;charset=UTF-8
+             Body = Invalid parking slot number
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=150520220651211, 2=160520221103402, 3=, 4=, 5=, 6=150520220655096})
+/reqexit
+connQakTcp | request= msg(acceptOut,request,springcontroller,park_client_service,acceptOut(150520220651211),19)
+WORKING
+park_client_service in working | msg(acceptOut,request,springcontroller,park_client_service,acceptOut(150520220651211),19)
+connQakTcp | answer= msg(responseAcceptOut,reply,park_client_service,springcontroller,responseAcceptOut(Success),20)
+parkclientservice moves the car from SLOTNUM = 1 to out
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /reqexit
+       Parameters = {tokenid=[150520220651211]}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = controller.GuiAdapter
+           Method = controller.GuiAdapter#reqexit(String)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"7", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = text/plain;charset=UTF-8
+             Body = Success
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=, 2=160520221103402, 3=, 4=, 5=, 6=150520220655096})
+parkclientservice reply
+trolley_controller in working | msg(moveToSlot,request,park_client_service,trolley_controller,moveToSlot(1),21)
+trolley WORKING
+trolley trip to slot 1 start
+setGoal 1,1 while robot in cell: 0,0 direction=downDir 
+|r, 0, 0, 0, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, 0, 0, 0, 0, X, 
+|X, X, X, X, X, X, X, 
+
+plannerUtil doPlan actions=[w, l, w]
+trolley trip to slot 1 end
+trolley PARKOUT
+trolley_controller in working | msg(moveToOut,request,park_client_service,trolley_controller,moveToOut(move),23)
+trolley WORKING
+trolley trip to OUTDOOR start
+setGoal 5,4 while robot in cell: 1,1 direction=rightDir 
+|1, 0, 0, 0, 0, 0, X, 
+|1, r, X, X, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, X, X, 0, 0, X, 
+|0, 0, 0, 0, 0, 0, X, 
+|X, X, X, X, X, X, X, 
+
+plannerUtil doPlan actions=[r, w, w, w, l, w, w, w, w]
+trolley trip to OUTDOOR end
+trolley_controller in working | msg(moveToHome,dispatch,trolley_controller,trolley_controller,moveToHome(X),25)
+trolley WORKING
+setGoal 0,0 while robot in cell: 5,4 direction=rightDir 
+|0, 0, 0, 0, 0, 0, X, 
+|1, 1, X, X, 0, 0, X, 
+|0, 1, X, X, 0, 0, X, 
+|0, 1, X, X, 0, 0, X, 
+|0, 1, 1, 1, 1, r, X, 
+|X, X, X, X, X, X, X, 
+
+plannerUtil doPlan actions=[l, w, w, w, w, l, w, w, w, w, w]
+parkclientservice waiting ...
+trolley in HOME
+trolleyController idle
+terminate the testing
+2022-05-16 11:10:13.306  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2022-05-16 11:10:13.306  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2022-05-16 11:10:13.306  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2022-05-16 11:10:13.306  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6342ff7f]]
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@15c2b25e]]
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6342ff7f]]
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@15c2b25e]]
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2022-05-16 11:10:13.310  INFO 16508 --- [extShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:10:13.326  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+2022-05-16 11:10:13.343  INFO 16508 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+
+Process finished with exit code 0

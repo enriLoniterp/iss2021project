@@ -250,7 +250,7 @@ div.imagedesc{
     In addition, manager's task higly depends on park temperature and he should be properly notified when the temperatue exceeds <ks>TMAX</ks> threshold. In fact, the manager is able
     to start the trolley and turn off the fan if temperature is below <ks>TMAX</ks> and turn on the fan and start stop the trolley otherwise. <br>
 
-    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../src/main/kotlin/trolley_controller/Trolley_controller.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
+    In order to avoid chances of human errors, fan management (turn on/turn off) should be done automatically by interacting with <a href="../../Sprint2/src/adapters/FanAdapter.kt" target = "_blank"><ks>FanAdapter</ks></a>. Meanwhile Transport Trolley management is left exclusively to the manager himself and can be done using the <a href="../../Sprint2/src/adapters/TrolleyAdapter.kt" target = "_blank"><ks>TrolleyController</ks></a>. <br>
     Finally, <ks>PMS</ks> must be able to support some kind of timer which times car presence in the <ks>OUTDOOR AREA</ks> for more than 
     <a href="../../Sprint3/userDocs/Sprint3.html#problem_analysis_PMS" target = "_blank"><ks>DTFREE</ks></a> time.
   </div>
@@ -518,6 +518,145 @@ Starting from what as been said in the analysis phase, the integration tests hav
 
 <ul>
 </div>
+<h3>Product owner test</h3>
+<div class="remark">
+The product owner has requested us to carry out this test:
+<ol>
+						<li>The system has 0 < <k>nfree</k> < 6 free slots and 0 < <k>nbusy</k> < 6 busy slots
+						</li>
+						<li>Temperature constatly under <k>< TMAX</k>; Fan <k>off</k>; IN/OUTDOOR area <k>free</k></li>
+						<li>Simulate the below requests (spaced out by two seconds):
+							<ul>
+								<li><k>enter</k> request</li>
+								<li><k>carenter</k> request</li>
+								<li><k>pickup</k> request</li>
+							</ul>
+						</li>
+						<li>Define the <k>state changes</k> of the system</li>
+						<li>Point out the <k>strategy</k> used to <k>automate</k> the test</li>
+					</ol>
+	The code of this test can be found in <a href="../src/test/kotlin/controller/LastTest.kt" target = "_blank">LastTest.kt</a></br>
+	<h4>State changes</h4>
+	To explain the state changes we refer here to the <a href="../consoleLog.txt" target = "_blank">console log</a> visibles during the test executions.
+	<h6>ENTER</h6>
+	First the enter request is made with a http get request when the client click the <b>PARK</b> button in the home page
+<pre>
+MockHttpServletRequest:
+HTTP Method = GET
+Request URI = /reqenter
+</pre>
+	The system receives the request via <b>GuiAdapter</b>, sends the request to <b>park_client_service</b> which process it and replies
+<pre>
+connQakTcp | request= msg(acceptIn,request,springcontroller,park_client_service,acceptIn(X),13)
+park_client_service in working | msg(acceptIn,request,springcontroller,park_client_service,acceptIn(X),13)
+parkclientservice reply enter(2)
+connQakTcp | answer= msg(responseAcceptIn,reply,park_client_service,springcontroller,responseAcceptIn(2),14)
+parkclientservice waiting ...
+</pre>
+	When the client receives the answer, he is redirected in another web page where, after bringing the car in the indoor area, he can do the carenter request.</br>
+	The manager during this, in his web page, sees constanlty the same information.
+<pre>
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=150520220651211, 2=R, 3=, 4=, 5=, 6=150520220655096})
+</pre>
+	Slots state showed as free or occupied through red and green points
+	
+	<h6>CARENTER</h6>
+	carenter request is made with a http get request, passing the slotnum when the client click the <b>DEPOSIT</b> button in the related page
+<pre>
+MockHttpServletRequest:
+HTTP Method = GET
+Request URI = /carenter
+Parameters = {slotnum=[2]}
+</pre>
+	The system receives the request via <b>GuiAdapter</b>, sends the request to <b>park_client_service</b> which processes it, triggering the <b>trolleyController</b>, and replies with the receipt
+<pre>
+connQakTcp | request= msg(carenter,request,springcontroller,park_client_service,carenter(2),16)
+park_client_service in working | msg(carenter,request,springcontroller,park_client_service,carenter(2),16)
+connQakTcp | answer= msg(responseCarenter,reply,park_client_service,springcontroller,responseCarenter(160520220943552),17)
+parkclientservice moves the car to SLOTNUM = 2
+</pre>
+	<b>Trolley controller</b> executes the moves to satisfy the request
+<pre>
+trolley_controller in working | msg(moveToIn,request,park_client_service,trolley_controller,moveToIn(move),18)
+trolley WORKING
+trolley trip to INDOOR start
+[...]
+trolley trip to INDOOR end
+trolley_controller in working | msg(moveToSlot,request,park_client_service,trolley_controller,moveToSlot(2),21)
+trolley WORKING
+trolley trip to slot 2 start
+[...]
+trolley trip to slot 2 end
+trolley PARKIN
+trolley_controller in working | msg(moveToHome,dispatch,trolley_controller,trolley_controller,moveToHome(X),22)
+trolley WORKING
+[...]
+trolley in HOME
+</pre>
+	When the client receives the answer, he sees the receipt, which need to be saved to be used in the pickup phase.</br>
+	The manager during this, in his web page, sees a changing in slots state and in the trolley state.
+<pre>
+AT THE BEGIN
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=150520220651211, 2=R, 3=, 4=, 5=, 6=150520220655096})
+
+AT THE END
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=150520220651211, 2=160520220943552, 3=, 4=, 5=, 6=150520220655096})
+</pre>
+	
+	<h6>PICKUP</h6>
+pickup request is made with a http get request, passing the receipt when the client click the <b>PICKUP</b> button in the home page
+<pre>
+MockHttpServletRequest:
+HTTP Method = GET
+Request URI = /reqexit
+Parameters = {tokenid=[150520220651211]}
+</pre>
+	The system receives the request via <b>GuiAdapter</b>, sends the request to <b>park_client_service</b> which processes it, triggering the <b>trolleyController</b>, and replies with the outcome.
+	The request is first added in the actor queue because at this time the actor is still processing the previous request
+<pre>
+connQakTcp | request= msg(acceptOut,request,springcontroller,park_client_service,acceptOut(150520220651211),19)
+		               %%%  ActorBasicFsm park_client_service |  added msg(acceptOut,request,springcontroller,park_client_service,acceptOut(150520220651211),19) in msgQueueStore
+[...]
+park_client_service in working | msg(acceptOut,request,springcontroller,park_client_service,acceptOut(150520220651211),19)
+connQakTcp | answer= msg(responseAcceptOut,reply,park_client_service,springcontroller,responseAcceptOut(Success),25)
+parkclientservice moves the car from SLOTNUM = 1 to out
+</pre>
+	<b>Trolley controller</b> executes the moves to satisfy the request
+<pre>
+trolley_controller in working | msg(moveToSlot,request,park_client_service,trolley_controller,moveToSlot(1),26)
+trolley WORKING
+trolley trip to slot 1 start
+[...]
+trolley trip to slot 1 end
+trolley PARKOUT
+trolleyController idle
+trolley_controller in working | msg(moveToOut,request,park_client_service,trolley_controller,moveToOut(move),29)
+trolley WORKING
+trolley trip to OUTDOOR start
+[...]
+trolley trip to OUTDOOR end
+trolley_controller in working | msg(moveToHome,dispatch,trolley_controller,trolley_controller,moveToHome(X),25)
+trolley WORKING
+[...]
+trolley in HOME
+trolleyController idle
+</pre>
+	When the client receives the answer, he sees an indication to go to the outdoor area and to take the car.</br>
+	The manager during this, in his web page, sees a changing in slots state and in the trolley state.
+<pre>
+AT THE BEGIN
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=150520220651211, 2=160520220943552, 3=, 4=, 5=, 6=150520220655096})
+
+AT THE END
+ParkingStateToSend(trolleyState=idle, fanState=off, temperature=20, slotState={1=, 2=160520220943552, 3=, 4=, 5=, 6=150520220655096})
+</pre>
+<h4>Test automation</h4>
+To automate the test we first initialize the <b>ParkingState</b> resource in order to prevent some previously "strange" states saved on persisten memory and loaded during system bootstrap.</br>
+Then launch a coroutine, which makes the requests and checks to receive the responses.
+To make requests to our system we use <b>MockMvc</b> which is a main entry point for server-side Spring MVC test support.
+	
+</div>
+
 
 
 <h2>Deployment</h2>
@@ -535,20 +674,20 @@ Starting from what as been said in the analysis phase, the integration tests hav
   
   <b>How to run the system</b>
   <pre></br>
-  To use the virtual environment:
+  In the virtual environment:
   <ol>
-    <li>Run <b>docker-compose -f pms.yaml up</b> on directory <a href="../" target="_blank">Sprint4</a></li>
+    <li>Run <b>docker-compose -f pms.yaml up</b></li>
 	<li>Move to <b>localhost:8090</b> to display the virtual environment</li>
     <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
-	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target="_blank">thermometer</a>)</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
   </ol>
-  To use the real environment:
+  In the real environment:
   <ol>
     <li>Extract <b>it.unibo.qak21.basicrobot.zip</b> file into the raspberry, go to the bin directory and run <b>bash it.unibo.qak21.basicrobot</b></li>
 	<li>Change the first line of <a href="../connTrolley.txt" target = "_blank">connTrolley.txt</a> from <b>virtual</b> to <b>real</b> and push the file in the docker image.</li>
-    <li>Run <b>docker-compose -f pms.yaml up</b> on directory <a href="../" target="_blank">Sprint4</a></li>
+    <li>Run <b>docker-compose -f pms.yaml up</b></li>
     <li>Move to <b>localhost:8081/home</b> to use the <ks>PMS</ks> as client or to <b>localhost:8081/login</b> to login in the system as manager</li>
-	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb" target="_blank">thermometer</a>)</li>
+	<li>Run jupyter notebook on directory <a href="../" target="_blank">Sprint4</a> and use python mock sensors to simulate changes(<a href="../src/main/kotlin/weightsensor/WeightSensorMockMQTT.ipynb" target="_blank">weightsensor</a>, <a href="../src/main/kotlin/outsonar/SonarMockMQTT.ipynb" target="_blank">outsonar</a>, <a href="../src/main/kotlin/thermometer/ThermometerMockMQTT.ipynb target="_blank">thermometer</a>)</li>
   </ol>
   </pre>
 </div>
